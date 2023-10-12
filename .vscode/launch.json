@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Vue debugger",
+      "url": "http://localhost:9527",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "TS debugger",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--loader", "tsx"],
+      "program": "${relativeFile}"
+    }
+  ]
+}

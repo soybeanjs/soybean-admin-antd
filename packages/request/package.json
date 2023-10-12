@@ -1,0 +1,17 @@
+{
+  "name": "@sa/request",
+  "version": "2.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "ofetch": "1.3.3"
+  }
+}

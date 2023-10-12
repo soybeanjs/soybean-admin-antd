@@ -1,0 +1,20 @@
+{
+  "name": "@sa/materials",
+  "version": "2.0.0",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@sa/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "typed-css-modules": "0.7.2"
+  }
+}
