@@ -16,22 +16,17 @@ export function setupVitePlugins(viteEnv: Env.ImportMeta) {
     }),
     vueJsx(),
     VueDevtools(),
+    ElegantVueRouter({
+      layouts: {
+        base: 'src/layouts/base-layout/index.vue',
+        blank: 'src/layouts/blank-layout/index.vue'
+      },
+      layoutLazyImport: () => false
+    }),
     setupUnocss(viteEnv),
     ...setupUnplugin(viteEnv),
     progress()
   ];
-
-  if (viteEnv.DEV) {
-    plugins.push(
-      ElegantVueRouter({
-        layouts: {
-          base: 'src/layouts/base-layout/index.vue',
-          blank: 'src/layouts/blank-layout/index.vue'
-        },
-        layoutLazyImport: () => false
-      })
-    );
-  }
 
   return plugins;
 }
