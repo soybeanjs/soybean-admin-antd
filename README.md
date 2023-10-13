@@ -1,3 +1,3 @@
-# @sa/antv
+# @sa/antd
 
-SoybeanAdmin AntV
+SoybeanAdmin AntDesign
