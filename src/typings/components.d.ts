@@ -8,12 +8,18 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
+    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     ADivider: typeof import('ant-design-vue/es')['Divider']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
+    AForm: typeof import('ant-design-vue/es')['Form']
+    AFormItem: typeof import('ant-design-vue/es')['FormItem']
+    AInput: typeof import('ant-design-vue/es')['Input']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     AppLoading: typeof import('./../components/common/app-loading.vue')['default']
+    ASpace: typeof import('ant-design-vue/es')['Space']
     ColorSchemaSwitch: typeof import('./../components/common/color-schema-switch.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
     ExceptionBase: typeof import('./../components/common/exception-base.vue')['default']

@@ -1,3 +1,4 @@
+import { toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import type { RouteKey } from '@elegant-router/types';
@@ -62,11 +63,30 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey('login', options);
   }
 
+  /**
+   * toggle login module
+   * @param module
+   */
+  async function toggleLoginModule(module: UnionKey.LoginModule) {
+    const query = route.value.query as Record<string, string>;
+
+    return routerPushByKey('login', { query, params: { module } });
+  }
+
   return {
     route,
     routerPush,
     routerBack,
     routerPushByKey,
-    toLogin
+    toLogin,
+    toggleLoginModule
   };
+}
+
+export function useRouteQuery<T extends Record<string, string>>() {
+  const route = globalRouter.currentRoute;
+
+  const query = route.value.query as T;
+
+  return toRefs(query);
 }

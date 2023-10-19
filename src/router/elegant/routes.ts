@@ -69,6 +69,7 @@ export const autoRoutes: ElegantRoute[] = [
         name: 'login',
         path: '',
         component: 'view.login',
+        props: true,
         meta: {
           title: 'login'
         }

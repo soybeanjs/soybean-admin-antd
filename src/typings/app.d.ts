@@ -95,6 +95,51 @@ declare namespace App {
         logout: string;
         logoutConfirm: string;
       };
+      page: {
+        login: {
+          common: {
+            userNamePlaceholder: string;
+            phonePlaceholder: string;
+            codePlaceholder: string;
+            passwordPlaceholder: string;
+            confirmPasswordPlaceholder: string;
+            codeLogin: string;
+            confirm: string;
+            back: string;
+            validateSuccess: string;
+            loginSuccess: string;
+            welcomeBack: string;
+          };
+          pwdLogin: {
+            title: string;
+            rememberMe: string;
+            forgetPassword: string;
+            register: string;
+            otherAccountLogin: string;
+            otherLoginMode: string;
+            superAdmin: string;
+            admin: string;
+            user: string;
+          };
+          codeLogin: {
+            title: string;
+            getCode: string;
+            imageCodePlaceholder: string;
+          };
+          register: {
+            title: string;
+            agreement: string;
+            protocol: string;
+            policy: string;
+          };
+          resetPwd: {
+            title: string;
+          };
+          bindWeChat: {
+            title: string;
+          };
+        };
+      };
     };
 
     type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string

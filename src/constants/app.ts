@@ -1,4 +1,13 @@
+import { $t } from '@/locales';
 import { transformObjectToOption } from '@/utils/common';
+
+export const loginModuleLabels: Record<UnionKey.LoginModule, string> = {
+  'pwd-login': $t('page.login.pwdLogin.title'),
+  'code-login': $t('page.login.codeLogin.title'),
+  register: $t('page.login.register.title'),
+  'reset-pwd': $t('page.login.resetPwd.title'),
+  'bind-wechat': $t('page.login.bindWeChat.title')
+};
 
 export const themeLayoutModeLabels: Record<UnionKey.ThemeLayoutMode, string> = {
   vertical: '左侧菜单模式',

@@ -46,10 +46,15 @@
     "*.svg": "html"
   },
   "files.eol": "\n",
+  "i18n-ally.displayLanguage": "zh-CN",
+  "i18n-ally.enabledParsers": ["ts"],
+  "i18n-ally.enabledFrameworks": ["vue"],
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": ["src/locales/lang"],
   "unocss.root": ["./"],
   "[html][css][less][scss][sass][markdown][yaml][yml][json][jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true
-  },
-  "i18n-ally.localesPaths": ["src/locales", "src/locales/lang"]
+  }
 }

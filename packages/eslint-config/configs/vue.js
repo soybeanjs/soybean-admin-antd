@@ -25,11 +25,6 @@ module.exports = {
     }
   ],
   rules: {
-    'vue/multi-word-component-names': [
-      'error',
-      {
-        ignores: ['index', 'App', '[id]']
-      }
-    ]
+    'vue/multi-word-component-names': 'off'
   }
 };

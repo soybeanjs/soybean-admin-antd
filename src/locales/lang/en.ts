@@ -20,6 +20,51 @@ const local: App.I18n.Schema = {
     userCenter: 'User Center',
     logout: 'Logout',
     logoutConfirm: 'Are you sure you want to log out?'
+  },
+  page: {
+    login: {
+      common: {
+        userNamePlaceholder: 'Please enter user name',
+        phonePlaceholder: 'Please enter phone number',
+        codePlaceholder: 'Please enter verification code',
+        passwordPlaceholder: 'Please enter password',
+        confirmPasswordPlaceholder: 'Please enter password again',
+        codeLogin: 'Verification code login',
+        confirm: 'Confirm',
+        back: 'Back',
+        validateSuccess: 'Verification passed',
+        loginSuccess: 'Login success',
+        welcomeBack: 'Welcome back, {userName}!'
+      },
+      pwdLogin: {
+        title: 'Password Login',
+        rememberMe: 'Remember me',
+        forgetPassword: 'Forget password?',
+        register: 'Register account',
+        otherAccountLogin: 'Other Account Login',
+        otherLoginMode: 'Other Login Mode',
+        superAdmin: 'Super Administrator',
+        admin: 'Administrator',
+        user: 'Ordinary User'
+      },
+      codeLogin: {
+        title: 'Verification Code Login',
+        getCode: 'Get verification code',
+        imageCodePlaceholder: 'Please enter image verification code'
+      },
+      register: {
+        title: 'Register Account',
+        agreement: 'I have read and agree to',
+        protocol: '《User Agreement》',
+        policy: '《Privacy Policy》'
+      },
+      resetPwd: {
+        title: 'Reset Password'
+      },
+      bindWeChat: {
+        title: 'Bind WeChat'
+      }
+    }
   }
 };
 
