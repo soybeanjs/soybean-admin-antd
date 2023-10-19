@@ -19,7 +19,9 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   404: () => import("@/views/_builtin/404/index.vue"),
   500: () => import("@/views/_builtin/500/index.vue"),
   login: () => import("@/views/_builtin/login/index.vue"),
-  about: () => import("@/views/about/index.vue"),
+  home: () => import("@/views/home/index.vue"),
   "multi-menu_first_child": () => import("@/views/multi-menu/first_child/index.vue"),
   "multi-menu_second_child_home": () => import("@/views/multi-menu/second_child_home/index.vue"),
+  user_detail: () => import("@/views/user/detail/[id].vue"),
+  user_list: () => import("@/views/user/list/index.vue"),
 };

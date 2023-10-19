@@ -1,9 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <AButton>关于</AButton>
-  </div>
+  <LookForward />
 </template>
 
 <style scoped></style>

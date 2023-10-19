@@ -89,6 +89,9 @@ declare namespace App {
         pleaseCheckValue: string;
         action: string;
         backToHome: string;
+        lookForward: string;
+        userCenter: string;
+        logout: string;
       };
     };
 

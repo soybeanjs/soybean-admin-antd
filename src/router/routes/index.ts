@@ -8,7 +8,7 @@ const constantRoutes: CustomRoute[] = [
     name: 'root',
     path: '/',
     redirect: {
-      name: 'about'
+      name: 'home'
     }
   },
   {

@@ -14,7 +14,10 @@ const local: App.I18n.Schema = {
     cancel: '取消',
     pleaseCheckValue: '请检查输入的值是否合法',
     action: '操作',
-    backToHome: '返回首页'
+    backToHome: '返回首页',
+    lookForward: '敬请期待',
+    userCenter: '个人中心',
+    logout: '退出登录'
   }
 };
 

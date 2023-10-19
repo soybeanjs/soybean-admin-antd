@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { $t } from '@/locales';
+
 defineOptions({
   name: 'UserAvatar'
 });
 </script>
 
 <template>
-  <ADropdown>
+  <ADropdown placement="bottomRight">
     <AButton type="text" class="h-full">
       <div class="flex-y-center">
         <SvgIcon icon="ph:user-circle" class="text-icon-large" />
@@ -17,14 +19,14 @@ defineOptions({
         <AMenuItem>
           <div class="flex-y-center">
             <SvgIcon icon="ph:user-circle" class="text-icon" />
-            <span class="pl-8px">User Center</span>
+            <span class="pl-8px">{{ $t('common.userCenter') }}</span>
           </div>
         </AMenuItem>
-        <ADivider class="m-0!" />
+        <AMenuDivider />
         <AMenuItem>
           <div class="flex-y-center">
             <SvgIcon icon="ph:sign-out" class="text-icon" />
-            <span class="pl-8px">Logout</span>
+            <span class="pl-8px">{{ $t('common.logout') }}</span>
           </div>
         </AMenuItem>
       </AMenu>

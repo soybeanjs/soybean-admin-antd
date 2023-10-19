@@ -14,7 +14,10 @@ const local: App.I18n.Schema = {
     cancel: 'Cancel',
     pleaseCheckValue: 'Please check whether the value is valid',
     action: 'Action',
-    backToHome: 'Back to home'
+    backToHome: 'Back to home',
+    lookForward: 'Coming soon',
+    userCenter: 'User Center',
+    logout: 'Logout'
   }
 };
 

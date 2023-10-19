@@ -47,15 +47,15 @@ export const autoRoutes: ElegantRoute[] = [
     ]
   },
   {
-    path: '/about',
+    path: '/home',
     component: 'layout.base',
     children: [
       {
-        name: 'about',
+        name: 'home',
         path: '',
-        component: 'view.about',
+        component: 'view.home',
         meta: {
-          title: 'about'
+          title: 'home'
         }
       }
     ]
@@ -129,6 +129,35 @@ export const autoRoutes: ElegantRoute[] = [
         component: 'view.multi-menu_second_child_home',
         meta: {
           title: 'multi-menu_second_child_home'
+        }
+      }
+    ]
+  },
+  {
+    name: 'user',
+    path: '/user',
+    component: 'layout.base',
+    redirect: {
+      name: 'user_list'
+    },
+    meta: {
+      title: 'user'
+    },
+    children: [
+      {
+        name: 'user_detail',
+        path: '/user/detail/:id',
+        component: 'view.user_detail',
+        meta: {
+          title: 'user_detail'
+        }
+      },
+      {
+        name: 'user_list',
+        path: '/user/list',
+        component: 'view.user_list',
+        meta: {
+          title: 'user_list'
         }
       }
     ]

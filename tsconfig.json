@@ -16,7 +16,6 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "~/*": ["./*"],
       "@/*": ["./src/*"]
     },
     "types": [
