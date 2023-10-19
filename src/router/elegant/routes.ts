@@ -161,5 +161,19 @@ export const autoRoutes: ElegantRoute[] = [
         }
       }
     ]
+  },
+  {
+    path: '/user-center',
+    component: 'layout.base',
+    children: [
+      {
+        name: 'user-center',
+        path: '',
+        component: 'view.user-center',
+        meta: {
+          title: 'user-center'
+        }
+      }
+    ]
   }
 ];

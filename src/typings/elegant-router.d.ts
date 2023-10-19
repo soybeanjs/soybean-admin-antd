@@ -31,6 +31,7 @@ declare module "@elegant-router/types" {
     "user": "/user";
     "user_detail": "/user/detail/:id";
     "user_list": "/user/list";
+    "user-center": "/user-center";
   };
 
   /**
@@ -64,6 +65,7 @@ declare module "@elegant-router/types" {
     | "login"
     | "multi-menu"
     | "user"
+    | "user-center"
   >;
 
   /**
@@ -78,6 +80,7 @@ declare module "@elegant-router/types" {
     | "home"
     | "multi-menu_first_child"
     | "multi-menu_second_child_home"
+    | "user-center"
     | "user_detail"
     | "user_list"
   >;

@@ -22,6 +22,7 @@ export const views: Record<LastLevelRouteKey, RouteComponent | (() => Promise<Ro
   home: () => import("@/views/home/index.vue"),
   "multi-menu_first_child": () => import("@/views/multi-menu/first_child/index.vue"),
   "multi-menu_second_child_home": () => import("@/views/multi-menu/second_child_home/index.vue"),
+  "user-center": () => import("@/views/user-center/index.vue"),
   user_detail: () => import("@/views/user/detail/[id].vue"),
   user_list: () => import("@/views/user/list/index.vue"),
 };
