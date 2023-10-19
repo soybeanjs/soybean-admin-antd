@@ -77,6 +77,7 @@ declare namespace App {
         title: string;
       };
       common: {
+        tip: string;
         add: string;
         addSuccess: string;
         edit: string;
@@ -92,6 +93,7 @@ declare namespace App {
         lookForward: string;
         userCenter: string;
         logout: string;
+        logoutConfirm: string;
       };
     };
 

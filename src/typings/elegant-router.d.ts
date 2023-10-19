@@ -21,7 +21,7 @@ declare module "@elegant-router/types" {
     "404": "/404";
     "500": "/500";
     "home": "/home";
-    "login": "/login";
+    "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
     "multi-menu": "/multi-menu";
     "multi-menu_first": "/multi-menu/first";
     "multi-menu_first_child": "/multi-menu/first/child";

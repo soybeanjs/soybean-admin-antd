@@ -55,13 +55,14 @@ export const autoRoutes: ElegantRoute[] = [
         path: '',
         component: 'view.home',
         meta: {
-          title: 'home'
+          title: 'home',
+          requiresAuth: true
         }
       }
     ]
   },
   {
-    path: '/login',
+    path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
     component: 'layout.blank',
     children: [
       {
@@ -82,7 +83,8 @@ export const autoRoutes: ElegantRoute[] = [
       name: 'multi-menu_first'
     },
     meta: {
-      title: 'multi-menu'
+      title: 'multi-menu',
+      requiresAuth: true
     },
     children: [
       {
@@ -141,7 +143,8 @@ export const autoRoutes: ElegantRoute[] = [
       name: 'user_list'
     },
     meta: {
-      title: 'user'
+      title: 'user',
+      requiresAuth: true
     },
     children: [
       {
@@ -171,7 +174,8 @@ export const autoRoutes: ElegantRoute[] = [
         path: '',
         component: 'view.user-center',
         meta: {
-          title: 'user-center'
+          title: 'user-center',
+          requiresAuth: true
         }
       }
     ]

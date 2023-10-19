@@ -1,9 +1,27 @@
 <script setup lang="ts">
+import { Modal } from 'ant-design-vue';
+import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
+import { useAuthStore } from '@/store/modules/auth';
 
 defineOptions({
   name: 'UserAvatar'
 });
+
+const { resetStore } = useAuthStore();
+const { routerPushByKey } = useRouterPush();
+
+function logout() {
+  Modal.confirm({
+    title: $t('common.tip'),
+    content: $t('common.logoutConfirm'),
+    okText: $t('common.confirm'),
+    cancelText: $t('common.cancel'),
+    onOk: () => {
+      resetStore();
+    }
+  });
+}
 </script>
 
 <template>
@@ -16,14 +34,14 @@ defineOptions({
     </AButton>
     <template #overlay>
       <AMenu>
-        <AMenuItem>
+        <AMenuItem @click="routerPushByKey('user-center')">
           <div class="flex-y-center">
             <SvgIcon icon="ph:user-circle" class="text-icon" />
             <span class="pl-8px">{{ $t('common.userCenter') }}</span>
           </div>
         </AMenuItem>
         <AMenuDivider />
-        <AMenuItem>
+        <AMenuItem @click="logout">
           <div class="flex-y-center">
             <SvgIcon icon="ph:sign-out" class="text-icon" />
             <span class="pl-8px">{{ $t('common.logout') }}</span>

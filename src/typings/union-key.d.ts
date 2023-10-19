@@ -2,47 +2,49 @@
  * the union key namespace
  */
 declare namespace UnionKey {
-  /** http请求头的content-type类型 */
+  /**
+   * the content-type of http request header
+   */
   type ContentType = 'application/json' | 'application/x-www-form-urlencoded' | 'multipart/form-data';
 
   /**
-   * 登录模块
-   * - pwd-login: 账密登录
-   * - code-login: 手机验证码登录
-   * - register: 注册
-   * - reset-pwd: 重置密码
-   * - bind-wechat: 微信绑定
+   * the login module
+   * - pwd-login: password login
+   * - code-login: phone code login
+   * - register: register
+   * - reset-pwd: reset password
+   * - bind-wechat: bind wechat
    */
   type LoginModule = 'pwd-login' | 'code-login' | 'register' | 'reset-pwd' | 'bind-wechat';
 
   /**
-   * 布局模式
-   * - vertical: 左侧菜单模式
-   * - horizontal: 顶部菜单模式
-   * - vertical-mix: 左侧菜单混合模式
-   * - horizontal-mix: 顶部菜单混合模式
+   * the layout mode
+   * - vertical: the vertical menu in left
+   * - horizontal: the horizontal menu in top
+   * - vertical-mix: two vertical mixed menus in left
+   * - horizontal-mix: the vertical menu in left and horizontal menu in top
    */
   type ThemeLayoutMode = 'vertical' | 'horizontal' | 'vertical-mix' | 'horizontal-mix';
 
   /**
-   * 内容溢出时的出现滚动条的方式
-   * - wrapper 布局组件最外层的元素出现滚动条
-   * - content 主体内容组件出现滚动条
+   * the scroll mode when content overflow
+   * - wrapper the wrapper component's root element overflow
+   * - content the content component overflow
    */
   type ThemeScrollMode = import('@sa/materials').LayoutScrollMode;
 
   /**
-   * 多页签风格
-   * - chrome: 谷歌风格
-   * - button: 按钮风格
+   * tab mode
+   * - chrome: chrome style
+   * - button: button style
    */
   type ThemeTabMode = import('@sa/materials').PageTabMode;
 
   /**
-   * 水平模式的菜单位置
-   * - flex-start: 居左
-   * - center: 居中
-   * - flex-end: 居右
+   * the menu position in horizontal mode
+   * - flex-start: left position
+   * - center: center position
+   * - flex-end: right position
    */
   type ThemeHorizontalMenuPosition = 'flex-start' | 'center' | 'flex-end';
 

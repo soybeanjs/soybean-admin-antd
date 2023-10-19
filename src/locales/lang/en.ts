@@ -3,6 +3,7 @@ const local: App.I18n.Schema = {
     title: 'SoybeanAdmin'
   },
   common: {
+    tip: 'Tip',
     add: 'Add',
     addSuccess: 'Add Success',
     edit: 'Edit',
@@ -17,7 +18,8 @@ const local: App.I18n.Schema = {
     backToHome: 'Back to home',
     lookForward: 'Coming soon',
     userCenter: 'User Center',
-    logout: 'Logout'
+    logout: 'Logout',
+    logoutConfirm: 'Are you sure you want to log out?'
   }
 };
 

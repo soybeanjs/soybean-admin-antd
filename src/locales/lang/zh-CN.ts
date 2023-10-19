@@ -3,6 +3,7 @@ const local: App.I18n.Schema = {
     title: 'Soybean 管理系统'
   },
   common: {
+    tip: '提示',
     add: '添加',
     addSuccess: '添加成功',
     edit: '修改',
@@ -17,7 +18,8 @@ const local: App.I18n.Schema = {
     backToHome: '返回首页',
     lookForward: '敬请期待',
     userCenter: '个人中心',
-    logout: '退出登录'
+    logout: '退出登录',
+    logoutConfirm: '确认退出登录吗？'
   }
 };
 
