@@ -1,7 +1,7 @@
 {
   "name": "@sa/antd",
-  "version": "2.0.0",
-  "description": "A fresh and elegant admin template, based on Vue3、Vite3,TypeScript,AntDesign and UnoCSS.",
+  "version": "1.0.0",
+  "description": "A fresh and elegant admin template, based on Vue3,Vite3,TypeScript,AntDesign and UnoCSS.",
   "author": {
     "name": "Soybean",
     "email": "soybeanjs@outlook.com",
@@ -21,7 +21,7 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
-    "@iconify/vue": "^4.1.1",
+    "@iconify/vue": "4.1.1",
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
     "@sa/utils": "workspace:*",
@@ -65,7 +65,7 @@
     "unplugin-icons": "0.17.1",
     "unplugin-vue-components": "0.25.2",
     "vite": "4.5.0",
-    "vite-plugin-progress": "^0.0.7",
+    "vite-plugin-progress": "0.0.7",
     "vite-plugin-svg-icons": "2.0.1",
     "vite-plugin-vue-devtools": "1.0.0-rc.5",
     "vue-tsc": "1.8.19"

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface';
 import { setLocale } from '@/locales';
 import { localStg } from '@/utils/storage';
 
@@ -26,8 +25,7 @@ const options: LocaleOption[] = [
   }
 ];
 
-function handleSelect(e: MenuInfo) {
-  const key = e.key as App.I18n.LangType;
+function handleSelect(key: App.I18n.LangType) {
   locale.value = key;
   setLocale(key);
   localStg.set('lang', key);
@@ -42,8 +40,8 @@ function handleSelect(e: MenuInfo) {
       </div>
     </AButton>
     <template #overlay>
-      <AMenu :selected-keys="[locale]" @click="handleSelect">
-        <AMenuItem v-for="option in options" :key="option.key">
+      <AMenu :selected-keys="[locale]">
+        <AMenuItem v-for="option in options" :key="option.key" @click="handleSelect(option.key)">
           {{ option.label }}
         </AMenuItem>
       </AMenu>
