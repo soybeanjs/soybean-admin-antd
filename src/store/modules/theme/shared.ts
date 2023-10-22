@@ -96,7 +96,7 @@ function createThemePaletteColors(colors: Record<App.Theme.ThemeColorKey, string
  * @param tokens theme base tokens
  */
 function getCssVarByTokens(tokens: App.Theme.BaseToken) {
-  const style: string[] = [];
+  const styles: string[] = [];
 
   function removeVarPrefix(value: string) {
     return value.replace('var(', '').replace(')', '');
@@ -106,26 +106,22 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
     return value.replace('rgb(', '').replace(')', '');
   }
 
-  for (const item of Object.entries(themeVars)) {
-    const [tokenKey, vars] = item;
+  for (const [key, tokenValues] of Object.entries(themeVars)) {
+    for (const [tokenKey, tokenValue] of Object.entries(tokenValues)) {
+      let cssVarsKey = removeVarPrefix(tokenValue);
+      let cssValue = tokens[key][tokenKey];
 
-    for (const varsItem of Object.entries(vars)) {
-      const [key, value] = varsItem;
-
-      let varsKey = removeVarPrefix(value);
-      let varsValue = tokens[tokenKey][key];
-
-      if (tokenKey === 'colors') {
-        varsKey = removeRgbPrefix(varsKey);
-        const { r, g, b } = getRgbOfColor(varsValue);
-        varsValue = `${r}, ${g}, ${b}`;
+      if (key === 'colors') {
+        cssVarsKey = removeRgbPrefix(cssVarsKey);
+        const { r, g, b } = getRgbOfColor(cssValue);
+        cssValue = `${r}, ${g}, ${b}`;
       }
 
-      style.push(`${varsKey}: ${varsValue}`);
+      styles.push(`${cssVarsKey}: ${cssValue}`);
     }
   }
 
-  const styleStr = style.join(';');
+  const styleStr = styles.join(';');
 
   return styleStr;
 }

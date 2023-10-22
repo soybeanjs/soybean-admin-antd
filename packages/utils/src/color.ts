@@ -6,29 +6,29 @@ import type { AnyColor, HsvColor, RgbColor } from 'colord';
 extend([namesPlugin, mixPlugin]);
 
 /**
- * 给颜色加透明度
- * @param color - 颜色
- * @param alpha - 透明度(0 - 1)
+ * add color alpha
+ * @param color - color
+ * @param alpha - alpha (0 - 1)
  */
 export function addColorAlpha(color: string, alpha: number) {
   return colord(color).alpha(alpha).toHex();
 }
 
 /**
- * 颜色混合
- * @param firstColor - 第一个颜色
- * @param secondColor - 第二个颜色
- * @param ratio - 第二个颜色占比
+ * mix color
+ * @param firstColor - first color
+ * @param secondColor - second color
+ * @param ratio - the ratio of the second color (0 - 1)
  */
 export function mixColor(firstColor: string, secondColor: string, ratio: number) {
   return colord(firstColor).mix(secondColor, ratio).toHex();
 }
 
 /**
- * 将带有透明度的颜色转换成相近的没有透明度的颜色
- * @param color - 颜色
- * @param alpha - 透明度(0 - 1)
- * @param bgColor 背景颜色(一般是白色或者黑色)
+ * transform color with opacity to similar color without opacity
+ * @param color - color
+ * @param alpha - alpha (0 - 1)
+ * @param bgColor background color (usually white or black)
  */
 export function transformColorWithOpacity(color: string, alpha: number, bgColor = '#ffffff') {
   const originColor = addColorAlpha(color, alpha);
@@ -50,47 +50,61 @@ export function transformColorWithOpacity(color: string, alpha: number, bgColor 
 }
 
 /**
- * 是否是白颜色
- * @param color - 颜色
+ * is white color
+ * @param color - color
  */
 export function isWhiteColor(color: string) {
   return colord(color).isEqual('#ffffff');
 }
 
 /**
- *	获取颜色的rgb值
- * @param color 颜色
+ * get rgb of color
+ * @param color color
  */
 export function getRgbOfColor(color: string) {
   return colord(color).toRgb();
 }
 
-/** 色相阶梯 */
+/**
+ * hue step
+ */
 const hueStep = 2;
-/** 饱和度阶梯，浅色部分 */
+/**
+ * saturation step, light color part
+ */
 const saturationStep = 16;
-/** 饱和度阶梯，深色部分 */
+/**
+ * saturation step, dark color part
+ */
 const saturationStep2 = 5;
-/** 亮度阶梯，浅色部分 */
+/**
+ * brightness step, light color part
+ */
 const brightnessStep1 = 5;
-/** 亮度阶梯，深色部分 */
+/**
+ * brightness step, dark color part
+ */
 const brightnessStep2 = 15;
-/** 浅色数量，主色上 */
+/**
+ * light color count, main color up
+ */
 const lightColorCount = 5;
-/** 深色数量，主色下 */
+/**
+ * dark color count, main color down
+ */
 const darkColorCount = 4;
 
 /**
- * 调色板的颜色索引
- * @description 从左至右颜色从浅到深，6为主色号
+ * the color index of color palette
+ * @description from left to right, the color is from light to dark, 6 is main color
  */
 type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
 /**
- * 根据颜色获取调色板颜色(从左至右颜色从浅到深，6为主色号)
- * @param color - 颜色
- * @param index - 调色板的对应的色号(6为主色号)
- * @returns 返回hex格式的颜色
+ * get color palette (from left to right, the color is from light to dark, 6 is main color)
+ * @param color - color
+ * @param index - the color index of color palette (the main color index is 6)
+ * @returns hex color
  */
 export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   const transformColor = colord(color);
@@ -116,7 +130,9 @@ export function getColorPalette(color: AnyColor, index: ColorIndex): string {
   return colord(newHsv).toHex();
 }
 
-/** 暗色主题颜色映射关系表 */
+/**
+ * map of dark color index and opacity
+ */
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
   { index: 6, opacity: 0.25 },
@@ -131,10 +147,10 @@ const darkColorMap = [
 ];
 
 /**
- * 根据颜色获取调色板颜色所有颜色
- * @param color - 颜色
- * @param darkTheme - 暗黑主题的调色板颜色
- * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
+ * get color palettes
+ * @param color - color
+ * @param darkTheme - dark theme
+ * @param darkThemeMixColor - dark theme mix color (default: #141414)
  */
 export function getColorPalettes(color: AnyColor, darkTheme = false, darkThemeMixColor = '#141414'): string[] {
   const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -155,10 +171,10 @@ export function getColorPalettes(color: AnyColor, darkTheme = false, darkThemeMi
 }
 
 /**
- * 获取色相渐变
- * @param hsv - hsv格式颜色值
- * @param i - 与6的相对距离
- * @param isLight - 是否是亮颜色
+ * get hue
+ * @param hsv - hsv format color
+ * @param i - the relative distance from 6
+ * @param isLight - is light color
  */
 function getHue(hsv: HsvColor, i: number, isLight: boolean) {
   let hue: number;
@@ -166,14 +182,8 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
   const hsvH = Math.round(hsv.h);
 
   if (hsvH >= 60 && hsvH <= 240) {
-    // 冷色调
-    // 减淡变亮 色相顺时针旋转 更暖
-    // 加深变暗 色相逆时针旋转 更冷
     hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i;
   } else {
-    // 暖色调
-    // 减淡变亮 色相逆时针旋转 更暖
-    // 加深变暗 色相顺时针旋转 更冷
     hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i;
   }
 
@@ -189,13 +199,12 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * 获取饱和度渐变
- * @param hsv - hsv格式颜色值
- * @param i - 与6的相对距离
- * @param isLight - 是否是亮颜色
+ * get saturation
+ * @param hsv - hsv format color
+ * @param i - the relative distance from 6
+ * @param isLight - is light color
  */
 function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
-  // 灰色不渐变
   if (hsv.h === 0 && hsv.s === 0) {
     return hsv.s;
   }
@@ -226,10 +235,10 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
 }
 
 /**
- * 获取明度渐变
- * @param hsv - hsv格式颜色值
- * @param i - 与6的相对距离
- * @param isLight - 是否是亮颜色
+ * get value of hsv
+ * @param hsv - hsv format color
+ * @param i - the relative distance from 6
+ * @param isLight - is light color
  */
 function getValue(hsv: HsvColor, i: number, isLight: boolean) {
   let value: number;
