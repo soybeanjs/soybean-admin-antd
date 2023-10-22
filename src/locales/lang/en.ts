@@ -21,6 +21,23 @@ const local: App.I18n.Schema = {
     logout: 'Logout',
     logoutConfirm: 'Are you sure you want to log out?'
   },
+  route: {
+    login: 'Login',
+    403: 'No Permission',
+    404: 'Page Not Found',
+    500: 'Server Error',
+    home: 'Home',
+    'user-center': 'User Center',
+    user: 'User Management',
+    user_list: 'User List',
+    user_detail: 'User List Detail',
+    'multi-menu': 'Multi Menu',
+    'multi-menu_first': 'Menu One',
+    'multi-menu_first_child': 'Menu One Child',
+    'multi-menu_second': 'Menu Two',
+    'multi-menu_second_child': 'Menu Two Child',
+    'multi-menu_second_child_home': 'Menu Two Child Home'
+  },
   page: {
     login: {
       common: {

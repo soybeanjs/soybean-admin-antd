@@ -14,7 +14,50 @@ declare module 'vue-router' {
     i18nKey?: App.I18n.I18nKey;
     /**
      * whether to require authentication
+     * @description need to login before entering the route
      */
     requiresAuth?: boolean;
+    /**
+     * roles of the route
+     * @description route can be accessed if the current user has at least one of the roles
+     */
+    roles?: string[];
+    /**
+     * is constant route
+     * @description does not need to login, and the route is defined in the frontend
+     */
+    constant?: boolean;
+    /**
+     * iconify icon
+     * @description it can be used in the menu or breadcrumb
+     */
+    icon?: string;
+    /**
+     * local icon
+     * @description in "src/assets/svg-icon", if it is set, the icon will be ignored
+     */
+    localIcon?: string;
+    /**
+     * router order
+     */
+    order?: number;
+    /**
+     * whether to hide the route in the menu
+     */
+    hideInMenu?: boolean;
+    /**
+     * the menu key will be activated when entering the route
+     * @description the route is not in the menu
+     * @example the route is "user_detail", if it is set to "user_list", the menu "user_list" will be activated
+     */
+    activeMenu?: string;
+    /**
+     * by default, the same route path will use one tab, if set to true, it will use multiple tabs
+     */
+    multiTab?: boolean;
+    /**
+     * if set, the route will be fixed in tabs, and the value is the order of fixed tabs
+     */
+    fixedIndex?: number;
   }
 }

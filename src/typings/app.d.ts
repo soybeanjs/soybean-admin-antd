@@ -82,6 +82,8 @@ declare namespace App {
    * @description locales type
    */
   namespace I18n {
+    type RouteKey = import('@elegant-router/types').AutoRouteKey;
+
     type LangType = 'en' | 'zh-CN';
 
     type Schema = {
@@ -107,6 +109,7 @@ declare namespace App {
         logout: string;
         logoutConfirm: string;
       };
+      route: Record<RouteKey, string>;
       page: {
         login: {
           common: {

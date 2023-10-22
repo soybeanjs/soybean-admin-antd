@@ -13,7 +13,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '',
         component: 'view.403',
         meta: {
-          title: '403'
+          title: '403',
+          i18nKey: 'route.403',
+          constant: true
         }
       }
     ]
@@ -27,7 +29,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '',
         component: 'view.404',
         meta: {
-          title: '404'
+          title: '404',
+          i18nKey: 'route.404',
+          constant: true
         }
       }
     ]
@@ -41,7 +45,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '',
         component: 'view.500',
         meta: {
-          title: '500'
+          title: '500',
+          i18nKey: 'route.500',
+          constant: true
         }
       }
     ]
@@ -56,6 +62,7 @@ export const autoRoutes: ElegantRoute[] = [
         component: 'view.home',
         meta: {
           title: 'home',
+          i18nKey: 'route.home',
           requiresAuth: true
         }
       }
@@ -63,15 +70,16 @@ export const autoRoutes: ElegantRoute[] = [
   },
   {
     path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
-    component: 'layout.blank',
+    component: 'layout.base',
     children: [
       {
         name: 'login',
         path: '',
         component: 'view.login',
-        props: true,
         meta: {
-          title: 'login'
+          title: 'login',
+          i18nKey: 'route.login',
+          constant: true
         }
       }
     ]
@@ -85,6 +93,7 @@ export const autoRoutes: ElegantRoute[] = [
     },
     meta: {
       title: 'multi-menu',
+      i18nKey: 'route.multi-menu',
       requiresAuth: true
     },
     children: [
@@ -95,7 +104,9 @@ export const autoRoutes: ElegantRoute[] = [
           name: 'multi-menu_first_child'
         },
         meta: {
-          title: 'multi-menu_first'
+          title: 'multi-menu_first',
+          i18nKey: 'route.multi-menu_first',
+          requiresAuth: true
         }
       },
       {
@@ -103,7 +114,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '/multi-menu/first/child',
         component: 'view.multi-menu_first_child',
         meta: {
-          title: 'multi-menu_first_child'
+          title: 'multi-menu_first_child',
+          i18nKey: 'route.multi-menu_first_child',
+          requiresAuth: true
         }
       },
       {
@@ -113,7 +126,9 @@ export const autoRoutes: ElegantRoute[] = [
           name: 'multi-menu_second_child'
         },
         meta: {
-          title: 'multi-menu_second'
+          title: 'multi-menu_second',
+          i18nKey: 'route.multi-menu_second',
+          requiresAuth: true
         }
       },
       {
@@ -123,7 +138,9 @@ export const autoRoutes: ElegantRoute[] = [
           name: 'multi-menu_second_child_home'
         },
         meta: {
-          title: 'multi-menu_second_child'
+          title: 'multi-menu_second_child',
+          i18nKey: 'route.multi-menu_second_child',
+          requiresAuth: true
         }
       },
       {
@@ -131,7 +148,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '/multi-menu/second/child/home',
         component: 'view.multi-menu_second_child_home',
         meta: {
-          title: 'multi-menu_second_child_home'
+          title: 'multi-menu_second_child_home',
+          i18nKey: 'route.multi-menu_second_child_home',
+          requiresAuth: true
         }
       }
     ]
@@ -141,10 +160,11 @@ export const autoRoutes: ElegantRoute[] = [
     path: '/user',
     component: 'layout.base',
     redirect: {
-      name: 'user_list'
+      name: 'user_detail'
     },
     meta: {
       title: 'user',
+      i18nKey: 'route.user',
       requiresAuth: true
     },
     children: [
@@ -153,7 +173,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '/user/detail/:id',
         component: 'view.user_detail',
         meta: {
-          title: 'user_detail'
+          title: 'user_detail',
+          i18nKey: 'route.user_detail',
+          requiresAuth: true
         }
       },
       {
@@ -161,7 +183,9 @@ export const autoRoutes: ElegantRoute[] = [
         path: '/user/list',
         component: 'view.user_list',
         meta: {
-          title: 'user_list'
+          title: 'user_list',
+          i18nKey: 'route.user_list',
+          requiresAuth: true
         }
       }
     ]
@@ -176,6 +200,7 @@ export const autoRoutes: ElegantRoute[] = [
         component: 'view.user-center',
         meta: {
           title: 'user-center',
+          i18nKey: 'route.user-center',
           requiresAuth: true
         }
       }

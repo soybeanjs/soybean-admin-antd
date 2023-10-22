@@ -1,5 +1,6 @@
+import type { RouteMeta } from 'vue-router';
 import ElegantVueRouter from '@elegant-router/vue/vite';
-import type { RouteKey } from '@elegant-router/types';
+import type { AutoRouteKey } from '@elegant-router/types';
 
 export function setupElegantRouter() {
   return ElegantVueRouter({
@@ -8,7 +9,7 @@ export function setupElegantRouter() {
       blank: 'src/layouts/blank-layout/index.vue'
     },
     routePathTransformer(routeName, routePath) {
-      const key = routeName as RouteKey;
+      const key = routeName as AutoRouteKey;
 
       if (key === 'login') {
         const modules: UnionKey.LoginModule[] = ['pwd-login', 'code-login', 'register', 'reset-pwd', 'bind-wechat'];
@@ -19,6 +20,24 @@ export function setupElegantRouter() {
       }
 
       return routePath;
+    },
+    onRouteMetaGen(routeName) {
+      const key = routeName as AutoRouteKey;
+
+      const constantRoutes: AutoRouteKey[] = ['login', '403', '404', '500'];
+
+      const meta: Partial<RouteMeta> = {
+        title: key,
+        i18nKey: `route.${key}`
+      };
+
+      if (constantRoutes.includes(key)) {
+        meta.constant = true;
+      } else {
+        meta.requiresAuth = true;
+      }
+
+      return meta;
     }
   });
 }

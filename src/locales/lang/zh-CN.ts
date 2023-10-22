@@ -21,6 +21,23 @@ const local: App.I18n.Schema = {
     logout: '退出登录',
     logoutConfirm: '确认退出登录吗？'
   },
+  route: {
+    login: '登录',
+    403: '无权限',
+    404: '页面不存在',
+    500: '服务器错误',
+    home: '首页',
+    'user-center': '个人中心',
+    user: '用户管理',
+    user_list: '用户列表',
+    user_detail: '用户列表详情',
+    'multi-menu': '多级菜单',
+    'multi-menu_first': '菜单一',
+    'multi-menu_first_child': '菜单一子菜单',
+    'multi-menu_second': '菜单二',
+    'multi-menu_second_child': '菜单二子菜单',
+    'multi-menu_second_child_home': '菜单二子菜单首页'
+  },
   page: {
     login: {
       common: {
