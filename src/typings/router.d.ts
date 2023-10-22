@@ -24,7 +24,7 @@ declare module 'vue-router' {
     roles?: string[];
     /**
      * is constant route
-     * @description does not need to login, and the route is defined in the frontend
+     * @description does not need to login, and the route is defined in the front-end
      */
     constant?: boolean;
     /**

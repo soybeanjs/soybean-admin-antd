@@ -35,16 +35,25 @@ declare namespace Env {
      * the router history mode
      */
     readonly VITE_ROUTER_HISTORY_MODE?: RouterHistoryMode;
-
     /**
      * the prefix of the iconify icon
      */
     readonly VITE_ICON_PREFIX: 'icon';
-
     /**
      * the prefix of the local icon
      * @description this prefix is start with the icon prefix
      */
     readonly VITE_ICON_LOCAL_PREFIX: 'local-icon';
+    /**
+     * the auth route mode
+     * - static: the auth routes is generated in front-end
+     * - dynamic: the auth routes is generated in back-end
+     */
+    readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic';
+    /**
+     * the home route key
+     * @description it only has effect when the auth route mode is static, if the route mode is dynamic, the home route key is defined in the back-end
+     */
+    readonly VITE_ROUTE_HOME: import('@elegant-router/types').AutoRouteKey;
   }
 }

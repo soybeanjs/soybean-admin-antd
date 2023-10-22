@@ -6,7 +6,7 @@ import type { ElegantRoute } from '@elegant-router/types';
 export const autoRoutes: ElegantRoute[] = [
   {
     path: '/403',
-    component: 'layout.base',
+    component: 'layout.blank',
     children: [
       {
         name: '403',
@@ -22,7 +22,7 @@ export const autoRoutes: ElegantRoute[] = [
   },
   {
     path: '/404',
-    component: 'layout.base',
+    component: 'layout.blank',
     children: [
       {
         name: '404',
@@ -38,7 +38,7 @@ export const autoRoutes: ElegantRoute[] = [
   },
   {
     path: '/500',
-    component: 'layout.base',
+    component: 'layout.blank',
     children: [
       {
         name: '500',
@@ -70,7 +70,7 @@ export const autoRoutes: ElegantRoute[] = [
   },
   {
     path: '/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?',
-    component: 'layout.base',
+    component: 'layout.blank',
     children: [
       {
         name: 'login',
