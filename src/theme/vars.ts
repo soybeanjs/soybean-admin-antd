@@ -17,12 +17,15 @@ function createColorPaletteVars() {
   return colorPaletteVar;
 }
 
+const colorPaletteVars = createColorPaletteVars();
+
 /**
  * theme vars
  */
 export const themeVars: App.Theme.ThemeToken = {
   colors: {
-    ...createColorPaletteVars(),
+    ...colorPaletteVars,
+    nprogress: 'rgb(var(--nprogress-color))',
     container: 'rgb(var(--container-bg-color))',
     layout: 'rgb(var(--layout-bg-color))',
     base_text: 'rgb(var(--base-text-color))'

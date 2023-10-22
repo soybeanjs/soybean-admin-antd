@@ -51,6 +51,7 @@ declare namespace App {
     type BaseToken = Record<string, Record<string, string>>;
 
     interface ThemeTokenColor extends ThemePaletteColor {
+      nprogress: string;
       container: string;
       layout: string;
       base_text: string;

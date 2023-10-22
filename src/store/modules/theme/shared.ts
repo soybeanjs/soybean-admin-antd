@@ -32,15 +32,18 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
  * @param darkMode is dark mode
  */
 export function createThemeToken() {
+  const paletteColors = createThemePaletteColors({
+    primary: '#646cff',
+    info: '#2080f0',
+    success: '#52c41a',
+    warning: '#faad14',
+    error: '#f5222d'
+  });
+
   const themeTokens: App.Theme.ThemeToken = {
     colors: {
-      ...createThemePaletteColors({
-        primary: '#646cff',
-        info: '#2080f0',
-        success: '#52c41a',
-        warning: '#faad14',
-        error: '#f5222d'
-      }),
+      ...paletteColors,
+      nprogress: paletteColors.primary,
       container: 'rgba(255, 255, 255, 0.8)',
       layout: 'rgba(247, 250, 252, 1)',
       base_text: 'rgba(0, 0, 0, 0.88)'
