@@ -1,3 +1,6 @@
+import { useSvgIconRender } from '@sa/hooks';
+import { $t } from '@/locales';
+import SvgIcon from '@/components/custom/svg-icon.vue';
 import type {
   ElegantRoute,
   RouteKey,
@@ -76,6 +79,33 @@ export function getCacheRouteNames(routes: ElegantRoute[]) {
   });
 
   return cacheNames;
+}
+
+export function getAntdMenuByGlobalMenus(globalMenus: App.Global.Menu[]) {
+  const { SvgIconVNode } = useSvgIconRender(SvgIcon);
+
+  const menus: App.Global.AntdMenu[] = [];
+
+  globalMenus.forEach(menu => {
+    const { key, title, i18nKey, icon, localIcon, children } = menu;
+
+    const label = i18nKey ? $t(i18nKey) : title;
+
+    const antdMenu: App.Global.AntdMenu = {
+      key,
+      label,
+      title: label,
+      icon: SvgIconVNode({ icon, localIcon })
+    };
+
+    if (children?.length) {
+      (antdMenu as any).children = getAntdMenuByGlobalMenus(children);
+    }
+
+    menus.push(antdMenu);
+  });
+
+  return menus;
 }
 
 type FirstLevelRoute = SingleLevelRoute | CustomSingleLevelRoute;

@@ -6,7 +6,7 @@ import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
 import { createRoutes } from '@/router/routes';
-import { getGlobalMenusByAuthRoutes, getCacheRouteNames } from './shared';
+import { getGlobalMenusByAuthRoutes, getAntdMenuByGlobalMenus, getCacheRouteNames } from './shared';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
@@ -26,14 +26,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /**
    * global menus
    */
-  const menus = ref<App.Global.Menu[]>([]);
+  const globalMenus = ref<App.Global.Menu[]>([]);
+
+  /**
+   * antd menus
+   */
+  const antdMenus = ref<App.Global.AntdMenu[]>([]);
 
   /**
    * get global menus
    */
-  function getMenus() {
+  function getGlobalMenus() {
     const { treeRoutes } = createRoutes();
-    menus.value = getGlobalMenusByAuthRoutes(treeRoutes);
+    globalMenus.value = getGlobalMenusByAuthRoutes(treeRoutes);
+    antdMenus.value = getAntdMenuByGlobalMenus(globalMenus.value);
   }
 
   /**
@@ -75,7 +81,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    */
   function handleRoutes(routes: RouteRecordRaw[]) {
     addRoutesToVueRouter(routes);
-    getMenus();
+    getGlobalMenus();
     getCacheRoutes();
   }
 
@@ -90,6 +96,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   return {
+    antdMenus,
+    cacheRoutes,
     routeHome,
     initAuthRoute,
     isInitAuthRoute,

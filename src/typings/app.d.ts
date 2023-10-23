@@ -69,6 +69,7 @@ declare namespace App {
   }
 
   namespace Global {
+    type AntdMenu = NonNullable<import('ant-design-vue').ItemType>;
     type RouteKey = import('@elegant-router/types').RouteKey;
     type RouteMap = import('@elegant-router/types').RouteMap;
 
