@@ -23,6 +23,10 @@ declare module 'vue-router' {
      */
     roles?: string[];
     /**
+     * whether to cache the route
+     */
+    keepAlive?: boolean;
+    /**
      * is constant route
      * @description does not need to login, and the route is defined in the front-end
      */

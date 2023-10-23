@@ -69,17 +69,18 @@ declare namespace App {
   }
 
   namespace Global {
+    type RouteKey = import('@elegant-router/types').RouteKey;
+    type RouteMap = import('@elegant-router/types').RouteMap;
+
     /**
      * the global menu
      */
-    interface Menu<
-      T extends import('@elegant-router/types').AutoRouteKey = import('@elegant-router/types').AutoRouteKey
-    > {
+    interface Menu<T extends RouteKey = RouteKey> {
       key: string;
       title?: string;
       i18nKey?: I18n.I18nKey;
       routeKey: T;
-      routePath: import('@elegant-router/types').RouteMap[T];
+      routePath: RouteMap[T];
       icon?: string;
       localIcon?: string;
       children?: Menu<T>[];

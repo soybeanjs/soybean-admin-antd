@@ -2,10 +2,11 @@ import { ref } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
+import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
 import { createRoutes } from '@/router/routes';
-import { getGlobalMenusByAuthRoutes } from './shared';
+import { getGlobalMenusByAuthRoutes, getCacheRouteNames } from './shared';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
@@ -27,6 +28,24 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    */
   const menus = ref<App.Global.Menu[]>([]);
 
+  /**
+   * get global menus
+   */
+  function getMenus() {
+    const { treeRoutes } = createRoutes();
+    menus.value = getGlobalMenusByAuthRoutes(treeRoutes);
+  }
+
+  /**
+   * cache routes
+   */
+  const cacheRoutes = ref<RouteKey[]>([]);
+
+  function getCacheRoutes() {
+    const { authRoutes } = createRoutes();
+    cacheRoutes.value = getCacheRouteNames(authRoutes);
+  }
+
   async function initAuthRoute() {
     if (authRouteMode.value === 'static') {
       await initStaticAuthRoute();
@@ -39,10 +58,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * init static auth route
    */
   async function initStaticAuthRoute() {
-    const { authVueRoutes, treeRoutes } = createRoutes();
-    handleVueRoutes(authVueRoutes);
-
-    menus.value = getGlobalMenusByAuthRoutes(treeRoutes as any);
+    const { authVueRoutes } = createRoutes();
+    handleRoutes(authVueRoutes);
   }
 
   /**
@@ -52,10 +69,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     //
   }
 
-  function handleVueRoutes(routes: RouteRecordRaw[]) {
+  /**
+   * handle routes
+   * @param routes
+   */
+  function handleRoutes(routes: RouteRecordRaw[]) {
     addRoutesToVueRouter(routes);
+    getMenus();
+    getCacheRoutes();
   }
 
+  /**
+   * add routes to vue router
+   * @param routes
+   */
   function addRoutesToVueRouter(routes: RouteRecordRaw[]) {
     routes.forEach(route => {
       router.addRoute(route);
