@@ -1,7 +1,7 @@
 import type { ElegantRoute, CustomRoute, SingleLevelRoute } from '@elegant-router/types';
 import { autoRoutes } from '../elegant/routes';
 import { layouts, views } from '../elegant/imports';
-import { transformElegantRouteToVueRoute } from '../elegant/transform';
+import { transformElegantRouteToVueRoute, transformElegantRouteToTreeRoute } from '../elegant/transform';
 
 export function createRoutes() {
   const builtinRoutes: CustomRoute[] = [
@@ -53,10 +53,13 @@ export function createRoutes() {
 
   const authVueRoutes = transformElegantRouteToVueRoute(authRoutes, layouts, views);
 
+  const treeRoutes = transformElegantRouteToTreeRoute(authRoutes);
+
   return {
     constantRoutes,
     authRoutes,
     constantVueRoutes,
-    authVueRoutes
+    authVueRoutes,
+    treeRoutes
   };
 }

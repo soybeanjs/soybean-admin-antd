@@ -76,11 +76,12 @@ declare namespace App {
       T extends import('@elegant-router/types').AutoRouteKey = import('@elegant-router/types').AutoRouteKey
     > {
       key: string;
-      title: string;
-      i18nKey: I18n.I18nKey;
+      title?: string;
+      i18nKey?: I18n.I18nKey;
       routeKey: T;
       routePath: import('@elegant-router/types').RouteMap[T];
-      icon: string;
+      icon?: string;
+      localIcon?: string;
       children?: Menu<T>[];
     }
   }

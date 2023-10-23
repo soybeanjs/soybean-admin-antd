@@ -5,6 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
 import { createRoutes } from '@/router/routes';
+import { getGlobalMenusByAuthRoutes } from './shared';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
@@ -24,7 +25,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /**
    * global menus
    */
-  // const menus = ref<App.Global.Menu[]>([]);
+  const menus = ref<App.Global.Menu[]>([]);
 
   async function initAuthRoute() {
     if (authRouteMode.value === 'static') {
@@ -38,8 +39,10 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * init static auth route
    */
   async function initStaticAuthRoute() {
-    const { authVueRoutes } = createRoutes();
+    const { authVueRoutes, treeRoutes } = createRoutes();
     handleVueRoutes(authVueRoutes);
+
+    menus.value = getGlobalMenusByAuthRoutes(treeRoutes as any);
   }
 
   /**
