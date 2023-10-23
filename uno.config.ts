@@ -24,5 +24,5 @@ export default defineConfig<Theme>({
     }
   },
   transformers: [transformerDirectives(), transformerVariantGroup()],
-  presets: [presetUno({ dark: 'class' }), presetScrollbar(), presetSoybeanAdmin()]
+  presets: [presetUno({ dark: 'class' }), presetScrollbar() as any, presetSoybeanAdmin()]
 });

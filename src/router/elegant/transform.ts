@@ -64,3 +64,53 @@ function isView(component: string) {
 function getViewName(component: string) {
   return component.replace(VIEW_PREFIX, '');
 }
+
+/**
+ * transform elegant route to tree route
+ * @param routes elegant routes
+ */
+export function transformElegantRouteToTreeRoute(routes: AutoRoute[]) {
+  const treeRoutes = routes.map(route => {
+    const { children = [], ...rest } = route;
+
+    const treeRoute: AutoRoute = { ...rest, children: [] };
+
+    const treeMap = new Map<string, AutoRoute>();
+
+    children.forEach(child => {
+      treeMap.set(child.name as string, { ...child });
+    });
+
+    const treeChildren: AutoRoute[] = [];
+
+    children.forEach(child => {
+      // current route level is 2, if has parent, then level is 3 or more
+      const hasParent = (child.name as string).split('_').length > 2;
+
+      const current = treeMap.get(child.name as string)!;
+
+      if (hasParent) {
+        const parentName = (child.name as string).split('_').slice(0, -1).join('_');
+
+        const parent = treeMap.get(parentName);
+
+        if (parent) {
+          if (!parent.children) {
+            parent.children = [];
+          }
+          parent.children.push(current);
+        }
+      } else {
+        treeChildren.push(current);
+      }
+    });
+
+    if (treeChildren.length) {
+      treeRoute.children = treeChildren;
+    }
+
+    return treeRoute;
+  });
+
+  return treeRoutes;
+}
