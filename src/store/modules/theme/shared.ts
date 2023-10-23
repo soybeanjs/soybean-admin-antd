@@ -117,7 +117,7 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
       if (key === 'colors') {
         cssVarsKey = removeRgbPrefix(cssVarsKey);
         const { r, g, b } = getRgbOfColor(cssValue);
-        cssValue = `${r}, ${g}, ${b}`;
+        cssValue = `${r} ${g} ${b}`;
       }
 
       styles.push(`${cssVarsKey}: ${cssValue}`);
