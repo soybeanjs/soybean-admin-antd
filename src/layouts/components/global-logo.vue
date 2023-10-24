@@ -4,12 +4,21 @@ import { $t } from '@/locales';
 defineOptions({
   name: 'GlobalLogo'
 });
+
+interface Props {
+  /**
+   * whether to show the title
+   */
+  showTitle: boolean;
+}
+
+defineProps<Props>();
 </script>
 
 <template>
   <RouterLink to="/" class="flex-center w-full nowrap-hidden">
     <SystemLogo class="text-32px text-primary" />
-    <h2 class="pl-8px text-16px font-bold text-primary transition duration-300 ease-in-out">
+    <h2 v-show="showTitle" class="pl-8px text-16px font-bold text-primary transition duration-300 ease-in-out">
       {{ $t('system.title') }}
     </h2>
   </RouterLink>

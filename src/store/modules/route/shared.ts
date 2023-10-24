@@ -21,38 +21,42 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantRoute[]) {
     if (isFirstLevelRoute(route)) {
       const child = route.children[0];
 
-      const { title, i18nKey, icon, localIcon } = child.meta ?? {};
+      const { title, i18nKey, icon, localIcon, hideInMenu } = child.meta ?? {};
 
-      const menu: App.Global.Menu = {
-        key: child.name,
-        title,
-        i18nKey,
-        routeKey: child.name,
-        routePath: route.path,
-        icon,
-        localIcon
-      };
+      if (!hideInMenu) {
+        const menu: App.Global.Menu = {
+          key: child.name,
+          title,
+          i18nKey,
+          routeKey: child.name,
+          routePath: route.path,
+          icon,
+          localIcon
+        };
 
-      menus.push(menu);
+        menus.push(menu);
+      }
     } else {
       const { name, path } = route;
-      const { title, i18nKey, icon, localIcon } = route.meta ?? {};
+      const { title, i18nKey, icon, localIcon, hideInMenu } = route.meta ?? {};
 
-      const menu: App.Global.Menu = {
-        key: name,
-        title,
-        i18nKey,
-        routeKey: name,
-        routePath: path,
-        icon,
-        localIcon
-      };
+      if (!hideInMenu) {
+        const menu: App.Global.Menu = {
+          key: name,
+          title,
+          i18nKey,
+          routeKey: name,
+          routePath: path,
+          icon,
+          localIcon
+        };
 
-      if (hasChildren(route)) {
-        menu.children = getGlobalMenusByAuthRoutes(route.children);
+        if (hasChildren(route)) {
+          menu.children = getGlobalMenusByAuthRoutes(route.children);
+        }
+
+        menus.push(menu);
       }
-
-      menus.push(menu);
     }
   });
 
@@ -82,7 +86,7 @@ export function getCacheRouteNames(routes: ElegantRoute[]) {
 }
 
 export function getAntdMenuByGlobalMenus(globalMenus: App.Global.Menu[]) {
-  const { SvgIconVNode } = useSvgIconRender(SvgIcon);
+  const { SvgIconVNode } = useSvgIconRender(SvgIcon, import.meta.env.VITE_MENU_ICON);
 
   const menus: App.Global.AntdMenu[] = [];
 
@@ -99,7 +103,7 @@ export function getAntdMenuByGlobalMenus(globalMenus: App.Global.Menu[]) {
     };
 
     if (children?.length) {
-      (antdMenu as any).children = getAntdMenuByGlobalMenus(children);
+      (antdMenu as App.Global.AntSubMenu).children = getAntdMenuByGlobalMenus(children);
     }
 
     menus.push(antdMenu);

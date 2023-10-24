@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { setLocale } from '@/locales';
-import { localStg } from '@/utils/storage';
+import { useAppStore } from '@/store/modules/app';
 
 defineOptions({
   name: 'SwitchLang'
 });
 
-const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
+const app = useAppStore();
 
 type LocaleOption = {
   label: string;
@@ -24,12 +22,6 @@ const options: LocaleOption[] = [
     key: 'en'
   }
 ];
-
-function handleSelect(key: App.I18n.LangType) {
-  locale.value = key;
-  setLocale(key);
-  localStg.set('lang', key);
-}
 </script>
 
 <template>
@@ -40,8 +32,8 @@ function handleSelect(key: App.I18n.LangType) {
       </div>
     </AButton>
     <template #overlay>
-      <AMenu :selected-keys="[locale]">
-        <AMenuItem v-for="option in options" :key="option.key" @click="handleSelect(option.key)">
+      <AMenu :selected-keys="[app.locale]">
+        <AMenuItem v-for="option in options" :key="option.key" @click="app.changeLocale(option.key)">
           {{ option.label }}
         </AMenuItem>
       </AMenu>

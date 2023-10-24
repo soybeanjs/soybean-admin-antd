@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, watch, effectScope, onScopeDispose } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
@@ -7,8 +7,12 @@ import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
 import { createRoutes } from '@/router/routes';
 import { getGlobalMenusByAuthRoutes, getAntdMenuByGlobalMenus, getCacheRouteNames } from './shared';
+import { useAppStore } from '../app';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
+  const app = useAppStore();
+  const scope = effectScope();
+
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
   /**
@@ -29,19 +33,25 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const globalMenus = ref<App.Global.Menu[]>([]);
 
   /**
-   * antd menus
-   */
-  const antdMenus = ref<App.Global.AntdMenu[]>([]);
-
-  /**
    * get global menus
    */
   function getGlobalMenus() {
     const { treeRoutes } = createRoutes();
     globalMenus.value = getGlobalMenusByAuthRoutes(treeRoutes);
-    antdMenus.value = getAntdMenuByGlobalMenus(globalMenus.value);
+    getAntdMenus();
   }
 
+  /**
+   * antd menus
+   */
+  const antdMenus = ref<App.Global.AntdMenu[]>([]);
+
+  /**
+   * get antd menus
+   */
+  function getAntdMenus() {
+    antdMenus.value = getAntdMenuByGlobalMenus(globalMenus.value);
+  }
   /**
    * cache routes
    */
@@ -94,6 +104,24 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       router.addRoute(route);
     });
   }
+
+  // watch store
+  scope.run(() => {
+    // update menus when locale changed
+    watch(
+      () => app.locale,
+      () => {
+        getAntdMenus();
+      }
+    );
+  });
+
+  /**
+   * on scope dispose
+   */
+  onScopeDispose(() => {
+    scope.stop();
+  });
 
   return {
     antdMenus,

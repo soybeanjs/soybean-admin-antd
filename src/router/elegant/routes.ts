@@ -201,7 +201,8 @@ export const autoRoutes: ElegantRoute[] = [
         meta: {
           title: 'user-center',
           i18nKey: 'route.user-center',
-          requiresAuth: true
+          requiresAuth: true,
+          hideInMenu: true
         }
       }
     ]
