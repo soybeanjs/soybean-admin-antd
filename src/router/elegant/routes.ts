@@ -63,6 +63,7 @@ export const autoRoutes: ElegantRoute[] = [
         meta: {
           title: 'home',
           i18nKey: 'route.home',
+          icon: 'mdi:monitor-dashboard',
           requiresAuth: true
         }
       }
@@ -165,6 +166,7 @@ export const autoRoutes: ElegantRoute[] = [
     meta: {
       title: 'user',
       i18nKey: 'route.user',
+      icon: 'ic:round-manage-accounts',
       requiresAuth: true
     },
     children: [
@@ -175,6 +177,7 @@ export const autoRoutes: ElegantRoute[] = [
         meta: {
           title: 'user_detail',
           i18nKey: 'route.user_detail',
+          icon: 'ic:round-account-box',
           requiresAuth: true
         }
       },
@@ -185,6 +188,7 @@ export const autoRoutes: ElegantRoute[] = [
         meta: {
           title: 'user_list',
           i18nKey: 'route.user_list',
+          icon: 'mdi:table-large',
           requiresAuth: true
         }
       }

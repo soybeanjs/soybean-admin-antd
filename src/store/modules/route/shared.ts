@@ -99,7 +99,7 @@ export function getAntdMenuByGlobalMenus(globalMenus: App.Global.Menu[]) {
       key,
       label,
       title: label,
-      icon: SvgIconVNode({ icon, localIcon })
+      icon: SvgIconVNode({ icon, localIcon, fontSize: 20 })
     };
 
     if (children?.length) {
