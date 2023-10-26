@@ -64,7 +64,8 @@ export const autoRoutes: ElegantRoute[] = [
           title: 'home',
           i18nKey: 'route.home',
           icon: 'mdi:monitor-dashboard',
-          requiresAuth: true
+          requiresAuth: true,
+          constant: true
         }
       }
     ]

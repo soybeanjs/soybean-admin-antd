@@ -68,6 +68,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     } else {
       await initDynamicAuthRoute();
     }
+    setIsInitAuthRoute(true);
   }
 
   /**

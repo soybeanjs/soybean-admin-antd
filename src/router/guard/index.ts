@@ -1,4 +1,5 @@
 import type { Router } from 'vue-router';
+import { useRouteStore } from '@/store/modules/route';
 
 /**
  * 路由守卫函数
@@ -7,6 +8,12 @@ import type { Router } from 'vue-router';
 export function createRouterGuard(router: Router) {
   router.beforeEach(async (_to, _from, next) => {
     window.NProgress?.start?.();
+
+    const { isInitAuthRoute, initAuthRoute } = useRouteStore();
+
+    if (!isInitAuthRoute) {
+      await initAuthRoute();
+    }
 
     next();
   });
