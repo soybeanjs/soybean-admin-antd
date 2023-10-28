@@ -33,8 +33,6 @@ export function setupElegantRouter() {
 
       if (constantRoutes.includes(key)) {
         meta.constant = true;
-      } else {
-        meta.requiresAuth = true;
       }
 
       return meta;

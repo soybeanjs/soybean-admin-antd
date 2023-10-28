@@ -13,11 +13,6 @@ declare module 'vue-router' {
      */
     i18nKey?: App.I18n.I18nKey;
     /**
-     * whether to require authentication
-     * @description need to login before entering the route
-     */
-    requiresAuth?: boolean;
-    /**
      * roles of the route
      * @description route can be accessed if the current user has at least one of the roles
      */
@@ -46,6 +41,10 @@ declare module 'vue-router' {
      */
     order?: number;
     /**
+     * the outer link of the route
+     */
+    href?: string;
+    /**
      * whether to hide the route in the menu
      */
     hideInMenu?: boolean;
@@ -62,6 +61,6 @@ declare module 'vue-router' {
     /**
      * if set, the route will be fixed in tabs, and the value is the order of fixed tabs
      */
-    fixedIndex?: number;
+    fixedIndexInTab?: number;
   }
 }
