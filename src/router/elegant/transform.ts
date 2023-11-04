@@ -4,116 +4,132 @@
 // Read more: https://github.com/soybeanjs/elegant-router
 
 import type { RouteRecordRaw, RouteComponent } from 'vue-router';
-import type { AutoRoute } from '@elegant-router/vue';
-import type { ElegantRoute } from '@elegant-router/types';
-
-const LAYOUT_PREFIX = 'layout.';
-const VIEW_PREFIX = 'view.';
+import type { ElegantConstRoute } from '@elegant-router/vue';
 
 /**
- * transform elegant route to vue route
- * @param routes elegant routes
+ * transform elegant const routes to vue routes
+ * @param routes elegant const routes
  * @param layouts layout components
  * @param views view components
  */
-export function transformElegantRouteToVueRoute(
-  routes: AutoRoute[],
+export function transformElegantRoutesToVueRoutes(
+  routes: ElegantConstRoute[],
   layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
   views: Record<string, RouteComponent | (() => Promise<RouteComponent>)>
 ) {
-  const vueRoutes: RouteRecordRaw[] = routes.map(route => {
-    const { children, component, ...rest } = route;
-
-    const vueRoute = { ...rest } as RouteRecordRaw;
-
-    if (component) {
-      if (isLayout(component)) {
-        const layoutName = getLayoutName(component);
-
-        vueRoute.component = layouts[layoutName];
-      }
-
-      if (isView(component)) {
-        const viewName = getViewName(component);
-
-        vueRoute.component = views[viewName];
-      }
-    }
-
-    if (children?.length) {
-      vueRoute.children = transformElegantRouteToVueRoute(children, layouts, views);
-    }
-
-    return vueRoute;
-  });
-
-  return vueRoutes;
-}
-
-function isLayout(component: string) {
-  return component.startsWith(LAYOUT_PREFIX);
-}
-
-function getLayoutName(component: string) {
-  return component.replace(LAYOUT_PREFIX, '');
-}
-
-function isView(component: string) {
-  return component.startsWith(VIEW_PREFIX);
-}
-
-function getViewName(component: string) {
-  return component.replace(VIEW_PREFIX, '');
+  return routes.flatMap(route => transformElegantRouteToVueRoute(route, layouts, views));
 }
 
 /**
- * transform elegant route to tree route
- * @param routes elegant routes
+ * transform elegant route to vue route
+ * @param route elegant const route
+ * @param layouts layout components
+ * @param views view components
  */
-export function transformElegantRouteToTreeRoute(routes: AutoRoute[]) {
-  const treeRoutes = routes.map(route => {
-    const { children = [], ...rest } = route;
+function transformElegantRouteToVueRoute(
+  route: ElegantConstRoute,
+  layouts: Record<string, RouteComponent | (() => Promise<RouteComponent>)>,
+  views: Record<string, RouteComponent | (() => Promise<RouteComponent>)>
+) {
+  const LAYOUT_PREFIX = 'layout.';
+  const VIEW_PREFIX = 'view.';
+  const ROUTE_DEGREE_SPLITTER = '_';
+  const FIRST_LEVEL_ROUTE_COMPONENT_SPLIT = '$';
 
-    const treeRoute: AutoRoute = { ...rest, children: [] };
+  function isLayout(component: string) {
+    return component.startsWith(LAYOUT_PREFIX);
+  }
 
-    const treeMap = new Map<string, AutoRoute>();
+  function getLayoutName(component: string) {
+    return component.replace(LAYOUT_PREFIX, '');
+  }
 
-    children.forEach(child => {
-      treeMap.set(child.name as string, { ...child });
-    });
+  function isView(component: string) {
+    return component.startsWith(VIEW_PREFIX);
+  }
 
-    const treeChildren: AutoRoute[] = [];
+  function getViewName(component: string) {
+    return component.replace(VIEW_PREFIX, '');
+  }
 
-    children.forEach(child => {
-      const childName = child.name as string;
+  function isFirstLevelRoute(item: ElegantConstRoute) {
+    return !item.name.includes(ROUTE_DEGREE_SPLITTER);
+  }
 
-      // current route level is 2, if has parent, then level is 3 or more
-      const hasParent = childName.split('_').length > 2;
+  function isSingleLevelRoute(item: ElegantConstRoute) {
+    return isFirstLevelRoute(item) && !item.children?.length;
+  }
 
-      const current = treeMap.get(childName)!;
+  function getSingleLevelRouteComponent(component: string) {
+    const [layout, view] = component.split(FIRST_LEVEL_ROUTE_COMPONENT_SPLIT);
 
-      if (hasParent) {
-        const parentName = childName.split('_').slice(0, -1).join('_');
+    return {
+      layout: getLayoutName(layout),
+      view: getViewName(view)
+    };
+  }
 
-        const parent = treeMap.get(parentName);
+  const vueRoutes: RouteRecordRaw[] = [];
 
-        if (parent) {
-          if (!parent.children) {
-            parent.children = [];
-          }
-          parent.children.push(current);
-        }
-      } else {
-        treeChildren.push(current);
-      }
-    });
+  const { name, path, component, children, ...rest } = route;
 
-    if (treeChildren.length) {
-      treeRoute.children = treeChildren;
+  const vueRoute = { name, path, ...rest } as RouteRecordRaw;
+
+  if (component) {
+    if (isSingleLevelRoute(route)) {
+      const { layout, view } = getSingleLevelRouteComponent(component);
+
+      const singleLevelRoute: RouteRecordRaw = {
+        path,
+        component: layouts[layout],
+        children: [
+          {
+            name,
+            path: '',
+            component: views[view],
+            ...rest
+          } as RouteRecordRaw
+        ]
+      };
+
+      return [singleLevelRoute];
     }
 
-    return treeRoute;
-  });
+    
 
-  return treeRoutes as ElegantRoute[];
-}
+    if (isLayout(component)) {
+      const layoutName = getLayoutName(component);
+
+      vueRoute.component = layouts[layoutName];
+    }
+
+    if (isView(component)) {
+      const viewName = getViewName(component);
+
+      vueRoute.component = views[viewName];
+    }
+
+  }
+  
+  // center level layout add redirect to child
+  if (!component && children?.length) {
+    vueRoute.redirect = {
+      name: children[0].name
+    };
+  }
+  
+  if (children?.length) {
+    const childRoutes = children.flatMap(child => transformElegantRouteToVueRoute(child, layouts, views));
+
+    if(isFirstLevelRoute(route)) {
+      vueRoute.children = childRoutes;
+    } else {
+      vueRoutes.push(...childRoutes);
+    }
+  }
+
+  vueRoutes.unshift(vueRoute);
+
+  return vueRoutes;
+}  
+

@@ -5,7 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
-import { createRoutes } from '@/router/routes';
+import { authRoutes, constantVueRoutes, authVueRoutes } from '@/router/routes';
 import { getGlobalMenusByAuthRoutes, getAntdMenuByGlobalMenus, getCacheRouteNames } from './shared';
 import { useAppStore } from '../app';
 
@@ -36,8 +36,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * get global menus
    */
   function getGlobalMenus() {
-    const { treeRoutes } = createRoutes();
-    globalMenus.value = getGlobalMenusByAuthRoutes(treeRoutes);
+    globalMenus.value = getGlobalMenusByAuthRoutes(authRoutes);
     getAntdMenus();
   }
 
@@ -58,8 +57,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const cacheRoutes = ref<RouteKey[]>([]);
 
   function getCacheRoutes() {
-    const { authRoutes } = createRoutes();
-    cacheRoutes.value = getCacheRouteNames(authRoutes);
+    cacheRoutes.value = getCacheRouteNames([...constantVueRoutes, ...authVueRoutes]);
   }
 
   async function initAuthRoute() {
@@ -75,7 +73,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * init static auth route
    */
   async function initStaticAuthRoute() {
-    const { authVueRoutes } = createRoutes();
     handleRoutes(authVueRoutes);
   }
 

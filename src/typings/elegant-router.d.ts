@@ -4,7 +4,7 @@
 // Read more: https://github.com/soybeanjs/elegant-router
 
 declare module "@elegant-router/types" {
-  type RouteRecordRaw = import("vue-router").RouteRecordRaw;
+  type ElegantConstRoute = import('@elegant-router/vue').ElegantConstRoute;
 
   /**
    * route layout
@@ -49,9 +49,9 @@ declare module "@elegant-router/types" {
   >;
 
   /**
-   * the auto generated route key
+   * the generated route key
    */ 
-  export type AutoRouteKey = Exclude<RouteKey, CustomRouteKey>;
+  export type GeneratedRouteKey = Exclude<RouteKey, CustomRouteKey>;
 
   /**
    * the first level route key, which contain the layout of the route
@@ -66,6 +66,15 @@ declare module "@elegant-router/types" {
     | "multi-menu"
     | "user"
     | "user-center"
+  >;
+
+  /**
+   * the custom first level route key
+   */
+  export type CustomFirstLevelRouteKey = Extract<
+    CustomRouteKey,
+    | "root"
+    | "not-found"
   >;
 
   /**
@@ -86,9 +95,13 @@ declare module "@elegant-router/types" {
   >;
 
   /**
-   * the last level route key as child
+   * the custom last level route key
    */
-  export type LastLevelChildRouteKey = Exclude<LastLevelRouteKey, FirstLevelRouteKey>;
+  export type CustomLastLevelRouteKey = Extract<
+    CustomRouteKey,
+    | "root"
+    | "not-found"
+  >;
 
   /**
    * the single level route key
@@ -96,58 +109,55 @@ declare module "@elegant-router/types" {
   export type SingleLevelRouteKey = FirstLevelRouteKey & LastLevelRouteKey;
 
   /**
-   * the first level route key, but not the single level
+   * the custom single level route key
    */
+  export type CustomSingleLevelRouteKey = CustomFirstLevelRouteKey & CustomLastLevelRouteKey;
+
+  /**
+   * the first level route key, but not the single level
+  */
   export type FirstLevelRouteNotSingleKey = Exclude<FirstLevelRouteKey, SingleLevelRouteKey>;
 
   /**
-   * the center level route key
+   * the custom first level route key, but not the single level
    */
-  export type CenterLevelRouteKey = Exclude<AutoRouteKey, FirstLevelRouteKey | LastLevelRouteKey>;
+  export type CustomFirstLevelRouteNotSingleKey = Exclude<CustomFirstLevelRouteKey, CustomSingleLevelRouteKey>;
 
   /**
    * the center level route key
    */
-  type GetChildRouteKey<K extends AutoRouteKey, T extends AutoRouteKey = AutoRouteKey> = T extends `${K}${infer R}` ? (R extends '' ? never : T) : never;
+  export type CenterLevelRouteKey = Exclude<GeneratedRouteKey, FirstLevelRouteKey | LastLevelRouteKey>;
 
   /**
-   * the child of single level route
+   * the custom center level route key
    */
-  type SingleLevelRouteChild<K extends string, N = K> = Omit<RouteRecordRaw, 'component' | 'children'> & {
-    name: N;
-    path: '';
-    component: `view.${K}`;
-  };
-  
+  export type CustomCenterLevelRouteKey = Exclude<CustomRouteKey, CustomFirstLevelRouteKey | CustomLastLevelRouteKey>;
+
+  /**
+   * the center level route key
+   */
+  type GetChildRouteKey<K extends RouteKey, T extends RouteKey = RouteKey> = T extends `${K}_${infer R}`
+    ? R extends `${string}_${string}`
+      ? never
+      : T
+    : never;
+
   /**
    * the single level route
    */
   type SingleLevelRoute<K extends SingleLevelRouteKey = SingleLevelRouteKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children'> & {
-        path: RouteMap[K];
-        component: `layout.${RouteLayout}`;
-        children: [SingleLevelRouteChild<K>];
-      }
-    : never;
-  
-  /**
-   * the center level route
-   */
-  type CenterLevelRoute<K extends CenterLevelRouteKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children' | 'redirect'> & {
+    ? Omit<ElegantConstRoute, 'children'> & {
         name: K;
         path: RouteMap[K];
-        redirect: {
-          name: GetChildRouteKey<K>;
-        };
+        component: `layout.${RouteLayout}$view.${K}`;
       }
     : never;
-  
+
   /**
    * the last level route
    */
-  type LastLevelRoute<K extends LastLevelRouteKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children'> & {
+  type LastLevelRoute<K extends GeneratedRouteKey> = K extends LastLevelRouteKey
+    ? Omit<ElegantConstRoute, 'children'> & {
         name: K;
         path: RouteMap[K];
         component: `view.${K}`;
@@ -155,16 +165,24 @@ declare module "@elegant-router/types" {
     : never;
   
   /**
+   * the center level route
+   */
+  type CenterLevelRoute<K extends GeneratedRouteKey> = K extends CenterLevelRouteKey
+    ? Omit<ElegantConstRoute, 'component'> & {
+        name: K;
+        path: RouteMap[K];
+        children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
+      }
+    : never;
+
+  /**
    * the multi level route
    */
   type MultiLevelRoute<K extends FirstLevelRouteNotSingleKey = FirstLevelRouteNotSingleKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children' | 'redirect'> & {
+    ? ElegantConstRoute & {
         name: K;
         path: RouteMap[K];
         component: `layout.${RouteLayout}`;
-        redirect: {
-          name: GetChildRouteKey<K>;
-        };
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
@@ -172,46 +190,61 @@ declare module "@elegant-router/types" {
   /**
    * the custom first level route
    */
-  type CustomSingleLevelRoute<K extends CustomRouteKey = CustomRouteKey> = K extends string 
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children'> & {
+  type CustomSingleLevelRoute<K extends CustomFirstLevelRouteKey = CustomFirstLevelRouteKey> = K extends string
+    ? Omit<ElegantConstRoute, 'children'> & {
+        name: K;
         path: RouteMap[K];
-        component: `layout.${RouteLayout}`;
-        children: [SingleLevelRouteChild<LastLevelRouteKey, K>];
+        component?: `layout.${RouteLayout}$view.${LastLevelRouteKey}`;
+      }
+    : never;
+
+  /**
+   * the custom last level route
+   */
+  type CustomLastLevelRoute<K extends CustomRouteKey> = K extends CustomLastLevelRouteKey
+    ? Omit<ElegantConstRoute, 'children'> & {
+        name: K;
+        path: RouteMap[K];
+        component?: `view.${LastLevelRouteKey}`;
+      }
+    : never;
+
+  /**
+   * the custom center level route
+   */
+  type CustomCenterLevelRoute<K extends CustomRouteKey> = K extends CustomCenterLevelRouteKey
+    ? Omit<ElegantConstRoute, 'component'> & {
+        name: K;
+        path: RouteMap[K];
+        children: (CustomCenterLevelRoute<GetChildRouteKey<K>> | CustomLastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
 
   /**
    * the custom multi level route
    */
-  type CustomMultiLevelRoute<K extends CustomRouteKey = CustomRouteKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children' | 'redirect'> & {
-        name: K;
-        path: RouteMap[K];
-        component: `layout.${RouteLayout}`;
-        children: (CenterLevelRoute<CenterLevelRouteKey> | LastLevelRoute<LastLevelRouteKey>)[];
-      }
-    : never;
-
-  /**
-   * the custom redirect route
-   */
-  type CustomRedirectRoute<K extends CustomRouteKey = CustomRouteKey> = K extends string
-    ? Omit<RouteRecordRaw, 'name' | 'path' | 'component' | 'children'> & {
-        name: K;
-        path: RouteMap[K];
-        redirect: {
-          name: Exclude<RouteKey, K>;
-        };
-      }
-    : never;
+  type CustomMultiLevelRoute<K extends CustomFirstLevelRouteNotSingleKey = CustomFirstLevelRouteNotSingleKey> =
+    K extends string
+      ? ElegantConstRoute & {
+          name: K;
+          path: RouteMap[K];
+          component: `layout.${RouteLayout}`;
+          children: (CustomCenterLevelRoute<GetChildRouteKey<K>> | CustomLastLevelRoute<K>)[];
+        }
+      : never;
 
   /**
    * the custom route
    */
-  type CustomRoute = CustomSingleLevelRoute | CustomMultiLevelRoute | CustomRedirectRoute;
+  type CustomRoute = CustomSingleLevelRoute | CustomMultiLevelRoute;
+
+  /**
+   * the generated route
+   */
+  type GeneratedRoute = SingleLevelRoute | MultiLevelRoute;
 
   /**
    * the elegant route
    */
-  type ElegantRoute = SingleLevelRoute | MultiLevelRoute | CustomRoute;
+  type ElegantRoute = GeneratedRoute | CustomRoute;
 }
