@@ -1,10 +1,4 @@
-import { ofetch } from 'ofetch';
-import type { FetchOptions } from 'ofetch';
+import { createAxios } from './axios';
+import { createOfetch } from './ofetch';
 
-export function createRequest(options: FetchOptions) {
-  const request = ofetch.create(options);
-
-  return request;
-}
-
-export default createRequest;
+export { createAxios, createOfetch };

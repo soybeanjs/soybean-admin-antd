@@ -15,4 +15,6 @@ declare namespace Common {
    * @property label: the option label
    */
   type Option<K> = { value: K; label: string };
+
+  type YesOrNo = 'Y' | 'N';
 }

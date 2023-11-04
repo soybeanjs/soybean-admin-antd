@@ -20,6 +20,9 @@ importers:
       '@sa/materials':
         specifier: workspace:*
         version: link:packages/materials
+      '@sa/request':
+        specifier: workspace:^
+        version: link:packages/request
       '@sa/utils':
         specifier: workspace:*
         version: link:packages/utils

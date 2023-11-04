@@ -25,6 +25,7 @@
     "@sa/color-palette": "workspace:*",
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
+    "@sa/request": "workspace:^",
     "@sa/utils": "workspace:*",
     "@vueuse/core": "10.5.0",
     "ant-design-vue": "4.0.6",

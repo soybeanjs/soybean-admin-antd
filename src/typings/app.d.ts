@@ -68,6 +68,9 @@ declare namespace App {
     };
   }
 
+  /**
+   * global namespace
+   */
   namespace Global {
     type AntdMenu = NonNullable<import('ant-design-vue').ItemType>;
     type AntSubMenu = import('ant-design-vue/es/menu/src/interface').SubMenuType;
@@ -192,5 +195,52 @@ declare namespace App {
       (key: I18nKey, named: Record<string, unknown>, plural: number): string;
       (key: I18nKey, named: Record<string, unknown>, defaultMsg: string): string;
     }
+  }
+
+  /**
+   * service namespace
+   */
+  namespace Service {
+    /**
+     * the backend service env type
+     */
+    type EnvType = 'dev' | 'test' | 'prod';
+
+    /**
+     * the backend service config
+     */
+    interface ServiceConfig {
+      /**
+       * the backend service base url
+       */
+      baseURL: string;
+      /**
+       * other backend service base url map
+       */
+      otherBaseURL: Record<string, string>;
+    }
+
+    /**
+     * the backend service config map
+     */
+    type ServiceConfigMap = Record<EnvType, ServiceConfig>;
+
+    /**
+     * the backend service response data
+     */
+    type Response<T = unknown> = {
+      /**
+       * the backend service response code
+       */
+      code: string;
+      /**
+       * the backend service response message
+       */
+      message: string;
+      /**
+       * the backend service response data
+       */
+      data: T;
+    };
   }
 }

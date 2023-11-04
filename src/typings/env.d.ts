@@ -3,8 +3,6 @@
  * @description it is used to declare the type of the import.meta object
  */
 declare namespace Env {
-  type YesOrNo = 'Y' | 'N';
-
   /**
    * the router history mode
    */
@@ -27,11 +25,6 @@ declare namespace Env {
      */
     readonly VITE_APP_DESC: string;
     /**
-     * whether to enable the http proxy
-     * @description only valid in the development environment
-     */
-    readonly VITE_HTTP_PROXY?: YesOrNo;
-    /**
      * the router history mode
      */
     readonly VITE_ROUTER_HISTORY_MODE?: RouterHistoryMode;
@@ -44,6 +37,15 @@ declare namespace Env {
      * @description this prefix is start with the icon prefix
      */
     readonly VITE_ICON_LOCAL_PREFIX: 'local-icon';
+    /**
+     * whether to enable the http proxy
+     * @description only valid in the development environment
+     */
+    readonly VITE_HTTP_PROXY?: Common.YesOrNo;
+    /**
+     * the back service env
+     */
+    readonly VITE_SERVICE_ENV?: App.Service.EnvType;
     /**
      * the auth route mode
      * - static: the auth routes is generated in front-end
