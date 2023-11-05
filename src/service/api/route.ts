@@ -5,7 +5,7 @@ import { request } from '../request';
  * @param example whether to use example data, default: 0
  */
 export function fetchGetUserRoutes(example: '0' | '1' = '0') {
-  return request<App.Service.Response<Api.Route.UserRoute>>('/route/getUserRoute', { params: { example } });
+  return request<App.Service.Response<Api.Route.UserRoute>>('/route/getUserRoutes', { params: { example } });
 }
 
 /**

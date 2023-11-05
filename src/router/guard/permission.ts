@@ -23,10 +23,15 @@ export function createPermissionGuard(router: Router) {
     const isLogin = Boolean(localStg.get('token'));
     const needLogin = !to.meta.constant;
     const routeRoles = to.meta.roles || [];
-    const hasPermission = !routeRoles.length || auth.userInfo.roles.some(role => routeRoles.includes(role));
     const rootRoute: RouteKey = 'root';
     const loginRoute: RouteKey = 'login';
     const noPermissionRoute: RouteKey = '403';
+
+    const SUPER_ADMIN = 'R_SUPER';
+    const hasPermission =
+      !routeRoles.length ||
+      auth.userInfo.roles.includes(SUPER_ADMIN) ||
+      auth.userInfo.roles.some(role => routeRoles.includes(role));
 
     const strategicPatterns: Common.StrategicPattern[] = [
       // 1. if it is login route when logged in, change to the root page

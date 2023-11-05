@@ -43,7 +43,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'home',
       i18nKey: 'route.home',
-      icon: 'mdi:monitor-dashboard'
+      icon: 'mdi:monitor-dashboard',
+      order: 1
     }
   },
   {
@@ -58,12 +59,74 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
+    name: 'manage',
+    path: '/manage',
+    component: 'layout.base',
+    meta: {
+      title: 'manage',
+      i18nKey: 'route.manage',
+      icon: 'carbon:cloud-service-management',
+      order: 9,
+      roles: ['R_ADMIN']
+    },
+    children: [
+      {
+        name: 'manage_role',
+        path: '/manage/role',
+        component: 'view.manage_role',
+        meta: {
+          title: 'manage_role',
+          i18nKey: 'route.manage_role',
+          icon: 'carbon:user-role',
+          order: 2,
+          roles: ['R_ADMIN']
+        }
+      },
+      {
+        name: 'manage_route',
+        path: '/manage/route',
+        component: 'view.manage_route',
+        meta: {
+          title: 'manage_route',
+          i18nKey: 'route.manage_route',
+          icon: 'material-symbols:route',
+          order: 3,
+          roles: ['R_ADMIN']
+        }
+      },
+      {
+        name: 'manage_user',
+        path: '/manage/user',
+        component: 'view.manage_user',
+        meta: {
+          title: 'manage_user',
+          i18nKey: 'route.manage_user',
+          icon: 'ic:round-manage-accounts',
+          order: 1,
+          roles: ['R_ADMIN']
+        }
+      },
+      {
+        name: 'manage_user-detail',
+        path: '/manage/user-detail/:id',
+        component: 'view.manage_user-detail',
+        meta: {
+          title: 'manage_user-detail',
+          i18nKey: 'route.manage_user-detail',
+          hideInMenu: true,
+          roles: ['R_ADMIN']
+        }
+      }
+    ]
+  },
+  {
     name: 'multi-menu',
     path: '/multi-menu',
     component: 'layout.base',
     meta: {
       title: 'multi-menu',
-      i18nKey: 'route.multi-menu'
+      i18nKey: 'route.multi-menu',
+      order: 8
     },
     children: [
       {
@@ -71,7 +134,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/multi-menu/first',
         meta: {
           title: 'multi-menu_first',
-          i18nKey: 'route.multi-menu_first'
+          i18nKey: 'route.multi-menu_first',
+          order: 1
         },
         children: [
           {
@@ -90,7 +154,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         path: '/multi-menu/second',
         meta: {
           title: 'multi-menu_second',
-          i18nKey: 'route.multi-menu_second'
+          i18nKey: 'route.multi-menu_second',
+          order: 2
         },
         children: [
           {
@@ -113,41 +178,6 @@ export const generatedRoutes: GeneratedRoute[] = [
             ]
           }
         ]
-      }
-    ]
-  },
-  {
-    name: 'user',
-    path: '/user',
-    component: 'layout.base',
-    redirect: '/user/list',
-    meta: {
-      title: 'user',
-      i18nKey: 'route.user',
-      icon: 'ic:round-manage-accounts',
-      roles: ['R_SUPER']
-    },
-    children: [
-      {
-        name: 'user_detail',
-        path: '/user/detail/:id',
-        component: 'view.user_detail',
-        meta: {
-          title: 'user_detail',
-          i18nKey: 'route.user_detail',
-          icon: 'ic:round-account-box',
-          hideInMenu: true
-        }
-      },
-      {
-        name: 'user_list',
-        path: '/user/list',
-        component: 'view.user_list',
-        meta: {
-          title: 'user_list',
-          i18nKey: 'route.user_list',
-          icon: 'mdi:table-large'
-        }
       }
     ]
   },

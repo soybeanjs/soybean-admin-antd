@@ -22,15 +22,17 @@ declare module "@elegant-router/types" {
     "500": "/500";
     "home": "/home";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
+    "manage": "/manage";
+    "manage_role": "/manage/role";
+    "manage_route": "/manage/route";
+    "manage_user": "/manage/user";
+    "manage_user-detail": "/manage/user-detail/:id";
     "multi-menu": "/multi-menu";
     "multi-menu_first": "/multi-menu/first";
     "multi-menu_first_child": "/multi-menu/first/child";
     "multi-menu_second": "/multi-menu/second";
     "multi-menu_second_child": "/multi-menu/second/child";
     "multi-menu_second_child_home": "/multi-menu/second/child/home";
-    "user": "/user";
-    "user_detail": "/user/detail/:id";
-    "user_list": "/user/list";
     "user-center": "/user-center";
   };
 
@@ -68,8 +70,8 @@ declare module "@elegant-router/types" {
     | "500"
     | "home"
     | "login"
+    | "manage"
     | "multi-menu"
-    | "user"
     | "user-center"
   >;
 
@@ -92,11 +94,13 @@ declare module "@elegant-router/types" {
     | "500"
     | "login"
     | "home"
+    | "manage_role"
+    | "manage_route"
+    | "manage_user-detail"
+    | "manage_user"
     | "multi-menu_first_child"
     | "multi-menu_second_child_home"
     | "user-center"
-    | "user_detail"
-    | "user_list"
   >;
 
   /**
