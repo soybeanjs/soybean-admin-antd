@@ -40,6 +40,11 @@ declare module "@elegant-router/types" {
   export type RouteKey = keyof RouteMap;
 
   /**
+   * route path
+   */
+  export type RoutePath = RouteMap[RouteKey];
+
+  /**
    * custom route key
    */ 
   export type CustomRouteKey = Extract<

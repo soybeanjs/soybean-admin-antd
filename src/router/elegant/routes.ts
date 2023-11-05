@@ -43,8 +43,7 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'home',
       i18nKey: 'route.home',
-      icon: 'mdi:monitor-dashboard',
-      constant: true
+      icon: 'mdi:monitor-dashboard'
     }
   },
   {
@@ -121,10 +120,12 @@ export const generatedRoutes: GeneratedRoute[] = [
     name: 'user',
     path: '/user',
     component: 'layout.base',
+    redirect: '/user/list',
     meta: {
       title: 'user',
       i18nKey: 'route.user',
-      icon: 'ic:round-manage-accounts'
+      icon: 'ic:round-manage-accounts',
+      roles: ['R_SUPER']
     },
     children: [
       {
@@ -134,7 +135,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'user_detail',
           i18nKey: 'route.user_detail',
-          icon: 'ic:round-account-box'
+          icon: 'ic:round-account-box',
+          hideInMenu: true
         }
       },
       {

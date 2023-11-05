@@ -5,6 +5,7 @@
 
 import type { RouteRecordRaw, RouteComponent } from 'vue-router';
 import type { ElegantConstRoute } from '@elegant-router/vue';
+import type { RouteMap, RouteKey, RoutePath } from '@elegant-router/types';
 
 /**
  * transform elegant const routes to vue routes
@@ -95,8 +96,6 @@ function transformElegantRouteToVueRoute(
       return [singleLevelRoute];
     }
 
-    
-
     if (isLayout(component)) {
       const layoutName = getLayoutName(component);
 
@@ -111,8 +110,8 @@ function transformElegantRouteToVueRoute(
 
   }
   
-  // center level layout add redirect to child
-  if (!component && children?.length) {
+  // add redirect to child
+  if (children?.length && !vueRoute.redirect) {
     vueRoute.redirect = {
       name: children[0].name
     };
@@ -131,5 +130,47 @@ function transformElegantRouteToVueRoute(
   vueRoutes.unshift(vueRoute);
 
   return vueRoutes;
-}  
+}
 
+/**
+ * map of route name and route path
+ */
+const routeMap: RouteMap = {
+  "root": "/",
+  "not-found": "/:pathMatch(.*)*",
+  "403": "/403",
+  "404": "/404",
+  "500": "/500",
+  "home": "/home",
+  "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?",
+  "multi-menu": "/multi-menu",
+  "multi-menu_first": "/multi-menu/first",
+  "multi-menu_first_child": "/multi-menu/first/child",
+  "multi-menu_second": "/multi-menu/second",
+  "multi-menu_second_child": "/multi-menu/second/child",
+  "multi-menu_second_child_home": "/multi-menu/second/child/home",
+  "user": "/user",
+  "user_detail": "/user/detail/:id",
+  "user_list": "/user/list",
+  "user-center": "/user-center"
+};
+
+/**
+ * get route path by route name
+ * @param name route name
+ */
+export function getRoutePath(name: RouteKey) {
+  return routeMap[name] || null;
+}
+
+/**
+ * get route name by route path
+ * @param path route path
+ */
+export function getRouteName(path: RoutePath) {
+  const routeEntries = Object.entries(routeMap) as [RouteKey, RoutePath][];
+
+  const routeName: RouteKey | null = routeEntries.find(([, routePath]) => routePath === path)?.[0] || null;
+
+  return routeName;
+}

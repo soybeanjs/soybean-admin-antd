@@ -37,7 +37,7 @@
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@elegant-router/vue": "0.3.0-beta.0",
+    "@elegant-router/vue": "0.3.0-beta.5",
     "@iconify-json/heroicons": "1.1.13",
     "@iconify-json/ic": "1.1.14",
     "@iconify-json/icon-park-outline": "1.1.12",

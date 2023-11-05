@@ -1,20 +1,20 @@
-import type { ElegantRoute, CustomRoute } from '@elegant-router/types';
+import type { ElegantConstRoute, ElegantRoute, CustomRoute } from '@elegant-router/types';
 import { generatedRoutes } from '../elegant/routes';
 import { layouts, views } from '../elegant/imports';
 import { transformElegantRoutesToVueRoutes } from '../elegant/transform';
 
+export const ROOT_ROUTE: CustomRoute = {
+  name: 'root',
+  path: '/',
+  redirect: '/home',
+  meta: {
+    title: 'root',
+    constant: true
+  }
+};
+
 const customRoutes: CustomRoute[] = [
-  {
-    name: 'root',
-    path: '/',
-    redirect: {
-      name: 'home'
-    },
-    meta: {
-      title: 'root',
-      constant: true
-    }
-  },
+  ROOT_ROUTE,
   {
     name: 'not-found',
     path: '/:pathMatch(.*)*',
@@ -41,14 +41,15 @@ function createRoutes() {
 
   const constantVueRoutes = transformElegantRoutesToVueRoutes(constantRoutes, layouts, views);
 
-  const authVueRoutes = transformElegantRoutesToVueRoutes(authRoutes, layouts, views);
-
   return {
     constantRoutes,
-    authRoutes,
     constantVueRoutes,
-    authVueRoutes
+    authRoutes
   };
 }
 
-export const { constantRoutes, authRoutes, constantVueRoutes, authVueRoutes } = createRoutes();
+export const { constantRoutes, constantVueRoutes, authRoutes } = createRoutes();
+
+export function getAuthVueRoutes(routes: ElegantConstRoute[]) {
+  return transformElegantRoutesToVueRoutes(routes, layouts, views);
+}

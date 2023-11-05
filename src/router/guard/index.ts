@@ -1,23 +1,14 @@
 import type { Router } from 'vue-router';
-import { useRouteStore } from '@/store/modules/route';
+import { createProgressGuard } from './progress';
+import { createDocumentTitleGuard } from './title';
+import { createPermissionGuard } from './permission';
 
 /**
- * 路由守卫函数
- * @param router - 路由实例
+ * router guard
+ * @param router - router instance
  */
 export function createRouterGuard(router: Router) {
-  router.beforeEach(async (_to, _from, next) => {
-    window.NProgress?.start?.();
-
-    const { isInitAuthRoute, initAuthRoute } = useRouteStore();
-
-    if (!isInitAuthRoute) {
-      await initAuthRoute();
-    }
-
-    next();
-  });
-  router.afterEach(_to => {
-    window.NProgress?.done?.();
-  });
+  createProgressGuard(router);
+  createPermissionGuard(router);
+  createDocumentTitleGuard(router);
 }

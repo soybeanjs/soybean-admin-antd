@@ -52,8 +52,8 @@ importers:
         version: 4.2.5(vue@3.3.7)
     devDependencies:
       '@elegant-router/vue':
-        specifier: 0.3.0-beta.0
-        version: 0.3.0-beta.0
+        specifier: 0.3.0-beta.5
+        version: 0.3.0-beta.5
       '@iconify-json/heroicons':
         specifier: 1.1.13
         version: 1.1.13
@@ -163,8 +163,8 @@ importers:
   packages/docs:
     devDependencies:
       vitepress:
-        specifier: 1.0.0-rc.24
-        version: 1.0.0-rc.24(@algolia/client-search@4.20.0)(@types/node@20.8.10)(nprogress@0.2.0)(postcss@5.2.18)(search-insights@2.9.0)(typescript@5.2.2)
+        specifier: 1.0.0-rc.25
+        version: 1.0.0-rc.25(@algolia/client-search@4.20.0)(@types/node@20.8.10)(nprogress@0.2.0)(postcss@5.2.18)(search-insights@2.9.0)(typescript@5.2.2)
 
   packages/eslint-config:
     devDependencies:
@@ -842,8 +842,8 @@ packages:
       - '@algolia/client-search'
     dev: true
 
-  /@elegant-router/core@0.3.0-beta.0:
-    resolution: {integrity: sha512-Elki7w7+TVpVxP0lX4hgoYfjVbMtYCB3CG1NEyvDibQCmYACieYLcpV56M8EsorkRXxMsl8emp8rRbNHJaQWuw==}
+  /@elegant-router/core@0.3.0-beta.5:
+    resolution: {integrity: sha512-0TEaS7naA29Rs00JorP1ccOLgew9LY3ylQDbtN7xBcvXouBZAADNcBjfR17qz6G4NIp1d+ULkQETjKMqB7dOTg==}
     dependencies:
       chokidar: 3.5.3
       consola: 3.2.3
@@ -852,10 +852,10 @@ packages:
       micromatch: 4.0.5
     dev: true
 
-  /@elegant-router/vue@0.3.0-beta.0:
-    resolution: {integrity: sha512-M1zLkmz9u1yL3cP9dTrHpTYln7FWL80Rm7EP3Zq7qjs97uCQVSRdpAGtRAlvt+F8RqVIft9/s3XVf0mblqBDZA==}
+  /@elegant-router/vue@0.3.0-beta.5:
+    resolution: {integrity: sha512-O6eClQKu80T7ZEw+1colVlbNHO4x/OzhXDOsHwXc1hCy1LBL3bWzc/gAos1a8gqJgsBmlWqDbaiTI4hXQy8Cdw==}
     dependencies:
-      '@elegant-router/core': 0.3.0-beta.0
+      '@elegant-router/core': 0.3.0-beta.5
       consola: 3.2.3
       kolorist: 1.8.0
       magic-string: 0.30.5
@@ -8080,8 +8080,8 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.24(@algolia/client-search@4.20.0)(@types/node@20.8.10)(nprogress@0.2.0)(postcss@5.2.18)(search-insights@2.9.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-RpnL8cnOGwiRlBbrYQUm9sYkJbtyOt/wYXk2diTcokY4yvks/5lq9LuSt+MURWB6ZqwpSNHvTmxgaSfLoG0/OA==}
+  /vitepress@1.0.0-rc.25(@algolia/client-search@4.20.0)(@types/node@20.8.10)(nprogress@0.2.0)(postcss@5.2.18)(search-insights@2.9.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-1dqWiHNThNrVZ08ixmfEDBEH+764KOgnev9oXga/x6cN++Vb9pnuu8p3K6DQP+KZrYcG+WiX7jxal0iSNpAWuQ==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4.3.2

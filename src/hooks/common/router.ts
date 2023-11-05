@@ -1,4 +1,3 @@
-import { toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import type { RouteLocationRaw } from 'vue-router';
 import type { RouteKey } from '@elegant-router/types';
@@ -99,12 +98,4 @@ export function useRouterPush(inSetup = true) {
     toggleLoginModule,
     redirectFromLogin
   };
-}
-
-export function useRouteQuery<T extends Record<string, string>>() {
-  const route = globalRouter.currentRoute;
-
-  const query = route.value.query as T;
-
-  return toRefs(query);
 }

@@ -2,17 +2,26 @@ import { ref, watch, effectScope, onScopeDispose } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
-import type { RouteKey } from '@elegant-router/types';
+import type { ElegantConstRoute, CustomRoute, RouteKey, LastLevelRouteKey, RouteMap } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
-import { authRoutes, constantVueRoutes, authVueRoutes } from '@/router/routes';
-import { getGlobalMenusByAuthRoutes, getAntdMenuByGlobalMenus, getCacheRouteNames } from './shared';
+import { authRoutes, constantVueRoutes, getAuthVueRoutes, ROOT_ROUTE } from '@/router/routes';
+import { getRoutePath, getRouteName } from '@/router/elegant/transform';
+import { fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
+import {
+  filterAuthRoutesByRoles,
+  getGlobalMenusByAuthRoutes,
+  transformGlobalMenusToAntdMenu,
+  getCacheRouteNames,
+  isRouteExistByRouteName
+} from './shared';
 import { useAppStore } from '../app';
+import { useAuthStore } from '../auth';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const app = useAppStore();
+  const auth = useAuthStore();
   const scope = effectScope();
-
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
   /**
@@ -28,6 +37,14 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const routeHome = ref(import.meta.env.VITE_ROUTE_HOME);
 
   /**
+   * set route home
+   * @param routeKey route key
+   */
+  function setRouteHome(routeKey: LastLevelRouteKey) {
+    routeHome.value = routeKey;
+  }
+
+  /**
    * global menus
    */
   const globalMenus = ref<App.Global.Menu[]>([]);
@@ -35,8 +52,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /**
    * get global menus
    */
-  function getGlobalMenus() {
-    globalMenus.value = getGlobalMenusByAuthRoutes(authRoutes);
+  function getGlobalMenus(routes: ElegantConstRoute[]) {
+    globalMenus.value = getGlobalMenusByAuthRoutes(routes);
+
     getAntdMenus();
   }
 
@@ -49,58 +67,130 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * get antd menus
    */
   function getAntdMenus() {
-    antdMenus.value = getAntdMenuByGlobalMenus(globalMenus.value);
+    antdMenus.value = transformGlobalMenusToAntdMenu(globalMenus.value);
   }
+
   /**
    * cache routes
    */
   const cacheRoutes = ref<RouteKey[]>([]);
 
-  function getCacheRoutes() {
-    cacheRoutes.value = getCacheRouteNames([...constantVueRoutes, ...authVueRoutes]);
+  /**
+   * get cache routes
+   * @param routes vue routes
+   */
+  function getCacheRoutes(routes: RouteRecordRaw[]) {
+    cacheRoutes.value = getCacheRouteNames([...constantVueRoutes, ...routes]);
   }
 
+  /**
+   * reset store
+   */
+  async function resetStore() {
+    const routeStore = useRouteStore();
+
+    routeStore.$reset();
+  }
+
+  /**
+   * init auth route
+   */
   async function initAuthRoute() {
     if (authRouteMode.value === 'static') {
       await initStaticAuthRoute();
     } else {
       await initDynamicAuthRoute();
     }
-    setIsInitAuthRoute(true);
   }
 
   /**
    * init static auth route
    */
   async function initStaticAuthRoute() {
-    handleRoutes(authVueRoutes);
+    const filteredAuthRoutes = filterAuthRoutesByRoles(authRoutes, auth.userInfo.roles);
+
+    handleAuthRoutes(filteredAuthRoutes);
+
+    setIsInitAuthRoute(true);
   }
 
   /**
    * init dynamic auth route
    */
   async function initDynamicAuthRoute() {
-    //
+    const {
+      data: { routes, home }
+    } = await fetchGetUserRoutes();
+
+    handleAuthRoutes(routes);
+
+    setRouteHome(home);
+
+    handleUpdateRootRouteRedirect(home);
+
+    setIsInitAuthRoute(true);
   }
 
   /**
    * handle routes
-   * @param routes
+   * @param routes auth routes
    */
-  function handleRoutes(routes: RouteRecordRaw[]) {
-    addRoutesToVueRouter(routes);
-    getGlobalMenus();
-    getCacheRoutes();
+  function handleAuthRoutes(routes: ElegantConstRoute[]) {
+    const vueRoutes = getAuthVueRoutes(routes);
+
+    addRoutesToVueRouter(vueRoutes);
+
+    getGlobalMenus(routes);
+
+    getCacheRoutes(vueRoutes);
   }
 
   /**
    * add routes to vue router
-   * @param routes
+   * @param routes vue routes
    */
   function addRoutesToVueRouter(routes: RouteRecordRaw[]) {
     routes.forEach(route => {
       router.addRoute(route);
     });
+  }
+
+  /**
+   * update root route redirect when auth route mode is dynamic
+   * @param redirectKey redirect route key
+   */
+  function handleUpdateRootRouteRedirect(redirectKey: LastLevelRouteKey) {
+    const redirect = getRoutePath(redirectKey);
+
+    if (redirect) {
+      const rootRoute: CustomRoute = { ...ROOT_ROUTE, redirect };
+
+      router.removeRoute(rootRoute.name);
+
+      const [rootVueRoute] = getAuthVueRoutes([rootRoute]);
+
+      router.addRoute(rootVueRoute);
+    }
+  }
+
+  /**
+   * get is auth route exist
+   * @param routePath route path
+   */
+  async function getIsAuthRouteExist(routePath: RouteMap[RouteKey]) {
+    const routeName = getRouteName(routePath);
+
+    if (!routeName) {
+      return false;
+    }
+
+    if (authRouteMode.value === 'static') {
+      return isRouteExistByRouteName(routeName, authRoutes);
+    }
+
+    const { data } = await fetchIsRouteExist(routeName);
+
+    return data;
   }
 
   // watch store
@@ -122,11 +212,13 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   });
 
   return {
+    resetStore,
     antdMenus,
     cacheRoutes,
     routeHome,
     initAuthRoute,
     isInitAuthRoute,
-    setIsInitAuthRoute
+    setIsInitAuthRoute,
+    getIsAuthRouteExist
   };
 });

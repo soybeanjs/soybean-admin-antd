@@ -3,11 +3,18 @@
  */
 declare namespace Common {
   /**
-   * the strategy action type
-   * - 0: the condition
-   * - 1: the action function, which will be called when the condition is true
+   * the strategic pattern
    */
-  type StrategyAction = [boolean, () => void];
+  interface StrategicPattern {
+    /**
+     * the condition
+     */
+    condition: boolean;
+    /**
+     * if the condition is true, then call the action function
+     */
+    callback: () => void;
+  }
 
   /**
    * the option type
