@@ -68,4 +68,8 @@ function handleClickMenu(menuInfo: MenuInfo) {
 .menu-wrapper :deep(.ant-menu-light) {
   background-color: rgb(var(--container-bg-color));
 }
+
+.menu-wrapper :deep(.ant-menu-item) {
+  padding-inline: calc(50% - 14px);
+}
 </style>
