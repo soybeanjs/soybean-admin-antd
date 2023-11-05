@@ -90,6 +90,8 @@ declare namespace App {
       localIcon?: string;
       children?: Menu<T>[];
     }
+
+    type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
   }
 
   /**
@@ -102,6 +104,11 @@ declare namespace App {
     type LangType = 'en' | 'zh-CN';
 
     type I18nRouteKey = Exclude<RouteKey, 'root' | 'not-found'>;
+
+    type FormMsg = {
+      required: string;
+      invalid: string;
+    };
 
     type Schema = {
       system: {
@@ -171,6 +178,13 @@ declare namespace App {
             title: string;
           };
         };
+      };
+      form: {
+        userName: FormMsg;
+        phone: FormMsg;
+        pwd: FormMsg;
+        code: FormMsg;
+        email: FormMsg;
       };
     };
 

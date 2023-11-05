@@ -11,7 +11,9 @@ const theme = useThemeStore();
 
 <template>
   <ConfigProvider :theme="theme.antdTheme">
-    <RouterView />
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
   </ConfigProvider>
 </template>
 

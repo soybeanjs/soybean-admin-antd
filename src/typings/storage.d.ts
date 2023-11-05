@@ -14,8 +14,21 @@ declare namespace StorageType {
   }
 
   interface Local {
-    token: string;
-    refreshToken: string;
+    /**
+     * the i18n language
+     */
     lang: App.I18n.LangType;
+    /**
+     * the token
+     */
+    token: string;
+    /**
+     * the refresh token
+     */
+    refreshToken: string;
+    /**
+     * the user info
+     */
+    userInfo: Api.Auth.UserInfo;
   }
 }

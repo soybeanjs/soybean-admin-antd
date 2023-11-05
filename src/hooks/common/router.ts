@@ -40,6 +40,10 @@ export function useRouterPush(inSetup = true) {
     return routerPush(routeLocation);
   }
 
+  async function toHome() {
+    return routerPushByKey('root');
+  }
+
   /**
    * navigate to login page
    * @param loginModule the login module
@@ -73,13 +77,27 @@ export function useRouterPush(inSetup = true) {
     return routerPushByKey('login', { query, params: { module } });
   }
 
+  /**
+   * redirect from login
+   */
+  async function redirectFromLogin() {
+    const redirect = route.value.query?.redirect as string;
+
+    if (redirect) {
+      routerPush(redirect);
+    } else {
+      toHome();
+    }
+  }
+
   return {
     route,
     routerPush,
     routerBack,
     routerPushByKey,
     toLogin,
-    toggleLoginModule
+    toggleLoginModule,
+    redirectFromLogin
   };
 }
 

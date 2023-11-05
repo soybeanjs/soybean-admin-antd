@@ -51,7 +51,7 @@ const local: App.I18n.Schema = {
         back: '返回',
         validateSuccess: '验证成功',
         loginSuccess: '登录成功',
-        welcomeBack: '欢迎回来，{userName}!'
+        welcomeBack: '欢迎回来，{userName} ！'
       },
       pwdLogin: {
         title: '密码登录',
@@ -81,6 +81,28 @@ const local: App.I18n.Schema = {
       bindWeChat: {
         title: '绑定微信'
       }
+    }
+  },
+  form: {
+    userName: {
+      required: '请输入用户名',
+      invalid: '用户名格式不正确'
+    },
+    phone: {
+      required: '请输入手机号',
+      invalid: '手机号格式不正确'
+    },
+    pwd: {
+      required: '请输入密码',
+      invalid: '密码格式不正确'
+    },
+    code: {
+      required: '请输入验证码',
+      invalid: '验证码格式不正确'
+    },
+    email: {
+      required: '请输入邮箱',
+      invalid: '邮箱格式不正确'
     }
   }
 };

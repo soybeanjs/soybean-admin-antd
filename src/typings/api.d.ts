@@ -12,11 +12,28 @@ declare namespace Api {
       token: string;
       refreshToken: string;
     }
+
+    interface UserInfo {
+      userId: string;
+      userName: string;
+      roles: string[];
+    }
   }
 
   /**
    * namespace Route
    * @description backend api module: "route"
    */
-  namespace Route {}
+  namespace Route {
+    type ElegantConstRoute = import('@elegant-router/types').ElegantConstRoute;
+
+    interface MenuRoute extends ElegantConstRoute {
+      id: string;
+    }
+
+    interface UserRoute {
+      routes: MenuRoute[];
+      home: import('@elegant-router/types').LastLevelRouteKey;
+    }
+  }
 }

@@ -39,12 +39,8 @@ const modules: LoginModule[] = [
 ];
 
 const activeModule = computed(() => {
-  const active: LoginModule = { ...modules[0] };
   const findItem = modules.find(item => item.key === props.module);
-  if (findItem) {
-    Object.assign(active, findItem);
-  }
-  return active;
+  return findItem || modules[0];
 });
 
 const bgThemeColor = computed(() => (theme.darkMode ? getColorPalette(theme.themeColor, 7) : theme.themeColor));

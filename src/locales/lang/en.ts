@@ -50,8 +50,8 @@ const local: App.I18n.Schema = {
         confirm: 'Confirm',
         back: 'Back',
         validateSuccess: 'Verification passed',
-        loginSuccess: 'Login success',
-        welcomeBack: 'Welcome back, {userName}!'
+        loginSuccess: 'Login successfully',
+        welcomeBack: 'Welcome back, {userName} !'
       },
       pwdLogin: {
         title: 'Password Login',
@@ -81,6 +81,28 @@ const local: App.I18n.Schema = {
       bindWeChat: {
         title: 'Bind WeChat'
       }
+    }
+  },
+  form: {
+    userName: {
+      required: 'Please enter user name',
+      invalid: 'User name format is incorrect'
+    },
+    phone: {
+      required: 'Please enter phone number',
+      invalid: 'Phone number format is incorrect'
+    },
+    pwd: {
+      required: 'Please enter password',
+      invalid: 'Password format is incorrect'
+    },
+    code: {
+      required: 'Please enter verification code',
+      invalid: 'Verification code format is incorrect'
+    },
+    email: {
+      required: 'Please enter email',
+      invalid: 'Email format is incorrect'
     }
   }
 };
