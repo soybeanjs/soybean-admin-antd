@@ -76,6 +76,8 @@ declare namespace App {
     type AntSubMenu = import('ant-design-vue/es/menu/src/interface').SubMenuType;
     type RouteKey = import('@elegant-router/types').RouteKey;
     type RouteMap = import('@elegant-router/types').RouteMap;
+    type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
+    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
 
     /**
      * the global menu
@@ -91,7 +93,58 @@ declare namespace App {
       children?: Menu<T>[];
     }
 
+    /**
+     * form rule
+     */
     type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
+
+    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
+      Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query'>>;
+
+    /**
+     * the global tab
+     */
+    type Tab<T extends LastLevelRouteKey = LastLevelRouteKey> = {
+      /**
+       * the tab id
+       */
+      id: string;
+      /**
+       * the tab label
+       */
+      label: string;
+      /**
+       * the new tab label
+       * @description if set, the tab label will be replaced by this value
+       */
+      newLabel?: string;
+      /**
+       * the tab route key
+       */
+      routeKey: T;
+      /**
+       * the tab route path
+       */
+      routePath: RouteMap[T];
+      /**
+       * the tab route full path
+       */
+      fullPath: string;
+      /**
+       * the tab fixed index
+       */
+      fixedIndex?: number;
+      /**
+       * tab icon
+       * @description iconify icon
+       */
+      icon?: string;
+      /**
+       * tab local icon
+       * @description local icon
+       */
+      localIcon?: string;
+    };
   }
 
   /**

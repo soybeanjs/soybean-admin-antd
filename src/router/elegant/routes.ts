@@ -110,6 +110,7 @@ export const generatedRoutes: GeneratedRoute[] = [
         name: 'manage_user-detail',
         path: '/manage/user-detail/:id',
         component: 'view.manage_user-detail',
+        props: true,
         meta: {
           title: 'manage_user-detail',
           i18nKey: 'route.manage_user-detail',

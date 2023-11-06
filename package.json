@@ -21,11 +21,12 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
+    "@better-scroll/core": "2.5.1",
     "@iconify/vue": "4.1.1",
     "@sa/color-palette": "workspace:*",
     "@sa/hooks": "workspace:*",
     "@sa/materials": "workspace:*",
-    "@sa/request": "workspace:^",
+    "@sa/request": "workspace:*",
     "@sa/utils": "workspace:*",
     "@vueuse/core": "10.5.0",
     "ant-design-vue": "4.0.6",

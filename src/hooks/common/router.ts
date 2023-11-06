@@ -6,7 +6,7 @@ import { router as globalRouter } from '@/router';
 /**
  * router push
  * @description jump to the specified route, it can replace function router.push
- * @param inSetup
+ * @param inSetup whether is in vue script setup
  */
 export function useRouterPush(inSetup = true) {
   const router = inSetup ? useRouter() : globalRouter;

@@ -17,10 +17,12 @@ import {
 } from './shared';
 import { useAppStore } from '../app';
 import { useAuthStore } from '../auth';
+import { useTabStore } from '../tab';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const app = useAppStore();
   const auth = useAuthStore();
+  const tab = useTabStore();
   const scope = effectScope();
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
@@ -101,6 +103,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     } else {
       await initDynamicAuthRoute();
     }
+
+    tab.initHomeTab(router);
   }
 
   /**

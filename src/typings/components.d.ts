@@ -21,6 +21,7 @@ declare module 'vue' {
     AppLoading: typeof import('./../components/common/app-loading.vue')['default']
     AppProvider: typeof import('./../components/common/app-provider.vue')['default']
     ASpace: typeof import('ant-design-vue/es')['Space']
+    BetterScroll: typeof import('./../components/custom/better-scroll.vue')['default']
     ColorSchemaSwitch: typeof import('./../components/common/color-schema-switch.vue')['default']
     DarkModeContainer: typeof import('./../components/common/dark-mode-container.vue')['default']
     ExceptionBase: typeof import('./../components/common/exception-base.vue')['default']

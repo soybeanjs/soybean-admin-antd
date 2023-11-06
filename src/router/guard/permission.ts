@@ -8,9 +8,7 @@ export function createPermissionGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
     const pass = await createAuthRouteGuard(to, from, next);
 
-    if (!pass) {
-      return;
-    }
+    if (!pass) return;
 
     // 1. route with href
     if (to.meta.href) {
