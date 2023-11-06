@@ -59,7 +59,8 @@ export function getTabByRoute(route: App.Global.TabRoute) {
     fullPath,
     fixedIndex: fixedIndexInTab,
     icon,
-    localIcon
+    localIcon,
+    i18nKey
   };
 
   return tab;
@@ -145,4 +146,25 @@ function updateTabsLabel(tabs: App.Global.Tab[]) {
     ...tab,
     label: tab.newLabel || tab.label
   }));
+}
+
+/**
+ * update tab by i18n key
+ * @param tab
+ */
+export function updateTabByI18nKey(tab: App.Global.Tab) {
+  const { i18nKey, label } = tab;
+
+  return {
+    ...tab,
+    label: i18nKey ? $t(i18nKey) : label
+  };
+}
+
+/**
+ * update tabs by i18n key
+ * @param tabs
+ */
+export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {
+  return tabs.map(tab => updateTabByI18nKey(tab));
 }

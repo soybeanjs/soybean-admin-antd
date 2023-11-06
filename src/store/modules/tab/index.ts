@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, ref, watch, effectScope, onScopeDispose } from 'vue';
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
 import { SetupStoreId } from '@/enum';
@@ -9,11 +9,16 @@ import {
   isTabInTabs,
   filterTabsById,
   getFixedTabIds,
-  filterTabsByIds
+  filterTabsByIds,
+  updateTabsByI18nKey,
+  updateTabByI18nKey
 } from './shared';
 import { useRouterPush } from '@/hooks/common/router';
+import { useAppStore } from '../app';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
+  const app = useAppStore();
+  const scope = effectScope();
   const { routerPush } = useRouterPush(false);
 
   /**
@@ -215,6 +220,35 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
 
     return fixedTabIds.includes(tabId);
   }
+
+  /**
+   * update all tabs by i18n key
+   */
+  function updateAllTabsByI18nKey() {
+    tabs.value = updateTabsByI18nKey(tabs.value);
+
+    if (homeTab.value) {
+      homeTab.value = updateTabByI18nKey(homeTab.value);
+    }
+  }
+
+  // watch store
+  scope.run(() => {
+    // update menus when locale changed
+    watch(
+      () => app.locale,
+      () => {
+        updateAllTabsByI18nKey();
+      }
+    );
+  });
+
+  /**
+   * on scope dispose
+   */
+  onScopeDispose(() => {
+    scope.stop();
+  });
 
   return {
     /**

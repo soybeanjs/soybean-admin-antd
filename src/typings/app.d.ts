@@ -144,6 +144,10 @@ declare namespace App {
        * @description local icon
        */
       localIcon?: string;
+      /**
+       * i18n key
+       */
+      i18nKey?: I18n.I18nKey;
     };
   }
 
