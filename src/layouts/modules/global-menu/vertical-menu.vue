@@ -69,7 +69,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
   background-color: rgb(var(--container-bg-color));
 }
 
-.menu-wrapper :deep(.ant-menu-item) {
+.menu-wrapper :deep(.ant-menu-inline-collapsed > .ant-menu-item) {
   padding-inline: calc(50% - 14px);
 }
 </style>
