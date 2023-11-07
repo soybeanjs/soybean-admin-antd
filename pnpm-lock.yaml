@@ -55,10 +55,10 @@ importers:
         version: 4.2.5(vue@3.3.8)
     devDependencies:
       '@elegant-router/vue':
-        specifier: 0.3.0-beta.6
-        version: 0.3.0-beta.6
+        specifier: 0.3.0
+        version: 0.3.0
       '@iconify/json':
-        specifier: ^2.2.138
+        specifier: 2.2.138
         version: 2.2.138
       '@sa/scripts':
         specifier: workspace:*
@@ -73,8 +73,8 @@ importers:
         specifier: 20.8.10
         version: 20.8.10
       '@types/nprogress':
-        specifier: 0.2.2
-        version: 0.2.2
+        specifier: 0.2.3
+        version: 0.2.3
       '@unocss/preset-icons':
         specifier: 0.57.2
         version: 0.57.2
@@ -834,8 +834,8 @@ packages:
       - '@algolia/client-search'
     dev: true
 
-  /@elegant-router/core@0.3.0-beta.6:
-    resolution: {integrity: sha512-aeuIknJx2Vsp73r9TGQi/QVZc0nKqwAfG0sCFXHfCUl1cW8bFWeUBC5pTkMcYdxGiAsj6wmnWfgBRbdcXkPULA==}
+  /@elegant-router/core@0.3.0:
+    resolution: {integrity: sha512-GFqi+9b0dbWdUklG5f8wKyT+Xnd7sOikl5y0KOQsJ6p+4qYaq/FYMc6xMWvJRtpgobz2eVAjnIKggwz2s7pD7g==}
     dependencies:
       chokidar: 3.5.3
       consola: 3.2.3
@@ -844,10 +844,10 @@ packages:
       micromatch: 4.0.5
     dev: true
 
-  /@elegant-router/vue@0.3.0-beta.6:
-    resolution: {integrity: sha512-q1mR/3mcOYBvr+2ntOFn5lYX9CE5TZQ2DU1CNDxLWp3iY6iDbibfhimAyuJiPZjA9hQelZRFo0GYROUuIIpXJg==}
+  /@elegant-router/vue@0.3.0:
+    resolution: {integrity: sha512-MuH3P+mgYi5aRLMDZJ2UKC94BxqoF3HFhxOG0N8f8rEFl4V5s41QOQPFKXVv8eqmON38g4XZ9oi02EzMdDqv4w==}
     dependencies:
-      '@elegant-router/core': 0.3.0-beta.6
+      '@elegant-router/core': 0.3.0
       consola: 3.2.3
       kolorist: 1.8.0
       magic-string: 0.30.5
@@ -1509,8 +1509,8 @@ packages:
       undici-types: 5.26.5
     dev: true
 
-  /@types/nprogress@0.2.2:
-    resolution: {integrity: sha512-2wLrSJXLztGmr7wXwM0hA/wuIOY9DznVdd+ZFofHOiXcj9JnVt+2ZeLRJ7v5ZVlmheSkUOSg3Q3O4Ce7yji79A==}
+  /@types/nprogress@0.2.3:
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==}
     dev: true
 
   /@types/semver@7.5.4:

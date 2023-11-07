@@ -39,13 +39,13 @@
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@elegant-router/vue": "0.3.0-beta.6",
+    "@elegant-router/vue": "0.3.0",
     "@iconify/json": "2.2.138",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
     "@types/lodash-es": "4.17.11",
     "@types/node": "20.8.10",
-    "@types/nprogress": "0.2.2",
+    "@types/nprogress": "0.2.3",
     "@unocss/preset-icons": "0.57.2",
     "@unocss/preset-uno": "0.57.2",
     "@unocss/transformer-directives": "0.57.2",
