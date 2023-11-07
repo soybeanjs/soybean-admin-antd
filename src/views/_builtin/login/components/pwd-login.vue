@@ -58,11 +58,11 @@ async function handleSubmit() {
       </AButton>
       <div class="flex-y-center justify-between">
         <AButton class="flex-1" block @click="toggleLoginModule('code-login')">
-          {{ loginModuleLabels['code-login'] }}
+          {{ $t(loginModuleLabels['code-login']) }}
         </AButton>
         <div class="w-12px"></div>
         <AButton class="flex-1" block @click="toggleLoginModule('register')">
-          {{ loginModuleLabels.register }}
+          {{ $t(loginModuleLabels.register) }}
         </AButton>
       </div>
     </ASpace>

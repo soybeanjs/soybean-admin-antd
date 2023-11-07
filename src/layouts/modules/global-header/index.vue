@@ -2,7 +2,6 @@
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 // import GlobalLogo from '../../components/global-logo.vue';
-import SwitchLang from './components/switch-lang.vue';
 import UserAvatar from './components/user-avatar.vue';
 
 const app = useAppStore();
@@ -19,7 +18,7 @@ defineOptions({
       <MenuToggler :collapsed="app.siderCollapse" @click="app.toggleSiderCollapse" />
     </div>
     <div class="flex justify-end h-full">
-      <SwitchLang />
+      <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
       <ColorSchemaSwitch
         :color-schema="themeStore.colorScheme"
         :is-dark="themeStore.darkMode"

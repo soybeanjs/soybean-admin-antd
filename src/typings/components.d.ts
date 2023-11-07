@@ -27,6 +27,7 @@ declare module 'vue' {
     ExceptionBase: typeof import('./../components/common/exception-base.vue')['default']
     HoverContainer: typeof import('./../components/common/hover-container.vue')['default']
     IconLocalLogo: typeof import('~icons/local/logo')['default']
+    LangSwitch: typeof import('./../components/common/lang-switch.vue')['default']
     LookForward: typeof import('./../components/custom/look-forward.vue')['default']
     MenuToggler: typeof import('./../components/custom/menu-toggler.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

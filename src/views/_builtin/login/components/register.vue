@@ -17,9 +17,14 @@ const { toggleLoginModule } = useRouterPush();
     <AFormItem>
       <AInput size="large" :placeholder="$t('page.login.common.codePlaceholder')" />
     </AFormItem>
-    <AButton block size="large" shape="round" @click="toggleLoginModule('pwd-login')">
-      {{ $t('page.login.common.back') }}
-    </AButton>
+    <ASpace direction="vertical" size="large" class="w-full">
+      <AButton type="primary" block size="large" shape="round">
+        {{ $t('common.confirm') }}
+      </AButton>
+      <AButton block size="large" shape="round" @click="toggleLoginModule('pwd-login')">
+        {{ $t('page.login.common.back') }}
+      </AButton>
+    </ASpace>
   </AForm>
 </template>
 

@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import type { Component } from 'vue';
 import { getColorPalette, mixColor } from '@sa/utils';
 import { $t } from '@/locales';
+import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import { loginModuleLabels } from '@/constants/app';
 import PwdLogin from './components/pwd-login.vue';
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   module: 'pwd-login'
 });
 
+const app = useAppStore();
 const theme = useThemeStore();
 
 interface LoginModule {
@@ -64,15 +66,18 @@ const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
         <header class="flex-y-center justify-between">
           <SystemLogo class="text-64px text-primary <sm:text-48px" />
           <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
-          <ColorSchemaSwitch
-            :color-schema="theme.colorScheme"
-            :is-dark="theme.darkMode"
-            class="text-20px <sm:text-18px"
-            @switch="theme.toggleColorScheme"
-          />
+          <div class="i-flex-vertical">
+            <ColorSchemaSwitch
+              :color-schema="theme.colorScheme"
+              :is-dark="theme.darkMode"
+              class="text-20px <sm:text-18px"
+              @switch="theme.toggleColorScheme"
+            />
+            <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
+          </div>
         </header>
         <main class="pt-24px">
-          <h3 class="text-18px text-primary font-medium">{{ activeModule.label }}</h3>
+          <h3 class="text-18px text-primary font-medium">{{ $t(activeModule.label) }}</h3>
           <div class="pt-24px animation-slide-in-left">
             <Transition :name="transitionName" mode="out-in" appear>
               <component :is="activeModule.component" />

@@ -62,15 +62,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param currentRoute current route
    */
   function initTabStore(currentRoute: App.Global.TabRoute) {
-    if (!homeTab.value) return;
-
-    const tab = getTabByRoute(currentRoute);
-
-    if (tab.id !== homeTab.value.id) {
-      tabs.value.push(tab);
-    }
-
-    setActiveTabId(tab.id);
+    addTab(currentRoute);
   }
 
   /**

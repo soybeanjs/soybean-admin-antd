@@ -8,6 +8,17 @@ import { localStg } from '@/utils/storage';
 export const useAppStore = defineStore(SetupStoreId.App, () => {
   const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
 
+  const localeOptions: App.I18n.LangOption[] = [
+    {
+      label: '中文',
+      key: 'zh-CN'
+    },
+    {
+      label: 'English',
+      key: 'en'
+    }
+  ];
+
   function changeLocale(lang: App.I18n.LangType) {
     locale.value = lang;
     setLocale(lang);
@@ -18,6 +29,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
 
   return {
     locale,
+    localeOptions,
     changeLocale,
     siderCollapse,
     toggleSiderCollapse

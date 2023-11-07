@@ -160,6 +160,11 @@ declare namespace App {
 
     type LangType = 'en' | 'zh-CN';
 
+    type LangOption = {
+      label: string;
+      key: App.I18n.LangType;
+    };
+
     type I18nRouteKey = Exclude<RouteKey, 'root' | 'not-found'>;
 
     type FormMsg = {
@@ -194,6 +199,7 @@ declare namespace App {
       page: {
         login: {
           common: {
+            loginOrRegister: string;
             userNamePlaceholder: string;
             phonePlaceholder: string;
             codePlaceholder: string;

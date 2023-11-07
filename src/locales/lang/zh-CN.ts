@@ -43,6 +43,7 @@ const local: App.I18n.Schema = {
   page: {
     login: {
       common: {
+        loginOrRegister: '登录 / 注册',
         userNamePlaceholder: '请输入用户名',
         phonePlaceholder: '请输入手机号',
         codePlaceholder: '请输入验证码',

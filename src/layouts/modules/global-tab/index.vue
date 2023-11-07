@@ -20,7 +20,7 @@ const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrap
 const bsScroll = ref<InstanceType<typeof BetterScroll>>();
 const tabRef = ref<HTMLElement>();
 
-const isChromeMode = false;
+const isChromeMode = true;
 
 const TAB_DATA_ID = 'data-tab-id';
 
@@ -96,7 +96,6 @@ init();
           <PageTab
             v-for="item in tab.tabs"
             :key="item.id"
-            mode="button"
             :[TAB_DATA_ID]="item.id"
             :dark-mode="theme.darkMode"
             :active="item.id === tab.activeTabId"

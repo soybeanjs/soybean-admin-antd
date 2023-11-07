@@ -1,12 +1,11 @@
-import { $t } from '@/locales';
 import { transformObjectToOption } from '@/utils/common';
 
-export const loginModuleLabels: Record<UnionKey.LoginModule, string> = {
-  'pwd-login': $t('page.login.pwdLogin.title'),
-  'code-login': $t('page.login.codeLogin.title'),
-  register: $t('page.login.register.title'),
-  'reset-pwd': $t('page.login.resetPwd.title'),
-  'bind-wechat': $t('page.login.bindWeChat.title')
+export const loginModuleLabels: Record<UnionKey.LoginModule, App.I18n.I18nKey> = {
+  'pwd-login': 'page.login.pwdLogin.title',
+  'code-login': 'page.login.codeLogin.title',
+  register: 'page.login.register.title',
+  'reset-pwd': 'page.login.resetPwd.title',
+  'bind-wechat': 'page.login.bindWeChat.title'
 };
 
 export const themeLayoutModeLabels: Record<UnionKey.ThemeLayoutMode, string> = {

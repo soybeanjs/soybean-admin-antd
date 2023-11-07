@@ -8,8 +8,12 @@ defineOptions({
   name: 'UserAvatar'
 });
 
-const { resetStore } = useAuthStore();
-const { routerPushByKey } = useRouterPush();
+const auth = useAuthStore();
+const { routerPushByKey, toLogin } = useRouterPush();
+
+function loginOrRegister() {
+  toLogin();
+}
 
 function logout() {
   Modal.confirm({
@@ -18,18 +22,19 @@ function logout() {
     okText: $t('common.confirm'),
     cancelText: $t('common.cancel'),
     onOk: () => {
-      resetStore();
+      auth.resetStore();
     }
   });
 }
 </script>
 
 <template>
-  <ADropdown placement="bottomRight">
+  <AButton v-if="!auth.isLogin" @click="loginOrRegister">{{ $t('page.login.common.loginOrRegister') }}</AButton>
+  <ADropdown v-else placement="bottomRight">
     <AButton type="text" class="h-full">
       <div class="flex-y-center">
         <SvgIcon icon="ph:user-circle" class="text-icon-large" />
-        <span class="pl-8px text-16px font-medium">Soybean</span>
+        <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
       </div>
     </AButton>
     <template #overlay>
