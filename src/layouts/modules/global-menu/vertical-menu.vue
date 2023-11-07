@@ -72,4 +72,8 @@ function handleClickMenu(menuInfo: MenuInfo) {
 .menu-wrapper :deep(.ant-menu-inline-collapsed > .ant-menu-item) {
   padding-inline: calc(50% - 14px);
 }
+
+.menu-wrapper :deep(.ant-menu-inline-collapsed .ant-menu-submenu-title) {
+  padding-inline: calc(50% - 14px);
+}
 </style>
