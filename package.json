@@ -34,12 +34,12 @@
     "lodash-es": "4.17.21",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
-    "vue": "3.3.7",
+    "vue": "3.3.8",
     "vue-i18n": "9.6.5",
     "vue-router": "4.2.5"
   },
   "devDependencies": {
-    "@elegant-router/vue": "0.3.0-beta.5",
+    "@elegant-router/vue": "0.3.0-beta.6",
     "@iconify-json/heroicons": "1.1.13",
     "@iconify-json/ic": "1.1.14",
     "@iconify-json/icon-park-outline": "1.1.12",
@@ -50,7 +50,7 @@
     "@iconify-json/tabler": "1.1.96",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
-    "@types/lodash-es": "4.17.10",
+    "@types/lodash-es": "4.17.11",
     "@types/node": "20.8.10",
     "@types/nprogress": "0.2.2",
     "@unocss/preset-icons": "0.57.2",

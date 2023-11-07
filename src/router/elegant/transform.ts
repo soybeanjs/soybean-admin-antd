@@ -72,6 +72,11 @@ function transformElegantRouteToVueRoute(
 
   const vueRoutes: RouteRecordRaw[] = [];
 
+  // add props: true to route
+  if (route.path.includes(':') && !route.props) {
+    route.props = true;
+  }
+
   const { name, path, component, children, ...rest } = route;
 
   const vueRoute = { name, path, ...rest } as RouteRecordRaw;
@@ -161,8 +166,8 @@ const routeMap: RouteMap = {
  * get route path by route name
  * @param name route name
  */
-export function getRoutePath(name: RouteKey) {
-  return routeMap[name] || null;
+export function getRoutePath<T extends RouteKey>(name: T) {
+  return routeMap[name];
 }
 
 /**

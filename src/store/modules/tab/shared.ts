@@ -72,7 +72,7 @@ export function getTabByRoute(route: App.Global.TabRoute) {
  */
 export function getDefaultHomeTab(router: Router) {
   const homeRouteName = import.meta.env.VITE_ROUTE_HOME;
-  const homeRoutePath = getRoutePath(homeRouteName) as RouteMap[LastLevelRouteKey];
+  const homeRoutePath = getRoutePath(homeRouteName);
   const i18nLabel = $t(`route.${homeRouteName}`);
 
   let homeTab: App.Global.Tab = {
