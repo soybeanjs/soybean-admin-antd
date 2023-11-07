@@ -76,11 +76,11 @@ function getContextMenuDisabledKeys(tabId: string) {
     disabledKeys.push('closeCurrent');
   }
 
-  if (tabId !== tab.activeTabId) {
-    disabledKeys.push('reloadCurrent');
-  }
-
   return disabledKeys;
+}
+
+async function refresh() {
+  app.reloadPage(750);
 }
 
 function init() {
@@ -138,11 +138,7 @@ init();
         </div>
       </BetterScroll>
     </div>
-    <ContextMenu :tab-id="tab.activeTabId" :trigger="['hover']">
-      <AButton type="text" class="h-full text-icon">
-        <SvgIcon icon="icon-park-outline:drop-down-list" />
-      </AButton>
-    </ContextMenu>
+    <ReloadButton :loading="!app.reloadFlag" @click="refresh" />
     <FullScreen :full="app.fullContent" @click="app.toggleFullContent" />
   </DarkModeContainer>
 </template>

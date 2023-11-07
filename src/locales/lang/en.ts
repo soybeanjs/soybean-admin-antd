@@ -112,7 +112,6 @@ const local: App.I18n.Schema = {
     }
   },
   dropdown: {
-    reloadCurrent: 'Reload Current',
     closeCurrent: 'Close Current',
     closeOther: 'Close Other',
     closeLeft: 'Close Left',

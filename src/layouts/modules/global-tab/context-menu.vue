@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import type { Trigger } from 'ant-design-vue/es/dropdown/props';
 import { $t } from '@/locales';
-import { useAppStore } from '@/store/modules/app';
 import { useTabStore } from '@/store/modules/tab';
 
 defineOptions({
@@ -22,7 +21,6 @@ const props = withDefaults(defineProps<Props>(), {
   disabledKeys: () => []
 });
 
-const app = useAppStore();
 const tab = useTabStore();
 
 interface DropdownOption {
@@ -34,11 +32,6 @@ interface DropdownOption {
 
 const options = computed(() => {
   const opts: DropdownOption[] = [
-    {
-      key: 'reloadCurrent',
-      label: $t('dropdown.reloadCurrent'),
-      icon: 'ant-design:reload-outlined'
-    },
     {
       key: 'closeCurrent',
       label: $t('dropdown.closeCurrent'),
@@ -81,9 +74,6 @@ const options = computed(() => {
 });
 
 const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
-  reloadCurrent() {
-    app.reloadPage();
-  },
   closeCurrent() {
     tab.removeTab(props.tabId);
   },

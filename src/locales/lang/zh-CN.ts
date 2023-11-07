@@ -112,7 +112,6 @@ const local: App.I18n.Schema = {
     }
   },
   dropdown: {
-    reloadCurrent: '刷新',
     closeCurrent: '关闭',
     closeOther: '关闭其它',
     closeLeft: '关闭左侧',

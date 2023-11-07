@@ -153,7 +153,7 @@ declare namespace App {
     /**
      * the global dropdown key
      */
-    type DropdownKey = 'reloadCurrent' | 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
+    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
   }
 
   /**
