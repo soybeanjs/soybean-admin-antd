@@ -15,7 +15,7 @@ const app = useAppStore();
 </script>
 
 <template>
-  <AdminLayout :sider-collapse="app.siderCollapse">
+  <AdminLayout :sider-collapse="app.siderCollapse" :full-content="app.fullContent">
     <template #header>
       <GlobalHeader />
     </template>

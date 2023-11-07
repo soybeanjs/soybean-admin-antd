@@ -6,7 +6,7 @@
     <slot></slot>
     <template #suffix>
       <slot name="suffix">
-        <IconClose v-if="closable" :class="[style['icon_close']]" @click="handleClose" />
+        <SvgIconClose v-if="closable" :class="[style['icon_close']]" @click="handleClose" />
       </slot>
     </template>
   </component>
@@ -18,7 +18,7 @@ import type { Component } from 'vue';
 import { createTabCssVars, ACTIVE_COLOR } from './shared';
 import ChromeTab from './chrome-tab.vue';
 import ButtonTab from './button-tab.vue';
-import IconClose from './icon-close.vue';
+import SvgIconClose from './icon-close.vue';
 import style from './index.module.css';
 import type { PageTabProps, PageTabMode } from '../../types';
 

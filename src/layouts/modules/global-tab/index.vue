@@ -6,11 +6,14 @@ import { PageTab } from '@sa/materials';
 import BetterScroll from '@/components/custom/better-scroll.vue';
 import { useTabStore } from '@/store/modules/tab';
 import { useThemeStore } from '@/store/modules/theme';
+import ContextMenu from './context-menu.vue';
+import { useAppStore } from '@/store/modules/app';
 
 defineOptions({
   name: 'GlobalTab'
 });
 
+const app = useAppStore();
 const route = useRoute();
 const theme = useThemeStore();
 const tab = useTabStore();
@@ -66,6 +69,20 @@ function scrollByClientX(clientX: number) {
   }
 }
 
+function getContextMenuDisabledKeys(tabId: string) {
+  const disabledKeys: App.Global.DropdownKey[] = [];
+
+  if (tab.isTabRetain(tabId)) {
+    disabledKeys.push('closeCurrent');
+  }
+
+  if (tabId !== tab.activeTabId) {
+    disabledKeys.push('reloadCurrent');
+  }
+
+  return disabledKeys;
+}
+
 function init() {
   tab.initTabStore(route);
 }
@@ -89,33 +106,44 @@ init();
 </script>
 
 <template>
-  <DarkModeContainer class="flex-y-center wh-full pl-16px shadow-tab">
+  <DarkModeContainer class="flex-y-center wh-full px-16px shadow-tab">
     <div ref="bsWrapper" class="flex-1-hidden h-full">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false }">
         <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
-          <PageTab
+          <ContextMenu
             v-for="item in tab.tabs"
             :key="item.id"
-            :[TAB_DATA_ID]="item.id"
-            :dark-mode="theme.darkMode"
-            :active="item.id === tab.activeTabId"
-            :active-color="theme.themeColor"
-            :closable="!tab.isTabRetain(item.id)"
-            @click="tab.switchRouteByTab(item)"
-            @close="tab.removeTab(item.id)"
+            :tab-id="item.id"
+            :disabled-keys="getContextMenuDisabledKeys(item.id)"
           >
-            <template #prefix>
-              <SvgIcon
-                :icon="item.icon"
-                :local-icon="item.localIcon"
-                class="inline-block align-text-bottom text-16px"
-              />
-            </template>
-            {{ item.label }}
-          </PageTab>
+            <PageTab
+              :[TAB_DATA_ID]="item.id"
+              :dark-mode="theme.darkMode"
+              :active="item.id === tab.activeTabId"
+              :active-color="theme.themeColor"
+              :closable="!tab.isTabRetain(item.id)"
+              @click="tab.switchRouteByTab(item)"
+              @close="tab.removeTab(item.id)"
+            >
+              <template #prefix>
+                <SvgIcon
+                  :icon="item.icon"
+                  :local-icon="item.localIcon"
+                  class="inline-block align-text-bottom text-16px"
+                />
+              </template>
+              {{ item.label }}
+            </PageTab>
+          </ContextMenu>
         </div>
       </BetterScroll>
     </div>
+    <ContextMenu :tab-id="tab.activeTabId" :trigger="['hover']">
+      <AButton type="text" class="h-full text-icon">
+        <SvgIcon icon="icon-park-outline:drop-down-list" />
+      </AButton>
+    </ContextMenu>
+    <FullScreen :full="app.fullContent" @click="app.toggleFullContent" />
   </DarkModeContainer>
 </template>
 

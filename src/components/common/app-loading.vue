@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getRgbOfColor } from '@sa/utils';
-import { sessionStg } from '@/utils/storage';
 import { $t } from '@/locales';
+import { sessionStg } from '@/utils/storage';
 
 const loadingClasses = [
   'left-0 top-0',

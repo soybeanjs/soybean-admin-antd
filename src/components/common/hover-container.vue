@@ -3,7 +3,7 @@ defineOptions({ name: 'HoverContainer' });
 </script>
 
 <template>
-  <div class="bg-container text-base_text transition-all-300">
+  <div class="bg-container text-base_text transition-300">
     <slot></slot>
   </div>
 </template>

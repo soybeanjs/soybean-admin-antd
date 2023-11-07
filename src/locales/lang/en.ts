@@ -107,6 +107,14 @@ const local: App.I18n.Schema = {
       required: 'Please enter email',
       invalid: 'Email format is incorrect'
     }
+  },
+  dropdown: {
+    reloadCurrent: 'Reload Current',
+    closeCurrent: 'Close Current',
+    closeOther: 'Close Other',
+    closeLeft: 'Close Left',
+    closeRight: 'Close Right',
+    closeAll: 'Close All'
   }
 };
 

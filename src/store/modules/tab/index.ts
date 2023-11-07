@@ -113,8 +113,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * clear tabs
    * @param excludes exclude tab ids
    */
-  async function clearTabs(excludes: string[]) {
-    const remainTabIds = [...getFixedTabIds(tabs.value), excludes];
+  async function clearTabs(excludes: string[] = []) {
+    const remainTabIds = [...getFixedTabIds(tabs.value), ...excludes];
     const removedTabsIds = tabs.value.map(tab => tab.id).filter(id => !remainTabIds.includes(id));
 
     const isRemoveActiveTab = removedTabsIds.includes(activeTabId.value);

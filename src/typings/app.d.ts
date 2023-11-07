@@ -149,6 +149,11 @@ declare namespace App {
        */
       i18nKey?: I18n.I18nKey;
     };
+
+    /**
+     * the global dropdown key
+     */
+    type DropdownKey = 'reloadCurrent' | 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
   }
 
   /**
@@ -249,6 +254,7 @@ declare namespace App {
         code: FormMsg;
         email: FormMsg;
       };
+      dropdown: Record<Global.DropdownKey, string>;
     };
 
     type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string

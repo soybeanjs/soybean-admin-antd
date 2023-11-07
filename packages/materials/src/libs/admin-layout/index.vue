@@ -28,13 +28,12 @@
       <!-- Tab -->
       <template v-if="showTab">
         <div
-          v-show="!fullContent"
           :class="[
             style['layout-tab'],
             'flex-shrink-0',
             commonClass,
             tabClass,
-            { 'top-0!': !showHeader },
+            { 'top-0!': fullContent || !showHeader },
             leftGapClass,
             { 'absolute left-0 w-full': fixedHeaderAndTab }
           ]"
@@ -42,7 +41,7 @@
           <slot name="tab"></slot>
         </div>
         <div
-          v-show="!fullContent && fixedHeaderAndTab"
+          v-show="fullContent || fixedHeaderAndTab"
           :class="[style['layout-tab-placement'], 'flex-shrink-0 overflow-hidden']"
         ></div>
       </template>

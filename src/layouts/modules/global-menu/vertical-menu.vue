@@ -61,12 +61,11 @@ function handleClickMenu(menuInfo: MenuInfo) {
 
 <style scoped>
 .menu-wrapper :deep(.ant-menu) {
-  border-inline: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --at-apply: border-inline-none transition-300;
 }
 
 .menu-wrapper :deep(.ant-menu-light) {
-  background-color: rgb(var(--container-bg-color));
+  --at-apply: bg-container;
 }
 
 .menu-wrapper :deep(.ant-menu-inline-collapsed > .ant-menu-item) {

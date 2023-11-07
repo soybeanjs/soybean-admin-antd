@@ -107,6 +107,14 @@ const local: App.I18n.Schema = {
       required: '请输入邮箱',
       invalid: '邮箱格式不正确'
     }
+  },
+  dropdown: {
+    reloadCurrent: '刷新',
+    closeCurrent: '关闭',
+    closeOther: '关闭其它',
+    closeLeft: '关闭左侧',
+    closeRight: '关闭右侧',
+    closeAll: '关闭所有'
   }
 };
 

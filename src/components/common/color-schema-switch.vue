@@ -35,4 +35,4 @@ const icon = computed(() => icons[props.colorSchema]);
   </AButton>
 </template>
 
-<style></style>
+<style scoped></style>

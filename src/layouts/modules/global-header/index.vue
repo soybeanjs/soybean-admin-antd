@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 // import GlobalLogo from '../../components/global-logo.vue';
@@ -6,6 +7,7 @@ import UserAvatar from './components/user-avatar.vue';
 
 const app = useAppStore();
 const themeStore = useThemeStore();
+const { isFullscreen, toggle } = useFullscreen();
 
 defineOptions({
   name: 'GlobalHeader'
@@ -18,6 +20,7 @@ defineOptions({
       <MenuToggler :collapsed="app.siderCollapse" @click="app.toggleSiderCollapse" />
     </div>
     <div class="flex justify-end h-full">
+      <FullScreen :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
       <ColorSchemaSwitch
         :color-schema="themeStore.colorScheme"
