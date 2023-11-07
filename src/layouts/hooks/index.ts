@@ -13,7 +13,7 @@ export function useLayout() {
     isMobile,
     newValue => {
       if (newValue) {
-        app.toggleSiderCollapse();
+        app.setSiderCollapse(true);
       }
     },
     { immediate: true }

@@ -9,7 +9,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
-  const { bool: siderCollapse, toggle: toggleSiderCollapse } = useBoolean();
+  const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
 
   /**
    * reload page
@@ -57,6 +57,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     fullContent,
     toggleFullContent,
     siderCollapse,
+    setSiderCollapse,
     toggleSiderCollapse,
     locale,
     localeOptions,

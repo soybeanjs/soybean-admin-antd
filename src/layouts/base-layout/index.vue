@@ -23,7 +23,7 @@ const { isMobile } = useLayout();
     :is-mobile="isMobile"
     :sider-collapse="app.siderCollapse"
     :full-content="app.fullContent"
-    @click-mobile-sider-mask="app.toggleSiderCollapse"
+    @click-mobile-sider-mask="app.setSiderCollapse(true)"
   >
     <template #header>
       <GlobalHeader />
