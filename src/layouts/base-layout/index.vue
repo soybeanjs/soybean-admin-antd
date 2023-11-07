@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { watch } from 'vue';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { AdminLayout } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
 import GlobalHeader from '../modules/global-header/index.vue';
@@ -9,6 +7,7 @@ import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
+import { useLayout } from '../hooks';
 
 defineOptions({
   name: 'BaseLayout'
@@ -16,18 +15,7 @@ defineOptions({
 
 const app = useAppStore();
 
-const breakpoints = useBreakpoints(breakpointsTailwind);
-const isMobile = breakpoints.smaller('sm');
-
-watch(
-  isMobile,
-  newValue => {
-    if (newValue) {
-      app.toggleSiderCollapse();
-    }
-  },
-  { immediate: true }
-);
+const { isMobile } = useLayout();
 </script>
 
 <template>

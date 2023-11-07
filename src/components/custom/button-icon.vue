@@ -22,18 +22,29 @@ interface Props {
    * tooltip placement
    */
   tooltipPlacement?: TooltipPlacement;
+  /**
+   * get popup container
+   * @param triggerNode
+   */
+  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
 }
 
 withDefaults(defineProps<Props>(), {
   cls: 'h-full text-icon',
   icon: '',
   tooltipContent: '',
-  tooltipPlacement: 'bottom'
+  tooltipPlacement: 'bottom',
+  getPopupContainer: () => document.body
 });
 </script>
 
 <template>
-  <ATooltip v-if="tooltipContent" :placement="tooltipPlacement" :title="tooltipContent">
+  <ATooltip
+    v-if="tooltipContent"
+    :placement="tooltipPlacement"
+    :get-popup-container="getPopupContainer"
+    :title="tooltipContent"
+  >
     <AButton type="text" :class="cls">
       <slot>
         <SvgIcon :icon="icon" />
