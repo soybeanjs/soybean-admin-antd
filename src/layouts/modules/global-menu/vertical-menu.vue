@@ -27,11 +27,11 @@ const selectedKeys = computed(() => {
 });
 
 const openKeys = computed(() => {
+  if (app.siderCollapse) return [];
+
   const [selectedKey] = selectedKeys.value;
 
-  if (!selectedKey) {
-    return [];
-  }
+  if (!selectedKey) return [];
 
   return getSelectedMenuKeyPath(selectedKey, routeStore.antdMenus);
 });
