@@ -6,6 +6,7 @@ import GlobalSider from '../modules/global-sider/index.vue';
 import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
+import ThemeDrawer from '../modules/theme-drawer/index.vue';
 
 defineOptions({
   name: 'BaseLayout'
@@ -26,6 +27,7 @@ const app = useAppStore();
       <GlobalSider />
     </template>
     <GlobalContent />
+    <ThemeDrawer />
     <template #footer>
       <GlobalFooter />
     </template>

@@ -3,6 +3,7 @@ import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 // import GlobalLogo from '../../components/global-logo.vue';
+import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
 
 const app = useAppStore();
@@ -27,6 +28,7 @@ defineOptions({
         :is-dark="themeStore.darkMode"
         @switch="themeStore.toggleColorScheme"
       />
+      <ThemeButton />
       <UserAvatar />
     </div>
   </DarkModeContainer>

@@ -6,6 +6,7 @@ import { setLocale } from '@/locales';
 import { localStg } from '@/utils/storage';
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
+  const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
   const { bool: siderCollapse, toggle: toggleSiderCollapse } = useBoolean();
@@ -48,6 +49,9 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   }
 
   return {
+    themeDrawerVisible,
+    openThemeDrawer,
+    closeThemeDrawer,
     reloadFlag,
     reloadPage,
     fullContent,

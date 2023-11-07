@@ -21,6 +21,9 @@ const local: App.I18n.Schema = {
     logout: '退出登录',
     logoutConfirm: '确认退出登录吗？'
   },
+  themeDrawer: {
+    title: '主题配置'
+  },
   route: {
     login: '登录',
     403: '无权限',

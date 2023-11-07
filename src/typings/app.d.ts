@@ -200,6 +200,9 @@ declare namespace App {
         logout: string;
         logoutConfirm: string;
       };
+      themeDrawer: {
+        title: string;
+      };
       route: Record<I18nRouteKey, string>;
       page: {
         login: {

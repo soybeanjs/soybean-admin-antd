@@ -21,6 +21,9 @@ const local: App.I18n.Schema = {
     logout: 'Logout',
     logoutConfirm: 'Are you sure you want to log out?'
   },
+  themeDrawer: {
+    title: 'Theme Configuration'
+  },
   route: {
     login: 'Login',
     403: 'No Permission',
