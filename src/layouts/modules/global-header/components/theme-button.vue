@@ -13,6 +13,7 @@ const app = useAppStore();
   <ButtonIcon
     icon="majesticons:color-swatch-line"
     :tooltip-content="$t('icon.themeConfig')"
+    trigger-parent
     @click="app.openThemeDrawer"
   />
 </template>

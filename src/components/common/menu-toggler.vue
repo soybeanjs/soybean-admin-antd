@@ -8,17 +8,13 @@ interface Props {
 }
 
 defineProps<Props>();
-
-function getPopupContainer(triggerNode: HTMLElement) {
-  return triggerNode.parentElement!;
-}
 </script>
 
 <template>
   <ButtonIcon
     :tooltip-content="collapsed ? $t('icon.expand') : $t('icon.collapse')"
     tooltip-placement="right"
-    :get-popup-container="getPopupContainer"
+    trigger-parent
   >
     <SvgIcon v-if="collapsed" icon="line-md:menu-fold-right" />
     <SvgIcon v-else icon="line-md:menu-fold-left" />

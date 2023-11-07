@@ -23,19 +23,22 @@ interface Props {
    */
   tooltipPlacement?: TooltipPlacement;
   /**
-   * get popup container
-   * @param triggerNode
+   * trigger tooltip on parent
    */
-  getPopupContainer?: (triggerNode: HTMLElement) => HTMLElement;
+  triggerParent?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   cls: 'h-full text-icon',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
   getPopupContainer: () => document.body
 });
+
+function getPopupContainer(triggerNode: HTMLElement) {
+  return props.triggerParent ? triggerNode.parentElement! : document.body;
+}
 </script>
 
 <template>

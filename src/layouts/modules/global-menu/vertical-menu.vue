@@ -48,10 +48,10 @@ function handleClickMenu(menuInfo: MenuInfo) {
     <div class="h-full overflow-y-auto">
       <AMenu
         mode="inline"
-        :inline-collapsed="app.siderCollapse"
         :items="routeStore.antdMenus"
         :selected-keys="selectedKeys"
         :open-keys="openKeys"
+        :inline-collapsed="app.siderCollapse"
         class="menu w-full"
         @click="handleClickMenu"
       />
