@@ -117,6 +117,16 @@ const local: App.I18n.Schema = {
     closeLeft: 'Close Left',
     closeRight: 'Close Right',
     closeAll: 'Close All'
+  },
+  icon: {
+    themeConfig: 'Theme Configuration',
+    themeSchema: 'Theme Schema',
+    lang: 'Switch Language',
+    fullscreen: 'Fullscreen',
+    fullscreenExit: 'Exit Fullscreen',
+    reload: 'Reload Page',
+    collapse: 'Collapse Menu',
+    expand: 'Expand Menu'
   }
 };
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { $t } from '@/locales';
 
 defineOptions({ name: 'ColorSchemaSwitch' });
 
@@ -30,9 +31,7 @@ const icon = computed(() => icons[props.colorSchema]);
 </script>
 
 <template>
-  <AButton type="text" class="h-full text-icon" @click="handleSwitch">
-    <SvgIcon :icon="icon" />
-  </AButton>
+  <ButtonIcon :icon="icon" :tooltip-content="$t('icon.themeSchema')" @click="handleSwitch" />
 </template>
 
 <style scoped></style>

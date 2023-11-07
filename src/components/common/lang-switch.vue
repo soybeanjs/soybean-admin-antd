@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { $t } from '@/locales';
+
 defineOptions({
   name: 'LangSwitch'
 });
@@ -23,11 +25,9 @@ function changeLang(lang: App.I18n.LangType) {
 
 <template>
   <ADropdown placement="bottom">
-    <AButton type="text" class="h-full">
-      <div class="flex-y-center">
-        <SvgIcon icon="heroicons:language" class="text-icon" />
-      </div>
-    </AButton>
+    <ButtonIcon :tooltip-content="$t('icon.lang')" tooltip-placement="left">
+      <SvgIcon icon="heroicons:language" />
+    </ButtonIcon>
     <template #overlay>
       <AMenu :selected-keys="[lang]">
         <AMenuItem v-for="option in langOptions" :key="option.key" @click="changeLang(option.key)">

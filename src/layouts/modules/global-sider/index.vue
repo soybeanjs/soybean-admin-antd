@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store/modules/app';
-import GlobalLogo from '../../components/global-logo.vue';
+import GlobalLogo from '../global-logo/index.vue';
 import VerticalMenu from '../global-menu/vertical-menu.vue';
 
 defineOptions({

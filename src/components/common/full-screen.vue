@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { $t } from '@/locales';
+
 defineOptions({
   name: 'FullScreen'
 });
@@ -11,10 +13,10 @@ defineProps<Props>();
 </script>
 
 <template>
-  <AButton type="text" class="h-full text-icon">
+  <ButtonIcon :tooltip-content="full ? $t('icon.fullscreenExit') : $t('icon.fullscreen')">
     <icon-gridicons-fullscreen-exit v-if="full" />
     <icon-gridicons-fullscreen v-else />
-  </AButton>
+  </ButtonIcon>
 </template>
 
 <style scoped></style>

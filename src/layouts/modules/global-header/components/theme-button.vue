@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store/modules/app';
+import { $t } from '@/locales';
 
 defineOptions({
   name: 'ThemeButton'
@@ -9,9 +10,11 @@ const app = useAppStore();
 </script>
 
 <template>
-  <AButton type="text" class="h-full text-icon" @click="app.openThemeDrawer">
-    <icon-majesticons:color-swatch-line />
-  </AButton>
+  <ButtonIcon
+    icon="majesticons:color-swatch-line"
+    :tooltip-content="$t('icon.themeConfig')"
+    @click="app.openThemeDrawer"
+  />
 </template>
 
 <style scoped></style>

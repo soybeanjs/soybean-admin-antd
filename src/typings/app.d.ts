@@ -258,6 +258,16 @@ declare namespace App {
         email: FormMsg;
       };
       dropdown: Record<Global.DropdownKey, string>;
+      icon: {
+        themeConfig: string;
+        themeSchema: string;
+        lang: string;
+        fullscreen: string;
+        fullscreenExit: string;
+        reload: string;
+        collapse: string;
+        expand: string;
+      };
     };
 
     type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string
