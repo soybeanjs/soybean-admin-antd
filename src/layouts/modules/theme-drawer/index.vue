@@ -15,7 +15,11 @@ const app = useAppStore();
     :title="$t('themeDrawer.title')"
     :closable="false"
     @close="app.closeThemeDrawer"
-  ></ADrawer>
+  >
+    <template #extra>
+      <AButton @click="app.closeThemeDrawer">{{ $t('common.cancel') }}</AButton>
+    </template>
+  </ADrawer>
 </template>
 
 <style scoped></style>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { watch } from 'vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { AdminLayout } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
 import GlobalHeader from '../modules/global-header/index.vue';
@@ -13,10 +15,28 @@ defineOptions({
 });
 
 const app = useAppStore();
+
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isMobile = breakpoints.smaller('sm');
+
+watch(
+  isMobile,
+  newValue => {
+    if (newValue) {
+      app.toggleSiderCollapse();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <template>
-  <AdminLayout :sider-collapse="app.siderCollapse" :full-content="app.fullContent">
+  <AdminLayout
+    :is-mobile="isMobile"
+    :sider-collapse="app.siderCollapse"
+    :full-content="app.fullContent"
+    @click-mobile-sider-mask="app.toggleSiderCollapse"
+  >
     <template #header>
       <GlobalHeader />
     </template>

@@ -108,7 +108,7 @@ init();
 <template>
   <DarkModeContainer class="flex-y-center wh-full px-16px shadow-tab">
     <div ref="bsWrapper" class="flex-1-hidden h-full">
-      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false }">
+      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: true }">
         <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
           <ContextMenu
             v-for="item in tab.tabs"
