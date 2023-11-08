@@ -1,14 +1,3 @@
-<template>
-  <template v-if="renderLocalIcon">
-    <svg aria-hidden="true" width="1em" height="1em" v-bind="bindAttrs">
-      <use :xlink:href="symbolId" fill="currentColor" />
-    </svg>
-  </template>
-  <template v-else>
-    <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" />
-  </template>
-</template>
-
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
 import { Icon } from '@iconify/vue';
@@ -55,5 +44,16 @@ const symbolId = computed(() => {
  */
 const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 </script>
+
+<template>
+  <template v-if="renderLocalIcon">
+    <svg aria-hidden="true" width="1em" height="1em" v-bind="bindAttrs">
+      <use :xlink:href="symbolId" fill="currentColor" />
+    </svg>
+  </template>
+  <template v-else>
+    <Icon v-if="icon" :icon="icon" v-bind="bindAttrs" />
+  </template>
+</template>
 
 <style scoped></style>

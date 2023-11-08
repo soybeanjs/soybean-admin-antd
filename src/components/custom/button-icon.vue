@@ -29,7 +29,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  cls: 'h-full text-icon',
+  cls: 'h-40px text-icon',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
@@ -49,15 +49,19 @@ function getPopupContainer(triggerNode: HTMLElement) {
     :title="tooltipContent"
   >
     <AButton type="text" :class="cls">
-      <slot>
-        <SvgIcon :icon="icon" />
-      </slot>
+      <div class="flex-center gap-8px">
+        <slot>
+          <SvgIcon :icon="icon" />
+        </slot>
+      </div>
     </AButton>
   </ATooltip>
   <AButton v-else type="text" :class="cls">
-    <slot>
-      <SvgIcon :icon="icon" />
-    </slot>
+    <div class="flex-center gap-8px">
+      <slot>
+        <SvgIcon :icon="icon" />
+      </slot>
+    </div>
   </AButton>
 </template>
 

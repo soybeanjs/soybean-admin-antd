@@ -30,26 +30,24 @@ function logout() {
 
 <template>
   <AButton v-if="!auth.isLogin" @click="loginOrRegister">{{ $t('page.login.common.loginOrRegister') }}</AButton>
-  <ADropdown v-else placement="bottomRight">
-    <AButton type="text" class="h-full">
-      <div class="flex-y-center">
-        <SvgIcon icon="ph:user-circle" class="text-icon-large" />
-        <span class="pl-8px text-16px font-medium">{{ auth.userInfo.userName }}</span>
-      </div>
-    </AButton>
+  <ADropdown v-else placement="bottomRight" trigger="click">
+    <ButtonIcon>
+      <SvgIcon icon="ph:user-circle" class="text-icon-large" />
+      <span class="text-16px font-medium">{{ auth.userInfo.userName }}</span>
+    </ButtonIcon>
     <template #overlay>
       <AMenu>
         <AMenuItem @click="routerPushByKey('user-center')">
-          <div class="flex-y-center">
+          <div class="flex-center gap-8px">
             <SvgIcon icon="ph:user-circle" class="text-icon" />
-            <span class="pl-8px">{{ $t('common.userCenter') }}</span>
+            {{ $t('common.userCenter') }}
           </div>
         </AMenuItem>
         <AMenuDivider />
         <AMenuItem @click="logout">
-          <div class="flex-y-center">
+          <div class="flex-center gap-8px">
             <SvgIcon icon="ph:sign-out" class="text-icon" />
-            <span class="pl-8px">{{ $t('common.logout') }}</span>
+            {{ $t('common.logout') }}
           </div>
         </AMenuItem>
       </AMenu>

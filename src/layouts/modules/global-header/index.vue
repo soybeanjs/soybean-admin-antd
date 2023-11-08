@@ -20,7 +20,7 @@ defineOptions({
     <div class="flex-1-hidden flex-y-center h-full">
       <MenuToggler :collapsed="app.siderCollapse" @click="app.toggleSiderCollapse" />
     </div>
-    <div class="flex justify-end h-full">
+    <div class="flex-y-center justify-end h-full">
       <FullScreen :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
       <ColorSchemaSwitch
