@@ -7,20 +7,17 @@ import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
-import { useLayout } from '../hooks';
 
 defineOptions({
   name: 'BaseLayout'
 });
 
 const app = useAppStore();
-
-const { isMobile } = useLayout();
 </script>
 
 <template>
   <AdminLayout
-    :is-mobile="isMobile"
+    :is-mobile="app.isMobile"
     :sider-collapse="app.siderCollapse"
     :full-content="app.fullContent"
     @click-mobile-sider-mask="app.setSiderCollapse(true)"

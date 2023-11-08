@@ -1,11 +1,13 @@
-import { ref, nextTick } from 'vue';
+import { ref, watch, nextTick, effectScope, onScopeDispose } from 'vue';
 import { defineStore } from 'pinia';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { setLocale } from '@/locales';
 import { localStg } from '@/utils/storage';
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
+  const scope = effectScope();
   const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
@@ -48,6 +50,30 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     localStg.set('lang', lang);
   }
 
+  const breakpoints = useBreakpoints(breakpointsTailwind);
+
+  const isMobile = breakpoints.smaller('sm');
+
+  // watch store
+  scope.run(() => {
+    watch(
+      isMobile,
+      newValue => {
+        if (newValue) {
+          setSiderCollapse(true);
+        }
+      },
+      { immediate: true }
+    );
+  });
+
+  /**
+   * on scope dispose
+   */
+  onScopeDispose(() => {
+    scope.stop();
+  });
+
   return {
     themeDrawerVisible,
     openThemeDrawer,
@@ -61,6 +87,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     toggleSiderCollapse,
     locale,
     localeOptions,
-    changeLocale
+    changeLocale,
+    isMobile
   };
 });
