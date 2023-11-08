@@ -1,4 +1,4 @@
-import { ref, watch, nextTick, effectScope, onScopeDispose } from 'vue';
+import { ref, watch, effectScope, onScopeDispose } from 'vue';
 import { defineStore } from 'pinia';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
@@ -19,8 +19,6 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
    */
   async function reloadPage(duration = 0) {
     setReloadFlag(false);
-
-    await nextTick();
 
     if (duration > 0) {
       await new Promise(resolve => {

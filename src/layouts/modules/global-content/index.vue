@@ -21,14 +21,20 @@ const app = useAppStore();
 
 <template>
   <RouterView v-slot="{ Component, route }">
-    <component
-      :is="Component"
-      v-if="app.reloadFlag"
-      :key="route.path"
-      :class="{ 'p-16px': showPadding }"
-      class="flex-grow bg-layout transition-300"
-    />
+    <Transition
+      enter-active-class="animate-fade-in animate-duration-750"
+      leave-active-class="animate-fade-out animate-duration-750"
+      mode="out-in"
+    >
+      <component
+        :is="Component"
+        v-if="app.reloadFlag"
+        :key="route.path"
+        :class="{ 'p-16px': showPadding }"
+        class="flex-grow bg-layout transition-300"
+      />
+    </Transition>
   </RouterView>
 </template>
 
-<style scoped></style>
+<style></style>

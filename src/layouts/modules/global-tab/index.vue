@@ -80,7 +80,7 @@ function getContextMenuDisabledKeys(tabId: string) {
 }
 
 async function refresh() {
-  app.reloadPage(750);
+  app.reloadPage(500);
 }
 
 function init() {
