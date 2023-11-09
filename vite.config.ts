@@ -21,9 +21,12 @@ export default defineConfig(configEnv => {
       open: true,
       proxy: createViteProxy(viteEnv)
     },
+    preview: {
+      port: 9725
+    },
     build: {
       reportCompressedSize: false,
-      sourcemap: true,
+      sourcemap: viteEnv.VITE_SOURCE_MAP === 'Y',
       commonjsOptions: {
         ignoreTryCatch: false
       }

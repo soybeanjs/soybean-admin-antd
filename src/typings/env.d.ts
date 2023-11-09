@@ -62,5 +62,9 @@ declare namespace Env {
      * @description iconify icon name
      */
     readonly VITE_MENU_ICON: string;
+    /**
+     * whether to build with sourcemap
+     */
+    readonly VITE_SOURCE_MAP?: Common.YesOrNo;
   }
 }
