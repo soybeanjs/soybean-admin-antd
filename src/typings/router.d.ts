@@ -53,7 +53,7 @@ declare module 'vue-router' {
      * @description the route is not in the menu
      * @example the route is "user_detail", if it is set to "user_list", the menu "user_list" will be activated
      */
-    activeMenu?: string;
+    activeMenu?: import('@elegant-router/types').LastLevelRouteKey;
     /**
      * by default, the same route path will use one tab, if set to true, it will use multiple tabs
      */

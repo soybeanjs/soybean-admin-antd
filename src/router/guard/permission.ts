@@ -98,7 +98,7 @@ async function createAuthRouteGuard(
     return true;
   }
 
-  // 3. If the route is initialized, check whether the "not-found" route exists.
+  // 3. If the route is initialized, check whether the route exists.
   if (route.isInitAuthRoute && isNotFoundRoute) {
     const exist = await route.getIsAuthRouteExist(to.path as RoutePath);
 

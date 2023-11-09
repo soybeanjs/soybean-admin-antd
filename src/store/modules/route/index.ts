@@ -1,4 +1,4 @@
-import { ref, watch, effectScope, onScopeDispose } from 'vue';
+import { ref, watch, effectScope, onScopeDispose, computed } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
@@ -11,9 +11,11 @@ import { fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
 import {
   filterAuthRoutesByRoles,
   getGlobalMenusByAuthRoutes,
-  transformGlobalMenusToAntdMenu,
+  updateLocaleOfGlobalMenus,
   getCacheRouteNames,
-  isRouteExistByRouteName
+  isRouteExistByRouteName,
+  getSelectedMenuKeyPathByKey,
+  getBreadcrumbsByRoute
 } from './shared';
 import { useAppStore } from '../app';
 import { useAuthStore } from '../auth';
@@ -49,27 +51,20 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /**
    * global menus
    */
-  const globalMenus = ref<App.Global.Menu[]>([]);
+  const menus = ref<App.Global.Menu[]>([]);
 
   /**
    * get global menus
    */
   function getGlobalMenus(routes: ElegantConstRoute[]) {
-    globalMenus.value = getGlobalMenusByAuthRoutes(routes);
-
-    getAntdMenus();
+    menus.value = getGlobalMenusByAuthRoutes(routes);
   }
 
   /**
-   * antd menus
+   * refresh locale of global menus
    */
-  const antdMenus = ref<App.Global.AntdMenu[]>([]);
-
-  /**
-   * get antd menus
-   */
-  function getAntdMenus() {
-    antdMenus.value = transformGlobalMenusToAntdMenu(globalMenus.value);
+  function refreshLocaleOfGlobalMenus() {
+    menus.value = updateLocaleOfGlobalMenus(menus.value);
   }
 
   /**
@@ -84,6 +79,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   function getCacheRoutes(routes: RouteRecordRaw[]) {
     cacheRoutes.value = getCacheRouteNames([...constantVueRoutes, ...routes]);
   }
+
+  /**
+   * global breadcrumbs
+   */
+  const breadcrumbs = computed(() => getBreadcrumbsByRoute(router.currentRoute.value, menus.value));
 
   /**
    * reset store
@@ -197,13 +197,21 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     return data;
   }
 
+  /**
+   * get selected menu key path
+   * @param selectedKey selected menu key
+   */
+  function getSelectedMenuKeyPath(selectedKey: string) {
+    return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
+  }
+
   // watch store
   scope.run(() => {
     // update menus when locale changed
     watch(
       () => app.locale,
       () => {
-        getAntdMenus();
+        refreshLocaleOfGlobalMenus();
       }
     );
   });
@@ -217,12 +225,14 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   return {
     resetStore,
-    antdMenus,
-    cacheRoutes,
     routeHome,
+    menus,
+    cacheRoutes,
+    breadcrumbs,
     initAuthRoute,
     isInitAuthRoute,
     setIsInitAuthRoute,
-    getIsAuthRouteExist
+    getIsAuthRouteExist,
+    getSelectedMenuKeyPath
   };
 });

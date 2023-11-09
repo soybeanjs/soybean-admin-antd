@@ -103,9 +103,9 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
           :disabled="option.disabled"
           @click="dropdownAction[option.key]"
         >
-          <div class="flex-y-center">
+          <div class="flex-y-center gap-12px">
             <SvgIcon :icon="option.icon" class="text-icon" />
-            <span class="pl-12px">{{ option.label }}</span>
+            <span>{{ option.label }}</span>
           </div>
         </AMenuItem>
       </AMenu>

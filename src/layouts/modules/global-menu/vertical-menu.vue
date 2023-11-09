@@ -6,7 +6,6 @@ import type { RouteKey } from '@elegant-router/types';
 import { useAppStore } from '@/store/modules/app';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
-import { getSelectedMenuKeyPath } from './shared';
 
 defineOptions({
   name: 'VerticalMenu'
@@ -33,7 +32,7 @@ const openKeys = computed(() => {
 
   if (!selectedKey) return [];
 
-  return getSelectedMenuKeyPath(selectedKey, routeStore.antdMenus);
+  return routeStore.getSelectedMenuKeyPath(selectedKey);
 });
 
 function handleClickMenu(menuInfo: MenuInfo) {
@@ -48,7 +47,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
     <div class="h-full overflow-y-auto">
       <AMenu
         mode="inline"
-        :items="routeStore.antdMenus"
+        :items="routeStore.menus"
         :selected-keys="selectedKeys"
         :open-keys="openKeys"
         :inline-collapsed="app.siderCollapse"

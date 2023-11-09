@@ -72,25 +72,50 @@ declare namespace App {
    * global namespace
    */
   namespace Global {
-    type AntdMenu = NonNullable<import('ant-design-vue').ItemType>;
-    type AntSubMenu = import('ant-design-vue/es/menu/src/interface').SubMenuType;
+    type VNode = import('vue').VNode;
+    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
     type RouteKey = import('@elegant-router/types').RouteKey;
     type RouteMap = import('@elegant-router/types').RouteMap;
+    type RoutePath = import('@elegant-router/types').RoutePath;
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
-    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
 
     /**
      * the global menu
      */
-    interface Menu<T extends RouteKey = RouteKey> {
+    interface Menu {
+      /**
+       * the menu key
+       * @description equal to the route key
+       */
       key: string;
-      title?: string;
+      /**
+       * the menu label
+       */
+      label: string;
+      /**
+       * the menu i18n key
+       */
       i18nKey?: I18n.I18nKey;
-      routeKey: T;
-      routePath: RouteMap[T];
-      icon?: string;
-      localIcon?: string;
-      children?: Menu<T>[];
+      /**
+       * the route key
+       */
+      routeKey: RouteKey;
+      /**
+       * the route path
+       */
+      routePath: RoutePath;
+      /**
+       * the menu icon
+       */
+      icon?: () => VNode;
+      /**
+       * the tooltip title
+       */
+      title?: string;
+      /**
+       * the menu children
+       */
+      children?: Menu[];
     }
 
     /**
@@ -98,13 +123,16 @@ declare namespace App {
      */
     type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
 
+    /**
+     * tab route
+     */
     type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
       Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query'>>;
 
     /**
      * the global tab
      */
-    type Tab<T extends LastLevelRouteKey = LastLevelRouteKey> = {
+    type Tab = {
       /**
        * the tab id
        */
@@ -121,11 +149,11 @@ declare namespace App {
       /**
        * the tab route key
        */
-      routeKey: T;
+      routeKey: LastLevelRouteKey;
       /**
        * the tab route path
        */
-      routePath: RouteMap[T];
+      routePath: RouteMap[LastLevelRouteKey];
       /**
        * the tab route full path
        */

@@ -115,7 +115,8 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_user-detail',
           i18nKey: 'route.manage_user-detail',
           hideInMenu: true,
-          roles: ['R_ADMIN']
+          roles: ['R_ADMIN'],
+          activeMenu: 'manage_user'
         }
       }
     ]

@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw, _RouteRecordBase, RouteLocationNormalizedLoaded } from 'vue-router';
 import type { ElegantConstRoute, RouteKey, RouteMap, LastLevelRouteKey } from '@elegant-router/types';
 import { useSvgIconRender } from '@sa/hooks';
 import { $t } from '@/locales';
@@ -50,19 +50,8 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
   const menus: App.Global.Menu[] = [];
 
   routes.forEach(route => {
-    const { name, path } = route;
-    const { title, i18nKey, icon, localIcon, hideInMenu } = route.meta ?? {};
-
-    if (!hideInMenu) {
-      const menu: App.Global.Menu = {
-        key: name,
-        title,
-        i18nKey,
-        routeKey: name as RouteKey,
-        routePath: path as RouteMap[RouteKey],
-        icon,
-        localIcon
-      };
+    if (!route.meta?.hideInMenu) {
+      const menu = getGlobalMenuByBaseRoute(route);
 
       if (route.children?.length) {
         menu.children = getGlobalMenusByAuthRoutes(route.children);
@@ -73,6 +62,59 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
   });
 
   return menus;
+}
+
+/**
+ * update locale of global menus
+ * @param menus
+ */
+export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
+  const result: App.Global.Menu[] = [];
+
+  menus.forEach(menu => {
+    const { i18nKey, label, children } = menu;
+
+    const newLabel = i18nKey ? $t(i18nKey) : label;
+
+    const newMenu: App.Global.Menu = {
+      ...menu,
+      label: newLabel,
+      title: newLabel
+    };
+
+    if (children?.length) {
+      newMenu.children = updateLocaleOfGlobalMenus(children);
+    }
+
+    result.push(newMenu);
+  });
+
+  return result;
+}
+
+/**
+ * get global menu by route
+ * @param route
+ */
+function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | ElegantConstRoute) {
+  const { SvgIconVNode } = useSvgIconRender(SvgIcon, import.meta.env.VITE_MENU_ICON);
+
+  const { name, path } = route;
+  const { title, i18nKey, icon, localIcon } = route.meta ?? {};
+
+  const label = i18nKey ? $t(i18nKey) : title!;
+
+  const menu: App.Global.Menu = {
+    key: name as string,
+    label,
+    i18nKey,
+    routeKey: name as RouteKey,
+    routePath: path as RouteMap[RouteKey],
+    icon: SvgIconVNode({ icon, localIcon, fontSize: 20 }),
+    title: label
+  };
+
+  return menu;
 }
 
 /**
@@ -92,37 +134,6 @@ export function getCacheRouteNames(routes: RouteRecordRaw[]) {
   });
 
   return cacheNames;
-}
-
-/**
- * get antd menus
- * @param globalMenus
- */
-export function transformGlobalMenusToAntdMenu(globalMenus: App.Global.Menu[]) {
-  const { SvgIconVNode } = useSvgIconRender(SvgIcon, import.meta.env.VITE_MENU_ICON);
-
-  const menus: App.Global.AntdMenu[] = [];
-
-  globalMenus.forEach(menu => {
-    const { key, title, i18nKey, icon, localIcon, children } = menu;
-
-    const label = i18nKey ? $t(i18nKey) : title;
-
-    const antdMenu: App.Global.AntdMenu = {
-      key,
-      label,
-      title: label,
-      icon: SvgIconVNode({ icon, localIcon, fontSize: 20 })
-    };
-
-    if (children?.length) {
-      (antdMenu as App.Global.AntSubMenu).children = transformGlobalMenusToAntdMenu(children);
-    }
-
-    menus.push(antdMenu);
-  });
-
-  return menus;
 }
 
 /**
@@ -151,4 +162,92 @@ function recursiveGetIsRouteExistByRouteName(route: ElegantConstRoute, routeName
   }
 
   return isExist;
+}
+
+/**
+ * get selected menu key path
+ * @param selectedKey
+ * @param menus
+ */
+export function getSelectedMenuKeyPathByKey(selectedKey: string, menus: App.Global.Menu[]) {
+  const keyPath: string[] = [];
+
+  menus.some(menu => {
+    const path = findMenuPath(selectedKey, menu);
+
+    const find = Boolean(path?.length);
+
+    if (find) {
+      keyPath.push(...path!);
+    }
+
+    return find;
+  });
+
+  return keyPath;
+}
+
+/**
+ * find menu path
+ * @param targetKey target menu key
+ * @param menu menu
+ */
+function findMenuPath(targetKey: string, menu: App.Global.Menu): string[] | null {
+  const path: string[] = [];
+
+  function dfs(item: App.Global.Menu): boolean {
+    path.push(item.key);
+
+    if (item.key === targetKey) {
+      return true;
+    }
+
+    if (item.children) {
+      for (const child of item.children) {
+        if (dfs(child)) {
+          return true;
+        }
+      }
+    }
+
+    path.pop();
+
+    return false;
+  }
+
+  if (dfs(menu)) {
+    return path;
+  }
+
+  return null;
+}
+
+/**
+ * get breadcrumbs by route
+ * @param route
+ * @param menus
+ */
+export function getBreadcrumbsByRoute(
+  route: RouteLocationNormalizedLoaded,
+  menus: App.Global.Menu[]
+): App.Global.Menu[] {
+  const key = route.name as string;
+  const activeKey = route.meta?.activeMenu;
+
+  for (const menu of menus) {
+    if (menu.key === key) {
+      const breadcrumb = key !== activeKey ? menu : getGlobalMenuByBaseRoute(route);
+
+      return [breadcrumb];
+    }
+
+    if (menu.children?.length) {
+      const result = getBreadcrumbsByRoute(route, menu.children);
+      if (result.length > 0) {
+        return [menu, ...result];
+      }
+    }
+  }
+
+  return [];
 }

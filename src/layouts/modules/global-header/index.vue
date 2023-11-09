@@ -2,7 +2,7 @@
 import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-// import GlobalLogo from '../global-logo/index.vue';
+import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
 import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
 
@@ -19,6 +19,7 @@ defineOptions({
   <DarkModeContainer class="flex-y-center h-full shadow-header">
     <div class="flex-1-hidden flex-y-center h-full">
       <MenuToggler :collapsed="app.siderCollapse" @click="app.toggleSiderCollapse" />
+      <GlobalBreadcrumb />
     </div>
     <div class="flex-y-center justify-end h-full">
       <FullScreen :full="isFullscreen" @click="toggle" />
