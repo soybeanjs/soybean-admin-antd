@@ -1,4 +1,4 @@
-import { ref, watch, effectScope, onScopeDispose, computed } from 'vue';
+import { ref, computed } from 'vue';
 import type { RouteRecordRaw } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
@@ -25,7 +25,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const appStore = useAppStore();
   const authStore = useAuthStore();
   const tabStore = useTabStore();
-  const scope = effectScope();
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
   /**
@@ -61,9 +60,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
-   * refresh locale of global menus
+   * update global menus by locale
    */
-  function refreshLocaleOfGlobalMenus() {
+  function updateGlobalMenusByLocale() {
     menus.value = updateLocaleOfGlobalMenus(menus.value);
   }
 
@@ -249,28 +248,11 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
   }
 
-  // watch store
-  scope.run(() => {
-    // update menus when locale changed
-    watch(
-      () => appStore.locale,
-      () => {
-        refreshLocaleOfGlobalMenus();
-      }
-    );
-  });
-
-  /**
-   * on scope dispose
-   */
-  onScopeDispose(() => {
-    scope.stop();
-  });
-
   return {
     resetStore,
     routeHome,
     menus,
+    updateGlobalMenusByLocale,
     cacheRoutes,
     reCacheRoutesByKey,
     reCacheRoutesByKeys,

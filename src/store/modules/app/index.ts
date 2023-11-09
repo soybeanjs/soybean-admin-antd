@@ -1,12 +1,17 @@
 import { ref, watch, effectScope, onScopeDispose } from 'vue';
 import { defineStore } from 'pinia';
-import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { breakpointsTailwind, useBreakpoints, useTitle } from '@vueuse/core';
 import { useBoolean } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
-import { setLocale } from '@/locales';
+import { router } from '@/router';
+import { $t, setLocale } from '@/locales';
 import { localStg } from '@/utils/storage';
+import { useRouteStore } from '../route';
+import { useTabStore } from '../tab';
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
+  const routeStore = useRouteStore();
+  const tabStore = useTabStore();
   const scope = effectScope();
   const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
@@ -52,8 +57,20 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
 
   const isMobile = breakpoints.smaller('sm');
 
+  /**
+   * update document title by locale
+   */
+  function updateDocumentTitleByLocale() {
+    const { i18nKey, title } = router.currentRoute.value.meta;
+
+    const documentTitle = i18nKey ? $t(i18nKey) : title;
+
+    useTitle(documentTitle);
+  }
+
   // watch store
   scope.run(() => {
+    // watch isMobile, if is mobile, collapse sider
     watch(
       isMobile,
       newValue => {
@@ -63,6 +80,13 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       },
       { immediate: true }
     );
+
+    // watch locale
+    watch(locale, () => {
+      updateDocumentTitleByLocale();
+      routeStore.updateGlobalMenusByLocale();
+      tabStore.updateTabsByLocale();
+    });
   });
 
   /**

@@ -1,6 +1,7 @@
-import { computed, ref, watch, effectScope, onScopeDispose } from 'vue';
+import { computed, ref } from 'vue';
 import type { Router } from 'vue-router';
 import { defineStore } from 'pinia';
+import { useEventListener } from '@vueuse/core';
 import { SetupStoreId } from '@/enum';
 import {
   getAllTabs,
@@ -14,11 +15,9 @@ import {
   updateTabByI18nKey
 } from './shared';
 import { useRouterPush } from '@/hooks/common/router';
-import { useAppStore } from '../app';
+import { localStg } from '@/utils/storage';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
-  const appStore = useAppStore();
-  const scope = effectScope();
   const { routerPush } = useRouterPush(false);
 
   /**
@@ -62,6 +61,12 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param currentRoute current route
    */
   function initTabStore(currentRoute: App.Global.TabRoute) {
+    const storageTabs = localStg.get('globalTabs');
+
+    if (storageTabs) {
+      tabs.value = storageTabs;
+    }
+
     addTab(currentRoute);
   }
 
@@ -214,9 +219,9 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   }
 
   /**
-   * update all tabs by i18n key
+   * update tabs by locale
    */
-  function updateAllTabsByI18nKey() {
+  function updateTabsByLocale() {
     tabs.value = updateTabsByI18nKey(tabs.value);
 
     if (homeTab.value) {
@@ -224,22 +229,13 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
-  // watch store
-  scope.run(() => {
-    // update menus when locale changed
-    watch(
-      () => appStore.locale,
-      () => {
-        updateAllTabsByI18nKey();
-      }
-    );
-  });
+  function cacheTabs() {
+    localStg.set('globalTabs', tabs.value);
+  }
 
-  /**
-   * on scope dispose
-   */
-  onScopeDispose(() => {
-    scope.stop();
+  // cache tabs when page is closed or refreshed
+  useEventListener(window, 'beforeunload', () => {
+    cacheTabs();
   });
 
   return {
@@ -258,6 +254,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     switchRouteByTab,
     setTabLabel,
     resetTabLabel,
-    isTabRetain
+    isTabRetain,
+    updateTabsByLocale
   };
 });

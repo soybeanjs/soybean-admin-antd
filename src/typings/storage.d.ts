@@ -30,5 +30,9 @@ declare namespace StorageType {
      * the user info
      */
     userInfo: Api.Auth.UserInfo;
+    /**
+     * the global tabs
+     */
+    globalTabs: App.Global.Tab[];
   }
 }
