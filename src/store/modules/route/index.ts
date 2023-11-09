@@ -81,6 +81,50 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
+   * add cache routes
+   * @param routeKey
+   */
+  function addCacheRoutes(routeKey: RouteKey) {
+    if (cacheRoutes.value.includes(routeKey)) return;
+
+    cacheRoutes.value.push(routeKey);
+  }
+
+  /**
+   * remove cache routes
+   * @param routeKey
+   */
+  function removeCacheRoutes(routeKey: RouteKey) {
+    const index = cacheRoutes.value.findIndex(item => item === routeKey);
+
+    if (index === -1) return;
+
+    cacheRoutes.value.splice(index, 1);
+  }
+
+  /**
+   * re-cache routes by route key
+   * @param routeKey
+   */
+  async function reCacheRoutesByKey(routeKey: RouteKey) {
+    removeCacheRoutes(routeKey);
+
+    await app.reloadPage();
+
+    addCacheRoutes(routeKey);
+  }
+
+  /**
+   * re-cache routes by route keys
+   * @param routeKeys
+   */
+  async function reCacheRoutesByKeys(routeKeys: RouteKey[]) {
+    for await (const key of routeKeys) {
+      await reCacheRoutesByKey(key);
+    }
+  }
+
+  /**
    * global breadcrumbs
    */
   const breadcrumbs = computed(() => getBreadcrumbsByRoute(router.currentRoute.value, menus.value));
@@ -228,6 +272,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     routeHome,
     menus,
     cacheRoutes,
+    reCacheRoutesByKey,
+    reCacheRoutesByKeys,
     breadcrumbs,
     initAuthRoute,
     isInitAuthRoute,

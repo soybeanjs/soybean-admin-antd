@@ -91,7 +91,8 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_route',
           icon: 'material-symbols:route',
           order: 3,
-          roles: ['R_ADMIN']
+          roles: ['R_ADMIN'],
+          keepAlive: true
         }
       },
       {

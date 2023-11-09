@@ -4,19 +4,21 @@ import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
 import BetterScroll from '@/components/custom/better-scroll.vue';
-import { useTabStore } from '@/store/modules/tab';
-import { useThemeStore } from '@/store/modules/theme';
-import ContextMenu from './context-menu.vue';
 import { useAppStore } from '@/store/modules/app';
+import { useThemeStore } from '@/store/modules/theme';
+import { useRouteStore } from '@/store/modules/route';
+import { useTabStore } from '@/store/modules/tab';
+import ContextMenu from './context-menu.vue';
 
 defineOptions({
   name: 'GlobalTab'
 });
 
-const app = useAppStore();
 const route = useRoute();
+const app = useAppStore();
 const theme = useThemeStore();
-const tab = useTabStore();
+const routeStore = useRouteStore();
+const tabStore = useTabStore();
 
 const bsWrapper = ref<HTMLElement>();
 const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrapper);
@@ -42,7 +44,7 @@ async function scrollToActiveTab() {
 
     const { value: tabId } = (child.attributes as TabNamedNodeMap)[TAB_DATA_ID];
 
-    if (tabId === tab.activeTabId) {
+    if (tabId === tabStore.activeTabId) {
       const { left, width } = child.getBoundingClientRect();
       const clientX = left + width / 2;
 
@@ -72,11 +74,16 @@ function scrollByClientX(clientX: number) {
 function getContextMenuDisabledKeys(tabId: string) {
   const disabledKeys: App.Global.DropdownKey[] = [];
 
-  if (tab.isTabRetain(tabId)) {
+  if (tabStore.isTabRetain(tabId)) {
     disabledKeys.push('closeCurrent');
   }
 
   return disabledKeys;
+}
+
+async function handleCloseTab(tab: App.Global.Tab) {
+  await tabStore.removeTab(tab.id);
+  await routeStore.reCacheRoutesByKey(tab.routeKey);
 }
 
 async function refresh() {
@@ -84,18 +91,18 @@ async function refresh() {
 }
 
 function init() {
-  tab.initTabStore(route);
+  tabStore.initTabStore(route);
 }
 
 // watch
 watch(
   () => route.fullPath,
   () => {
-    tab.addTab(route);
+    tabStore.addTab(route);
   }
 );
 watch(
-  () => tab.activeTabId,
+  () => tabStore.activeTabId,
   () => {
     scrollToActiveTab();
   }
@@ -111,28 +118,28 @@ init();
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: app.isMobile }">
         <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
           <ContextMenu
-            v-for="item in tab.tabs"
-            :key="item.id"
-            :tab-id="item.id"
-            :disabled-keys="getContextMenuDisabledKeys(item.id)"
+            v-for="tab in tabStore.tabs"
+            :key="tab.id"
+            :tab-id="tab.id"
+            :disabled-keys="getContextMenuDisabledKeys(tab.id)"
           >
             <PageTab
-              :[TAB_DATA_ID]="item.id"
+              :[TAB_DATA_ID]="tab.id"
               :dark-mode="theme.darkMode"
-              :active="item.id === tab.activeTabId"
+              :active="tab.id === tabStore.activeTabId"
               :active-color="theme.themeColor"
-              :closable="!tab.isTabRetain(item.id)"
-              @click="tab.switchRouteByTab(item)"
-              @close="tab.removeTab(item.id)"
+              :closable="!tabStore.isTabRetain(tab.id)"
+              @click="tabStore.switchRouteByTab(tab)"
+              @close="handleCloseTab(tab)"
             >
               <template #prefix>
                 <SvgIcon
-                  :icon="item.icon"
-                  :local-icon="item.localIcon"
+                  :icon="tab.icon"
+                  :local-icon="tab.localIcon"
                   class="inline-block align-text-bottom text-16px"
                 />
               </template>
-              {{ item.label }}
+              {{ tab.label }}
             </PageTab>
           </ContextMenu>
         </div>

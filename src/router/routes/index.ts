@@ -26,7 +26,7 @@ const customRoutes: CustomRoute[] = [
   }
 ];
 
-function createRoutes() {
+export function createRoutes() {
   const constantRoutes: ElegantRoute[] = [];
 
   const authRoutes: ElegantRoute[] = [];
