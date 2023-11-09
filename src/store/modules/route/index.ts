@@ -22,9 +22,9 @@ import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 
 export const useRouteStore = defineStore(SetupStoreId.Route, () => {
-  const app = useAppStore();
-  const auth = useAuthStore();
-  const tab = useTabStore();
+  const appStore = useAppStore();
+  const authStore = useAuthStore();
+  const tabStore = useTabStore();
   const scope = effectScope();
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
 
@@ -109,7 +109,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   async function reCacheRoutesByKey(routeKey: RouteKey) {
     removeCacheRoutes(routeKey);
 
-    await app.reloadPage();
+    await appStore.reloadPage();
 
     addCacheRoutes(routeKey);
   }
@@ -148,14 +148,14 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       await initDynamicAuthRoute();
     }
 
-    tab.initHomeTab(router);
+    tabStore.initHomeTab(router);
   }
 
   /**
    * init static auth route
    */
   async function initStaticAuthRoute() {
-    const filteredAuthRoutes = filterAuthRoutesByRoles(authRoutes, auth.userInfo.roles);
+    const filteredAuthRoutes = filterAuthRoutesByRoles(authRoutes, authStore.userInfo.roles);
 
     handleAuthRoutes(filteredAuthRoutes);
 
@@ -253,7 +253,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   scope.run(() => {
     // update menus when locale changed
     watch(
-      () => app.locale,
+      () => appStore.locale,
       () => {
         refreshLocaleOfGlobalMenus();
       }

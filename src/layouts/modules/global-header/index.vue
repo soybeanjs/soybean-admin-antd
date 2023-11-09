@@ -6,7 +6,7 @@ import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
 import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
 
-const app = useAppStore();
+const appStore = useAppStore();
 const themeStore = useThemeStore();
 const { isFullscreen, toggle } = useFullscreen();
 
@@ -18,12 +18,12 @@ defineOptions({
 <template>
   <DarkModeContainer class="flex-y-center h-full shadow-header">
     <div class="flex-1-hidden flex-y-center h-full">
-      <MenuToggler :collapsed="app.siderCollapse" @click="app.toggleSiderCollapse" />
+      <MenuToggler :collapsed="appStore.siderCollapse" @click="appStore.toggleSiderCollapse" />
       <GlobalBreadcrumb />
     </div>
     <div class="flex-y-center justify-end h-full">
       <FullScreen :full="isFullscreen" @click="toggle" />
-      <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
+      <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" @change-lang="appStore.changeLocale" />
       <ColorSchemaSwitch
         :color-schema="themeStore.colorScheme"
         :is-dark="themeStore.darkMode"

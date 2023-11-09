@@ -7,12 +7,12 @@ defineOptions({
   name: 'GlobalSider'
 });
 
-const app = useAppStore();
+const appStore = useAppStore();
 </script>
 
 <template>
   <DarkModeContainer class="flex-vertical-stretch wh-full shadow-sider">
-    <GlobalLogo :show-title="!app.siderCollapse" class="h-48px" />
+    <GlobalLogo :show-title="!appStore.siderCollapse" class="h-48px" />
     <VerticalMenu />
   </DarkModeContainer>
 </template>

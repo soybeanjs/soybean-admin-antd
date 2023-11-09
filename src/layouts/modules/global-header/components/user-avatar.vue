@@ -8,7 +8,7 @@ defineOptions({
   name: 'UserAvatar'
 });
 
-const auth = useAuthStore();
+const authStore = useAuthStore();
 const { routerPushByKey, toLogin } = useRouterPush();
 
 function loginOrRegister() {
@@ -22,18 +22,18 @@ function logout() {
     okText: $t('common.confirm'),
     cancelText: $t('common.cancel'),
     onOk: () => {
-      auth.resetStore();
+      authStore.resetStore();
     }
   });
 }
 </script>
 
 <template>
-  <AButton v-if="!auth.isLogin" @click="loginOrRegister">{{ $t('page.login.common.loginOrRegister') }}</AButton>
+  <AButton v-if="!authStore.isLogin" @click="loginOrRegister">{{ $t('page.login.common.loginOrRegister') }}</AButton>
   <ADropdown v-else placement="bottomRight" trigger="click">
     <ButtonIcon>
       <SvgIcon icon="ph:user-circle" class="text-icon-large" />
-      <span class="text-16px font-medium">{{ auth.userInfo.userName }}</span>
+      <span class="text-16px font-medium">{{ authStore.userInfo.userName }}</span>
     </ButtonIcon>
     <template #overlay>
       <AMenu>

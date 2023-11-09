@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabledKeys: () => []
 });
 
-const tab = useTabStore();
+const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
 
 interface DropdownOption {
   key: App.Global.DropdownKey;
@@ -75,19 +75,19 @@ const options = computed(() => {
 
 const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
   closeCurrent() {
-    tab.removeTab(props.tabId);
+    removeTab(props.tabId);
   },
   closeOther() {
-    tab.clearTabs([props.tabId]);
+    clearTabs([props.tabId]);
   },
   closeLeft() {
-    tab.clearLeftTabs(props.tabId);
+    clearLeftTabs(props.tabId);
   },
   closeRight() {
-    tab.clearRightTabs(props.tabId);
+    clearRightTabs(props.tabId);
   },
   closeAll() {
-    tab.clearTabs();
+    clearTabs();
   }
 };
 </script>

@@ -10,7 +10,7 @@ defineOptions({
   name: 'PwdLogin'
 });
 
-const auth = useAuthStore();
+const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useAntdForm();
 const { constantRules } = useFormRules();
@@ -32,7 +32,7 @@ const rules: Record<keyof FormModel, App.Global.FormRule[]> = {
 
 async function handleSubmit() {
   await validate();
-  await auth.login(model.userName, model.password);
+  await authStore.login(model.userName, model.password);
 }
 </script>
 
@@ -53,7 +53,7 @@ async function handleSubmit() {
         <ACheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</ACheckbox>
         <AButton type="link">{{ $t('page.login.pwdLogin.forgetPassword') }}</AButton>
       </div>
-      <AButton type="primary" block size="large" shape="round" :loading="auth.loginLoading" @click="handleSubmit">
+      <AButton type="primary" block size="large" shape="round" :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}
       </AButton>
       <div class="flex-y-center justify-between">

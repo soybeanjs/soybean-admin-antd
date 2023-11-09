@@ -6,7 +6,7 @@ defineOptions({
   name: 'ThemeButton'
 });
 
-const app = useAppStore();
+const appStore = useAppStore();
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const app = useAppStore();
     icon="majesticons:color-swatch-line"
     :tooltip-content="$t('icon.themeConfig')"
     trigger-parent
-    @click="app.openThemeDrawer"
+    @click="appStore.openThemeDrawer"
   />
 </template>
 

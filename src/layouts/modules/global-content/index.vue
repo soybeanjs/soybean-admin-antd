@@ -17,7 +17,7 @@ withDefaults(defineProps<Props>(), {
   showPadding: true
 });
 
-const app = useAppStore();
+const appStore = useAppStore();
 const routeStore = useRouteStore();
 </script>
 
@@ -31,7 +31,7 @@ const routeStore = useRouteStore();
       <KeepAlive :include="routeStore.cacheRoutes">
         <component
           :is="Component"
-          v-if="app.reloadFlag"
+          v-if="appStore.reloadFlag"
           :key="route.path"
           :class="{ 'p-16px': showPadding }"
           class="flex-grow bg-layout transition-300"

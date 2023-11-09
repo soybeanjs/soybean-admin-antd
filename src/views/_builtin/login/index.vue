@@ -23,8 +23,8 @@ const props = withDefaults(defineProps<Props>(), {
   module: 'pwd-login'
 });
 
-const app = useAppStore();
-const theme = useThemeStore();
+const appStore = useAppStore();
+const themeStore = useThemeStore();
 
 interface LoginModule {
   key: UnionKey.LoginModule;
@@ -45,14 +45,16 @@ const activeModule = computed(() => {
   return findItem || modules[0];
 });
 
-const bgThemeColor = computed(() => (theme.darkMode ? getColorPalette(theme.themeColor, 7) : theme.themeColor));
+const bgThemeColor = computed(() =>
+  themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
+);
 
 const bgColor = computed(() => {
   const COLOR_WHITE = '#ffffff';
 
-  const ratio = theme.darkMode ? 0.5 : 0.2;
+  const ratio = themeStore.darkMode ? 0.5 : 0.2;
 
-  return mixColor(COLOR_WHITE, theme.themeColor, ratio);
+  return mixColor(COLOR_WHITE, themeStore.themeColor, ratio);
 });
 
 const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
@@ -68,12 +70,16 @@ const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
           <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-vertical">
             <ColorSchemaSwitch
-              :color-schema="theme.colorScheme"
-              :is-dark="theme.darkMode"
+              :color-schema="themeStore.colorScheme"
+              :is-dark="themeStore.darkMode"
               class="text-20px <sm:text-18px"
-              @switch="theme.toggleColorScheme"
+              @switch="themeStore.toggleColorScheme"
             />
-            <LangSwitch :lang="app.locale" :lang-options="app.localeOptions" @change-lang="app.changeLocale" />
+            <LangSwitch
+              :lang="appStore.locale"
+              :lang-options="appStore.localeOptions"
+              @change-lang="appStore.changeLocale"
+            />
           </div>
         </header>
         <main class="pt-24px">

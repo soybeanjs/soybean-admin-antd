@@ -12,15 +12,15 @@ defineOptions({
   name: 'BaseLayout'
 });
 
-const app = useAppStore();
+const appStore = useAppStore();
 </script>
 
 <template>
   <AdminLayout
-    :is-mobile="app.isMobile"
-    :sider-collapse="app.siderCollapse"
-    :full-content="app.fullContent"
-    @click-mobile-sider-mask="app.setSiderCollapse(true)"
+    :is-mobile="appStore.isMobile"
+    :sider-collapse="appStore.siderCollapse"
+    :full-content="appStore.fullContent"
+    @click-mobile-sider-mask="appStore.setSiderCollapse(true)"
   >
     <template #header>
       <GlobalHeader />

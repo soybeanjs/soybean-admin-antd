@@ -6,11 +6,11 @@ defineOptions({
   name: 'App'
 });
 
-const theme = useThemeStore();
+const themeStore = useThemeStore();
 </script>
 
 <template>
-  <ConfigProvider :theme="theme.antdTheme">
+  <ConfigProvider :theme="themeStore.antdTheme">
     <AppProvider>
       <RouterView />
     </AppProvider>

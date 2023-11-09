@@ -15,8 +15,8 @@ defineOptions({
 });
 
 const route = useRoute();
-const app = useAppStore();
-const theme = useThemeStore();
+const appStore = useAppStore();
+const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 const tabStore = useTabStore();
 
@@ -87,7 +87,7 @@ async function handleCloseTab(tab: App.Global.Tab) {
 }
 
 async function refresh() {
-  app.reloadPage(500);
+  appStore.reloadPage(500);
 }
 
 function init() {
@@ -115,7 +115,7 @@ init();
 <template>
   <DarkModeContainer class="flex-y-center wh-full px-16px shadow-tab">
     <div ref="bsWrapper" class="flex-1-hidden h-full">
-      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: app.isMobile }">
+      <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: appStore.isMobile }">
         <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
           <ContextMenu
             v-for="tab in tabStore.tabs"
@@ -125,9 +125,9 @@ init();
           >
             <PageTab
               :[TAB_DATA_ID]="tab.id"
-              :dark-mode="theme.darkMode"
+              :dark-mode="themeStore.darkMode"
               :active="tab.id === tabStore.activeTabId"
-              :active-color="theme.themeColor"
+              :active-color="themeStore.themeColor"
               :closable="!tabStore.isTabRetain(tab.id)"
               @click="tabStore.switchRouteByTab(tab)"
               @close="handleCloseTab(tab)"
@@ -145,8 +145,8 @@ init();
         </div>
       </BetterScroll>
     </div>
-    <ReloadButton :loading="!app.reloadFlag" @click="refresh" />
-    <FullScreen :full="app.fullContent" @click="app.toggleFullContent" />
+    <ReloadButton :loading="!appStore.reloadFlag" @click="refresh" />
+    <FullScreen :full="appStore.fullContent" @click="appStore.toggleFullContent" />
   </DarkModeContainer>
 </template>
 

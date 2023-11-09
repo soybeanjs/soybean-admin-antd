@@ -16,7 +16,7 @@ export function createPermissionGuard(router: Router) {
       next({ path: from.fullPath, replace: true, query: from.query, hash: to.hash });
     }
 
-    const auth = useAuthStore();
+    const authStore = useAuthStore();
 
     const isLogin = Boolean(localStg.get('token'));
     const needLogin = !to.meta.constant;
@@ -28,8 +28,8 @@ export function createPermissionGuard(router: Router) {
     const SUPER_ADMIN = 'R_SUPER';
     const hasPermission =
       !routeRoles.length ||
-      auth.userInfo.roles.includes(SUPER_ADMIN) ||
-      auth.userInfo.roles.some(role => routeRoles.includes(role));
+      authStore.userInfo.roles.includes(SUPER_ADMIN) ||
+      authStore.userInfo.roles.some(role => routeRoles.includes(role));
 
     const strategicPatterns: Common.StrategicPattern[] = [
       // 1. if it is login route when logged in, change to the root page

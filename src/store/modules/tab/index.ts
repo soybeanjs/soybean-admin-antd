@@ -17,7 +17,7 @@ import { useRouterPush } from '@/hooks/common/router';
 import { useAppStore } from '../app';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
-  const app = useAppStore();
+  const appStore = useAppStore();
   const scope = effectScope();
   const { routerPush } = useRouterPush(false);
 
@@ -228,7 +228,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   scope.run(() => {
     // update menus when locale changed
     watch(
-      () => app.locale,
+      () => appStore.locale,
       () => {
         updateAllTabsByI18nKey();
       }

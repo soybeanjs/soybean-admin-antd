@@ -12,7 +12,7 @@ defineOptions({
 });
 
 const route = useRoute();
-const app = useAppStore();
+const appStore = useAppStore();
 const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
 
@@ -26,7 +26,7 @@ const selectedKeys = computed(() => {
 });
 
 const openKeys = computed(() => {
-  if (app.siderCollapse) return [];
+  if (appStore.siderCollapse) return [];
 
   const [selectedKey] = selectedKeys.value;
 
@@ -50,7 +50,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
         :items="routeStore.menus"
         :selected-keys="selectedKeys"
         :open-keys="openKeys"
-        :inline-collapsed="app.siderCollapse"
+        :inline-collapsed="appStore.siderCollapse"
         class="menu w-full"
         @click="handleClickMenu"
       />

@@ -7,7 +7,7 @@ defineOptions({
   name: 'GlobalBreadcrumb'
 });
 
-const route = useRouteStore();
+const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
 
 function handleClickMenu(key: RouteKey) {
@@ -17,7 +17,7 @@ function handleClickMenu(key: RouteKey) {
 
 <template>
   <ABreadcrumb>
-    <ABreadcrumbItem v-for="item in route.breadcrumbs" :key="item.key">
+    <ABreadcrumbItem v-for="item in routeStore.breadcrumbs" :key="item.key">
       <div class="i-flex-y-center align-middle">
         <component :is="item.icon" class="mr-4px text-icon" />
         {{ item.label }}
