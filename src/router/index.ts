@@ -6,7 +6,7 @@ import {
   createMemoryHistory,
   type RouterHistory
 } from 'vue-router';
-import { constantVueRoutes } from './routes';
+import { createRoutes } from './routes';
 import { createRouterGuard } from './guard';
 
 const { VITE_ROUTER_HISTORY_MODE = 'history', VITE_BASE_URL } = import.meta.env;
@@ -16,6 +16,8 @@ const historyCreatorMap: Record<Env.RouterHistoryMode, (base?: string) => Router
   history: createWebHistory,
   memory: createMemoryHistory
 };
+
+const { constantVueRoutes } = createRoutes();
 
 export const router = createRouter({
   history: historyCreatorMap[VITE_ROUTER_HISTORY_MODE](VITE_BASE_URL),

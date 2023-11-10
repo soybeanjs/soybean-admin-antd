@@ -26,6 +26,9 @@ const customRoutes: CustomRoute[] = [
   }
 ];
 
+/**
+ * create routes
+ */
 export function createRoutes() {
   const constantRoutes: ElegantRoute[] = [];
 
@@ -42,14 +45,15 @@ export function createRoutes() {
   const constantVueRoutes = transformElegantRoutesToVueRoutes(constantRoutes, layouts, views);
 
   return {
-    constantRoutes,
     constantVueRoutes,
     authRoutes
   };
 }
 
-export const { constantRoutes, constantVueRoutes, authRoutes } = createRoutes();
-
+/**
+ * get auth vue routes
+ * @param routes elegant routes
+ */
 export function getAuthVueRoutes(routes: ElegantConstRoute[]) {
   return transformElegantRoutesToVueRoutes(routes, layouts, views);
 }

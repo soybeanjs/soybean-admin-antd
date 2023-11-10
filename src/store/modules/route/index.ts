@@ -5,7 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import type { ElegantConstRoute, CustomRoute, RouteKey, LastLevelRouteKey, RouteMap } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
-import { authRoutes, constantVueRoutes, getAuthVueRoutes, ROOT_ROUTE } from '@/router/routes';
+import { createRoutes, getAuthVueRoutes, ROOT_ROUTE } from '@/router/routes';
 import { getRoutePath, getRouteName } from '@/router/elegant/transform';
 import { fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
 import {
@@ -77,6 +77,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * @param routes vue routes
    */
   function getCacheRoutes(routes: RouteRecordRaw[]) {
+    const { constantVueRoutes } = createRoutes();
+
     cacheRoutes.value = getCacheRouteNames([...constantVueRoutes, ...routes]);
   }
 
@@ -165,6 +167,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    * init static auth route
    */
   async function initStaticAuthRoute() {
+    const { authRoutes } = createRoutes();
+
     const filteredAuthRoutes = filterAuthRoutesByRoles(authRoutes, authStore.userInfo.roles);
 
     handleAuthRoutes(filteredAuthRoutes);
@@ -252,6 +256,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     }
 
     if (authRouteMode.value === 'static') {
+      const { authRoutes } = createRoutes();
+
       return isRouteExistByRouteName(routeName, authRoutes);
     }
 
