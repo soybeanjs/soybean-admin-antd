@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
+import DarkMode from './components/dark-mode.vue';
 
 defineOptions({
   name: 'ThemeDrawer'
@@ -17,8 +18,9 @@ const appStore = useAppStore();
     @close="appStore.closeThemeDrawer"
   >
     <template #extra>
-      <AButton @click="appStore.closeThemeDrawer">{{ $t('common.cancel') }}</AButton>
+      <AButton v-if="appStore.isMobile" @click="appStore.closeThemeDrawer">{{ $t('common.cancel') }}</AButton>
     </template>
+    <DarkMode />
   </ADrawer>
 </template>
 

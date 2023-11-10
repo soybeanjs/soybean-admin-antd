@@ -14,7 +14,7 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
   const { primary: themeColor, info, success, warning, error } = colors;
 
   const themeSettings: App.Theme.ThemeSetting = {
-    colorScheme: 'light',
+    themeScheme: 'light',
     themeColor,
     otherColor: {
       info,

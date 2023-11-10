@@ -9,18 +9,13 @@ declare namespace App {
     type ColorPaletteNumber = import('@sa/color-palette').ColorPaletteNumber;
 
     /**
-     * color scheme
-     */
-    type ColorScheme = 'light' | 'dark' | 'auto';
-
-    /**
      * theme setting
      */
     interface ThemeSetting {
       /**
-       * color scheme
+       * theme scheme
        */
-      colorScheme: ColorScheme;
+      themeScheme: UnionKey.ThemeScheme;
       /**
        * theme color
        */
@@ -228,8 +223,12 @@ declare namespace App {
         logout: string;
         logoutConfirm: string;
       };
+      theme: {
+        themeSchema: Record<UnionKey.ThemeScheme, string>;
+      };
       themeDrawer: {
         title: string;
+        darkMode: string;
       };
       route: Record<I18nRouteKey, string>;
       page: {

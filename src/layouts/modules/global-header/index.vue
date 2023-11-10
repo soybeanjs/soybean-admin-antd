@@ -25,9 +25,9 @@ defineOptions({
       <FullScreen v-if="!appStore.isMobile" :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" @change-lang="appStore.changeLocale" />
       <ColorSchemaSwitch
-        :color-schema="themeStore.colorScheme"
+        :theme-schema="themeStore.themeScheme"
         :is-dark="themeStore.darkMode"
-        @switch="themeStore.toggleColorScheme"
+        @switch="themeStore.toggleThemeScheme"
       />
       <ThemeButton />
       <UserAvatar />

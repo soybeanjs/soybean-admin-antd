@@ -3,11 +3,6 @@
  */
 declare namespace UnionKey {
   /**
-   * the content-type of http request header
-   */
-  type ContentType = 'application/json' | 'application/x-www-form-urlencoded' | 'multipart/form-data';
-
-  /**
    * the login module
    * - pwd-login: password login
    * - code-login: phone code login
@@ -16,6 +11,11 @@ declare namespace UnionKey {
    * - bind-wechat: bind wechat
    */
   type LoginModule = 'pwd-login' | 'code-login' | 'register' | 'reset-pwd' | 'bind-wechat';
+
+  /**
+   * theme scheme
+   */
+  type ThemeScheme = 'light' | 'dark' | 'auto';
 
   /**
    * the layout mode

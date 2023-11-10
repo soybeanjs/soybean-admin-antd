@@ -21,8 +21,16 @@ const local: App.I18n.Schema = {
     logout: 'Logout',
     logoutConfirm: 'Are you sure you want to log out?'
   },
+  theme: {
+    themeSchema: {
+      light: 'Light',
+      dark: 'Dark',
+      auto: 'Follow System'
+    }
+  },
   themeDrawer: {
-    title: 'Theme Configuration'
+    title: 'Theme Configuration',
+    darkMode: 'Dark Mode'
   },
   route: {
     login: 'Login',

@@ -5,7 +5,7 @@ import { getColorPalette, mixColor } from '@sa/utils';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { loginModuleLabels } from '@/constants/app';
+import { loginModuleRecord } from '@/constants/app';
 import PwdLogin from './components/pwd-login.vue';
 import CodeLogin from './components/code-login.vue';
 import Register from './components/register.vue';
@@ -33,11 +33,11 @@ interface LoginModule {
 }
 
 const modules: LoginModule[] = [
-  { key: 'pwd-login', label: loginModuleLabels['pwd-login'], component: PwdLogin },
-  { key: 'code-login', label: loginModuleLabels['code-login'], component: CodeLogin },
-  { key: 'register', label: loginModuleLabels.register, component: Register },
-  { key: 'reset-pwd', label: loginModuleLabels['reset-pwd'], component: ResetPwd },
-  { key: 'bind-wechat', label: loginModuleLabels['bind-wechat'], component: BindWechat }
+  { key: 'pwd-login', label: loginModuleRecord['pwd-login'], component: PwdLogin },
+  { key: 'code-login', label: loginModuleRecord['code-login'], component: CodeLogin },
+  { key: 'register', label: loginModuleRecord.register, component: Register },
+  { key: 'reset-pwd', label: loginModuleRecord['reset-pwd'], component: ResetPwd },
+  { key: 'bind-wechat', label: loginModuleRecord['bind-wechat'], component: BindWechat }
 ];
 
 const activeModule = computed(() => {
@@ -70,10 +70,10 @@ const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
           <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-vertical">
             <ColorSchemaSwitch
-              :color-schema="themeStore.colorScheme"
+              :theme-schema="themeStore.themeScheme"
               :is-dark="themeStore.darkMode"
               class="text-20px <sm:text-18px"
-              @switch="themeStore.toggleColorScheme"
+              @switch="themeStore.toggleThemeScheme"
             />
             <LangSwitch
               :lang="appStore.locale"

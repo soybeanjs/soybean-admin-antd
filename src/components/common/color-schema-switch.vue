@@ -5,7 +5,7 @@ import { $t } from '@/locales';
 defineOptions({ name: 'ColorSchemaSwitch' });
 
 interface Props {
-  colorSchema: App.Theme.ColorScheme;
+  themeSchema: UnionKey.ThemeScheme;
   isDark: boolean;
 }
 
@@ -21,13 +21,13 @@ function handleSwitch() {
   emit('switch');
 }
 
-const icons: Record<App.Theme.ColorScheme, string> = {
+const icons: Record<UnionKey.ThemeScheme, string> = {
   light: 'material-symbols:sunny',
   dark: 'material-symbols:nightlight-rounded',
   auto: 'material-symbols:hdr-auto'
 };
 
-const icon = computed(() => icons[props.colorSchema]);
+const icon = computed(() => icons[props.themeSchema]);
 </script>
 
 <template>

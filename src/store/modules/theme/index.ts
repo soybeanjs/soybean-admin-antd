@@ -20,37 +20,37 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings(themeTokens.colors));
 
   /**
-   * set color scheme
-   * @param colorScheme
+   * set theme scheme
+   * @param themeScheme
    */
-  function setColorScheme(colorScheme: App.Theme.ColorScheme) {
-    settings.value.colorScheme = colorScheme;
+  function setThemeScheme(themeScheme: UnionKey.ThemeScheme) {
+    settings.value.themeScheme = themeScheme;
   }
 
   /**
-   * toggle color scheme
+   * toggle theme scheme
    */
-  function toggleColorScheme() {
-    const colorSchemes: App.Theme.ColorScheme[] = ['light', 'dark', 'auto'];
+  function toggleThemeScheme() {
+    const themeSchemes: UnionKey.ThemeScheme[] = ['light', 'dark', 'auto'];
 
-    const index = colorSchemes.findIndex(item => item === settings.value.colorScheme);
+    const index = themeSchemes.findIndex(item => item === settings.value.themeScheme);
 
-    const nextIndex = index === colorSchemes.length - 1 ? 0 : index + 1;
+    const nextIndex = index === themeSchemes.length - 1 ? 0 : index + 1;
 
-    const nextColorScheme = colorSchemes[nextIndex];
+    const nextThemeScheme = themeSchemes[nextIndex];
 
-    setColorScheme(nextColorScheme);
+    setThemeScheme(nextThemeScheme);
   }
 
   /**
    * dark mode
    */
   const darkMode = computed(() => {
-    if (settings.value.colorScheme === 'auto') {
+    if (settings.value.themeScheme === 'auto') {
       return osTheme.value === 'dark';
     }
 
-    return settings.value.colorScheme === 'dark';
+    return settings.value.themeScheme === 'dark';
   });
 
   /**
@@ -87,8 +87,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   return {
     ...toRefs(settings.value),
     darkMode,
-    setColorScheme,
-    toggleColorScheme,
+    setThemeScheme,
+    toggleThemeScheme,
     antdTheme
   };
 });

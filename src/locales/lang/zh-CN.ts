@@ -21,8 +21,16 @@ const local: App.I18n.Schema = {
     logout: '退出登录',
     logoutConfirm: '确认退出登录吗？'
   },
+  theme: {
+    themeSchema: {
+      light: '亮色模式',
+      dark: '暗黑模式',
+      auto: '跟随系统'
+    }
+  },
   themeDrawer: {
-    title: '主题配置'
+    title: '主题配置',
+    darkMode: '深色模式'
   },
   route: {
     login: '登录',

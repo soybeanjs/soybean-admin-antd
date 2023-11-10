@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { $t } from '@/locales';
-import { loginModuleLabels } from '@/constants/app';
+import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
 import { reactive } from 'vue';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
@@ -58,11 +58,11 @@ async function handleSubmit() {
       </AButton>
       <div class="flex-y-center justify-between">
         <AButton class="flex-1" block @click="toggleLoginModule('code-login')">
-          {{ $t(loginModuleLabels['code-login']) }}
+          {{ $t(loginModuleRecord['code-login']) }}
         </AButton>
         <div class="w-12px"></div>
         <AButton class="flex-1" block @click="toggleLoginModule('register')">
-          {{ $t(loginModuleLabels.register) }}
+          {{ $t(loginModuleRecord.register) }}
         </AButton>
       </div>
     </ASpace>
