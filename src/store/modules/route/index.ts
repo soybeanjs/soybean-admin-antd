@@ -26,6 +26,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const authStore = useAuthStore();
   const tabStore = useTabStore();
   const { bool: isInitAuthRoute, setBool: setIsInitAuthRoute } = useBoolean();
+  const removeRouteFns: (() => void)[] = [];
 
   /**
    * auth route mode
@@ -135,6 +136,16 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     const routeStore = useRouteStore();
 
     routeStore.$reset();
+
+    resetVueRoutes();
+  }
+
+  /**
+   * reset vue routes
+   */
+  function resetVueRoutes() {
+    removeRouteFns.forEach(fn => fn());
+    removeRouteFns.length = 0;
   }
 
   /**
@@ -198,8 +209,17 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
    */
   function addRoutesToVueRouter(routes: RouteRecordRaw[]) {
     routes.forEach(route => {
-      router.addRoute(route);
+      const removeFn = router.addRoute(route);
+      addRemoveRouteFn(removeFn);
     });
+  }
+
+  /**
+   * add remove route fn
+   * @param fn
+   */
+  function addRemoveRouteFn(fn: () => void) {
+    removeRouteFns.push(fn);
   }
 
   /**
