@@ -234,9 +234,11 @@ export function getBreadcrumbsByRoute(
   const key = route.name as string;
   const activeKey = route.meta?.activeMenu;
 
+  const menuKey = activeKey || key;
+
   for (const menu of menus) {
-    if (menu.key === key) {
-      const breadcrumb = key !== activeKey ? menu : getGlobalMenuByBaseRoute(route);
+    if (menu.key === menuKey) {
+      const breadcrumb = menuKey !== activeKey ? menu : getGlobalMenuByBaseRoute(route);
 
       return [breadcrumb];
     }
