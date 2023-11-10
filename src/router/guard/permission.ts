@@ -93,14 +93,14 @@ async function createAuthRouteGuard(
   }
 
   // 2. If the auth route is initialized but is not the "not-found" route, then it is allowed to access.
-  const route = useRouteStore();
-  if (route.isInitAuthRoute && !isNotFoundRoute) {
+  const routeStore = useRouteStore();
+  if (routeStore.isInitAuthRoute && !isNotFoundRoute) {
     return true;
   }
 
   // 3. If the route is initialized, check whether the route exists.
-  if (route.isInitAuthRoute && isNotFoundRoute) {
-    const exist = await route.getIsAuthRouteExist(to.path as RoutePath);
+  if (routeStore.isInitAuthRoute && isNotFoundRoute) {
+    const exist = await routeStore.getIsAuthRouteExist(to.path as RoutePath);
 
     if (exist) {
       const noPermissionRoute: RouteKey = '403';
@@ -125,7 +125,7 @@ async function createAuthRouteGuard(
   }
 
   // 5. init auth route
-  await route.initAuthRoute();
+  await routeStore.initAuthRoute();
 
   // 6. the route is caught by the "not-found" route because the auto route is not initialized. after the auto route is initialized, redirect to the original route.
   if (isNotFoundRoute) {

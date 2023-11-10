@@ -19,10 +19,10 @@ defineOptions({
   <DarkModeContainer class="flex-y-center h-full shadow-header">
     <div class="flex-1-hidden flex-y-center h-full">
       <MenuToggler :collapsed="appStore.siderCollapse" @click="appStore.toggleSiderCollapse" />
-      <GlobalBreadcrumb />
+      <GlobalBreadcrumb v-if="!appStore.isMobile" />
     </div>
     <div class="flex-y-center justify-end h-full">
-      <FullScreen :full="isFullscreen" @click="toggle" />
+      <FullScreen v-if="!appStore.isMobile" :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" @change-lang="appStore.changeLocale" />
       <ColorSchemaSwitch
         :color-schema="themeStore.colorScheme"
