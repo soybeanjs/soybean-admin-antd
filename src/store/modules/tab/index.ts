@@ -64,7 +64,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const storageTabs = localStg.get('globalTabs');
 
     if (storageTabs) {
-      tabs.value = storageTabs;
+      tabs.value = updateTabsByI18nKey(storageTabs);
     }
 
     addTab(currentRoute);
