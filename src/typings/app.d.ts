@@ -37,6 +37,10 @@ declare namespace App {
        */
       otherColor: OtherColor;
       /**
+       * whether to follow the primary color
+       */
+      infoColorFollowPrimary: boolean;
+      /**
        * layout
        */
       layout: {
@@ -44,7 +48,63 @@ declare namespace App {
          * layout mode
          */
         mode: UnionKey.ThemeLayoutMode;
+        /**
+         * scroll mode
+         */
+        scrollMode: UnionKey.ThemeScrollMode;
       };
+      /**
+       * page
+       */
+      page: {
+        /**
+         * whether to show the page transition
+         */
+        animate: boolean;
+      };
+      /**
+       * header
+       */
+      header: {
+        /**
+         * header height
+         */
+        height: number;
+        /**
+         * header breadcrumb
+         */
+        breadcrumb: {
+          /**
+           * whether to show the breadcrumb
+           */
+          visible: boolean;
+          /**
+           * whether to show the breadcrumb icon
+           */
+          showIcon: boolean;
+        };
+      };
+      /**
+       * tab
+       */
+      tab: {
+        /**
+         * whether to show the tab
+         */
+        visible: boolean;
+        /**
+         * tab height
+         */
+        height: number;
+        /**
+         * tab mode
+         */
+        mode: UnionKey.ThemeTabMode;
+      };
+      /**
+       * fixed header and tab
+       */
+      fixedHeaderAndTab: boolean;
       /**
        * sider
        */
@@ -53,6 +113,56 @@ declare namespace App {
          * inverted sider
          */
         inverted: boolean;
+        /**
+         * sider width
+         */
+        width: number;
+        /**
+         * collapsed sider width
+         */
+        collapsedWidth: number;
+        /**
+         * sider width when the layout is mixed
+         */
+        mixedWidth: number;
+        /**
+         * collapsed sider width when the layout is mixed
+         */
+        mixedCollapsedWidth: number;
+        /**
+         * child menu width when the layout is mixed
+         */
+        mixedChildMenuWidth: number;
+      };
+      /**
+       * menu
+       */
+      menu: {
+        /**
+         * position of the horizontal menu
+         */
+        horizontalPosition: UnionKey.ThemeHorizontalMenuPosition;
+      };
+      /**
+       * footer
+       */
+      footer: {
+        /**
+         * whether to show the footer
+         */
+        visible: boolean;
+        /**
+         * whether fixed the footer
+         */
+        fixed: boolean;
+        /**
+         * footer height
+         */
+        height: number;
+        /**
+         * whether float the footer to the right when the layout is 'horizontal-mix'
+         */
+        floatRight: boolean;
       };
     }
 
@@ -97,6 +207,24 @@ declare namespace App {
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
 
     /**
+     * the global header props
+     */
+    interface HeaderProps {
+      /**
+       * whether to show the logo
+       */
+      showLogo?: boolean;
+      /**
+       * whether to show the menu toggler
+       */
+      showMenuToggler?: boolean;
+      /**
+       * whether to show the menu
+       */
+      showMenu?: boolean;
+    }
+
+    /**
      * the global menu
      */
     interface Menu {
@@ -134,11 +262,6 @@ declare namespace App {
        */
       children?: Menu[];
     }
-
-    /**
-     * form rule
-     */
-    type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
 
     /**
      * tab route
@@ -194,6 +317,11 @@ declare namespace App {
        */
       i18nKey?: I18n.I18nKey;
     };
+
+    /**
+     * form rule
+     */
+    type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
 
     /**
      * the global dropdown key

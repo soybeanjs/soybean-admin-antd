@@ -12,7 +12,8 @@
     }
   },
   "dependencies": {
-    "@sa/utils": "workspace:*"
+    "@sa/utils": "workspace:*",
+    "simplebar-vue": "2.3.3"
   },
   "devDependencies": {
     "typed-css-modules": "0.8.0"

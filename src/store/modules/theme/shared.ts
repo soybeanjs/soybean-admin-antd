@@ -22,11 +22,43 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       warning,
       error
     },
+    infoColorFollowPrimary: true,
     layout: {
-      mode: 'vertical'
+      mode: 'vertical',
+      scrollMode: 'content'
     },
+    page: {
+      animate: true
+    },
+    header: {
+      height: 56,
+      breadcrumb: {
+        visible: true,
+        showIcon: true
+      }
+    },
+    tab: {
+      visible: true,
+      height: 44,
+      mode: 'chrome'
+    },
+    fixedHeaderAndTab: true,
     sider: {
-      inverted: false
+      inverted: false,
+      width: 220,
+      collapsedWidth: 64,
+      mixedWidth: 80,
+      mixedCollapsedWidth: 48,
+      mixedChildMenuWidth: 200
+    },
+    menu: {
+      horizontalPosition: 'flex-start'
+    },
+    footer: {
+      visible: true,
+      fixed: false,
+      height: 48,
+      floatRight: true
     }
   };
 

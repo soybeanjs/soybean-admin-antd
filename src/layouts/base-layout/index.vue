@@ -23,17 +23,87 @@ const layoutMode = computed(() => {
   const horizontal: LayoutMode = 'horizontal';
   return themeStore.layout.mode.includes(vertical) ? vertical : horizontal;
 });
+
+const headerPropsConfig: Record<UnionKey.ThemeLayoutMode, App.Global.HeaderProps> = {
+  vertical: {
+    showLogo: false,
+    showMenu: false,
+    showMenuToggler: true
+  },
+  'vertical-mix': {
+    showLogo: false,
+    showMenu: false,
+    showMenuToggler: false
+  },
+  horizontal: {
+    showLogo: true,
+    showMenu: true,
+    showMenuToggler: false
+  },
+  'horizontal-mix': {
+    showLogo: true,
+    showMenu: false,
+    showMenuToggler: true
+  }
+};
+
+const headerProps = computed(() => headerPropsConfig[themeStore.layout.mode]);
+
+const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal');
+
+const siderWidth = computed(() => getSiderWidth());
+
+const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
+
+function getSiderWidth() {
+  const { width, mixedWidth, mixedChildMenuWidth } = themeStore.sider;
+
+  const isVerticalMix = themeStore.layout.mode === 'vertical-mix';
+
+  let w = isVerticalMix ? mixedWidth : width;
+
+  if (isVerticalMix && appStore.mixedSiderFixed) {
+    w += mixedChildMenuWidth;
+  }
+
+  return w;
+}
+
+function getSiderCollapsedWidth() {
+  const { collapsedWidth, mixedCollapsedWidth, mixedChildMenuWidth } = themeStore.sider;
+
+  const isVerticalMix = themeStore.layout.mode === 'vertical-mix';
+
+  let w = isVerticalMix ? mixedCollapsedWidth : collapsedWidth;
+
+  if (isVerticalMix && appStore.mixedSiderFixed) {
+    w += mixedChildMenuWidth;
+  }
+
+  return w;
+}
 </script>
 
 <template>
   <AdminLayout
     v-model:sider-collapse="appStore.siderCollapse"
     :mode="layoutMode"
+    :scroll-mode="themeStore.layout.scrollMode"
     :is-mobile="appStore.isMobile"
     :full-content="appStore.fullContent"
+    :fixed-top="themeStore.fixedHeaderAndTab"
+    :header-height="themeStore.header.height"
+    :tab-visible="themeStore.tab.visible"
+    :tab-height="themeStore.tab.height"
+    :sider-visible="siderVisible"
+    :sider-width="siderWidth"
+    :sider-collapsed-width="siderCollapsedWidth"
+    :footer-visible="themeStore.footer.visible"
+    :fixed-footer="themeStore.footer.fixed"
+    :right-footer="themeStore.footer.floatRight"
   >
     <template #header>
-      <GlobalHeader />
+      <GlobalHeader v-bind="headerProps" />
     </template>
     <template #tab>
       <GlobalTab />

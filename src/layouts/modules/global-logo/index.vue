@@ -9,10 +9,12 @@ interface Props {
   /**
    * whether to show the title
    */
-  showTitle: boolean;
+  showTitle?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  showTitle: true
+});
 </script>
 
 <template>
