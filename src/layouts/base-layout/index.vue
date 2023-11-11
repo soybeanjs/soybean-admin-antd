@@ -56,28 +56,28 @@ const siderWidth = computed(() => getSiderWidth());
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
 
 function getSiderWidth() {
-  const { width, mixedWidth, mixedChildMenuWidth } = themeStore.sider;
+  const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
 
   const isVerticalMix = themeStore.layout.mode === 'vertical-mix';
 
-  let w = isVerticalMix ? mixedWidth : width;
+  let w = isVerticalMix ? mixWidth : width;
 
   if (isVerticalMix && appStore.mixedSiderFixed) {
-    w += mixedChildMenuWidth;
+    w += mixChildMenuWidth;
   }
 
   return w;
 }
 
 function getSiderCollapsedWidth() {
-  const { collapsedWidth, mixedCollapsedWidth, mixedChildMenuWidth } = themeStore.sider;
+  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
 
   const isVerticalMix = themeStore.layout.mode === 'vertical-mix';
 
-  let w = isVerticalMix ? mixedCollapsedWidth : collapsedWidth;
+  let w = isVerticalMix ? mixCollapsedWidth : collapsedWidth;
 
   if (isVerticalMix && appStore.mixedSiderFixed) {
-    w += mixedChildMenuWidth;
+    w += mixChildMenuWidth;
   }
 
   return w;
@@ -100,7 +100,7 @@ function getSiderCollapsedWidth() {
     :sider-collapsed-width="siderCollapsedWidth"
     :footer-visible="themeStore.footer.visible"
     :fixed-footer="themeStore.footer.fixed"
-    :right-footer="themeStore.footer.floatRight"
+    :right-footer="themeStore.footer.right"
   >
     <template #header>
       <GlobalHeader v-bind="headerProps" />

@@ -42,7 +42,7 @@ function handleSegmentChange(value: string | number) {
   <ADivider>{{ $t('theme.themeSchema.title') }}</ADivider>
   <div class="flex-vertical-stretch gap-16px">
     <div class="i-flex-center">
-      <ASegmented :value="themeStore.themeScheme" :options="options" @change="handleSegmentChange">
+      <ASegmented :value="themeStore.themeScheme" :options="options" class="bg-layout" @change="handleSegmentChange">
         <template #label="{ payload }">
           <ButtonIcon :icon="payload.icon" class="h-28px text-icon-small" />
         </template>

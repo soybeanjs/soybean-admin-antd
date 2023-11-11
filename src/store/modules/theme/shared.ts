@@ -22,7 +22,7 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       warning,
       error
     },
-    infoColorFollowPrimary: true,
+    isCustomizeInfoColor: false,
     layout: {
       mode: 'vertical',
       scrollMode: 'content'
@@ -47,9 +47,9 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       inverted: false,
       width: 220,
       collapsedWidth: 64,
-      mixedWidth: 80,
-      mixedCollapsedWidth: 48,
-      mixedChildMenuWidth: 200
+      mixWidth: 80,
+      mixCollapsedWidth: 48,
+      mixChildMenuWidth: 200
     },
     menu: {
       horizontalPosition: 'flex-start'
@@ -58,7 +58,7 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       visible: true,
       fixed: false,
       height: 48,
-      floatRight: true
+      right: true
     }
   };
 

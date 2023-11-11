@@ -37,9 +37,10 @@ declare namespace App {
        */
       otherColor: OtherColor;
       /**
-       * whether to follow the primary color
+       * is customize info color
+       * @description if not, the info color will transformed by the primary color
        */
-      infoColorFollowPrimary: boolean;
+      isCustomizeInfoColor: boolean;
       /**
        * layout
        */
@@ -122,17 +123,17 @@ declare namespace App {
          */
         collapsedWidth: number;
         /**
-         * sider width when the layout is mixed
+         * sider width when the layout is 'vertical-mix' or 'horizontal-mix'
          */
-        mixedWidth: number;
+        mixWidth: number;
         /**
-         * collapsed sider width when the layout is mixed
+         * collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix'
          */
-        mixedCollapsedWidth: number;
+        mixCollapsedWidth: number;
         /**
-         * child menu width when the layout is mixed
+         * child menu width when the layout is 'vertical-mix' or 'horizontal-mix'
          */
-        mixedChildMenuWidth: number;
+        mixChildMenuWidth: number;
       };
       /**
        * menu
@@ -162,7 +163,7 @@ declare namespace App {
         /**
          * whether float the footer to the right when the layout is 'horizontal-mix'
          */
-        floatRight: boolean;
+        right: boolean;
       };
     }
 

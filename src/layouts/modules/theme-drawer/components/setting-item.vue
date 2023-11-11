@@ -15,7 +15,7 @@ defineProps<Props>();
 
 <template>
   <div class="flex-y-center justify-between w-full">
-    <span>{{ label }}</span>
+    <span class="text-base_text">{{ label }}</span>
     <slot></slot>
   </div>
 </template>
