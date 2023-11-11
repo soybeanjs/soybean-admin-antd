@@ -78,7 +78,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
     >
       <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[mode])">
         <div
-          class="layout-card__shadow gap-6px w-96px h-64px p-6px rd-4px"
+          class="gap-6px w-96px h-64px p-6px rd-4px shadow dark:shadow-coolGray-5"
           :class="[key.includes('vertical') ? 'flex' : 'flex-vertical']"
         >
           <slot :name="key"></slot>
@@ -88,8 +88,4 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
   </div>
 </template>
 
-<style scoped>
-.layout-card__shadow {
-  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.18);
-}
-</style>
+<style scoped></style>
