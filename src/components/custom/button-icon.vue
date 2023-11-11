@@ -30,11 +30,11 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  class: 'h-36px text-icon',
+  class: '',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
-  getPopupContainer: () => document.body
+  triggerParent: false
 });
 
 const cls = computed(() => props.class);
@@ -51,7 +51,7 @@ function getPopupContainer(triggerNode: HTMLElement) {
     :get-popup-container="getPopupContainer"
     :title="tooltipContent"
   >
-    <AButton type="text" :class="cls">
+    <AButton type="text" class="h-36px text-icon" :class="cls">
       <div class="flex-center gap-8px">
         <slot>
           <SvgIcon :icon="icon" />
@@ -59,7 +59,7 @@ function getPopupContainer(triggerNode: HTMLElement) {
       </div>
     </AButton>
   </ATooltip>
-  <AButton v-else type="text" :class="cls">
+  <AButton v-else type="text" class="h-36px text-icon" :class="cls">
     <div class="flex-center gap-8px">
       <slot>
         <SvgIcon :icon="icon" />
