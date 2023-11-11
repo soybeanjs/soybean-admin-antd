@@ -11,10 +11,18 @@ defineOptions({
   name: 'VerticalMenu'
 });
 
+interface Props {
+  darkTheme?: boolean;
+}
+
+const props = defineProps<Props>();
+
 const route = useRoute();
 const appStore = useAppStore();
 const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
+
+const menuTheme = computed(() => (props.darkTheme ? 'dark' : 'light'));
 
 const selectedKeys = computed(() => {
   const { hideInMenu, activeMenu } = route.meta;
@@ -47,6 +55,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
     <div class="h-full overflow-y-auto">
       <AMenu
         mode="inline"
+        :theme="menuTheme"
         :items="routeStore.menus"
         :selected-keys="selectedKeys"
         :open-keys="openKeys"

@@ -9,6 +9,18 @@ declare namespace App {
     type ColorPaletteNumber = import('@sa/color-palette').ColorPaletteNumber;
 
     /**
+     * theme token
+     */
+    type ThemeToken = {
+      colors: ThemeTokenColor;
+      boxShadow: {
+        header: string;
+        sider: string;
+        tab: string;
+      };
+    };
+
+    /**
      * theme setting
      */
     interface ThemeSetting {
@@ -24,6 +36,24 @@ declare namespace App {
        * other color
        */
       otherColor: OtherColor;
+      /**
+       * layout
+       */
+      layout: {
+        /**
+         * layout mode
+         */
+        mode: UnionKey.ThemeLayoutMode;
+      };
+      /**
+       * sider
+       */
+      sider: {
+        /**
+         * inverted sider
+         */
+        inverted: boolean;
+      };
     }
 
     interface OtherColor {
@@ -49,18 +79,10 @@ declare namespace App {
       nprogress: string;
       container: string;
       layout: string;
+      inverted: string;
       base_text: string;
       [key: string]: string;
     }
-
-    type ThemeToken = {
-      colors: ThemeTokenColor;
-      boxShadow: {
-        header: string;
-        sider: string;
-        tab: string;
-      };
-    };
   }
 
   /**
@@ -224,11 +246,14 @@ declare namespace App {
         logoutConfirm: string;
       };
       theme: {
-        themeSchema: Record<UnionKey.ThemeScheme, string>;
+        themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+        layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
       };
       themeDrawer: {
         title: string;
-        darkMode: string;
+        sider: {
+          inverted: string;
+        };
       };
       route: Record<I18nRouteKey, string>;
       page: {

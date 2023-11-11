@@ -23,14 +23,24 @@ const local: App.I18n.Schema = {
   },
   theme: {
     themeSchema: {
+      title: 'Theme Schema',
       light: 'Light',
       dark: 'Dark',
       auto: 'Follow System'
+    },
+    layoutMode: {
+      title: 'Layout Mode',
+      vertical: 'Vertical Menu Mode',
+      horizontal: 'Horizontal Menu Mode',
+      'vertical-mix': 'Vertical Mix Menu Mode',
+      'horizontal-mix': 'Horizontal Mix menu Mode'
     }
   },
   themeDrawer: {
     title: 'Theme Configuration',
-    darkMode: 'Dark Mode'
+    sider: {
+      inverted: 'Dark Sider'
+    }
   },
   route: {
     login: 'Login',
@@ -71,7 +81,7 @@ const local: App.I18n.Schema = {
         title: 'Password Login',
         rememberMe: 'Remember me',
         forgetPassword: 'Forget password?',
-        register: 'Register account',
+        register: 'Register',
         otherAccountLogin: 'Other Account Login',
         otherLoginMode: 'Other Login Mode',
         superAdmin: 'Super Administrator',
@@ -84,7 +94,7 @@ const local: App.I18n.Schema = {
         imageCodePlaceholder: 'Please enter image verification code'
       },
       register: {
-        title: 'Register Account',
+        title: 'Register',
         agreement: 'I have read and agree to',
         protocol: '《User Agreement》',
         policy: '《Privacy Policy》'

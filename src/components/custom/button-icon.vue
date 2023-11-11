@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
+import { computed } from 'vue';
 
 defineOptions({
   name: 'ButtonIcon'
@@ -9,7 +10,7 @@ interface Props {
   /**
    * button class
    */
-  cls?: string;
+  class?: string;
   /**
    * iconify icon name
    */
@@ -29,12 +30,14 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  cls: 'h-40px text-icon',
+  class: 'h-36px text-icon',
   icon: '',
   tooltipContent: '',
   tooltipPlacement: 'bottom',
   getPopupContainer: () => document.body
 });
+
+const cls = computed(() => props.class);
 
 function getPopupContainer(triggerNode: HTMLElement) {
   return props.triggerParent ? triggerNode.parentElement! : document.body;

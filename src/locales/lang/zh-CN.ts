@@ -23,14 +23,24 @@ const local: App.I18n.Schema = {
   },
   theme: {
     themeSchema: {
+      title: '主题模式',
       light: '亮色模式',
       dark: '暗黑模式',
       auto: '跟随系统'
+    },
+    layoutMode: {
+      title: '布局模式',
+      vertical: '左侧菜单模式',
+      horizontal: '顶部菜单模式',
+      'vertical-mix': '左侧菜单混合模式',
+      'horizontal-mix': '顶部菜单混合模式'
     }
   },
   themeDrawer: {
     title: '主题配置',
-    darkMode: '深色模式'
+    sider: {
+      inverted: '深色侧边栏'
+    }
   },
   route: {
     login: '登录',

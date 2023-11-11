@@ -18,13 +18,13 @@ defineOptions({
 <template>
   <DarkModeContainer class="flex-y-center h-full shadow-header">
     <div class="flex-1-hidden flex-y-center h-full">
-      <MenuToggler :collapsed="appStore.siderCollapse" @click="appStore.toggleSiderCollapse" />
+      <MenuToggler :collapsed="appStore.siderCollapse" class="mr-12px" @click="appStore.toggleSiderCollapse" />
       <GlobalBreadcrumb v-if="!appStore.isMobile" />
     </div>
     <div class="flex-y-center justify-end h-full">
       <FullScreen v-if="!appStore.isMobile" :full="isFullscreen" @click="toggle" />
       <LangSwitch :lang="appStore.locale" :lang-options="appStore.localeOptions" @change-lang="appStore.changeLocale" />
-      <ColorSchemaSwitch
+      <ThemeSchemaSwitch
         :theme-schema="themeStore.themeScheme"
         :is-dark="themeStore.darkMode"
         @switch="themeStore.toggleThemeScheme"

@@ -1,0 +1,95 @@
+<script setup lang="ts">
+import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
+import { themeLayoutModeRecord } from '@/constants/app';
+import { $t } from '@/locales';
+
+defineOptions({
+  name: 'LayoutModeCard'
+});
+
+interface Props {
+  /**
+   * layout mode
+   */
+  mode: UnionKey.ThemeLayoutMode;
+}
+
+defineProps<Props>();
+
+interface Emits {
+  /**
+   * layout mode change
+   */
+  (e: 'update:mode', mode: UnionKey.ThemeLayoutMode): void;
+}
+
+const emit = defineEmits<Emits>();
+
+type LayoutConfig = Record<
+  UnionKey.ThemeLayoutMode,
+  {
+    placement: TooltipPlacement;
+    headerClass: string;
+    menuClass: string;
+    mainClass: string;
+  }
+>;
+
+const layoutConfig: LayoutConfig = {
+  vertical: {
+    placement: 'bottomLeft',
+    headerClass: '',
+    menuClass: 'w-1/3 h-full',
+    mainClass: 'w-2/3 h-3/4'
+  },
+  'vertical-mix': {
+    placement: 'bottom',
+    headerClass: '',
+    menuClass: 'w-1/4 h-full',
+    mainClass: 'w-2/3 h-3/4'
+  },
+  horizontal: {
+    placement: 'bottom',
+    headerClass: '',
+    menuClass: 'w-full h-1/4',
+    mainClass: 'w-full h-3/4'
+  },
+  'horizontal-mix': {
+    placement: 'bottomRight',
+    headerClass: '',
+    menuClass: 'w-full h-1/4',
+    mainClass: 'w-2/3 h-3/4'
+  }
+};
+
+function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
+  emit('update:mode', mode);
+}
+</script>
+
+<template>
+  <div class="flex-center flex-wrap gap-24px">
+    <div
+      v-for="(item, key) in layoutConfig"
+      :key="key"
+      class="flex border-2px rounded-6px cursor-pointer hover:border-primary"
+      :class="[mode === key ? 'border-primary' : 'border-transparent']"
+      @click="handleChangeMode(key)"
+    >
+      <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[mode])">
+        <div
+          class="layout-card__shadow gap-6px w-96px h-64px p-6px rd-4px"
+          :class="[key.includes('vertical') ? 'flex' : 'flex-vertical']"
+        >
+          <slot :name="key"></slot>
+        </div>
+      </ATooltip>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.layout-card__shadow {
+  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.18);
+}
+</style>

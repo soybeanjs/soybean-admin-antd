@@ -69,15 +69,16 @@ const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
           <SystemLogo class="text-64px text-primary <sm:text-48px" />
           <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-vertical">
-            <ColorSchemaSwitch
+            <ThemeSchemaSwitch
               :theme-schema="themeStore.themeScheme"
-              :is-dark="themeStore.darkMode"
+              :show-tooltip="false"
               class="text-20px <sm:text-18px"
               @switch="themeStore.toggleThemeScheme"
             />
             <LangSwitch
               :lang="appStore.locale"
               :lang-options="appStore.localeOptions"
+              :show-tooltip="false"
               @change-lang="appStore.changeLocale"
             />
           </div>

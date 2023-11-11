@@ -152,9 +152,9 @@ const props = withDefaults(defineProps<AdminLayoutProps>(), {
 
 interface Emits {
   /**
-   * @description: click the mask when layout mode is mobile
+   * update siderCollapse
    */
-  (e: 'click-mobile-sider-mask'): void;
+  (e: 'update:siderCollapse', collapse: boolean): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -231,7 +231,7 @@ const siderPaddingClass = computed(() => {
 });
 
 function handleClickMask() {
-  emit('click-mobile-sider-mask');
+  emit('update:siderCollapse', true);
 }
 </script>
 

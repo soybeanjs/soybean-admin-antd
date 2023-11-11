@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { AdminLayout } from '@sa/materials';
+import type { LayoutMode } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
+import { useThemeStore } from '@/store/modules/theme';
 import GlobalHeader from '../modules/global-header/index.vue';
 import GlobalSider from '../modules/global-sider/index.vue';
 import GlobalTab from '../modules/global-tab/index.vue';
@@ -13,14 +16,21 @@ defineOptions({
 });
 
 const appStore = useAppStore();
+const themeStore = useThemeStore();
+
+const layoutMode = computed(() => {
+  const vertical: LayoutMode = 'vertical';
+  const horizontal: LayoutMode = 'horizontal';
+  return themeStore.layout.mode.includes(vertical) ? vertical : horizontal;
+});
 </script>
 
 <template>
   <AdminLayout
+    v-model:sider-collapse="appStore.siderCollapse"
+    :mode="layoutMode"
     :is-mobile="appStore.isMobile"
-    :sider-collapse="appStore.siderCollapse"
     :full-content="appStore.fullContent"
-    @click-mobile-sider-mask="appStore.setSiderCollapse(true)"
   >
     <template #header>
       <GlobalHeader />

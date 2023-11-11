@@ -13,7 +13,7 @@ defineProps<Props>();
 <template>
   <ButtonIcon
     :tooltip-content="collapsed ? $t('icon.expand') : $t('icon.collapse')"
-    tooltip-placement="right"
+    tooltip-placement="bottomLeft"
     trigger-parent
   >
     <SvgIcon v-if="collapsed" icon="line-md:menu-fold-right" />

@@ -21,6 +21,12 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       success,
       warning,
       error
+    },
+    layout: {
+      mode: 'vertical'
+    },
+    sider: {
+      inverted: false
     }
   };
 
@@ -46,6 +52,7 @@ export function createThemeToken() {
       nprogress: paletteColors.primary,
       container: 'rgba(255, 255, 255, 0.8)',
       layout: 'rgba(247, 250, 252, 1)',
+      inverted: 'rgba(0, 20, 40, 1)',
       base_text: 'rgba(0, 0, 0, 0.88)'
     },
     boxShadow: {
@@ -58,7 +65,7 @@ export function createThemeToken() {
   const darkThemeTokens: App.Theme.ThemeToken = {
     colors: {
       ...themeTokens.colors,
-      container: 'rgb(33, 33, 33)',
+      container: 'rgb(28, 28, 28)',
       layout: 'rgb(18, 18, 18)',
       base_text: 'rgba(255, 255, 255, 0.88)'
     },

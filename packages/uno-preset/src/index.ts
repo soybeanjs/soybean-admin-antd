@@ -5,7 +5,7 @@ import type { Theme } from '@unocss/preset-uno';
 
 export function presetSoybeanAdmin(): Preset<Theme> {
   const preset: Preset<Theme> = {
-    name: 'preset-soybean-tool',
+    name: 'preset-soybean-admin',
     shortcuts: [
       {
         'wh-full': 'w-full h-full'
