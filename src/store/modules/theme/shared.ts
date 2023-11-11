@@ -82,10 +82,10 @@ export function createThemeToken() {
     colors: {
       ...paletteColors,
       nprogress: paletteColors.primary,
-      container: 'rgba(255, 255, 255, 0.8)',
-      layout: 'rgba(247, 250, 252, 1)',
-      inverted: 'rgba(0, 20, 40, 1)',
-      base_text: 'rgba(0, 0, 0, 0.88)'
+      container: 'rgb(255, 255, 255)',
+      layout: 'rgb(247, 250, 252)',
+      inverted: 'rgb(0, 20, 40)',
+      base_text: 'rgb(31, 31, 31)'
     },
     boxShadow: {
       header: '0 1px 2px rgb(0, 21, 41, 0.08)',
@@ -99,7 +99,7 @@ export function createThemeToken() {
       ...themeTokens.colors,
       container: 'rgb(28, 28, 28)',
       layout: 'rgb(18, 18, 18)',
-      base_text: 'rgba(255, 255, 255, 0.88)'
+      base_text: 'rgb(224, 224, 224)'
     },
     boxShadow: {
       ...themeTokens.boxShadow
