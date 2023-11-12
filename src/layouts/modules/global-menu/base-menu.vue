@@ -108,6 +108,16 @@ function handleClickMenu(menuInfo: MenuInfo) {
   padding-inline: calc(50% - 14px);
 }
 
+.menu-wrapper :deep(.ant-menu-horizontal .ant-menu-item) {
+  display: flex;
+  align-items: center;
+}
+
+.menu-wrapper :deep(.ant-menu-horizontal .ant-menu-submenu-title) {
+  display: flex;
+  align-items: center;
+}
+
 .select-menu :deep(.ant-menu-inline .ant-menu-item-selected) {
   background-color: v-bind(selectedBgColor);
 }
