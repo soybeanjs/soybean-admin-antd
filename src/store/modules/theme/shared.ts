@@ -10,17 +10,15 @@ const DARK_CLASS = 'dark';
  * init theme settings
  * @param darkMode is dark mode
  */
-export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
-  const { primary: themeColor, info, success, warning, error } = colors;
-
+export function initThemeSettings() {
   const themeSettings: App.Theme.ThemeSetting = {
     themeScheme: 'light',
-    themeColor,
+    themeColor: '#646cff',
     otherColor: {
-      info,
-      success,
-      warning,
-      error
+      info: '#2080f0',
+      success: '#52c41a',
+      warning: '#faad14',
+      error: '#f5222d'
     },
     isCustomizeInfoColor: false,
     layout: {
@@ -69,14 +67,8 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
  * create theme token
  * @param darkMode is dark mode
  */
-export function createThemeToken() {
-  const paletteColors = createThemePaletteColors({
-    primary: '#646cff',
-    info: '#2080f0',
-    success: '#52c41a',
-    warning: '#faad14',
-    error: '#f5222d'
-  });
+export function createThemeToken(colors: App.Theme.ThemeColor) {
+  const paletteColors = createThemePaletteColors(colors);
 
   const themeTokens: App.Theme.ThemeToken = {
     colors: {
@@ -116,7 +108,7 @@ export function createThemeToken() {
  * create theme palette colors
  * @param colors theme colors
  */
-function createThemePaletteColors(colors: Record<App.Theme.ThemeColorKey, string>) {
+function createThemePaletteColors(colors: App.Theme.ThemeColor) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
   const colorPaletteVar = {} as App.Theme.ThemePaletteColor;
 
@@ -172,7 +164,7 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
  * add theme vars to html
  * @param tokens
  */
-export function setupThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
+export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
   const cssVarStr = getCssVarByTokens(tokens);
   const darkCssVarStr = getCssVarByTokens(darkTokens);
 
@@ -230,7 +222,12 @@ export function getAntdTheme(themeColor: string, otherColor: App.Theme.OtherColo
       colorWarning: warning,
       colorError: error
     },
-    algorithm: [isDark ? darkAlgorithm : defaultAlgorithm]
+    algorithm: [isDark ? darkAlgorithm : defaultAlgorithm],
+    components: {
+      Menu: {
+        colorSubItemBg: 'transparent'
+      }
+    }
   };
 
   return theme;

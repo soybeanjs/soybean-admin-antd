@@ -3,6 +3,7 @@ import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 import DarkMode from './modules/dark-mode.vue';
 import LayoutMode from './modules/layout-mode.vue';
+import ThemeColor from './modules/theme-color.vue';
 
 defineOptions({
   name: 'ThemeDrawer'
@@ -14,7 +15,7 @@ const appStore = useAppStore();
 <template>
   <ADrawer
     :open="appStore.themeDrawerVisible"
-    :title="$t('themeDrawer.title')"
+    :title="$t('theme.themeDrawerTitle')"
     :closable="false"
     @close="appStore.closeThemeDrawer"
   >
@@ -23,6 +24,7 @@ const appStore = useAppStore();
     </template>
     <DarkMode />
     <LayoutMode />
+    <ThemeColor />
   </ADrawer>
 </template>
 

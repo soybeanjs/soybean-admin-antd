@@ -48,7 +48,7 @@ function handleSegmentChange(value: string | number) {
         </template>
       </ASegmented>
     </div>
-    <SettingItem :label="$t('themeDrawer.sider.inverted')">
+    <SettingItem :label="$t('theme.sider.inverted')">
       <ASwitch v-model:checked="themeStore.sider.inverted" :disabled="themeStore.darkMode" />
     </SettingItem>
   </div>

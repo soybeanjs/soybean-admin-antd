@@ -375,14 +375,16 @@ declare namespace App {
         logoutConfirm: string;
       };
       theme: {
+        themeDrawerTitle: string;
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
-      };
-      themeDrawer: {
-        title: string;
         sider: {
           inverted: string;
         };
+        themeColor: {
+          title: string;
+          customizeInfo: string;
+        } & Theme.ThemeColor;
       };
       route: Record<I18nRouteKey, string>;
       page: {

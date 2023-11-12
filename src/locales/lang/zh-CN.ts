@@ -22,6 +22,7 @@ const local: App.I18n.Schema = {
     logoutConfirm: '确认退出登录吗？'
   },
   theme: {
+    themeDrawerTitle: '主题配置',
     themeSchema: {
       title: '主题模式',
       light: '亮色模式',
@@ -34,12 +35,18 @@ const local: App.I18n.Schema = {
       'vertical-mix': '左侧菜单混合模式',
       horizontal: '顶部菜单模式',
       'horizontal-mix': '顶部菜单混合模式'
-    }
-  },
-  themeDrawer: {
-    title: '主题配置',
+    },
     sider: {
       inverted: '深色侧边栏'
+    },
+    themeColor: {
+      title: '主题颜色',
+      primary: '主色',
+      info: '信息色',
+      success: '成功色',
+      warning: '警告色',
+      error: '错误色',
+      customizeInfo: '自定义信息色'
     }
   },
   route: {

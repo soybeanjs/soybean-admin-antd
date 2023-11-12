@@ -3,7 +3,7 @@ import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
 import { usePreferredColorScheme } from '@vueuse/core';
 import { SetupStoreId } from '@/enum';
-import { createThemeToken, initThemeSettings, setupThemeVarsToHtml, toggleCssDarkMode, getAntdTheme } from './shared';
+import { createThemeToken, initThemeSettings, addThemeVarsToHtml, toggleCssDarkMode, getAntdTheme } from './shared';
 
 /**
  * theme store
@@ -12,12 +12,21 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
 
-  const { themeTokens, darkThemeTokens } = createThemeToken();
-
   /**
    * theme settings
    */
-  const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings(themeTokens.colors));
+  const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
+
+  const themeColors = computed(() => {
+    const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
+    const colors: App.Theme.ThemeColor = {
+      primary: themeColor,
+      ...otherColor,
+      info: isCustomizeInfoColor ? otherColor.info : themeColor
+    };
+
+    return colors;
+  });
 
   /**
    * set theme scheme
@@ -66,8 +75,12 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.layout.mode = mode;
   }
 
-  function init() {
-    setupThemeVarsToHtml(themeTokens, darkThemeTokens);
+  /**
+   * setup theme vars to html
+   */
+  function setupThemeVarsToHtml() {
+    const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
+    addThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
 
   // watch store
@@ -80,6 +93,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       },
       { immediate: true }
     );
+
+    // themeColors change, update css vars
+    watch(
+      themeColors,
+      () => {
+        setupThemeVarsToHtml();
+      },
+      { immediate: true }
+    );
   });
 
   /**
@@ -88,9 +110,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   onScopeDispose(() => {
     scope.stop();
   });
-
-  // init
-  init();
 
   return {
     ...toRefs(settings.value),

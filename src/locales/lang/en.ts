@@ -22,6 +22,7 @@ const local: App.I18n.Schema = {
     logoutConfirm: 'Are you sure you want to log out?'
   },
   theme: {
+    themeDrawerTitle: 'Theme Configuration',
     themeSchema: {
       title: 'Theme Schema',
       light: 'Light',
@@ -34,12 +35,18 @@ const local: App.I18n.Schema = {
       horizontal: 'Horizontal Menu Mode',
       'vertical-mix': 'Vertical Mix Menu Mode',
       'horizontal-mix': 'Horizontal Mix menu Mode'
-    }
-  },
-  themeDrawer: {
-    title: 'Theme Configuration',
+    },
     sider: {
       inverted: 'Dark Sider'
+    },
+    themeColor: {
+      title: 'Theme Color',
+      primary: 'Primary',
+      info: 'Info',
+      success: 'Success',
+      warning: 'Warning',
+      error: 'Error',
+      customizeInfo: 'Customize Info'
     }
   },
   route: {
