@@ -8,8 +8,10 @@ import { $t, setLocale } from '@/locales';
 import { localStg } from '@/utils/storage';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
+import { useThemeStore } from '../theme';
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
+  const themeStore = useThemeStore();
   const routeStore = useRouteStore();
   const tabStore = useTabStore();
   const scope = effectScope();
@@ -79,6 +81,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       newValue => {
         if (newValue) {
           setSiderCollapse(true);
+
+          themeStore.setThemeLayout('vertical');
         }
       },
       { immediate: true }

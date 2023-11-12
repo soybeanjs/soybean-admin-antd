@@ -12,9 +12,13 @@ interface Props {
    * layout mode
    */
   mode: UnionKey.ThemeLayoutMode;
+  /**
+   * disabled
+   */
+  disabled?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 interface Emits {
   /**
@@ -63,6 +67,8 @@ const layoutConfig: LayoutConfig = {
 };
 
 function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
+  if (props.disabled) return;
+
   emit('update:mode', mode);
 }
 </script>

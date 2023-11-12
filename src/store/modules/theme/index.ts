@@ -58,6 +58,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   const antdTheme = computed(() => getAntdTheme(settings.value.themeColor, settings.value.otherColor, darkMode.value));
 
+  /**
+   * set theme layout
+   * @param mode theme layout mode
+   */
+  function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
+    settings.value.layout.mode = mode;
+  }
+
   function init() {
     setupThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
@@ -89,6 +97,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     darkMode,
     setThemeScheme,
     toggleThemeScheme,
-    antdTheme
+    antdTheme,
+    setThemeLayout
   };
 });
