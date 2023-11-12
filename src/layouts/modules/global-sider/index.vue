@@ -16,9 +16,9 @@ const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 
-const darkMenu = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
 const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix');
 const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix');
+const darkMenu = computed(() => !themeStore.darkMode && !isHorizontalMix.value && themeStore.sider.inverted);
 const showLogo = computed(() => !isVerticalMix.value && !isHorizontalMix.value);
 </script>
 

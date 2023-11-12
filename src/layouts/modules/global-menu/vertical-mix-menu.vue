@@ -44,7 +44,7 @@ function handleResetActiveMenu() {
 
 <template>
   <div class="flex h-full" @mouseleave="handleResetActiveMenu">
-    <FirstLevelMenu :active-menu-key="activeFirstLevelMenuKey" @select="handleSelectMixMenu">
+    <FirstLevelMenu :active-menu-key="activeFirstLevelMenuKey" :inverted="siderInverted" @select="handleSelectMixMenu">
       <slot></slot>
     </FirstLevelMenu>
     <div

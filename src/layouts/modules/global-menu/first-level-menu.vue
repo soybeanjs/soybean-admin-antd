@@ -13,6 +13,7 @@ defineOptions({
 
 interface Props {
   activeMenuKey?: string;
+  inverted?: boolean;
 }
 
 defineProps<Props>();
@@ -47,8 +48,6 @@ interface MixMenuItemProps {
 }
 const [DefineMixMenuItem, MixMenuItem] = createReusableTemplate<MixMenuItemProps>();
 
-const siderInverted = computed(() => !themeStore.darkMode && themeStore.sider.inverted);
-
 const selectedBgColor = computed(() => {
   const { darkMode, themeColor } = themeStore;
 
@@ -70,8 +69,8 @@ function handleClickMixMenu(menu: App.Global.Menu) {
       class="flex-vertical-center mx-4px mb-6px py-8px px-4px rounded-8px bg-transparent transition-300 cursor-pointer hover:bg-[rgb(0,0,0,0.08)]"
       :class="{
         'text-primary selected-mix-menu': active,
-        'text-white:65 hover:text-white': siderInverted,
-        '!text-white !bg-primary': active && siderInverted
+        'text-white:65 hover:text-white': inverted,
+        '!text-white !bg-primary': active && inverted
       }"
     >
       <component :is="icon" :class="[isMini ? 'text-icon-small' : 'text-icon-large']" />
@@ -101,7 +100,7 @@ function handleClickMixMenu(menu: App.Global.Menu) {
     <MenuToggler
       arrow-icon
       :collapsed="appStore.siderCollapse"
-      :class="{ 'text-white:88 !hover:text-white': siderInverted }"
+      :class="{ 'text-white:88 !hover:text-white': inverted }"
       @click="appStore.toggleSiderCollapse"
     />
   </div>
