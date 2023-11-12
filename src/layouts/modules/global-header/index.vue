@@ -1,16 +1,21 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import HorizontalMenu from '../global-menu/horizontal-menu.vue';
+import { useRouteStore } from '@/store/modules/route';
+import HorizontalMenu from '../global-menu/base-menu.vue';
 import GlobalLogo from '../global-logo/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
 import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
+import { useMixMenuContext } from '../../hooks/use-mix-menu';
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
+const routeStore = useRouteStore();
 const { isFullscreen, toggle } = useFullscreen();
+const { menus } = useMixMenuContext();
 
 defineOptions({
   name: 'GlobalHeader'
@@ -32,12 +37,24 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const headerMenus = computed(() => {
+  if (themeStore.layout.mode === 'horizontal') {
+    return routeStore.menus;
+  }
+
+  if (themeStore.layout.mode === 'horizontal-mix') {
+    return menus.value;
+  }
+
+  return [];
+});
 </script>
 
 <template>
   <DarkModeContainer class="flex-y-center h-full shadow-header">
     <GlobalLogo v-if="showLogo" class="h-full" :style="{ width: themeStore.sider.width + 'px' }" />
-    <HorizontalMenu v-if="showMenu" />
+    <HorizontalMenu v-if="showMenu" mode="horizontal" :menus="headerMenus" class="px-12px" />
     <div v-else class="flex-1-hidden flex-y-center h-full">
       <MenuToggler v-if="showMenuToggler" :collapsed="appStore.siderCollapse" @click="appStore.toggleSiderCollapse" />
       <GlobalBreadcrumb v-if="!appStore.isMobile" class="ml-12px" />

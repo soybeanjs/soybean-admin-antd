@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import type { MenuInfo, MenuMode } from 'ant-design-vue/es/menu/src/interface';
+import { SimpleScrollbar } from '@sa/materials';
 import { transformColorWithOpacity } from '@sa/utils';
 import type { RouteKey } from '@elegant-router/types';
 import { useAppStore } from '@/store/modules/app';
@@ -16,6 +17,7 @@ defineOptions({
 interface Props {
   darkTheme?: boolean;
   mode?: MenuMode;
+  menus: App.Global.Menu[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -72,11 +74,11 @@ function handleClickMenu(menuInfo: MenuInfo) {
 </script>
 
 <template>
-  <div class="menu-wrapper wh-full" :class="{ 'select-menu': !darkTheme }">
+  <SimpleScrollbar class="menu-wrapper flex-1-hidden wh-full" :class="{ 'select-menu': !darkTheme }">
     <AMenu
       :mode="mode"
       :theme="menuTheme"
-      :items="routeStore.menus"
+      :items="menus"
       :selected-keys="selectedKeys"
       :open-keys="openKeys"
       :inline-collapsed="inlineCollapsed"
@@ -85,7 +87,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
       :class="{ 'bg-container!': !darkTheme, 'horizontal-menu': isHorizontal }"
       @click="handleClickMenu"
     />
-  </div>
+  </SimpleScrollbar>
 </template>
 
 <style scoped>

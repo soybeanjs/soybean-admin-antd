@@ -1,8 +1,6 @@
 import { inject, provide } from 'vue';
 import type { InjectionKey } from 'vue';
 
-type ContextFn<T> = () => T;
-
 /**
  * use context
  * @param contextName context name
@@ -60,27 +58,24 @@ type ContextFn<T> = () => T;
  *
  * // C.vue is same as B.vue
  */
-export default function useContext<T>(contextName: string, fn: ContextFn<T>) {
-  const { useProvide, useInject } = createContext<T>(contextName);
+export default function useContext<T extends (...args: any[]) => any>(contextName: string, fn: T) {
+  type Context = ReturnType<T>;
 
-  const context = fn();
+  const { useProvide, useInject: useStore } = createContext<Context>(contextName);
 
-  /**
-   * setup store in the parent component
-   */
-  function setupStore() {
+  function setupStore(...args: Parameters<T>) {
+    const context: Context = fn(...args);
     return useProvide(context);
   }
 
-  /**
-   * use store in the child component
-   */
-  function useStore() {
-    return useInject();
-  }
-
   return {
+    /**
+     * setup store in the parent component
+     */
     setupStore,
+    /**
+     * use store in the child component
+     */
     useStore
   };
 }

@@ -10,6 +10,7 @@ import GlobalTab from '../modules/global-tab/index.vue';
 import GlobalContent from '../modules/global-content/index.vue';
 import GlobalFooter from '../modules/global-footer/index.vue';
 import ThemeDrawer from '../modules/theme-drawer/index.vue';
+import { setupMixMenuContext } from '../hooks/use-mix-menu';
 
 defineOptions({
   name: 'BaseLayout'
@@ -42,8 +43,8 @@ const headerPropsConfig: Record<UnionKey.ThemeLayoutMode, App.Global.HeaderProps
   },
   'horizontal-mix': {
     showLogo: true,
-    showMenu: false,
-    showMenuToggler: true
+    showMenu: true,
+    showMenuToggler: false
   }
 };
 
@@ -53,6 +54,8 @@ const siderVisible = computed(() => themeStore.layout.mode !== 'horizontal');
 
 const isVerticalMix = computed(() => themeStore.layout.mode === 'vertical-mix');
 
+const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mix');
+
 const siderWidth = computed(() => getSiderWidth());
 
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
@@ -60,7 +63,7 @@ const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
 function getSiderWidth() {
   const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
 
-  let w = isVerticalMix.value ? mixWidth : width;
+  let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width;
 
   if (isVerticalMix.value && appStore.mixSiderFixed) {
     w += mixChildMenuWidth;
@@ -72,7 +75,7 @@ function getSiderWidth() {
 function getSiderCollapsedWidth() {
   const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
 
-  let w = isVerticalMix.value ? mixCollapsedWidth : collapsedWidth;
+  let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth;
 
   if (isVerticalMix.value && appStore.mixSiderFixed) {
     w += mixChildMenuWidth;
@@ -80,6 +83,8 @@ function getSiderCollapsedWidth() {
 
   return w;
 }
+
+setupMixMenuContext();
 </script>
 
 <template>

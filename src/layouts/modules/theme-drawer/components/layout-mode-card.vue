@@ -76,7 +76,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
       :class="[mode === key ? 'border-primary' : 'border-transparent']"
       @click="handleChangeMode(key)"
     >
-      <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[mode])">
+      <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[key])">
         <div
           class="gap-6px w-96px h-64px p-6px rd-4px shadow dark:shadow-coolGray-5"
           :class="[key.includes('vertical') ? 'flex' : 'flex-vertical']"
