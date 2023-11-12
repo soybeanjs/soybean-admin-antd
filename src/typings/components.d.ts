@@ -40,6 +40,7 @@ declare module 'vue' {
     LangSwitch: typeof import('./../components/common/lang-switch.vue')['default']
     LookForward: typeof import('./../components/custom/look-forward.vue')['default']
     MenuToggler: typeof import('./../components/common/menu-toggler.vue')['default']
+    PinToggler: typeof import('./../components/common/pin-toggler.vue')['default']
     ReloadButton: typeof import('./../components/common/reload-button.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

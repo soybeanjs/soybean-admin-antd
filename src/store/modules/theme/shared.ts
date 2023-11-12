@@ -47,8 +47,8 @@ export function initThemeSettings(colors: App.Theme.ThemeTokenColor) {
       inverted: false,
       width: 220,
       collapsedWidth: 64,
-      mixWidth: 80,
-      mixCollapsedWidth: 48,
+      mixWidth: 90,
+      mixCollapsedWidth: 64,
       mixChildMenuWidth: 200
     },
     menu: {

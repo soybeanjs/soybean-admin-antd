@@ -18,7 +18,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
-  const { bool: mixedSiderFixed, setBool: setMixedSiderFixed, toggle: toggleMixedSiderFixed } = useBoolean();
+  const { bool: mixSiderFixed, setBool: setMixSiderFixed, toggle: toggleMixSiderFixed } = useBoolean();
 
   /**
    * is mobile layout
@@ -114,8 +114,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     siderCollapse,
     setSiderCollapse,
     toggleSiderCollapse,
-    mixedSiderFixed,
-    setMixedSiderFixed,
-    toggleMixedSiderFixed
+    mixSiderFixed,
+    setMixSiderFixed,
+    toggleMixSiderFixed
   };
 });

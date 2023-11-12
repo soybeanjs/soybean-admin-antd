@@ -6,6 +6,7 @@
     "clsx",
     "colord",
     "consola",
+    "Destructurable",
     "EDITMSG",
     "espree",
     "execa",

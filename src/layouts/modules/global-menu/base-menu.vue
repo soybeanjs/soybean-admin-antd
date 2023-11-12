@@ -94,6 +94,10 @@ function handleClickMenu(menuInfo: MenuInfo) {
   margin-inline: 8px;
 }
 
+.menu-wrapper :deep(.ant-menu-sub) {
+  background: transparent !important;
+}
+
 .menu-wrapper :deep(.ant-menu-inline-collapsed > .ant-menu-item) {
   padding-inline: calc(50% - 14px);
 }

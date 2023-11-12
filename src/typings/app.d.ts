@@ -448,6 +448,8 @@ declare namespace App {
         reload: string;
         collapse: string;
         expand: string;
+        pin: string;
+        unpin: string;
       };
     };
 

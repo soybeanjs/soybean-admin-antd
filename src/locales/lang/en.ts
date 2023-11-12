@@ -144,7 +144,9 @@ const local: App.I18n.Schema = {
     fullscreenExit: 'Exit Fullscreen',
     reload: 'Reload Page',
     collapse: 'Collapse Menu',
-    expand: 'Expand Menu'
+    expand: 'Expand Menu',
+    pin: 'Pin',
+    unpin: 'Unpin'
   }
 };
 

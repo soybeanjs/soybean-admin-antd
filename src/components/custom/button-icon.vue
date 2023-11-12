@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
 import { computed } from 'vue';
+import { createReusableTemplate } from '@vueuse/core';
+import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
 
 defineOptions({
-  name: 'ButtonIcon'
+  name: 'ButtonIcon',
+  inheritAttrs: false
 });
 
 interface Props {
@@ -37,6 +39,12 @@ const props = withDefaults(defineProps<Props>(), {
   triggerParent: false
 });
 
+interface ButtonProps {
+  className: string;
+}
+
+const [DefineButton, Button] = createReusableTemplate<ButtonProps>();
+
 const cls = computed(() => {
   let clsStr = props.class;
 
@@ -57,27 +65,33 @@ function getPopupContainer(triggerNode: HTMLElement) {
 </script>
 
 <template>
+  <!-- define component: Button -->
+  <DefineButton v-slot="{ $slots, className }">
+    <AButton type="text" :class="className">
+      <div class="flex-center gap-8px">
+        <component :is="$slots.default" />
+      </div>
+    </AButton>
+  </DefineButton>
+
+  <!-- template -->
   <ATooltip
     v-if="tooltipContent"
     :placement="tooltipPlacement"
     :get-popup-container="getPopupContainer"
     :title="tooltipContent"
   >
-    <AButton type="text" :class="cls">
-      <div class="flex-center gap-8px">
-        <slot>
-          <SvgIcon :icon="icon" />
-        </slot>
-      </div>
-    </AButton>
-  </ATooltip>
-  <AButton v-else type="text" :class="cls">
-    <div class="flex-center gap-8px">
+    <Button :class-name="cls" v-bind="$attrs">
       <slot>
         <SvgIcon :icon="icon" />
       </slot>
-    </div>
-  </AButton>
+    </Button>
+  </ATooltip>
+  <Button v-else :class-name="cls" v-bind="$attrs">
+    <slot>
+      <SvgIcon :icon="icon" />
+    </slot>
+  </Button>
 </template>
 
 <style scoped></style>
