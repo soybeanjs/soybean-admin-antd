@@ -17,17 +17,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
 
-  const themeColors = computed(() => {
-    const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
-    const colors: App.Theme.ThemeColor = {
-      primary: themeColor,
-      ...otherColor,
-      info: isCustomizeInfoColor ? otherColor.info : themeColor
-    };
-
-    return colors;
-  });
-
   /**
    * set theme scheme
    * @param themeScheme
@@ -75,12 +64,39 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.layout.mode = mode;
   }
 
+  const themeColors = computed({
+    get() {
+      const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
+      const colors: App.Theme.ThemeColor = {
+        primary: themeColor,
+        ...otherColor,
+        info: isCustomizeInfoColor ? otherColor.info : themeColor
+      };
+
+      return colors;
+    },
+    set(colors) {
+      updateSettingsByThemeColors(colors);
+    }
+  });
+
+  function updateSettingsByThemeColors(colors: App.Theme.ThemeColor) {
+    const { primary, info, success, warning, error } = colors;
+
+    settings.value.themeColor = primary;
+    settings.value.otherColor = { info, success, warning, error };
+  }
+
   /**
    * setup theme vars to html
    */
   function setupThemeVarsToHtml() {
     const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
+  }
+
+  function init() {
+    setupThemeVarsToHtml();
   }
 
   // watch store
@@ -111,12 +127,16 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     scope.stop();
   });
 
+  // init
+  init();
+
   return {
     ...toRefs(settings.value),
     darkMode,
     setThemeScheme,
     toggleThemeScheme,
     antdTheme,
-    setThemeLayout
+    setThemeLayout,
+    themeColors
   };
 });

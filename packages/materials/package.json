@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@sa/utils": "workspace:*",
-    "simplebar-vue": "2.3.3",
-    "vue3-colorpicker": "^2.2.2"
+    "@simonwep/pickr": "1.9.0",
+    "simplebar-vue": "2.3.3"
   },
   "devDependencies": {
     "typed-css-modules": "0.8.0"

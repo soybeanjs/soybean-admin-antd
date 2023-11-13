@@ -46,7 +46,7 @@ const local: App.I18n.Schema = {
       success: '成功色',
       warning: '警告色',
       error: '错误色',
-      customizeInfo: '自定义信息色'
+      followPrimary: '跟随主色'
     }
   },
   route: {

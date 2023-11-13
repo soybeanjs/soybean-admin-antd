@@ -51,7 +51,7 @@ async function handleSubmit() {
     <ASpace direction="vertical" size="large" class="w-full">
       <div class="flex-y-center justify-between">
         <ACheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</ACheckbox>
-        <AButton type="link">{{ $t('page.login.pwdLogin.forgetPassword') }}</AButton>
+        <AButton type="text">{{ $t('page.login.pwdLogin.forgetPassword') }}</AButton>
       </div>
       <AButton type="primary" block size="large" shape="round" :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}

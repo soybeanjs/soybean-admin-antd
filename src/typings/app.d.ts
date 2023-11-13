@@ -383,7 +383,7 @@ declare namespace App {
         };
         themeColor: {
           title: string;
-          customizeInfo: string;
+          followPrimary: string;
         } & Theme.ThemeColor;
       };
       route: Record<I18nRouteKey, string>;

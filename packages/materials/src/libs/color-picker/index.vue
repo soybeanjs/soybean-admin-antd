@@ -1,25 +1,115 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { ColorPicker } from 'vue3-colorpicker';
-import 'vue3-colorpicker/style.css';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
+import ColorPicker from '@simonwep/pickr';
+import '@simonwep/pickr/dist/themes/nano.min.css';
 
 defineOptions({
   name: 'ColorPicker'
 });
 
 interface Props {
-  darkMode?: boolean;
+  color: string;
+  palettes?: string[];
+  disabled?: boolean;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  palettes: () => [
+    '#3b82f6',
+    '#6366f1',
+    '#8b5cf6',
+    '#a855f7',
+    '#0ea5e9',
+    '#06b6d4',
+    '#f43f5e',
+    '#ef4444',
+    '#ec4899',
+    '#d946ef',
+    '#f97316',
+    '#f59e0b',
+    '#eab308',
+    '#84cc16',
+    '#22c55e',
+    '#10b981',
+    '#14b8a6'
+  ]
+});
 
-const color = defineModel<string>('color');
+interface Emits {
+  (e: 'update:color', value: string): void;
+}
 
-const theme = computed(() => (props.darkMode ? 'black' : 'white'));
+const emit = defineEmits<Emits>();
+
+const domRef = ref<HTMLElement | null>(null);
+const instance = ref<ColorPicker | null>(null);
+
+function handleColorChange(hsva: ColorPicker.HSVaColor) {
+  const color = hsva.toHEXA().toString();
+  emit('update:color', color);
+}
+
+function initColorPicker() {
+  if (!domRef.value) return;
+
+  instance.value = ColorPicker.create({
+    el: domRef.value,
+    theme: 'nano',
+    swatches: props.palettes,
+    lockOpacity: true,
+    default: props.color,
+    disabled: props.disabled,
+    components: {
+      preview: true,
+      opacity: false,
+      hue: true,
+      interaction: {
+        hex: true,
+        rgba: true,
+        input: true
+      }
+    }
+  });
+
+  instance.value.on('change', handleColorChange);
+}
+
+function updateDisabled(disabled: boolean) {
+  if (!instance.value) return;
+
+  if (disabled) {
+    instance.value.disable();
+  } else {
+    instance.value.enable();
+  }
+}
+
+function destroyColorPicker() {
+  if (!instance.value) return;
+
+  instance.value.off('change', handleColorChange);
+  instance.value.destroyAndRemove();
+  instance.value = null;
+}
+
+watch(
+  () => props.disabled,
+  value => {
+    updateDisabled(value);
+  }
+);
+
+onMounted(() => {
+  initColorPicker();
+});
+
+onUnmounted(() => {
+  destroyColorPicker();
+});
 </script>
 
 <template>
-  <ColorPicker v-model:pure-color="color" :theme="theme" />
+  <div ref="domRef"></div>
 </template>
 
 <style scoped></style>

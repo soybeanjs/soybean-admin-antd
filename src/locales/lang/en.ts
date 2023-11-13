@@ -46,7 +46,7 @@ const local: App.I18n.Schema = {
       success: 'Success',
       warning: 'Warning',
       error: 'Error',
-      customizeInfo: 'Customize Info'
+      followPrimary: 'Follow Primary'
     }
   },
   route: {
