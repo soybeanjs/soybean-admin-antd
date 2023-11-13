@@ -9,6 +9,10 @@ defineOptions({
 });
 
 const themeStore = useThemeStore();
+
+function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
+  themeStore.updateThemeColors(key, color);
+}
 </script>
 
 <template>
@@ -21,8 +25,9 @@ const themeStore = useThemeStore();
         </ACheckbox>
       </template>
       <ColorPicker
-        v-model:color="themeStore.themeColors[key]"
+        :color="themeStore.themeColors[key]"
         :disabled="key === 'info' && !themeStore.isCustomizeInfoColor"
+        @update:color="handleUpdateColor($event, key)"
       />
     </SettingItem>
   </div>

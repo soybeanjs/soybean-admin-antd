@@ -64,27 +64,30 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settings.value.layout.mode = mode;
   }
 
-  const themeColors = computed({
-    get() {
-      const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
-      const colors: App.Theme.ThemeColor = {
-        primary: themeColor,
-        ...otherColor,
-        info: isCustomizeInfoColor ? otherColor.info : themeColor
-      };
-
-      return colors;
-    },
-    set(colors) {
-      updateSettingsByThemeColors(colors);
-    }
+  /**
+   * theme colors
+   */
+  const themeColors = computed(() => {
+    const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
+    const colors: App.Theme.ThemeColor = {
+      primary: themeColor,
+      ...otherColor,
+      info: isCustomizeInfoColor ? otherColor.info : themeColor
+    };
+    return colors;
   });
 
-  function updateSettingsByThemeColors(colors: App.Theme.ThemeColor) {
-    const { primary, info, success, warning, error } = colors;
-
-    settings.value.themeColor = primary;
-    settings.value.otherColor = { info, success, warning, error };
+  /**
+   * update theme colors
+   * @param key theme color key
+   * @param color theme color
+   */
+  function updateThemeColors(key: App.Theme.ThemeColorKey, color: string) {
+    if (key === 'primary') {
+      settings.value.themeColor = color;
+    } else {
+      settings.value.otherColor[key] = color;
+    }
   }
 
   /**
@@ -93,10 +96,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   function setupThemeVarsToHtml() {
     const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
-  }
-
-  function init() {
-    setupThemeVarsToHtml();
   }
 
   // watch store
@@ -127,9 +126,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     scope.stop();
   });
 
-  // init
-  init();
-
   return {
     ...toRefs(settings.value),
     darkMode,
@@ -137,6 +133,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     toggleThemeScheme,
     antdTheme,
     setThemeLayout,
-    themeColors
+    themeColors,
+    updateThemeColors
   };
 });

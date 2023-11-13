@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onUnmounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import ColorPicker from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/nano.min.css';
 
@@ -84,14 +84,6 @@ function updateDisabled(disabled: boolean) {
   }
 }
 
-function destroyColorPicker() {
-  if (!instance.value) return;
-
-  instance.value.off('change', handleColorChange);
-  instance.value.destroyAndRemove();
-  instance.value = null;
-}
-
 watch(
   () => props.disabled,
   value => {
@@ -101,10 +93,6 @@ watch(
 
 onMounted(() => {
   initColorPicker();
-});
-
-onUnmounted(() => {
-  destroyColorPicker();
 });
 </script>
 
