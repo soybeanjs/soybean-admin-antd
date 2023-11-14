@@ -37,10 +37,9 @@ declare namespace App {
        */
       otherColor: OtherColor;
       /**
-       * is customize info color
-       * @description if not, the info color will transformed by the primary color
+       * whether info color is followed by the primary color
        */
-      isCustomizeInfoColor: boolean;
+      isInfoFollowPrimary: boolean;
       /**
        * layout
        */

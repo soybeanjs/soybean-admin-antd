@@ -20,7 +20,7 @@ export function initThemeSettings() {
       warning: '#faad14',
       error: '#f5222d'
     },
-    isCustomizeInfoColor: false,
+    isInfoFollowPrimary: true,
     layout: {
       mode: 'vertical',
       scrollMode: 'content'

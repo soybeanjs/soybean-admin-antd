@@ -68,11 +68,11 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * theme colors
    */
   const themeColors = computed(() => {
-    const { themeColor, otherColor, isCustomizeInfoColor } = settings.value;
+    const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
     const colors: App.Theme.ThemeColor = {
       primary: themeColor,
       ...otherColor,
-      info: isCustomizeInfoColor ? otherColor.info : themeColor
+      info: isInfoFollowPrimary ? themeColor : otherColor.info
     };
     return colors;
   });
@@ -88,14 +88,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     } else {
       settings.value.otherColor[key] = color;
     }
-  }
-
-  /**
-   * update is customize info color
-   * @param customize
-   */
-  function updateIsCustomizeInfoColor(customize: boolean) {
-    settings.value.isCustomizeInfoColor = customize;
   }
 
   /**
@@ -142,7 +134,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     antdTheme,
     setThemeLayout,
     themeColors,
-    updateThemeColors,
-    updateIsCustomizeInfoColor
+    updateThemeColors
   };
 });
