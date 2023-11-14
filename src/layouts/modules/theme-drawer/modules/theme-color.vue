@@ -13,6 +13,10 @@ const themeStore = useThemeStore();
 function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
   themeStore.updateThemeColors(key, color);
 }
+
+function handleUpdateCustomizeInfoColor(checked: boolean) {
+  themeStore.updateIsCustomizeInfoColor(!checked);
+}
 </script>
 
 <template>
@@ -20,7 +24,7 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
   <div class="flex-vertical-stretch gap-12px">
     <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
       <template v-if="key === 'info'" #suffix>
-        <ACheckbox v-model:checked="themeStore.isCustomizeInfoColor">
+        <ACheckbox :checked="!themeStore.isCustomizeInfoColor" @update:checked="handleUpdateCustomizeInfoColor">
           {{ $t('theme.themeColor.followPrimary') }}
         </ACheckbox>
       </template>

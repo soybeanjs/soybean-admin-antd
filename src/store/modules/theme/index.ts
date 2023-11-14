@@ -91,6 +91,14 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
+   * update is customize info color
+   * @param customize
+   */
+  function updateIsCustomizeInfoColor(customize: boolean) {
+    settings.value.isCustomizeInfoColor = customize;
+  }
+
+  /**
    * setup theme vars to html
    */
   function setupThemeVarsToHtml() {
@@ -134,6 +142,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     antdTheme,
     setThemeLayout,
     themeColors,
-    updateThemeColors
+    updateThemeColors,
+    updateIsCustomizeInfoColor
   };
 });
