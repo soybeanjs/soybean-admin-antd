@@ -8,9 +8,11 @@ defineOptions({
 </script>
 
 <template>
-  <Simplebar class="h-full">
-    <slot />
-  </Simplebar>
+  <div class="flex-1-hidden h-full">
+    <Simplebar class="h-full">
+      <slot />
+    </Simplebar>
+  </div>
 </template>
 
 <style scoped></style>

@@ -47,6 +47,9 @@ const local: App.I18n.Schema = {
       warning: 'Warning',
       error: 'Error',
       followPrimary: 'Follow Primary'
+    },
+    pageFun: {
+      title: 'Page Function'
     }
   },
   route: {

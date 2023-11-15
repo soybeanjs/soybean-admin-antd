@@ -47,6 +47,9 @@ const local: App.I18n.Schema = {
       warning: '警告色',
       error: '错误色',
       followPrimary: '跟随主色'
+    },
+    pageFun: {
+      title: '页面功能'
     }
   },
   route: {

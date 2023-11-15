@@ -14,6 +14,13 @@ export default defineConfig(configEnv => {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "./src/styles/scss/global.scss" as *;`
+        }
+      }
+    },
     plugins: setupVitePlugins(viteEnv),
     server: {
       host: '0.0.0.0',

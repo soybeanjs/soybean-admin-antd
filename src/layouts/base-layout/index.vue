@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { AdminLayout } from '@sa/materials';
+import { AdminLayout, LAYOUT_SCROLL_EL_ID } from '@sa/materials';
 import type { LayoutMode } from '@sa/materials';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
@@ -91,6 +91,7 @@ setupMixMenuContext();
   <AdminLayout
     v-model:sider-collapse="appStore.siderCollapse"
     :mode="layoutMode"
+    :scroll-el-id="LAYOUT_SCROLL_EL_ID"
     :scroll-mode="themeStore.layout.scrollMode"
     :is-mobile="appStore.isMobile"
     :full-content="appStore.fullContent"
@@ -122,4 +123,8 @@ setupMixMenuContext();
   </AdminLayout>
 </template>
 
-<style scoped></style>
+<style lang="scss">
+#__SCROLL_EL_ID__ {
+  @include scrollbar();
+}
+</style>

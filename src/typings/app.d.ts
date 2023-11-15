@@ -384,6 +384,9 @@ declare namespace App {
           title: string;
           followPrimary: string;
         } & Theme.ThemeColor;
+        pageFun: {
+          title: string;
+        };
       };
       route: Record<I18nRouteKey, string>;
       page: {

@@ -12,7 +12,7 @@ const themeStore = useThemeStore();
 <template>
   <ConfigProvider :theme="themeStore.antdTheme">
     <AppProvider>
-      <RouterView />
+      <RouterView class="bg-layout" />
     </AppProvider>
   </ConfigProvider>
 </template>
