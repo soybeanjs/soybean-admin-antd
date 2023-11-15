@@ -17,6 +17,6 @@
     "simplebar-vue": "2.3.3"
   },
   "devDependencies": {
-    "typed-css-modules": "0.8.0"
+    "typed-css-modules": "0.8.1"
   }
 }
