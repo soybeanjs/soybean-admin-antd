@@ -74,6 +74,12 @@ function initColorPicker() {
   instance.value.on('change', handleColorChange);
 }
 
+function updateColor(color: string) {
+  if (!instance.value) return;
+
+  instance.value.setColor(color);
+}
+
 function updateDisabled(disabled: boolean) {
   if (!instance.value) return;
 
@@ -83,6 +89,13 @@ function updateDisabled(disabled: boolean) {
     instance.value.enable();
   }
 }
+
+watch(
+  () => props.color,
+  value => {
+    updateColor(value);
+  }
+);
 
 watch(
   () => props.disabled,
