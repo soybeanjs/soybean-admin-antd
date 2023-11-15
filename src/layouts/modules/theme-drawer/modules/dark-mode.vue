@@ -36,6 +36,8 @@ const options = computed(() => getSegmentOptions());
 function handleSegmentChange(value: string | number) {
   themeStore.setThemeScheme(value as UnionKey.ThemeScheme);
 }
+
+const showSiderInverted = computed(() => themeStore.layout.mode.includes('vertical'));
 </script>
 
 <template>
@@ -48,10 +50,29 @@ function handleSegmentChange(value: string | number) {
         </template>
       </ASegmented>
     </div>
-    <SettingItem :label="$t('theme.sider.inverted')">
-      <ASwitch v-model:checked="themeStore.sider.inverted" :disabled="themeStore.darkMode" />
-    </SettingItem>
+    <Transition name="sider-inverted">
+      <SettingItem v-if="showSiderInverted" :label="$t('theme.sider.inverted')">
+        <ASwitch v-model:checked="themeStore.sider.inverted" :disabled="themeStore.darkMode" />
+      </SettingItem>
+    </Transition>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.sider-inverted-enter-active {
+  height: 22px;
+  transition: all 0.3s ease-in-out;
+}
+
+.sider-inverted-leave-active {
+  height: 22px;
+  transition: all 0.3s ease-in-out;
+}
+
+.sider-inverted-enter-from,
+.sider-inverted-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+  height: 0;
+}
+</style>

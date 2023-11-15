@@ -25,8 +25,6 @@ const { width: bsWrapperWidth, left: bsWrapperLeft } = useElementBounding(bsWrap
 const bsScroll = ref<InstanceType<typeof BetterScroll>>();
 const tabRef = ref<HTMLElement>();
 
-const isChromeMode = true;
-
 const TAB_DATA_ID = 'data-tab-id';
 
 type TabNamedNodeMap = NamedNodeMap & {
@@ -116,7 +114,11 @@ init();
   <DarkModeContainer class="flex-y-center wh-full px-16px shadow-tab">
     <div ref="bsWrapper" class="flex-1-hidden h-full">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: appStore.isMobile }">
-        <div ref="tabRef" class="flex h-full pr-18px" :class="[isChromeMode ? 'items-end' : 'items-center gap-12px']">
+        <div
+          ref="tabRef"
+          class="flex h-full pr-18px"
+          :class="[themeStore.tab.mode === 'chrome' ? 'items-end' : 'items-center gap-12px']"
+        >
           <ContextMenu
             v-for="tab in tabStore.tabs"
             :key="tab.id"
@@ -125,6 +127,7 @@ init();
           >
             <PageTab
               :[TAB_DATA_ID]="tab.id"
+              :mode="themeStore.tab.mode"
               :dark-mode="themeStore.darkMode"
               :active="tab.id === tabStore.activeTabId"
               :active-color="themeStore.themeColor"

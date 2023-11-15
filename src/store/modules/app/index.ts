@@ -19,6 +19,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   const { bool: themeDrawerVisible, setTrue: openThemeDrawer, setFalse: closeThemeDrawer } = useBoolean();
   const { bool: reloadFlag, setBool: setReloadFlag } = useBoolean(true);
   const { bool: fullContent, toggle: toggleFullContent } = useBoolean();
+  const { bool: contentXScrollable, setBool: setContentXScrollable } = useBoolean();
   const { bool: siderCollapse, setBool: setSiderCollapse, toggle: toggleSiderCollapse } = useBoolean();
   const { bool: mixSiderFixed, setBool: setMixSiderFixed, toggle: toggleMixSiderFixed } = useBoolean();
 
@@ -115,6 +116,8 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     openThemeDrawer,
     closeThemeDrawer,
     toggleFullContent,
+    contentXScrollable,
+    setContentXScrollable,
     siderCollapse,
     setSiderCollapse,
     toggleSiderCollapse,

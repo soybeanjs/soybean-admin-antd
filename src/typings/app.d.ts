@@ -61,6 +61,10 @@ declare namespace App {
          * whether to show the page transition
          */
         animate: boolean;
+        /**
+         * page animate mode
+         */
+        animateMode: UnionKey.ThemePageAnimateMode;
       };
       /**
        * header
@@ -133,15 +137,6 @@ declare namespace App {
          * child menu width when the layout is 'vertical-mix' or 'horizontal-mix'
          */
         mixChildMenuWidth: number;
-      };
-      /**
-       * menu
-       */
-      menu: {
-        /**
-         * position of the horizontal menu
-         */
-        horizontalPosition: UnionKey.ThemeHorizontalMenuPosition;
       };
       /**
        * footer
@@ -374,19 +369,46 @@ declare namespace App {
         logoutConfirm: string;
       };
       theme: {
-        themeDrawerTitle: string;
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
-        sider: {
-          inverted: string;
-        };
         themeColor: {
           title: string;
           followPrimary: string;
         } & Theme.ThemeColor;
-        pageFun: {
-          title: string;
+        scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
+        page: {
+          animate: string;
+          mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
         };
+        fixedHeaderAndTab: string;
+        header: {
+          height: string;
+          breadcrumb: {
+            visible: string;
+            showIcon: string;
+          };
+        };
+        tab: {
+          visible: string;
+          height: string;
+          mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+        };
+        sider: {
+          inverted: string;
+          width: string;
+          collapsedWidth: string;
+          mixWidth: string;
+          mixCollapsedWidth: string;
+          mixChildMenuWidth: string;
+        };
+        footer: {
+          visible: string;
+          fixed: string;
+          height: string;
+          right: string;
+        };
+        themeDrawerTitle: string;
+        pageFunTitle: string;
       };
       route: Record<I18nRouteKey, string>;
       page: {

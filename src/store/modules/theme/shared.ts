@@ -26,7 +26,8 @@ export function initThemeSettings() {
       scrollMode: 'content'
     },
     page: {
-      animate: true
+      animate: true,
+      animateMode: 'fade-slide'
     },
     header: {
       height: 56,
@@ -48,9 +49,6 @@ export function initThemeSettings() {
       mixWidth: 90,
       mixCollapsedWidth: 64,
       mixChildMenuWidth: 200
-    },
-    menu: {
-      horizontalPosition: 'flex-start'
     },
     footer: {
       visible: true,

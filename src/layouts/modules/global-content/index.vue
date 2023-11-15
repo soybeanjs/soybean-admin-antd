@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store/modules/app';
+import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 
 defineOptions({
@@ -18,15 +19,17 @@ withDefaults(defineProps<Props>(), {
 });
 
 const appStore = useAppStore();
+const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 </script>
 
 <template>
   <RouterView v-slot="{ Component, route }">
     <Transition
-      enter-active-class="animate-fade-in animate-duration-750"
-      leave-active-class="animate-fade-out animate-duration-750"
+      :name="themeStore.page.animateMode"
       mode="out-in"
+      @before-leave="appStore.setContentXScrollable(true)"
+      @after-enter="appStore.setContentXScrollable(false)"
     >
       <KeepAlive :include="routeStore.cacheRoutes">
         <component

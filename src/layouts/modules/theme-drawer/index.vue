@@ -26,7 +26,7 @@ const appStore = useAppStore();
       <ButtonIcon icon="ant-design:close-outlined" class="h-28px" @click="appStore.closeThemeDrawer" />
     </template>
     <SimpleScrollbar>
-      <div class="py-12px px-24px">
+      <div class="pt-8px pb-24px px-24px">
         <DarkMode />
         <LayoutMode />
         <ThemeColor />

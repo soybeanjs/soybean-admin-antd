@@ -25,24 +25,28 @@ export const themeLayoutModeRecord: Record<UnionKey.ThemeLayoutMode, App.I18n.I1
 
 export const themeLayoutModeOptions = transformRecordToOption(themeLayoutModeRecord);
 
-export const themeScrollModeRecord: Record<UnionKey.ThemeScrollMode, string> = {
-  wrapper: '外层滚动',
-  content: '主体滚动'
+export const themeScrollModeRecord: Record<UnionKey.ThemeScrollMode, App.I18n.I18nKey> = {
+  wrapper: 'theme.scrollMode.wrapper',
+  content: 'theme.scrollMode.content'
 };
 
 export const themeScrollModeOptions = transformRecordToOption(themeScrollModeRecord);
 
-export const themeTabModeRecord: Record<UnionKey.ThemeTabMode, string> = {
-  chrome: '谷歌风格',
-  button: '按钮风格'
+export const themeTabModeRecord: Record<UnionKey.ThemeTabMode, App.I18n.I18nKey> = {
+  chrome: 'theme.tab.mode.chrome',
+  button: 'theme.tab.mode.button'
 };
 
 export const themeTabModeOptions = transformRecordToOption(themeTabModeRecord);
 
-export const themeHorizontalMenuPositionRecord: Record<UnionKey.ThemeHorizontalMenuPosition, string> = {
-  'flex-start': '居左',
-  center: '居中',
-  'flex-end': '居右'
+export const themePageAnimationModeRecord: Record<UnionKey.ThemePageAnimateMode, App.I18n.I18nKey> = {
+  'fade-slide': 'theme.page.mode.fade-slide',
+  fade: 'theme.page.mode.fade',
+  'fade-bottom': 'theme.page.mode.fade-bottom',
+  'fade-scale': 'theme.page.mode.fade-scale',
+  'zoom-fade': 'theme.page.mode.zoom-fade',
+  'zoom-out': 'theme.page.mode.zoom-out',
+  none: 'theme.page.mode.none'
 };
 
-export const themeHorizontalMenuPositionOptions = transformRecordToOption(themeHorizontalMenuPositionRecord);
+export const themePageAnimationModeOptions = transformRecordToOption(themePageAnimationModeRecord);

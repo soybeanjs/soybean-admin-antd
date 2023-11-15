@@ -56,8 +56,6 @@ const bgColor = computed(() => {
 
   return mixColor(COLOR_WHITE, themeStore.themeColor, ratio);
 });
-
-const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
 </script>
 
 <template>
@@ -86,7 +84,7 @@ const transitionName: UnionKey.ThemeAnimateMode = 'slide-in-left';
         <main class="pt-24px">
           <h3 class="text-18px text-primary font-medium">{{ $t(activeModule.label) }}</h3>
           <div class="pt-24px animation-slide-in-left">
-            <Transition :name="transitionName" mode="out-in" appear>
+            <Transition :name="themeStore.page.animateMode" mode="out-in" appear>
               <component :is="activeModule.component" />
             </Transition>
           </div>

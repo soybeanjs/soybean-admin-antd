@@ -34,6 +34,11 @@ declare namespace UnionKey {
   type ThemeScrollMode = import('@sa/materials').LayoutScrollMode;
 
   /**
+   * page animate mode
+   */
+  type ThemePageAnimateMode = 'fade' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out' | 'none';
+
+  /**
    * tab mode
    * - chrome: chrome style
    * - button: button style
@@ -41,17 +46,9 @@ declare namespace UnionKey {
   type ThemeTabMode = import('@sa/materials').PageTabMode;
 
   /**
-   * the menu position in horizontal mode
-   * - flex-start: left position
-   * - center: center position
-   * - flex-end: right position
+   * unocss animate key
    */
-  type ThemeHorizontalMenuPosition = 'flex-start' | 'center' | 'flex-end';
-
-  /**
-   * the theme animate mode
-   */
-  type ThemeAnimateMode =
+  type UnoCssAnimateKey =
     | 'pulse'
     | 'bounce'
     | 'spin'

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RouteKey } from '@elegant-router/types';
+import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
 import { useRouterPush } from '@/hooks/common/router';
 
@@ -7,6 +8,7 @@ defineOptions({
   name: 'GlobalBreadcrumb'
 });
 
+const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 const { routerPushByKey } = useRouterPush();
 
@@ -16,10 +18,10 @@ function handleClickMenu(key: RouteKey) {
 </script>
 
 <template>
-  <ABreadcrumb>
+  <ABreadcrumb v-if="themeStore.header.breadcrumb.visible">
     <ABreadcrumbItem v-for="item in routeStore.breadcrumbs" :key="item.key">
       <div class="i-flex-y-center align-middle">
-        <component :is="item.icon" class="mr-4px text-icon" />
+        <component :is="item.icon" v-if="themeStore.header.breadcrumb.showIcon" class="mr-4px text-icon" />
         {{ item.label }}
       </div>
       <template v-if="item.children?.length" #overlay>
