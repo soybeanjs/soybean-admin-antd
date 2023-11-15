@@ -2,7 +2,9 @@ import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
 import { getColorPalette } from '@sa/color-palette';
 import { getRgbOfColor } from '@sa/utils';
+import { themeSettings, overrideThemeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
+import { localStg } from '@/utils/storage';
 
 const DARK_CLASS = 'dark';
 
@@ -11,54 +13,23 @@ const DARK_CLASS = 'dark';
  * @param darkMode is dark mode
  */
 export function initThemeSettings() {
-  const themeSettings: App.Theme.ThemeSetting = {
-    themeScheme: 'light',
-    themeColor: '#646cff',
-    otherColor: {
-      info: '#2080f0',
-      success: '#52c41a',
-      warning: '#faad14',
-      error: '#f5222d'
-    },
-    isInfoFollowPrimary: true,
-    layout: {
-      mode: 'vertical',
-      scrollMode: 'content'
-    },
-    page: {
-      animate: true,
-      animateMode: 'fade-slide'
-    },
-    header: {
-      height: 56,
-      breadcrumb: {
-        visible: true,
-        showIcon: true
-      }
-    },
-    tab: {
-      visible: true,
-      height: 44,
-      mode: 'chrome'
-    },
-    fixedHeaderAndTab: true,
-    sider: {
-      inverted: false,
-      width: 220,
-      collapsedWidth: 64,
-      mixWidth: 90,
-      mixCollapsedWidth: 64,
-      mixChildMenuWidth: 200
-    },
-    footer: {
-      visible: true,
-      fixed: false,
-      height: 48,
-      right: true
-    }
-  };
+  const isProd = import.meta.env.PROD;
 
-  return themeSettings;
+  // if it is development mode, the theme settings will not be cached, by update `themeSettings` in `src/theme/settings.ts` to update theme settings
+  if (!isProd) return themeSettings;
+
+  // if it is production mode, the theme settings will be cached in localStorage
+  // if want to update theme settings when publish new version, please update `overrideThemeSettings` in `src/theme/settings.ts`
+
+  const settings = localStg.get('themeSettings') || themeSettings;
+
+  const isOverride = localStg.get('overrideThemeFlag') === BUILD_TIME;
+
+  if (!isOverride) {
+    Object.assign(settings, overrideThemeSettings);
+  }
+
+  return settings;
 }
 
 /**

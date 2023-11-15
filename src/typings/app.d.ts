@@ -97,6 +97,11 @@ declare namespace App {
          */
         visible: boolean;
         /**
+         * whether to cache the tab
+         * @description if cache, the tabs will get from the local storage when the page is refreshed
+         */
+        cache: boolean;
+        /**
          * tab height
          */
         height: number;
@@ -390,6 +395,7 @@ declare namespace App {
         };
         tab: {
           visible: string;
+          cache: string;
           height: string;
           mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
         };
@@ -409,6 +415,12 @@ declare namespace App {
         };
         themeDrawerTitle: string;
         pageFunTitle: string;
+        configOperation: {
+          copyConfig: string;
+          copySuccessMsg: string;
+          resetConfig: string;
+          resetSuccessMsg: string;
+        };
       };
       route: Record<I18nRouteKey, string>;
       page: {

@@ -72,6 +72,7 @@ const local: App.I18n.Schema = {
     },
     tab: {
       visible: '显示标签栏',
+      cache: '缓存标签页',
       height: '标签栏高度',
       mode: {
         title: '标签栏风格',
@@ -94,7 +95,13 @@ const local: App.I18n.Schema = {
       right: '底部局右'
     },
     themeDrawerTitle: '主题配置',
-    pageFunTitle: '页面功能'
+    pageFunTitle: '页面功能',
+    configOperation: {
+      copyConfig: '复制配置',
+      copySuccessMsg: '复制成功，请替换 src/theme/settings.ts 中的变量 themeSettings',
+      resetConfig: '重置配置',
+      resetSuccessMsg: '重置成功'
+    }
   },
   route: {
     login: '登录',

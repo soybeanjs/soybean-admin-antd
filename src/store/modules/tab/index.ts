@@ -16,8 +16,10 @@ import {
 } from './shared';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
+import { useThemeStore } from '../theme';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
+  const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
 
   /**
@@ -63,7 +65,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   function initTabStore(currentRoute: App.Global.TabRoute) {
     const storageTabs = localStg.get('globalTabs');
 
-    if (storageTabs) {
+    if (themeStore.tab.cache && storageTabs) {
       tabs.value = updateTabsByI18nKey(storageTabs);
     }
 
@@ -229,7 +231,12 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     }
   }
 
+  /**
+   * cache tabs
+   */
   function cacheTabs() {
+    if (!themeStore.tab.cache) return;
+
     localStg.set('globalTabs', tabs.value);
   }
 

@@ -6,6 +6,7 @@ import DarkMode from './modules/dark-mode.vue';
 import LayoutMode from './modules/layout-mode.vue';
 import ThemeColor from './modules/theme-color.vue';
 import PageFun from './modules/page-fun.vue';
+import ConfigOperation from './modules/config-operation.vue';
 
 defineOptions({
   name: 'ThemeDrawer'
@@ -33,6 +34,9 @@ const appStore = useAppStore();
         <PageFun />
       </div>
     </SimpleScrollbar>
+    <template #footer>
+      <ConfigOperation />
+    </template>
   </ADrawer>
 </template>
 

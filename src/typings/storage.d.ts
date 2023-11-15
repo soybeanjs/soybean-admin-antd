@@ -7,10 +7,10 @@ declare namespace StorageType {
      * the theme color
      */
     themeColor: string;
-    /**
-     * the theme settings
-     */
-    themeSettings: App.Theme.ThemeSetting;
+    // /**
+    //  * the theme settings
+    //  */
+    // themeSettings: App.Theme.ThemeSetting;
   }
 
   interface Local {
@@ -30,6 +30,19 @@ declare namespace StorageType {
      * the user info
      */
     userInfo: Api.Auth.UserInfo;
+    /**
+     * the theme color
+     */
+    themeColor: string;
+    /**
+     * the theme settings
+     */
+    themeSettings: App.Theme.ThemeSetting;
+    /**
+     * the override theme flags
+     * @description the value is the build time of the project
+     */
+    overrideThemeFlag: string;
     /**
      * the global tabs
      */

@@ -1,8 +1,9 @@
 import { ref, computed, effectScope, onScopeDispose, watch, toRefs } from 'vue';
 import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { usePreferredColorScheme } from '@vueuse/core';
+import { usePreferredColorScheme, useEventListener } from '@vueuse/core';
 import { SetupStoreId } from '@/enum';
+import { localStg } from '@/utils/storage';
 import { createThemeToken, initThemeSettings, addThemeVarsToHtml, toggleCssDarkMode, getAntdTheme } from './shared';
 
 /**
@@ -16,6 +17,21 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * theme settings
    */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
+
+  /**
+   * reset store
+   */
+  function resetStore() {
+    const themeStore = useThemeStore();
+
+    themeStore.$reset();
+  }
+
+  /**
+   * settings json
+   * @description it is for copy settings
+   */
+  const settingsJson = computed(() => JSON.stringify(settings.value));
 
   /**
    * set theme scheme
@@ -98,6 +114,22 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
 
+  /**
+   * cache theme settings
+   */
+  function cacheThemeSettings() {
+    const isProd = import.meta.env.PROD;
+
+    if (!isProd) return;
+
+    localStg.set('themeSettings', settings.value);
+  }
+
+  // cache theme settings when page is closed or refreshed
+  useEventListener(window, 'beforeunload', () => {
+    cacheThemeSettings();
+  });
+
   // watch store
   scope.run(() => {
     // watch dark mode
@@ -128,6 +160,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
   return {
     ...toRefs(settings.value),
+    resetStore,
+    settingsJson,
     darkMode,
     setThemeScheme,
     toggleThemeScheme,

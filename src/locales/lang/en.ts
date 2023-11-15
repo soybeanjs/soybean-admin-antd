@@ -72,6 +72,7 @@ const local: App.I18n.Schema = {
     },
     tab: {
       visible: 'Tab Visible',
+      cache: 'Tab Cache',
       height: 'Tab Height',
       mode: {
         title: 'Tab Mode',
@@ -94,7 +95,13 @@ const local: App.I18n.Schema = {
       right: 'Right Footer'
     },
     themeDrawerTitle: 'Theme Configuration',
-    pageFunTitle: 'Page Function'
+    pageFunTitle: 'Page Function',
+    configOperation: {
+      copyConfig: 'Copy Config',
+      copySuccessMsg: 'Copy Success, Please replace the variable "themeSettings" in "src/theme/settings.ts"',
+      resetConfig: 'Reset Config',
+      resetSuccessMsg: 'Reset Success'
+    }
   },
   route: {
     login: 'Login',

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { getRgbOfColor } from '@sa/utils';
 import { $t } from '@/locales';
-import { sessionStg } from '@/utils/storage';
+import { localStg } from '@/utils/storage';
 
 const loadingClasses = [
   'left-0 top-0',
@@ -11,7 +11,7 @@ const loadingClasses = [
 ];
 
 function addThemeColorCssVars() {
-  const themeColor = sessionStg.get('themeColor') || '#646cff';
+  const themeColor = localStg.get('themeColor') || '#646cff';
 
   const { r, g, b } = getRgbOfColor(themeColor);
 

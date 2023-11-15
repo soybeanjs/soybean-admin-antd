@@ -74,7 +74,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
 </script>
 
 <template>
-  <div class="flex-center flex-wrap gap-24px">
+  <div class="flex-center flex-wrap gap-x-32px gap-y-16px">
     <div
       v-for="(item, key) in layoutConfig"
       :key="key"

@@ -22,6 +22,9 @@ export default defineConfig(configEnv => {
       }
     },
     plugins: setupVitePlugins(viteEnv),
+    define: {
+      BUILD_TIME: JSON.stringify(new Date().toISOString())
+    },
     server: {
       host: '0.0.0.0',
       port: 9527,

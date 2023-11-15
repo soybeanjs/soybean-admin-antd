@@ -28,3 +28,8 @@ interface Document {
 interface ImportMeta {
   readonly env: Env.ImportMeta;
 }
+
+/**
+ * build time of the project
+ */
+declare const BUILD_TIME: string;
