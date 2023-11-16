@@ -34,7 +34,9 @@ const menuTheme = computed(() => (props.darkTheme ? 'dark' : 'light'));
 
 const isHorizontal = computed(() => props.mode === 'horizontal');
 
-const inlineCollapsed = computed(() => (props.mode === 'inline' ? appStore.siderCollapse : undefined));
+const siderCollapse = computed(() => themeStore.layout.mode === 'vertical' && appStore.siderCollapse);
+
+const inlineCollapsed = computed(() => (props.mode === 'inline' ? siderCollapse.value : undefined));
 
 const selectedKeys = computed(() => {
   const { hideInMenu, activeMenu } = route.meta;
@@ -46,7 +48,7 @@ const selectedKeys = computed(() => {
 });
 
 const openKeys = computed(() => {
-  if (isHorizontal.value || appStore.siderCollapse) return [];
+  if (isHorizontal.value || inlineCollapsed.value) return [];
 
   const [selectedKey] = selectedKeys.value;
 
