@@ -179,14 +179,14 @@ export function toggleCssDarkMode(darkMode = false) {
 /**
  * get antd theme
  */
-export function getAntdTheme(themeColor: string, otherColor: App.Theme.OtherColor, isDark: boolean) {
+export function getAntdTheme(colors: App.Theme.ThemeColor, isDark: boolean) {
   const { defaultAlgorithm, darkAlgorithm } = antdTheme;
 
-  const { info, success, warning, error } = otherColor;
+  const { primary, info, success, warning, error } = colors;
 
   const theme: ConfigProviderProps['theme'] = {
     token: {
-      colorPrimary: themeColor,
+      colorPrimary: primary,
       colorInfo: info,
       colorSuccess: success,
       colorWarning: warning,

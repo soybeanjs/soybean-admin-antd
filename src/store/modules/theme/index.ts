@@ -28,6 +28,35 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
+   * theme colors
+   */
+  const themeColors = computed(() => {
+    const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
+    const colors: App.Theme.ThemeColor = {
+      primary: themeColor,
+      ...otherColor,
+      info: isInfoFollowPrimary ? themeColor : otherColor.info
+    };
+    return colors;
+  });
+
+  /**
+   * dark mode
+   */
+  const darkMode = computed(() => {
+    if (settings.value.themeScheme === 'auto') {
+      return osTheme.value === 'dark';
+    }
+
+    return settings.value.themeScheme === 'dark';
+  });
+
+  /**
+   * antd theme
+   */
+  const antdTheme = computed(() => getAntdTheme(themeColors.value, darkMode.value));
+
+  /**
    * settings json
    * @description it is for copy settings
    */
@@ -57,41 +86,12 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * dark mode
-   */
-  const darkMode = computed(() => {
-    if (settings.value.themeScheme === 'auto') {
-      return osTheme.value === 'dark';
-    }
-
-    return settings.value.themeScheme === 'dark';
-  });
-
-  /**
-   * antd theme
-   */
-  const antdTheme = computed(() => getAntdTheme(settings.value.themeColor, settings.value.otherColor, darkMode.value));
-
-  /**
    * set theme layout
    * @param mode theme layout mode
    */
   function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
     settings.value.layout.mode = mode;
   }
-
-  /**
-   * theme colors
-   */
-  const themeColors = computed(() => {
-    const { themeColor, otherColor, isInfoFollowPrimary } = settings.value;
-    const colors: App.Theme.ThemeColor = {
-      primary: themeColor,
-      ...otherColor,
-      info: isInfoFollowPrimary ? themeColor : otherColor.info
-    };
-    return colors;
-  });
 
   /**
    * update theme colors
@@ -163,11 +163,11 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     resetStore,
     settingsJson,
     darkMode,
-    setThemeScheme,
-    toggleThemeScheme,
-    antdTheme,
-    setThemeLayout,
     themeColors,
-    updateThemeColors
+    antdTheme,
+    toggleThemeScheme,
+    setThemeScheme,
+    updateThemeColors,
+    setThemeLayout
   };
 });
