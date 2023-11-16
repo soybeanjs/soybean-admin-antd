@@ -336,11 +336,11 @@ declare namespace App {
   namespace I18n {
     type RouteKey = import('@elegant-router/types').RouteKey;
 
-    type LangType = 'en' | 'zh-CN';
+    type LangType = 'en-US' | 'zh-CN';
 
     type LangOption = {
       label: string;
-      key: App.I18n.LangType;
+      key: LangType;
     };
 
     type I18nRouteKey = Exclude<RouteKey, 'root' | 'not-found'>;

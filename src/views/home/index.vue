@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <LookForward />
+  <div>
+    <ACalendar :fullscreen="false" />
+  </div>
 </template>
 
 <style scoped></style>

@@ -5,6 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
 import { $t, setLocale } from '@/locales';
+import { setDayjsLocale } from '@/locales/dayjs';
 import { localStg } from '@/utils/storage';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
@@ -53,7 +54,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     },
     {
       label: 'English',
-      key: 'en'
+      key: 'en-US'
     }
   ];
 
@@ -74,6 +75,10 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     useTitle(documentTitle);
   }
 
+  function init() {
+    setDayjsLocale(locale.value);
+  }
+
   // watch store
   scope.run(() => {
     // watch isMobile, if is mobile, collapse sider
@@ -91,9 +96,17 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
 
     // watch locale
     watch(locale, () => {
+      // update document title by locale
       updateDocumentTitleByLocale();
+
+      // update global menus by locale
       routeStore.updateGlobalMenusByLocale();
+
+      // update tabs by locale
       tabStore.updateTabsByLocale();
+
+      // sey dayjs locale
+      setDayjsLocale(locale.value);
     });
   });
 
@@ -103,6 +116,9 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   onScopeDispose(() => {
     scope.stop();
   });
+
+  // init
+  init();
 
   return {
     isMobile,
