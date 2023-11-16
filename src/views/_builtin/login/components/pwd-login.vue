@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { reactive } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
-import { reactive } from 'vue';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { useAuthStore } from '@/store/modules/auth';
 

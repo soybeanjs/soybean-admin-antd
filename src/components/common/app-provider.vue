@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { App } from 'ant-design-vue';
 import { defineComponent, createTextVNode } from 'vue';
+import { App } from 'ant-design-vue';
 
 defineOptions({
   name: 'AppProvider'
