@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -20,15 +19,10 @@ interface Props {
    * show tooltip
    */
   showTooltip?: boolean;
-  /**
-   * tooltip placement
-   */
-  tooltipPlacement?: TooltipPlacement;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  showTooltip: true,
-  tooltipPlacement: 'left'
+  showTooltip: true
 });
 
 type Emits = {

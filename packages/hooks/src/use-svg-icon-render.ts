@@ -4,9 +4,8 @@ import type { Component } from 'vue';
 /**
  * svg icon render hook
  * @param SvgIcon svg icon component
- * @param defaultIcon default icon name (iconify icon name)
  */
-export default function useSvgIconRender(SvgIcon: Component, defaultIcon: string) {
+export default function useSvgIconRender(SvgIcon: Component) {
   interface IconConfig {
     /**
      * iconify icon name
@@ -33,7 +32,7 @@ export default function useSvgIconRender(SvgIcon: Component, defaultIcon: string
    * @param config
    */
   const SvgIconVNode = (config: IconConfig) => {
-    const { color, fontSize, icon = defaultIcon, localIcon } = config;
+    const { color, fontSize, icon, localIcon } = config;
 
     const style: IconStyle = {};
 

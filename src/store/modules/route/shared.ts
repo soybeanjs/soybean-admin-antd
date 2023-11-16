@@ -97,7 +97,7 @@ export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
  * @param route
  */
 function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | ElegantConstRoute) {
-  const { SvgIconVNode } = useSvgIconRender(SvgIcon, import.meta.env.VITE_MENU_ICON);
+  const { SvgIconVNode } = useSvgIconRender(SvgIcon);
 
   const { name, path } = route;
   const { title, i18nKey, icon, localIcon } = route.meta ?? {};
