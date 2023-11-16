@@ -55,7 +55,7 @@
     "*.svg": "html"
   },
   "files.eol": "\n",
-  "i18n-ally.displayLanguage": "zh-CN",
+  "i18n-ally.displayLanguage": "zh-cn",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.editor.preferEditor": true,
