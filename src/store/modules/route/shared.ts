@@ -100,7 +100,7 @@ function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | Elegant
   const { SvgIconVNode } = useSvgIconRender(SvgIcon);
 
   const { name, path } = route;
-  const { title, i18nKey, icon, localIcon } = route.meta ?? {};
+  const { title, i18nKey, icon = import.meta.env.VITE_MENU_ICON, localIcon } = route.meta ?? {};
 
   const label = i18nKey ? $t(i18nKey) : title!;
 
