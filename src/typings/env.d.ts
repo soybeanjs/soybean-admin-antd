@@ -66,5 +66,11 @@ declare namespace Env {
      * whether to build with sourcemap
      */
     readonly VITE_SOURCE_MAP?: Common.YesOrNo;
+    /**
+     * iconify api provider url
+     * @description if the project is deployed in intranet, you can set the api provider url to the local iconify server
+     * @link https://docs.iconify.design/api/providers.html
+     */
+    readonly VITE_ICONIFY_URL?: string;
   }
 }
