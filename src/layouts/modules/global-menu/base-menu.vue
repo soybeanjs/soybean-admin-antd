@@ -90,36 +90,48 @@ function handleClickMenu(menuInfo: MenuInfo) {
   </SimpleScrollbar>
 </template>
 
-<style scoped>
-.menu-wrapper :deep(.ant-menu-inline .ant-menu-item) {
-  width: calc(100% - 16px);
-  margin-inline: 8px;
+<style lang="scss" scoped>
+.menu-wrapper {
+  :deep(.ant-menu-inline) {
+    .ant-menu-item {
+      width: calc(100% - 16px);
+      margin-inline: 8px;
+    }
+  }
+
+  :deep(.ant-menu-inline-collapsed) {
+    > .ant-menu-item {
+      padding-inline: calc(50% - 14px);
+    }
+
+    .ant-menu-item-icon {
+      vertical-align: -0.25em;
+    }
+
+    .ant-menu-submenu-title {
+      padding-inline: calc(50% - 14px);
+    }
+  }
+
+  :deep(.ant-menu-horizontal) {
+    .ant-menu-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-menu-submenu-title {
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 
-.menu-wrapper :deep(.ant-menu-inline-collapsed > .ant-menu-item) {
-  padding-inline: calc(50% - 14px);
-}
-
-.menu-wrapper :deep(.ant-menu-inline-collapsed .ant-menu-item-icon) {
-  vertical-align: -0.25em;
-}
-
-.menu-wrapper :deep(.ant-menu-inline-collapsed .ant-menu-submenu-title) {
-  padding-inline: calc(50% - 14px);
-}
-
-.menu-wrapper :deep(.ant-menu-horizontal .ant-menu-item) {
-  display: flex;
-  align-items: center;
-}
-
-.menu-wrapper :deep(.ant-menu-horizontal .ant-menu-submenu-title) {
-  display: flex;
-  align-items: center;
-}
-
-.select-menu :deep(.ant-menu-inline .ant-menu-item-selected) {
-  background-color: v-bind(selectedBgColor);
+.select-menu {
+  :deep(.ant-menu-inline) {
+    .ant-menu-item-selected {
+      background-color: v-bind(selectedBgColor);
+    }
+  }
 }
 
 .horizontal-menu {
