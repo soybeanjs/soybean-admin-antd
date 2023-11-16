@@ -27,6 +27,7 @@ export function initThemeSettings() {
 
   if (!isOverride) {
     Object.assign(settings, overrideThemeSettings);
+    localStg.set('overrideThemeFlag', BUILD_TIME);
   }
 
   return settings;
