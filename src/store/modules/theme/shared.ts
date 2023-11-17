@@ -10,7 +10,6 @@ const DARK_CLASS = 'dark';
 
 /**
  * init theme settings
- * @param darkMode is dark mode
  */
 export function initThemeSettings() {
   const isProd = import.meta.env.PROD;
@@ -35,7 +34,7 @@ export function initThemeSettings() {
 
 /**
  * create theme token
- * @param darkMode is dark mode
+ * @param colors theme colors
  */
 export function createThemeToken(colors: App.Theme.ThemeColor) {
   const paletteColors = createThemePaletteColors(colors);
@@ -147,7 +146,8 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
   const darkCss = `
     html.${DARK_CLASS} {
       ${darkCssVarStr}
-    `;
+    }
+  `;
 
   const style = document.createElement('style');
 
@@ -158,7 +158,7 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
 
 /**
  * toggle css dark mode
- * @param darkMode
+ * @param darkMode is dark mode
  */
 export function toggleCssDarkMode(darkMode = false) {
   function addDarkClass() {
@@ -178,8 +178,10 @@ export function toggleCssDarkMode(darkMode = false) {
 
 /**
  * get antd theme
+ * @param colors theme colors
+ * @param darkMode is dark mode
  */
-export function getAntdTheme(colors: App.Theme.ThemeColor, isDark: boolean) {
+export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
   const { defaultAlgorithm, darkAlgorithm } = antdTheme;
 
   const { primary, info, success, warning, error } = colors;
@@ -192,7 +194,7 @@ export function getAntdTheme(colors: App.Theme.ThemeColor, isDark: boolean) {
       colorWarning: warning,
       colorError: error
     },
-    algorithm: [isDark ? darkAlgorithm : defaultAlgorithm],
+    algorithm: [darkMode ? darkAlgorithm : defaultAlgorithm],
     components: {
       Menu: {
         colorSubItemBg: 'transparent'
