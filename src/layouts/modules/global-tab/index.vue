@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, nextTick } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
@@ -132,8 +132,8 @@ init();
               :active="tab.id === tabStore.activeTabId"
               :active-color="themeStore.themeColor"
               :closable="!tabStore.isTabRetain(tab.id)"
-              @click="tabStore.switchRouteByTab(tab)"
-              @close="handleCloseTab(tab)"
+              @click="() => tabStore.switchRouteByTab(tab)"
+              @close="() => handleCloseTab(tab)"
             >
               <template #prefix>
                 <SvgIcon

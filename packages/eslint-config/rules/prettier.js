@@ -1,6 +1,4 @@
-/**
- * @type {import('prettier').Options}
- */
+/** @type {import('prettier').Options} */
 module.exports = {
   printWidth: 120,
   tabWidth: 2,

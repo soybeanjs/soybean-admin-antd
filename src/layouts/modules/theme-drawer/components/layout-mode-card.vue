@@ -7,27 +7,21 @@ defineOptions({
   name: 'LayoutModeCard'
 });
 
+const props = defineProps<Props>();
+
+const emit = defineEmits<Emits>();
+
 interface Props {
-  /**
-   * layout mode
-   */
+  /** Layout mode */
   mode: UnionKey.ThemeLayoutMode;
-  /**
-   * disabled
-   */
+  /** Disabled */
   disabled?: boolean;
 }
 
-const props = defineProps<Props>();
-
 interface Emits {
-  /**
-   * layout mode change
-   */
+  /** Layout mode change */
   (e: 'update:mode', mode: UnionKey.ThemeLayoutMode): void;
 }
-
-const emit = defineEmits<Emits>();
 
 type LayoutConfig = Record<
   UnionKey.ThemeLayoutMode,
@@ -80,7 +74,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
       :key="key"
       class="flex border-2px rounded-6px cursor-pointer hover:border-primary"
       :class="[mode === key ? 'border-primary' : 'border-transparent']"
-      @click="handleChangeMode(key)"
+      @click="() => handleChangeMode(key)"
     >
       <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[key])">
         <div

@@ -1,6 +1,4 @@
-/**
- * @type {import('eslint').ESLint.ConfigData}
- */
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   root: true,
   env: {

@@ -1,19 +1,11 @@
 interface Window {
-  /**
-   * NProgress instance
-   */
+  /** NProgress instance */
   NProgress?: import('nprogress').NProgress;
-  /**
-   * ant-design-vue message instance
-   */
+  /** Ant-design-vue message instance */
   $message?: import('ant-design-vue/es/message/interface').MessageInstance;
-  /**
-   * ant-design-vue modal instance
-   */
+  /** Ant-design-vue modal instance */
   $modal?: Omit<import('ant-design-vue/es/modal/confirm').ModalStaticFunctions, 'warn'>;
-  /**
-   * ant-design-vue notification instance
-   */
+  /** Ant-design-vue notification instance */
   $notification?: import('ant-design-vue/es/notification/interface').NotificationInstance;
 }
 
@@ -29,7 +21,5 @@ interface ImportMeta {
   readonly env: Env.ImportMeta;
 }
 
-/**
- * build time of the project
- */
+/** Build time of the project */
 declare const BUILD_TIME: string;

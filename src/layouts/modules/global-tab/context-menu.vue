@@ -8,18 +8,18 @@ defineOptions({
   name: 'ContextMenu'
 });
 
+const props = withDefaults(defineProps<Props>(), {
+  trigger: () => ['contextmenu'],
+  excludeKeys: () => [],
+  disabledKeys: () => []
+});
+
 interface Props {
   tabId: string;
   trigger?: Trigger[];
   excludeKeys?: App.Global.DropdownKey[];
   disabledKeys?: App.Global.DropdownKey[];
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  trigger: () => ['contextmenu'],
-  excludeKeys: () => [],
-  disabledKeys: () => []
-});
 
 const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
 
@@ -101,7 +101,7 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
           v-for="option in options"
           :key="option.key"
           :disabled="option.disabled"
-          @click="dropdownAction[option.key]"
+          @click="() => dropdownAction[option.key]"
         >
           <div class="flex-y-center gap-12px">
             <SvgIcon :icon="option.icon" class="text-icon" />

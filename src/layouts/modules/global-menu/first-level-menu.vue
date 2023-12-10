@@ -11,39 +11,31 @@ defineOptions({
   name: 'FirstLevelMenu'
 });
 
+defineProps<Props>();
+
+const emit = defineEmits<Emits>();
+
 interface Props {
   activeMenuKey?: string;
   inverted?: boolean;
 }
 
-defineProps<Props>();
-
 interface Emits {
   (e: 'select', menu: App.Global.Menu): boolean;
 }
-
-const emit = defineEmits<Emits>();
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
 const routeStore = useRouteStore();
 
 interface MixMenuItemProps {
-  /**
-   *  menu item label
-   */
+  /** Menu item label */
   label: App.Global.Menu['label'];
-  /**
-   *  menu item icon
-   */
+  /** Menu item icon */
   icon: App.Global.Menu['icon'];
-  /**
-   * active menu item
-   */
+  /** Active menu item */
   active: boolean;
-  /**
-   * mini size
-   */
+  /** Mini size */
   isMini: boolean;
 }
 const [DefineMixMenuItem, MixMenuItem] = createReusableTemplate<MixMenuItemProps>();
@@ -94,7 +86,7 @@ function handleClickMixMenu(menu: App.Global.Menu) {
         :icon="menu.icon"
         :active="menu.key === activeMenuKey"
         :is-mini="appStore.siderCollapse"
-        @click="handleClickMixMenu(menu)"
+        @click="() => handleClickMixMenu(menu)"
       />
     </SimpleScrollbar>
     <MenuToggler

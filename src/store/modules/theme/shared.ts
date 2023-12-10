@@ -2,15 +2,13 @@ import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
 import { getColorPalette } from '@sa/color-palette';
 import { getRgbOfColor } from '@sa/utils';
-import { themeSettings, overrideThemeSettings } from '@/theme/settings';
+import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { localStg } from '@/utils/storage';
 
 const DARK_CLASS = 'dark';
 
-/**
- * init theme settings
- */
+/** Init theme settings */
 export function initThemeSettings() {
   const isProd = import.meta.env.PROD;
 
@@ -33,8 +31,9 @@ export function initThemeSettings() {
 }
 
 /**
- * create theme token
- * @param colors theme colors
+ * Create theme token
+ *
+ * @param colors Theme colors
  */
 export function createThemeToken(colors: App.Theme.ThemeColor) {
   const paletteColors = createThemePaletteColors(colors);
@@ -74,8 +73,9 @@ export function createThemeToken(colors: App.Theme.ThemeColor) {
 }
 
 /**
- * create theme palette colors
- * @param colors theme colors
+ * Create theme palette colors
+ *
+ * @param colors Theme colors
  */
 function createThemePaletteColors(colors: App.Theme.ThemeColor) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
@@ -95,8 +95,9 @@ function createThemePaletteColors(colors: App.Theme.ThemeColor) {
 }
 
 /**
- * get css var by tokens
- * @param tokens theme base tokens
+ * Get css var by tokens
+ *
+ * @param tokens Theme base tokens
  */
 function getCssVarByTokens(tokens: App.Theme.BaseToken) {
   const styles: string[] = [];
@@ -130,7 +131,8 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 }
 
 /**
- * add theme vars to html
+ * Add theme vars to html
+ *
  * @param tokens
  */
 export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.Theme.BaseToken) {
@@ -151,14 +153,15 @@ export function addThemeVarsToHtml(tokens: App.Theme.BaseToken, darkTokens: App.
 
   const style = document.createElement('style');
 
-  style.innerText = css + darkCss;
+  style.textContent = css + darkCss;
 
   document.head.appendChild(style);
 }
 
 /**
- * toggle css dark mode
- * @param darkMode is dark mode
+ * Toggle css dark mode
+ *
+ * @param darkMode Is dark mode
  */
 export function toggleCssDarkMode(darkMode = false) {
   function addDarkClass() {
@@ -177,9 +180,10 @@ export function toggleCssDarkMode(darkMode = false) {
 }
 
 /**
- * get antd theme
- * @param colors theme colors
- * @param darkMode is dark mode
+ * Get antd theme
+ *
+ * @param colors Theme colors
+ * @param darkMode Is dark mode
  */
 export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
   const { defaultAlgorithm, darkAlgorithm } = antdTheme;

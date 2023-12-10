@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineComponent, createTextVNode } from 'vue';
+import { createTextVNode, defineComponent } from 'vue';
 import { App } from 'ant-design-vue';
 
 defineOptions({
@@ -18,9 +18,8 @@ const ContextHolder = defineComponent({
     }
 
     register();
-  },
-  render() {
-    return createTextVNode();
+
+    return () => createTextVNode();
   }
 });
 </script>

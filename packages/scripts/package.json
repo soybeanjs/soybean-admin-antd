@@ -1,18 +1,16 @@
 {
   "name": "@sa/scripts",
   "version": "1.0.0",
+  "bin": {
+    "sa": "./bin.cjs"
+  },
   "exports": {
     ".": "./src/index.ts"
   },
   "typesVersions": {
     "*": {
-      "*": [
-        "./src/*"
-      ]
+      "*": ["./src/*"]
     }
-  },
-  "bin": {
-    "sa": "./bin.cjs"
   },
   "devDependencies": {
     "c12": "1.5.1",

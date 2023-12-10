@@ -26,7 +26,7 @@ function handleClickMenu(key: RouteKey) {
       </div>
       <template v-if="item.children?.length" #overlay>
         <AMenu>
-          <AMenuItem v-for="option in item.children" :key="option.key" @click="handleClickMenu(option.routeKey)">
+          <AMenuItem v-for="option in item.children" :key="option.key" @click="() => handleClickMenu(option.routeKey)">
             <div class="flex-y-center gap-12px">
               <component :is="option.icon" />
               <span>{{ option.label }}</span>

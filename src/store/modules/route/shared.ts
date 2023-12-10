@@ -1,13 +1,14 @@
-import type { RouteRecordRaw, _RouteRecordBase, RouteLocationNormalizedLoaded } from 'vue-router';
-import type { ElegantConstRoute, RouteKey, RouteMap, LastLevelRouteKey } from '@elegant-router/types';
+import type { RouteLocationNormalizedLoaded, RouteRecordRaw, _RouteRecordBase } from 'vue-router';
+import type { ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
 import { useSvgIconRender } from '@sa/hooks';
 import { $t } from '@/locales';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 
 /**
- * filter auth routes by roles
- * @param routes auth routes
- * @param roles roles
+ * Filter auth routes by roles
+ *
+ * @param routes Auth routes
+ * @param roles Roles
  */
 export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: string[]) {
   const SUPER_ROLE = 'R_SUPER';
@@ -20,9 +21,10 @@ export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: stri
 }
 
 /**
- * filter auth route by roles
- * @param route auth route
- * @param roles roles
+ * Filter auth route by roles
+ *
+ * @param route Auth route
+ * @param roles Roles
  */
 function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
   const routeRoles = (route.meta && route.meta.roles) || [];
@@ -43,8 +45,9 @@ function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
 }
 
 /**
- * get global menus by auth routes
- * @param routes auth routes
+ * Get global menus by auth routes
+ *
+ * @param routes Auth routes
  */
 export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
   const menus: App.Global.Menu[] = [];
@@ -65,7 +68,8 @@ export function getGlobalMenusByAuthRoutes(routes: ElegantConstRoute[]) {
 }
 
 /**
- * update locale of global menus
+ * Update locale of global menus
+ *
  * @param menus
  */
 export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
@@ -93,7 +97,8 @@ export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
 }
 
 /**
- * get global menu by route
+ * Get global menu by route
+ *
  * @param route
  */
 function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | ElegantConstRoute) {
@@ -118,8 +123,9 @@ function getGlobalMenuByBaseRoute(route: RouteLocationNormalizedLoaded | Elegant
 }
 
 /**
- * get cache route names
- * @param routes vue routes (two levels)
+ * Get cache route names
+ *
+ * @param routes Vue routes (two levels)
  */
 export function getCacheRouteNames(routes: RouteRecordRaw[]) {
   const cacheNames: LastLevelRouteKey[] = [];
@@ -137,7 +143,8 @@ export function getCacheRouteNames(routes: RouteRecordRaw[]) {
 }
 
 /**
- * is route exist by route name
+ * Is route exist by route name
+ *
  * @param routeName
  * @param routes
  */
@@ -146,7 +153,8 @@ export function isRouteExistByRouteName(routeName: RouteKey, routes: ElegantCons
 }
 
 /**
- * recursive get is route exist by route name
+ * Recursive get is route exist by route name
+ *
  * @param route
  * @param routeName
  */
@@ -165,7 +173,8 @@ function recursiveGetIsRouteExistByRouteName(route: ElegantConstRoute, routeName
 }
 
 /**
- * get selected menu key path
+ * Get selected menu key path
+ *
  * @param selectedKey
  * @param menus
  */
@@ -188,9 +197,10 @@ export function getSelectedMenuKeyPathByKey(selectedKey: string, menus: App.Glob
 }
 
 /**
- * find menu path
- * @param targetKey target menu key
- * @param menu menu
+ * Find menu path
+ *
+ * @param targetKey Target menu key
+ * @param menu Menu
  */
 function findMenuPath(targetKey: string, menu: App.Global.Menu): string[] | null {
   const path: string[] = [];
@@ -223,7 +233,8 @@ function findMenuPath(targetKey: string, menu: App.Global.Menu): string[] | null
 }
 
 /**
- * get breadcrumbs by route
+ * Get breadcrumbs by route
+ *
  * @param route
  * @param menus
  */

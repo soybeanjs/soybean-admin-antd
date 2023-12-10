@@ -11,4 +11,4 @@ declare const styles: {
   readonly 'chrome-tab_dark': string;
   readonly 'chrome-tab-divider': string;
 };
-export = styles;
+export default styles;

@@ -14,15 +14,15 @@ defineOptions({
   name: 'BaseMenu'
 });
 
+const props = withDefaults(defineProps<Props>(), {
+  mode: 'inline'
+});
+
 interface Props {
   darkTheme?: boolean;
   mode?: MenuMode;
   menus: App.Global.Menu[];
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  mode: 'inline'
-});
 
 const route = useRoute();
 const appStore = useAppStore();

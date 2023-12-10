@@ -1,6 +1,4 @@
-/**
- * @type {import('eslint').ESLint.ConfigData}
- */
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   extends: ['plugin:vue/vue3-recommended', require.resolve('./base.js')],
   overrides: [

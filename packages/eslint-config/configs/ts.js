@@ -1,6 +1,4 @@
-/**
- * @type {import('eslint').ESLint.ConfigData}
- */
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
   plugins: ['@typescript-eslint'],
   extends: [require.resolve('./js.js'), 'plugin:import/typescript', 'plugin:@typescript-eslint/recommended'],
