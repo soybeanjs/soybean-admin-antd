@@ -76,8 +76,8 @@ importers:
         specifier: 1.0.0-beta.7
         version: 1.0.0-beta.7(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2)
       '@soybeanjs/eslint-config':
-        specifier: 1.1.2
-        version: 1.1.2(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2)
+        specifier: 1.1.3
+        version: 1.1.3(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2)
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
@@ -1786,7 +1786,7 @@ packages:
   /@soybeanjs/changelog@0.3.8(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2):
     resolution: {integrity: sha512-1zGtt7rtqIDWRgmrv9ygiTPlptMFLc2ihyj2eQbZpDvZUtp2Ur+gi8l0YCoW/ZF3GglRQUwkIEDfpp6lq5wq/g==}
     dependencies:
-      '@soybeanjs/eslint-config': 1.1.2(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2)
+      '@soybeanjs/eslint-config': 1.1.3(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2)
       cli-progress: 3.12.0
       convert-gitmoji: 0.1.3
       dayjs: 1.11.10
@@ -1853,8 +1853,8 @@ packages:
       - vue-eslint-parser
     dev: true
 
-  /@soybeanjs/eslint-config@1.1.2(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2):
-    resolution: {integrity: sha512-2P5WZHAi1ty7DS/KW7ahJcBSFupDh+WX4MOfSd3DNRJ1Lne5ZjyY/YuDGqyHitjjWEeG6fUPFH/Y5b15SVDIKQ==}
+  /@soybeanjs/eslint-config@1.1.3(eslint-plugin-vue@9.19.2)(eslint@8.55.0)(typescript@5.3.3)(vue-eslint-parser@9.3.2):
+    resolution: {integrity: sha512-QLPULErI9otbtygkfG/wjOeG/Uk5YdES1TJFrueow6YJKba9IkAmwc6BGAa6L9r5RxZLZ70AnflV8bGVXk+fMg==}
     peerDependencies:
       '@toml-tools/parser': '*'
       eslint: '>=8.40.0'
