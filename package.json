@@ -10,7 +10,7 @@
     "url": "https://github.com/soybeanjs"
   },
   "scripts": {
-    "build": "typecheck build-only",
+    "build": "run-s typecheck build-only",
     "build-only": "vite build",
     "cleanup": "sa cleanup",
     "commit": "sa git-commit",
