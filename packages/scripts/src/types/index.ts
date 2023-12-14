@@ -22,12 +22,4 @@ export interface CliOption {
    * @default ['--deep', '-u']
    */
   ncuCommandArgs: string[];
-  /**
-   * Prettier write glob
-   *
-   * Glob pattern syntax {@link https://github.com/micromatch/micromatch}
-   */
-  prettierWriteGlob: string[];
-  /** Lint-staged config */
-  lintStagedConfig: Record<string, string | string[]>;
 }

@@ -11,7 +11,14 @@ type CommandAction<A extends object> = (args?: A) => Promise<void> | void;
 type CommandWithAction<A extends object = object> = Record<Command, { desc: string; action: CommandAction<A> }>;
 
 interface CommandArg {
-  total?: boolean;
+  /**
+   * The glob pattern of dirs to cleanup
+   *
+   * If not set, it will use the default value
+   *
+   * Multiple values use "," to separate them
+   */
+  cleanupDir?: string;
 }
 
 export async function setupCli() {
@@ -24,7 +31,14 @@ export async function setupCli() {
   const commands: CommandWithAction<CommandArg> = {
     cleanup: {
       desc: 'delete dirs: node_modules, dist, etc.',
-      action: async () => {
+      action: async args => {
+        const cleanupDirs = args?.cleanupDir?.split(',') || [];
+        const formattedDirs = cleanupDirs.map(dir => dir.trim()).filter(Boolean);
+
+        if (formattedDirs.length) {
+          cliOptions.cleanupDirs = formattedDirs;
+        }
+
         await cleanup(cliOptions.cleanupDirs);
       }
     },
