@@ -1,4 +1,4 @@
-import { createOfetch as createRequest } from '@sa/request';
+import { createAxios, createFetch as createRequest } from '@sa/request';
 import { localStg } from '@/utils/storage';
 import { createProxyPattern, createServiceConfig } from '~/env.config';
 
@@ -11,15 +11,31 @@ export const request = createRequest({
   headers: {
     apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
   },
-  onRequest({ options }) {
-    if (options.headers) {
+  onRequest(context) {
+    console.log('context: ', context);
+    const { headers } = context.options;
+
+    if (headers) {
       const token = localStg.get('token');
 
       const Authorization = token ? `Bearer ${token}` : '';
 
-      Object.assign(options.headers, { Authorization });
+      Object.assign(headers, { Authorization });
     }
+  },
+  onRequestError(context) {
+    console.error('onRequestError', context);
+  },
+  onResponse(context) {
+    console.log('onResponse', context);
+  },
+  onResponseError(context) {
+    console.log('onResponseError', context);
   }
 });
 
 export const demoRequest = createRequest({ baseURL: isHttpProxy ? createProxyPattern('demo') : otherBaseURL.demo });
+
+export const axios = createAxios({
+  baseURL: isHttpProxy ? createProxyPattern() : baseURL
+});

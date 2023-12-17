@@ -1,4 +1,4 @@
-import { request } from '../request';
+import { axios, request } from '../request';
 
 /**
  * Login
@@ -31,6 +31,24 @@ export function fetchRefreshToken(refreshToken: string) {
     method: 'post',
     body: {
       refreshToken
+    }
+  });
+}
+
+export function fetchDebug() {
+  return request<App.Service.Response<string>>('/debug-post', {
+    method: 'post',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: 'a=1'
+  });
+}
+
+export function fetchDebugAxios() {
+  return axios<App.Service.Response<string>>('/debug-post', {
+    method: 'post',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: {
+      a: 1
     }
   });
 }

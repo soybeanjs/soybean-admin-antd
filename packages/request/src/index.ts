@@ -1,4 +1,4 @@
 import { createAxios } from './axios';
-import { createOfetch } from './ofetch';
+import { createFetch } from './ofetch';
 
-export { createAxios, createOfetch };
+export { createAxios, createFetch };
