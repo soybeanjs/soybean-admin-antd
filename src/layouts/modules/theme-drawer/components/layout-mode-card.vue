@@ -74,7 +74,7 @@ function handleChangeMode(mode: UnionKey.ThemeLayoutMode) {
       :key="key"
       class="flex border-2px rounded-6px cursor-pointer hover:border-primary"
       :class="[mode === key ? 'border-primary' : 'border-transparent']"
-      @click="() => handleChangeMode(key)"
+      @click="handleChangeMode(key)"
     >
       <ATooltip :placement="item.placement" :title="$t(themeLayoutModeRecord[key])">
         <div

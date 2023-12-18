@@ -86,7 +86,7 @@ function handleClickMixMenu(menu: App.Global.Menu) {
         :icon="menu.icon"
         :active="menu.key === activeMenuKey"
         :is-mini="appStore.siderCollapse"
-        @click="() => handleClickMixMenu(menu)"
+        @click="handleClickMixMenu(menu)"
       />
     </SimpleScrollbar>
     <MenuToggler

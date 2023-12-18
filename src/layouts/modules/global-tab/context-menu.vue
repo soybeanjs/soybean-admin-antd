@@ -101,7 +101,7 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
           v-for="option in options"
           :key="option.key"
           :disabled="option.disabled"
-          @click="() => dropdownAction[option.key]"
+          @click="dropdownAction[option.key]"
         >
           <div class="flex-y-center gap-12px">
             <SvgIcon :icon="option.icon" class="text-icon" />

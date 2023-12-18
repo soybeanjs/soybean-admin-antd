@@ -43,7 +43,7 @@ function changeLang(lang: App.I18n.LangType) {
     </ButtonIcon>
     <template #overlay>
       <AMenu :selected-keys="[lang]">
-        <AMenuItem v-for="option in langOptions" :key="option.key" @click="() => changeLang(option.key)">
+        <AMenuItem v-for="option in langOptions" :key="option.key" @click="changeLang(option.key)">
           {{ option.label }}
         </AMenuItem>
       </AMenu>
