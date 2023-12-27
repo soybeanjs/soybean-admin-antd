@@ -1,4 +1,5 @@
-import { createAxios, createFetch as createRequest } from '@sa/request';
+import { createRequest } from '@sa/fetch';
+import { createRequest as createAxios } from '@sa/axios';
 import { localStg } from '@/utils/storage';
 import { createProxyPattern, createServiceConfig } from '~/env.config';
 
