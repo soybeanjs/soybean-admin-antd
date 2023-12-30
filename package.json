@@ -2,7 +2,7 @@
   "name": "@sa/antd",
   "type": "module",
   "version": "1.0.0",
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "pnpm@8.13.1",
   "description": "A fresh and elegant admin template, based on Vue3,Vite3,TypeScript,AntDesign and UnoCSS.",
   "author": {
     "name": "Soybean",
