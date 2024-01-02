@@ -13,7 +13,6 @@ export const request = createRequest({
     apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
   },
   onRequest(context) {
-    console.log('context: ', context);
     const { headers } = context.options;
 
     if (headers) {
@@ -23,16 +22,16 @@ export const request = createRequest({
 
       Object.assign(headers, { Authorization });
     }
-  },
-  onRequestError(context) {
-    console.error('onRequestError', context);
-  },
-  onResponse(context) {
-    console.log('onResponse', context);
-  },
-  onResponseError(context) {
-    console.log('onResponseError', context);
   }
+  // onRequestError(context) {
+  //   console.error('onRequestError', context);
+  // },
+  // onResponse(context) {
+  //   console.log('onResponse', context);
+  // },
+  // onResponseError(context) {
+  //   console.log('onResponseError', context);
+  // }
 });
 
 export const demoRequest = createRequest({ baseURL: isHttpProxy ? createProxyPattern('demo') : otherBaseURL.demo });

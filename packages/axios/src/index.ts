@@ -2,20 +2,20 @@ import axios from 'axios';
 import type { CancelTokenSource, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 import axiosRetry from 'axios-retry';
 import { nanoid } from '@sa/utils';
-import { createDefaultOptions, createRetryOptions } from './options';
-import { getContentType, transformRequestData } from './shared';
+import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
 import { REQUEST_ID_KEY } from './constant';
 import type { RequestInstance, RequestOption } from './type';
 
 export function createRequest(axiosConfig?: CreateAxiosDefaults, options?: Partial<RequestOption>) {
   const opts = createDefaultOptions(options);
 
-  const instance = axios.create(axiosConfig);
+  const axiosConf = createAxiosConfig(axiosConfig);
+  const instance = axios.create(axiosConf);
 
   const cancelTokenSourceMap = new Map<string, CancelTokenSource>();
 
   // config axios retry
-  const retryOptions = createRetryOptions(axiosConfig);
+  const retryOptions = createRetryOptions(axiosConf);
   axiosRetry(instance, retryOptions);
 
   instance.interceptors.request.use(conf => {
@@ -30,10 +30,6 @@ export function createRequest(axiosConfig?: CreateAxiosDefaults, options?: Parti
     config.cancelToken = cancelTokenSource.token;
     cancelTokenSourceMap.set(requestId, cancelTokenSource);
 
-    // transform data
-    const contentType = getContentType(config);
-    config.data = transformRequestData(config.data, contentType);
-
     // handle config by hook
     const handledConfig = opts.onRequest?.(config) || config;
 
@@ -42,11 +38,20 @@ export function createRequest(axiosConfig?: CreateAxiosDefaults, options?: Parti
 
   instance.interceptors.response.use(
     async response => {
-      console.log('response: ', response);
-      return response;
+      const backendSuccess = opts.onBackendSuccess(response);
+
+      if (backendSuccess) {
+        return Promise.resolve(response);
+      }
+
+      const fail = await opts.onBackendFail(response, instance);
+      if (fail) {
+        return fail;
+      }
+
+      return Promise.reject(response);
     },
     error => {
-      console.log('response error: ', error);
       return Promise.reject(error);
     }
   );

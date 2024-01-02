@@ -12,7 +12,6 @@
   "dependencies": {
     "@sa/utils": "workspace:*",
     "axios": "1.6.3",
-    "axios-retry": "^4.0.0",
-    "form-data": "^4.0.0"
+    "axios-retry": "^4.0.0"
   }
 }

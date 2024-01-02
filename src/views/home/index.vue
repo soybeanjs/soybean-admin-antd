@@ -7,8 +7,12 @@ async function start() {
 }
 
 async function startAxios() {
-  const data = await fetchDebugAxios();
-  console.log('data: ', data);
+  try {
+    const data = await fetchDebugAxios();
+    console.log('data: ', data);
+  } catch (error) {
+    console.log('error: ', error);
+  }
 }
 
 start();

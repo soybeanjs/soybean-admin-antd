@@ -45,10 +45,6 @@ export function fetchDebug() {
 
 export function fetchDebugAxios() {
   return axios<App.Service.Response<string>>('/debug-post', {
-    method: 'post',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    data: {
-      a: 1
-    }
+    method: 'post'
   });
 }

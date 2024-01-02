@@ -174,9 +174,6 @@ importers:
       axios-retry:
         specifier: ^4.0.0
         version: 4.0.0(axios@1.6.3)
-      form-data:
-        specifier: ^4.0.0
-        version: 4.0.0
 
   packages/color-palette:
     dependencies:
