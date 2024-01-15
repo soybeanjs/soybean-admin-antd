@@ -226,7 +226,11 @@ importers:
         specifier: 3.2.2
         version: 3.2.2
 
-  packages/hooks: {}
+  packages/hooks:
+    dependencies:
+      '@sa/axios':
+        specifier: workspace:*
+        version: link:../axios
 
   packages/materials:
     dependencies:
