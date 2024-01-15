@@ -48,6 +48,32 @@ function filterAuthRouteByRoles(route: ElegantConstRoute, roles: string[]) {
 }
 
 /**
+ * sort route by order
+ *
+ * @param route route
+ */
+function sortRouteByOrder(route: ElegantConstRoute) {
+  if (route.children?.length) {
+    route.children.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
+    route.children.forEach(sortRouteByOrder);
+  }
+
+  return route;
+}
+
+/**
+ * sort routes by order
+ *
+ * @param routes routes
+ */
+export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
+  routes.sort((next, prev) => (Number(next.meta?.order) || 0) - (Number(prev.meta?.order) || 0));
+  routes.forEach(sortRouteByOrder);
+
+  return routes;
+}
+
+/**
  * Get global menus by auth routes
  *
  * @param routes Auth routes
