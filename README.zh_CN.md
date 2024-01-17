@@ -15,7 +15,7 @@
 - **最新流行技术栈**：Vue3、Vite5、TypeScript、NaiveUI、Pinia 和 UnoCSS。
 - **清晰的项目结构**：采用 pnpm monorepo，结构清晰优雅，易于维护。
 - **TypeScript**：严格的类型检查，易于维护。
-- **主题**：内置丰富的主题配置，轻松结合 UnoCSS。
+- **主题配置**：内置丰富的主题配置，轻松结合 UnoCSS。
 - **文件路由系统**：自动化、智能化的文件路由系统。更多细节请查看 [Elegant Router](https://github.com/soybeanjs/elegant-router)。
 - **权限路由**：支持前端静态路由和后端动态路由。
 - **代码规范**：代码规范性极高。更多细节请查看 [SoybeanJS Code Standard]()。

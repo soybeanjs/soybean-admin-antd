@@ -12,13 +12,13 @@
 
 ## Features
 
-- **Popular technology stack**：Vue3, Vite5, TypeScript, Pinia, UnoCSS.
-- **Clean Structure**：Use pnpm monorepo, clean and elegant structure, easy to maintain.
-- **TypeScript**：Strictly typed, easy to maintain.
-- **Theme**：Built-in rich theme configuration, easy to incorporate UnoCSS.
-- **File routing System**：Automatic, intelligent file routing system. more details in [Elegant Router](https://github.com/soybeanjs/elegant-router).
+- **Popular technology stack**: Vue3, Vite5, TypeScript, Pinia, UnoCSS.
+- **Clean Structure**: Use pnpm monorepo, clean and elegant structure, easy to maintain.
+- **TypeScript**: Strictly typed, easy to maintain.
+- **Theme configuration**: Built-in rich theme configuration, easy to incorporate UnoCSS.
+- **File routing System**: Automatic, intelligent file routing system. more details in [Elegant Router](https://github.com/soybeanjs/elegant-router).
 - **Auth Router**: Support front-end static routing and back-end dynamic routing.
-- **Code Specification**：Very high code specification. more details in [SoybeanJS Code Standard]().
+- **Code Specification**: Very high code specification. more details in [SoybeanJS Code Standard]().
 
 ## Preview
 
@@ -116,7 +116,7 @@ It is recommended to use the latest version of Chrome in development for a bette
 
   <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" style="width:200px" />
 
-## Donation
+## Donate
 
 If you think this project is helpful to you, you can buy Soybean a drink to show your support, Soybean open source power can not be separated from your support and encouragement.
 
