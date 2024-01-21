@@ -36,7 +36,7 @@
     "lint": "eslint . --fix",
     "prepare": "simple-git-hooks",
     "preview": "vite preview",
-    "release": "soy release",
+    "release": "sa release",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
     "update-pkg": "sa update-pkg"
   },
@@ -66,7 +66,6 @@
     "@iconify/json": "2.2.171",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
-    "@soybeanjs/cli": "1.0.6",
     "@soybeanjs/eslint-config": "1.1.7",
     "@types/lodash-es": "4.17.12",
     "@types/node": "20.11.5",

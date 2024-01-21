@@ -78,9 +78,6 @@ importers:
       '@sa/uno-preset':
         specifier: workspace:*
         version: link:packages/uno-preset
-      '@soybeanjs/cli':
-        specifier: 1.0.6
-        version: 1.0.6(eslint-plugin-vue@9.20.1)(eslint@8.56.0)(typescript@5.3.3)(vue-eslint-parser@9.4.0)
       '@soybeanjs/eslint-config':
         specifier: 1.1.7
         version: 1.1.7(eslint-plugin-vue@9.20.1)(eslint@8.56.0)(typescript@5.3.3)(vue-eslint-parser@9.4.0)
@@ -1420,43 +1417,6 @@ packages:
     transitivePeerDependencies:
       - '@toml-tools/parser'
       - '@types/eslint'
-      - eslint
-      - eslint-import-resolver-typescript
-      - eslint-import-resolver-webpack
-      - eslint-plugin-astro
-      - eslint-plugin-react
-      - eslint-plugin-react-hooks
-      - eslint-plugin-react-native
-      - eslint-plugin-react-refresh
-      - eslint-plugin-solid
-      - eslint-plugin-svelte
-      - eslint-plugin-vue
-      - prettier-plugin-astro
-      - prettier-plugin-svelte
-      - prettier-plugin-toml
-      - supports-color
-      - typescript
-      - vue-eslint-parser
-    dev: true
-
-  /@soybeanjs/cli@1.0.6(eslint-plugin-vue@9.20.1)(eslint@8.56.0)(typescript@5.3.3)(vue-eslint-parser@9.4.0):
-    resolution: {integrity: sha512-rmuOydJGBS6/LbWNQ2Qux3hGEk1VRcQgaJWnBhyjSTeg2vuz4Mj8rr0XyVKo0oBigLNbr3e0Ehg4VS25JyVrhg==}
-    hasBin: true
-    dependencies:
-      '@soybeanjs/changelog': 0.3.12(eslint-plugin-vue@9.20.1)(eslint@8.56.0)(typescript@5.3.3)(vue-eslint-parser@9.4.0)
-      bumpp: 9.3.0
-      c12: 1.6.1
-      cac: 6.7.14
-      consola: 3.2.3
-      execa: 8.0.1
-      kolorist: 1.8.0
-      npm-check-updates: 16.14.12
-      prompts: 2.4.2
-      rimraf: 5.0.5
-    transitivePeerDependencies:
-      - '@toml-tools/parser'
-      - '@types/eslint'
-      - bluebird
       - eslint
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
