@@ -36,7 +36,8 @@ const defaultOptions: CliOption = {
     ['release', 'release project'],
     ['other', 'other changes']
   ],
-  ncuCommandArgs: ['--deep', '-u']
+  ncuCommandArgs: ['--deep', '-u'],
+  changelogOptions: {}
 };
 
 export async function loadCliOptions(overrides?: Partial<CliOption>, cwd = process.cwd()) {
