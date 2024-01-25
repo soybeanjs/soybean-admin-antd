@@ -142,7 +142,7 @@ init();
                   class="inline-block align-text-bottom text-16px"
                 />
               </template>
-              {{ tab.label }}
+              <span>{{ tab.label }}</span>
             </PageTab>
           </ContextMenu>
         </div>
