@@ -101,6 +101,11 @@ function handleClickMenu(menuInfo: MenuInfo) {
     }
   }
 
+  :deep(.ant-menu-submenu-title) {
+    width: calc(100% - 16px);
+    margin-inline: 8px;
+  }
+
   :deep(.ant-menu-inline-collapsed) {
     > .ant-menu-item {
       padding-inline: calc(50% - 14px);
