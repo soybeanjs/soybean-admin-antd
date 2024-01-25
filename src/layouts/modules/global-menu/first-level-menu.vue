@@ -11,14 +11,14 @@ defineOptions({
   name: 'FirstLevelMenu'
 });
 
-defineProps<Props>();
-
-const emit = defineEmits<Emits>();
-
 interface Props {
   activeMenuKey?: string;
   inverted?: boolean;
 }
+
+defineProps<Props>();
+
+const emit = defineEmits<Emits>();
 
 interface Emits {
   (e: 'select', menu: App.Global.Menu): boolean;

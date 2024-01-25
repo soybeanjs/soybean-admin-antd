@@ -8,18 +8,18 @@ defineOptions({
   name: 'ContextMenu'
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  trigger: () => ['contextmenu'],
-  excludeKeys: () => [],
-  disabledKeys: () => []
-});
-
 interface Props {
   tabId: string;
   trigger?: Trigger[];
   excludeKeys?: App.Global.DropdownKey[];
   disabledKeys?: App.Global.DropdownKey[];
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  trigger: () => ['contextmenu'],
+  excludeKeys: () => [],
+  disabledKeys: () => []
+});
 
 const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
 

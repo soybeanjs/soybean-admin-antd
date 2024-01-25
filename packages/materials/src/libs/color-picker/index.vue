@@ -7,6 +7,12 @@ defineOptions({
   name: 'ColorPicker'
 });
 
+interface Props {
+  color: string;
+  palettes?: string[];
+  disabled?: boolean;
+}
+
 const props = withDefaults(defineProps<Props>(), {
   palettes: () => [
     '#3b82f6',
@@ -29,17 +35,11 @@ const props = withDefaults(defineProps<Props>(), {
   ]
 });
 
-const emit = defineEmits<Emits>();
-
-interface Props {
-  color: string;
-  palettes?: string[];
-  disabled?: boolean;
-}
-
 interface Emits {
   (e: 'update:color', value: string): void;
 }
+
+const emit = defineEmits<Emits>();
 
 const domRef = ref<HTMLElement | null>(null);
 const instance = ref<ColorPicker | null>(null);

@@ -8,14 +8,6 @@ defineOptions({
   inheritAttrs: false
 });
 
-const props = withDefaults(defineProps<Props>(), {
-  class: 'h-36px text-icon',
-  icon: '',
-  tooltipContent: '',
-  tooltipPlacement: 'bottom',
-  triggerParent: false
-});
-
 interface Props {
   /** Button class */
   class?: string;
@@ -28,6 +20,14 @@ interface Props {
   /** Trigger tooltip on parent */
   triggerParent?: boolean;
 }
+
+const props = withDefaults(defineProps<Props>(), {
+  class: 'h-36px text-icon',
+  icon: '',
+  tooltipContent: '',
+  tooltipPlacement: 'bottom',
+  triggerParent: false
+});
 
 interface ButtonProps {
   className: string;
