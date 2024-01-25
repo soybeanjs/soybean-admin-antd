@@ -36,16 +36,16 @@ const latestBuildTime = BUILD_TIME;
 
 <template>
   <ASpace direction="vertical" :size="16">
-    <ACard :title="$t('page.about.title')" :bordered="false" class="card-wrapper">
+    <ACard :title="$t('page.about.title')" :bordered="false" size="small" class="card-wrapper">
       <p>{{ $t('page.about.introduction') }}</p>
     </ACard>
-    <ACard :title="$t('page.about.projectInfo.title')" :bordered="false" class="card-wrapper">
+    <ACard :title="$t('page.about.projectInfo.title')" :bordered="false" size="small" class="card-wrapper">
       <ADescriptions label-placement="left" bordered size="small" :column="{ xs: 1, sm: 2 }">
         <ADescriptionsItem :label="$t('page.about.projectInfo.version')">
-          <ATag type="primary">{{ pkgJson.version }}</ATag>
+          <ATag color="blue">{{ pkgJson.version }}</ATag>
         </ADescriptionsItem>
         <ADescriptionsItem :label="$t('page.about.projectInfo.latestBuildTime')">
-          <ATag type="primary">{{ latestBuildTime }}</ATag>
+          <ATag color="blue">{{ latestBuildTime }}</ATag>
         </ADescriptionsItem>
         <ADescriptionsItem :label="$t('page.about.projectInfo.githubLink')">
           <a class="text-primary" :href="pkg.homepage" target="_blank" rel="noopener noreferrer">
@@ -59,14 +59,14 @@ const latestBuildTime = BUILD_TIME;
         </ADescriptionsItem>
       </ADescriptions>
     </ACard>
-    <ACard :title="$t('page.about.prdDep')" :bordered="false" class="card-wrapper">
+    <ACard :title="$t('page.about.prdDep')" :bordered="false" size="small" class="card-wrapper">
       <ADescriptions label-placement="left" bordered size="small" :column="{ xs: 1, sm: 2 }">
         <ADescriptionsItem v-for="item in pkgJson.dependencies" :key="item.name" :label="item.name">
           {{ item.version }}
         </ADescriptionsItem>
       </ADescriptions>
     </ACard>
-    <ACard :title="$t('page.about.devDep')" :bordered="false" class="card-wrapper">
+    <ACard :title="$t('page.about.devDep')" :bordered="false" size="small" class="card-wrapper">
       <ADescriptions label-placement="left" bordered size="small" :column="{ xs: 1, sm: 2 }">
         <ADescriptionsItem v-for="item in pkgJson.devDependencies" :key="item.name" :label="item.name">
           {{ item.version }}
