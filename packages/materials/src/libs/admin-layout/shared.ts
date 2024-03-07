@@ -66,3 +66,10 @@ export function createLayoutCssVars(props: AdminLayoutProps) {
 
   return createLayoutCssVarsByCssVarsProps(cssProps);
 }
+
+export function updateLayoutCssVars(target: LayoutCssVars, key: keyof LayoutCssVars, value: string) {
+  // if (target[key]) {
+  // console.log("updateLayoutCssVar",key,value);
+  target[key] = value;
+  // }
+}

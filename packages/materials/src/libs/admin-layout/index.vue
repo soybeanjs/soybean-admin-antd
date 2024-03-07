@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useDraggable } from '@vueuse/core';
 import type { AdminLayoutProps } from '../../types';
-import { LAYOUT_MAX_Z_INDEX, LAYOUT_SCROLL_EL_ID, createLayoutCssVars } from './shared';
+import { LAYOUT_MAX_Z_INDEX, LAYOUT_SCROLL_EL_ID, createLayoutCssVars, updateLayoutCssVars } from './shared';
 import style from './index.module.css';
 
 defineOptions({
@@ -25,12 +26,14 @@ const props = withDefaults(defineProps<AdminLayoutProps>(), {
   siderCollapsedWidth: 64,
   footerVisible: true,
   footerHeight: 48,
-  rightFooter: false
+  rightFooter: false,
+  useSiderDrag: true
 });
 
 interface Emits {
   /** Update siderCollapse */
   (e: 'update:siderCollapse', collapse: boolean): void;
+  (e: 'on-emit-sider-width-changed', siderWidth: number): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -52,8 +55,10 @@ type Slots = {
 
 const slots = defineSlots<Slots>();
 
-const cssVars = computed(() => createLayoutCssVars(props));
-
+const cssVarsObjInnder = createLayoutCssVars(props);
+const cssVars = computed(() => cssVarsObjInnder);
+const maxZIndexComputed = computed(() => props.maxZIndex);
+const openSiderDraggerComputed = computed(() => props.useSiderDrag);
 // config visible
 const showHeader = computed(() => Boolean(slots.header) && props.headerVisible);
 const showTab = computed(() => Boolean(slots.tab) && props.tabVisible);
@@ -110,6 +115,59 @@ const siderPaddingClass = computed(() => {
 function handleClickMask() {
   emit('update:siderCollapse', true);
 }
+
+// #region dragger
+//= ================================================
+const dragDivRef = ref<HTMLDivElement | undefined>();
+const dragViewLeftRef = ref<number>(props.siderWidth);
+
+useDraggable(dragDivRef, {
+  axis: 'x',
+  initialValue: {
+    x: dragViewLeftRef.value,
+    y: 0
+  },
+  onMove: position => {
+    // console.log('onMove', position, event);
+    dragViewLeftRef.value = position.x;
+  },
+  onEnd: position => {
+    // console.log('onEnd', position, event);
+    dragViewLeftRef.value = Math.round(position.x);
+    updateLayoutCssVars(cssVarsObjInnder, '--soy-sider-width', `${dragViewLeftRef.value}px`);
+    emit('on-emit-sider-width-changed', dragViewLeftRef.value);
+  }
+});
+watch(
+  () => props.siderWidth,
+  nV => {
+    if (nV !== dragViewLeftRef.value) {
+      dragViewLeftRef.value = nV;
+      updateLayoutCssVars(cssVarsObjInnder, '--soy-sider-width', `${dragViewLeftRef.value}px`);
+    }
+  }
+);
+const siderCollapseComputed = computed(() => props.siderCollapse);
+watch(
+  () => props.siderCollapsedWidth,
+  nV => {
+    if (siderCollapseComputed.value) {
+      dragViewLeftRef.value = Math.round(nV);
+      updateLayoutCssVars(cssVarsObjInnder, '--soy-sider-collapsed-width', `${dragViewLeftRef.value}px`);
+    }
+  }
+);
+watch(
+  () => siderCollapseComputed.value,
+  nV => {
+    if (nV) {
+      dragViewLeftRef.value = Math.round(props.siderCollapsedWidth);
+    } else {
+      dragViewLeftRef.value = Math.round(props.siderWidth);
+    }
+  }
+);
+// #endregion  -------------------------------------
 </script>
 
 <template>
@@ -231,7 +289,23 @@ function handleClickMask() {
         ></div>
       </template>
     </div>
+    <!--sider 拖拽-->
+    <div
+      ref="dragDivRef"
+      draggable="true"
+      class="drag-bar-view absolute top-0 h-full w-3px cursor-col-resize"
+      :style="{
+        left: `${dragViewLeftRef}px`,
+        'z-index': maxZIndexComputed,
+        display: showSider && openSiderDraggerComputed ? 'block' : 'none'
+      }"
+    />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.drag-bar-view:hover {
+  background-color: greenyellow;
+  box-shadow: 0 0 5px 0 #1b233626;
+}
+</style>

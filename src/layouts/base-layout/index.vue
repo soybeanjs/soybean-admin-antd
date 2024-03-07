@@ -59,26 +59,62 @@ const isHorizontalMix = computed(() => themeStore.layout.mode === 'horizontal-mi
 const siderWidth = computed(() => getSiderWidth());
 
 const siderCollapsedWidth = computed(() => getSiderCollapsedWidth());
-
+const siderDraggerOpenComputed = computed(() => {
+  if (isHorizontalMix.value) {
+    return false;
+  }
+  if (isVerticalMix.value) {
+    return appStore.mixSiderFixed;
+  }
+  return true;
+});
 function getSiderWidth() {
   const { width, mixWidth, mixChildMenuWidth } = themeStore.sider;
 
+  // let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width;
+  //
+  // if (isVerticalMix.value && appStore.mixSiderFixed) {
+  //   w += mixChildMenuWidth;
+  // }
   let w = isVerticalMix.value || isHorizontalMix.value ? mixWidth : width;
-
-  if (isVerticalMix.value && appStore.mixSiderFixed) {
-    w += mixChildMenuWidth;
+  if (isHorizontalMix.value) {
+    w = mixWidth;
+  } else if (isVerticalMix.value) {
+    // debugger;
+    w = mixWidth;
+    if (appStore.mixSiderFixed) {
+      const tempMixChildMenuWidth = width - mixWidth;
+      if (tempMixChildMenuWidth < mixChildMenuWidth) {
+        w += mixChildMenuWidth;
+      } else {
+        w += tempMixChildMenuWidth;
+      }
+    }
   }
-
   return w;
 }
-
+function onEmits_siderWidthChangedFn(val: number) {
+  themeStore.sider.width = val;
+}
 function getSiderCollapsedWidth() {
-  const { collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
-
+  const { width, collapsedWidth, mixCollapsedWidth, mixChildMenuWidth } = themeStore.sider;
+  if (appStore.siderCollapse) {
+    if (appStore.mixSiderFixed) {
+      if (width < mixCollapsedWidth + mixChildMenuWidth) {
+        return mixCollapsedWidth + mixChildMenuWidth;
+      }
+      return width;
+    }
+    return mixCollapsedWidth;
+  }
   let w = isVerticalMix.value || isHorizontalMix.value ? mixCollapsedWidth : collapsedWidth;
 
   if (isVerticalMix.value && appStore.mixSiderFixed) {
-    w += mixChildMenuWidth;
+    if (width - mixCollapsedWidth > mixChildMenuWidth) {
+      w += width - mixCollapsedWidth;
+    } else {
+      w += mixChildMenuWidth;
+    }
   }
 
   return w;
@@ -90,6 +126,7 @@ setupMixMenuContext();
 <template>
   <AdminLayout
     v-model:sider-collapse="appStore.siderCollapse"
+    :sider-width="siderWidth"
     :mode="layoutMode"
     :scroll-el-id="LAYOUT_SCROLL_EL_ID"
     :scroll-mode="themeStore.layout.scrollMode"
@@ -101,11 +138,12 @@ setupMixMenuContext();
     :tab-height="themeStore.tab.height"
     :content-class="appStore.contentXScrollable ? 'overflow-x-hidden' : ''"
     :sider-visible="siderVisible"
-    :sider-width="siderWidth"
     :sider-collapsed-width="siderCollapsedWidth"
     :footer-visible="themeStore.footer.visible"
     :fixed-footer="themeStore.footer.fixed"
     :right-footer="themeStore.footer.right"
+    :use-sider-drag="siderDraggerOpenComputed"
+    @on-emit-sider-width-changed="onEmits_siderWidthChangedFn"
   >
     <template #header>
       <GlobalHeader v-bind="headerProps" />
