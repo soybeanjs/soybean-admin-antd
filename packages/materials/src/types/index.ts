@@ -212,6 +212,9 @@ export interface AdminLayoutProps
    * The z-index of Header,Tab,Sider and Footer will not exceed this value
    */
   maxZIndex?: number;
+
+  /** 是否使用 Sider 拖拽 */
+  useSiderDrag?: boolean;
 }
 
 type Kebab<S extends string> = S extends Uncapitalize<S> ? S : `-${Uncapitalize<S>}`;

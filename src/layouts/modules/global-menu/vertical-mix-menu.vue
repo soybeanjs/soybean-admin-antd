@@ -25,7 +25,21 @@ const siderInverted = computed(() => !themeStore.darkMode && themeStore.sider.in
 const menus = computed(() => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []);
 
 const showDrawer = computed(() => (drawerVisible.value && menus.value.length) || appStore.mixSiderFixed);
+const getChildMenuWidth = computed(() => {
+  // themeStore.sider.width - themeStore.sider.mixWidth
+  if (appStore.siderCollapse) {
+    // 折叠状态
+    if (themeStore.sider.width - themeStore.sider.mixCollapsedWidth <= themeStore.sider.mixChildMenuWidth) {
+      return themeStore.sider.mixChildMenuWidth;
+    }
 
+    return themeStore.sider.width - themeStore.sider.mixCollapsedWidth;
+  }
+  if (themeStore.sider.width <= themeStore.sider.mixWidth + themeStore.sider.mixChildMenuWidth) {
+    return themeStore.sider.mixChildMenuWidth;
+  }
+  return themeStore.sider.width - themeStore.sider.mixWidth;
+});
 function handleSelectMixMenu(menu: App.Global.Menu) {
   setActiveFirstLevelMenuKey(menu.key);
 
@@ -49,15 +63,18 @@ function handleResetActiveMenu() {
     </FirstLevelMenu>
     <div
       class="relative h-full transition-width-300"
-      :style="{ width: appStore.mixSiderFixed ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
+      :style="{ width: appStore.mixSiderFixed ? getChildMenuWidth + 'px' : '0px' }"
     >
       <DarkModeContainer
         class="absolute-lt flex-vertical-stretch h-full nowrap-hidden transition-all-300 shadow-sm"
         :inverted="siderInverted"
-        :style="{ width: showDrawer ? themeStore.sider.mixChildMenuWidth + 'px' : '0px' }"
+        :style="{ width: showDrawer ? getChildMenuWidth + 'px' : '0px' }"
       >
         <header class="flex-y-center justify-between" :style="{ height: themeStore.header.height + 'px' }">
-          <h2 class="text-primary pl-8px text-16px font-bold">{{ $t('system.title') }}</h2>
+          <div class="flex-1">
+            <h2 class="text-primary pl-8px text-16px font-bold">{{ $t('system.title') }}</h2>
+          </div>
+
           <PinToggler
             :pin="appStore.mixSiderFixed"
             :class="{ 'text-white:88 !hover:text-white': siderInverted }"

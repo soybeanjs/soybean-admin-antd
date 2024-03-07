@@ -202,6 +202,9 @@ importers:
       '@simonwep/pickr':
         specifier: 1.9.0
         version: 1.9.0
+      '@vueuse/core':
+        specifier: 10.7.2
+        version: 10.7.2(vue@3.4.15)
       simplebar-vue:
         specifier: 2.3.3
         version: 2.3.3(vue@3.4.15)
