@@ -69,9 +69,11 @@ const selectedBgColor = computed(() => {
 });
 
 function handleClickMenu(menuInfo: MenuInfo) {
-  const routeKey = menuInfo.key as RouteKey;
+  const key = menuInfo.key as RouteKey;
 
-  routerPushByKey(routeKey);
+  const { query } = routeStore.getSelectedMenuMetaByKey(key) || {};
+
+  routerPushByKey(key, { query });
 }
 </script>
 

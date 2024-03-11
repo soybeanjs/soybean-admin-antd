@@ -271,6 +271,18 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     return getSelectedMenuKeyPathByKey(selectedKey, menus.value);
   }
 
+  /**
+   * Get selected menu meta by key
+   *
+   * @param selectedKey Selected menu key
+   */
+  function getSelectedMenuMetaByKey(selectedKey: string) {
+    // The routes in router.options.routes are static, you need to use router.getRoutes() to get all the routes.
+    const allRoutes = router.getRoutes();
+
+    return allRoutes.find(route => route.name === selectedKey)?.meta || null;
+  }
+
   return {
     resetStore,
     routeHome,
@@ -284,6 +296,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     isInitAuthRoute,
     setIsInitAuthRoute,
     getIsAuthRouteExist,
-    getSelectedMenuKeyPath
+    getSelectedMenuKeyPath,
+    getSelectedMenuMetaByKey
   };
 });
