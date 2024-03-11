@@ -5,23 +5,19 @@
 </div>
 <br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
 > [!NOTE]
 > 如果您觉得 `Soybean Admin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
 
->[!CAUTION]
-> 旧版本的 `Soybean Admin` 已经移动到分支 [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy)。建议使用最新版本的 `Soybean Admin`。
-> 新版本的文档正在编写中，请耐心等待。
-
 <br />
 
-[![Star History Chart](https://api.star-history.com/svg?repos=honghuangdc/soybean-admin&type=Date)](https://star-history.com/#honghuangdc/soybean-admin&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
 
 
 ## 简介
 
-[`Soybean Admin`](https://github.com/honghuangdc/soybean-admin) 是一个优雅且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`Soybean Admin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
+[`Soybean Admin`](https://github.com/soybeanjs/soybean-admin) 是一个清新优雅、高颜值且功能强大的后台管理模板，基于最新的前端技术栈，包括 Vue3, Vite5, TypeScript, Pinia 和 UnoCSS。它内置了丰富的主题配置和组件，代码规范严谨，实现了自动化的文件路由系统。此外，它还采用了基于 ApiFox 的在线Mock数据方案。`Soybean Admin` 为您提供了一站式的后台管理解决方案，无需额外配置，开箱即用。同样是一个快速学习前沿技术的最佳实践。
 
 ## 特性
 
@@ -38,35 +34,41 @@
 - **移动端适配**：完美支持移动端，实现自适应布局。
 
 
-## 预览
+## 版本
 
-- [NaiveUI](https://admin.soybeanjs.cn)
-- [AntDesign Vue](https://antd.soybeanjs.cn)
-- [旧版本](https://admin.soybeanjs.cn)
+- **NaiveUI 版本:**
+  - [预览地址](https://naive.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin)
+
+- **AntDesignVue 版本:**
+  - [预览地址](https://antd.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin-antd)
+  - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-antd)
+  -
+- **旧版:**
+  - [预览地址](https://legacy.soybeanjs.cn/)
+  - [Github 仓库](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+
 
 ## 文档
 
-- [Docs](https://docs.soybeanjs.cn)
-
-## 仓库
-
-| 仓库 | Github | Gitee | 预览 |
-| --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://admin.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| 旧版本 | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://admin.soybeanjs.cn) |
-| 文档 | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+- [地址](https://docs.soybeanjs.cn)
+- [旧版文档](https://legacy-docs.soybeanjs.cn)
 
 ## 示例图片
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin01.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin02.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin03.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin04.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin05.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin07.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
 
 
 ## 使用
@@ -83,7 +85,7 @@
 **克隆项目**
 
 ```bash
-git clone https://github.com/honghuangdc/soybean-admin.git
+git clone https://github.com/soybeanjs/soybean-admin.git
 ```
 
 **安装依赖**
@@ -107,7 +109,7 @@ pnpm build
 
 ## 如何贡献
 
-我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new) 来分享。
+我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new) 来分享。
 
 ## Git 提交规范
 
@@ -126,20 +128,17 @@ pnpm build
 
 [Soybean](https://github.com/honghuangdc)
 
-## 交流
+## 贡献者
 
-| 交流方式 | 链接或二维码 |
-| --- | --- |
-| GitHub Issue | [地址](https://github.com/honghuangdc/soybean-admin/issues) |
-| Discord | [地址](https://discord.gg/mEFKh8xm9y) |
-| QQ 群<br />技术交流、问题请教 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
-| Soybean 的微信 <br />业务咨询、合作、项目架构、一对一指导等 | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
+感谢以下贡献者的贡献。如果您想为本项目做出贡献，请参考 [如何贡献](#如何贡献)。
 
-## 捐赠
+<a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
+</a>
 
-如果您觉得本项目对您有所帮助，欢迎您以买杯咖啡的方式来支持 Soybean。您的支持和鼓励是 Soybean 持续开源的重要动力。
+## Star 趋势
 
-<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
 
 ## 开源协议
 

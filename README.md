@@ -5,23 +5,14 @@
 </div>
 <br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/honghuangdc/soybean-admin) ![](https://img.shields.io/github/forks/honghuangdc/soybean-admin)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
 > [!NOTE]
 > If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
->[!CAUTION]
-> the old version of `Soybean Admin` is moved to branch [legacy](https://github.com/honghuangdc/soybean-admin/tree/legacy). It is recommended to use the latest version of `Soybean Admin`.
-> the documents of new version is processing, please wait patiently.
-
-<br />
-
-[![Star History Chart](https://api.star-history.com/svg?repos=honghuangdc/soybean-admin&type=Date)](https://star-history.com/#honghuangdc/soybean-admin&Date)
-
 ## Introduction
 
-[`Soybean Admin`](https://github.com/honghuangdc/soybean-admin) is an elegant and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `Soybean Admin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
-
+[`Soybean Admin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `Soybean Admin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
 
 ## Features
@@ -39,35 +30,41 @@
 - **Mobile adaptation**: perfectly support mobile terminal to realize adaptive layout.
 
 
-## Preview
+## Version
 
-- [NaiveUI](https://naive.soybeanjs.cn)
-- [AntDesign Vue](https://antd.soybeanjs.cn)
-- [Legacy](https://admin.soybeanjs.cn)
+- **NaiveUI Version:**
+  - [Preview Link](https://naive.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin)
+
+- **AntDesignVue Version:**
+  - [Preview Link](https://antd.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin-antd)
+  - [Gitee Repository](https://gitee.com/honghuangdc/soybean-admin-antd)
+
+- **Legacy Version:**
+  - [Preview Link](https://legacy.soybeanjs.cn/)
+  - [Github Repository](https://github.com/soybeanjs/soybean-admin/tree/legacy)
+
 
 ## Documentation
 
-- [Docs](https://docs.soybeanjs.cn)
-
-## Repositories
-
-| Repository | Github | Gitee | Preview |
-| --- | --- | --- | --- |
-| NaiveUI | [github](https://github.com/honghuangdc/soybean-admin) | [gitee](https://gitee.com/honghuangdc/soybean-admin) | [preview](https://naive.soybeanjs.cn) |
-| AntDesign Vue | [github](https://github.com/soybeanjs/soybean-admin-antd) | [gitee](https://gitee.com/honghuangdc/soybean-admin-antd) | [preview](https://antd.soybeanjs.cn) |
-| Legacy | [github](https://github.com/honghuangdc/soybean-admin/tree/legacy) | [gitee](https://gitee.com/honghuangdc/soybean-admin/tree/legacy/) | [preview](https://admin.soybeanjs.cn) |
-| Documentation | [github](https://github.com/honghuangdc/soybean-admin-docs) | [gitee](https://gitee.com/honghuangdc/soybean-admin-docs) | [preview](https://docs.soybeanjs.cn) |
+- [Link](https://docs.soybeanjs.cn)
+- [Legacy Docs](https://legacy-docs.soybeanjs.cn)
 
 ## Example Images
 
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin01.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin02.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin03.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin04.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin05.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin06.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin07.png)
-![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin08.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-01.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-02.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-03.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-04.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-05.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-06.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-07.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-08.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-09.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-10.png)
+![](https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/soybean-admin-v1-mobile.png)
 
 
 ## Usage
@@ -84,7 +81,7 @@ Make sure your environment meets the following requirements:
 **Clone Project**
 
 ```bash
-git clone https://github.com/honghuangdc/soybean-admin.git
+git clone https://github.com/soybeanjs/soybean-admin.git
 ```
 
 **Install Dependencies**
@@ -108,7 +105,7 @@ pnpm build
 
 ## How to Contribute
 
-We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/honghuangdc/soybean-admin/pulls) or creating GitHub [issue](https://github.com/honghuangdc/soybean-admin/issues/new).
+We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
 
 ## Git Commit Guidelines
 
@@ -126,20 +123,17 @@ It is recommended to use the latest version of Chrome in development for a bette
 
 [Soybean](https://github.com/honghuangdc)
 
-## Communication
+## Contributors
 
-| Communication | Link or QR Code |
-| --- | --- |
-| GitHub Issue | [Link](https://github.com/honghuangdc/soybean-admin/issues) |
-| Discord | [Link](https://discord.gg/mEFKh8xm9y) |
-| QQ Group<br />Technical communication, questions and answers | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq.jpeg" width="160" /> |
-| Soybean's WeChat <br />Business consulting, cooperation, project architecture, one-to-one guidance, etc. | <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat.jpeg" width="160" /> |
+Thanks the following people for their contributions. If you want to contribute to this project, please refer to [How to Contribute](#how-to-contribute).
 
-## Donate
+<a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
+</a>
 
-If you think this project is helpful to you, you can buy Soybean a drink to show your support, Soybean open source power can not be separated from your support and encouragement.
+## Star Trend
 
-<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/donation.png" width="480" />
+[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
 
 ## License
 
