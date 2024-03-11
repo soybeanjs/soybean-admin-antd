@@ -57,13 +57,13 @@ const bgColor = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex-center size-full" :style="{ backgroundColor: bgColor }">
+  <div class="relative size-full flex-center" :style="{ backgroundColor: bgColor }">
     <WaveBg :theme-color="bgThemeColor" />
     <ACard class="relative z-4">
       <div class="w-400px <sm:w-300px">
         <header class="flex-y-center justify-between">
           <SystemLogo class="text-64px text-primary <sm:text-48px" />
-          <h3 class="text-28px font-500 text-primary <sm:text-22px">{{ $t('system.title') }}</h3>
+          <h3 class="text-28px text-primary font-500 <sm:text-22px">{{ $t('system.title') }}</h3>
           <div class="i-flex-vertical">
             <ThemeSchemaSwitch
               :theme-schema="themeStore.themeScheme"
@@ -81,7 +81,7 @@ const bgColor = computed(() => {
         </header>
         <main class="pt-24px">
           <h3 class="text-18px text-primary font-medium">{{ $t(activeModule.label) }}</h3>
-          <div class="pt-24px animation-slide-in-left">
+          <div class="animation-slide-in-left pt-24px">
             <Transition :name="themeStore.page.animateMode" mode="out-in" appear>
               <component :is="activeModule.component" />
             </Transition>

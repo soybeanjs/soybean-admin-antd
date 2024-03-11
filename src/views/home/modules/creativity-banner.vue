@@ -11,11 +11,11 @@ defineOptions({
     :title="$t('page.home.creativity')"
     :bordered="false"
     size="small"
-    class="card-wrapper flex-vertical-stretch h-full"
+    class="h-full flex-vertical-stretch card-wrapper"
     :body-style="{ flex: 1, overflow: 'hidden' }"
   >
-    <div class="flex-center h-full">
-      <IconLocalBanner class="text-400px sm:text-320px text-primary" />
+    <div class="h-full flex-center">
+      <IconLocalBanner class="text-400px text-primary sm:text-320px" />
     </div>
   </ACard>
 </template>

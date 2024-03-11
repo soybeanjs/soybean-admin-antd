@@ -85,7 +85,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
       :open-keys="openKeys"
       :inline-collapsed="inlineCollapsed"
       :inline-indent="18"
-      class="size-full border-0! transition-300"
+      class="size-full transition-300 border-0!"
       :class="{ 'bg-container!': !darkTheme, 'horizontal-menu': isHorizontal }"
       @click="handleClickMenu"
     />
