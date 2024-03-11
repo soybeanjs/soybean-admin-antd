@@ -59,6 +59,52 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'function_hide-child',
+        path: '/function/hide-child',
+        meta: {
+          title: 'function_hide-child',
+          i18nKey: 'route.function_hide-child',
+          icon: 'material-symbols:filter-list-off'
+        },
+        redirect: '/function/hide-child/one',
+        children: [
+          {
+            name: 'function_hide-child_one',
+            path: '/function/hide-child/one',
+            component: 'view.function_hide-child_one',
+            meta: {
+              title: 'function_hide-child_one',
+              i18nKey: 'route.function_hide-child_one',
+              icon: 'material-symbols:filter-list-off',
+              hideInMenu: true,
+              activeMenu: 'function_hide-child'
+            }
+          },
+          {
+            name: 'function_hide-child_three',
+            path: '/function/hide-child/three',
+            component: 'view.function_hide-child_three',
+            meta: {
+              title: 'function_hide-child_three',
+              i18nKey: 'route.function_hide-child_three',
+              hideInMenu: true,
+              activeMenu: 'function_hide-child'
+            }
+          },
+          {
+            name: 'function_hide-child_two',
+            path: '/function/hide-child/two',
+            component: 'view.function_hide-child_two',
+            meta: {
+              title: 'function_hide-child_two',
+              i18nKey: 'route.function_hide-child_two',
+              hideInMenu: true,
+              activeMenu: 'function_hide-child'
+            }
+          }
+        ]
+      },
+      {
         name: 'function_multi-tab',
         path: '/function/multi-tab',
         component: 'view.function_multi-tab',
