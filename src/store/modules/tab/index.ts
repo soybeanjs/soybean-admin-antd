@@ -6,9 +6,10 @@ import type { RouteKey } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
+import { useRouteStore } from '@/store/modules/route';
 import { useThemeStore } from '../theme';
 import {
-  filterTabsByAllRoutes,
+  extractTabsByAllRoutes,
   filterTabsById,
   filterTabsByIds,
   findTabByRouteName,
@@ -23,6 +24,7 @@ import {
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   const router = useRouter();
+  const routeStore = useRouteStore();
   const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
 
@@ -38,7 +40,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
    * @param router Router instance
    */
   function initHomeTab() {
-    homeTab.value = getDefaultHomeTab(router);
+    homeTab.value = getDefaultHomeTab(router, routeStore.routeHome);
   }
 
   /** Get all tabs */
@@ -65,7 +67,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const storageTabs = localStg.get('globalTabs');
 
     if (themeStore.tab.cache && storageTabs) {
-      const filteredTabs = filterTabsByAllRoutes(router, storageTabs);
+      const filteredTabs = extractTabsByAllRoutes(router, storageTabs);
       tabs.value = updateTabsByI18nKey(filteredTabs);
     }
 

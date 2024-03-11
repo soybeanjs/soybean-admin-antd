@@ -14,9 +14,13 @@ export function getAllTabs(tabs: App.Global.Tab[], homeTab?: App.Global.Tab) {
     return [];
   }
 
-  const fixedTabs = tabs.filter(tab => tab.fixedIndex !== undefined).sort((a, b) => a.fixedIndex! - b.fixedIndex!);
+  const filterHomeTabs = tabs.filter(tab => tab.id !== homeTab.id);
 
-  const remainTabs = tabs.filter(tab => tab.fixedIndex === undefined);
+  const fixedTabs = filterHomeTabs
+    .filter(tab => tab.fixedIndex !== undefined)
+    .sort((a, b) => a.fixedIndex! - b.fixedIndex!);
+
+  const remainTabs = filterHomeTabs.filter(tab => tab.fixedIndex === undefined);
 
   const allTabs = [homeTab, ...fixedTabs, ...remainTabs];
 
@@ -99,9 +103,9 @@ export function getRouteIcons(route: App.Global.TabRoute) {
  * Get default home tab
  *
  * @param router
+ * @param homeRouteName routeHome in useRouteStore
  */
-export function getDefaultHomeTab(router: Router) {
-  const homeRouteName = import.meta.env.VITE_ROUTE_HOME;
+export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteKey) {
   const homeRoutePath = getRoutePath(homeRouteName);
   const i18nLabel = $t(`route.${homeRouteName}`);
 
@@ -153,12 +157,12 @@ export function filterTabsByIds(tabIds: string[], tabs: App.Global.Tab[]) {
 }
 
 /**
- * filter tabs by all routes
+ * extract tabs by all routes
  *
  * @param router
  * @param tabs
  */
-export function filterTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
+export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
   const routes = router.getRoutes();
 
   const routeNames = routes.map(route => route.name);
