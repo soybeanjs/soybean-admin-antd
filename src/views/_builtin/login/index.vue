@@ -57,7 +57,7 @@ const bgColor = computed(() => {
 </script>
 
 <template>
-  <div class="relative flex-center wh-full" :style="{ backgroundColor: bgColor }">
+  <div class="relative flex-center size-full" :style="{ backgroundColor: bgColor }">
     <WaveBg :theme-color="bgThemeColor" />
     <ACard class="relative z-4">
       <div class="w-400px <sm:w-300px">
