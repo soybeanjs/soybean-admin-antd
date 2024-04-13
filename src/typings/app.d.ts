@@ -264,6 +264,15 @@ declare namespace App {
         userCenter: string;
         logout: string;
         logoutConfirm: string;
+        trigger: string;
+      };
+      request: {
+        logout: string;
+        logoutMsg: string;
+        logoutWithModal: string;
+        logoutWithModalMsg: string;
+        refreshToken: string;
+        tokenExpired: string;
       };
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;

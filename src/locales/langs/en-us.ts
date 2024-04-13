@@ -19,7 +19,16 @@ const local: App.I18n.Schema = {
     lookForward: 'Coming soon',
     userCenter: 'User Center',
     logout: 'Logout',
-    logoutConfirm: 'Are you sure you want to log out?'
+    logoutConfirm: 'Are you sure you want to log out?',
+    trigger: 'Trigger'
+  },
+  request: {
+    logout: 'Logout user after request failed',
+    logoutMsg: 'User status is invalid, please log in again',
+    logoutWithModal: 'Pop up modal after request failed and then log out user',
+    logoutWithModalMsg: 'User status is invalid, please log in again',
+    refreshToken: 'The requested token has expired, refresh the token',
+    tokenExpired: 'The requested token has expired'
   },
   theme: {
     themeSchema: {
@@ -118,6 +127,7 @@ const local: App.I18n.Schema = {
     'function_hide-child_one': 'Hide Child',
     'function_hide-child_two': 'Two',
     'function_hide-child_three': 'Three',
+    function_request: 'Request',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
