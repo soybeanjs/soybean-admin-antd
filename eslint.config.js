@@ -14,9 +14,11 @@ export default defineConfig(
         'warn',
         'PascalCase',
         {
+          registeredComponentsOnly: false,
           ignores: ['/^icon-/']
         }
-      ]
+      ],
+      'order-attributify': 'off'
     }
   }
 );
