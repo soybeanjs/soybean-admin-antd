@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { computed, reactive } from 'vue';
 import { $t } from '@/locales';
 import { loginModuleRecord } from '@/constants/app';
 import { useRouterPush } from '@/hooks/common/router';
@@ -13,7 +13,6 @@ defineOptions({
 const authStore = useAuthStore();
 const { toggleLoginModule } = useRouterPush();
 const { formRef, validate } = useAntdForm();
-const { constantRules } = useFormRules();
 
 interface FormModel {
   userName: string;
@@ -25,10 +24,15 @@ const model: FormModel = reactive({
   password: '123456'
 });
 
-const rules: Record<keyof FormModel, App.Global.FormRule[]> = {
-  userName: constantRules.userName,
-  password: constantRules.pwd
-};
+const rules = computed<Record<keyof FormModel, App.Global.FormRule[]>>(() => {
+  // inside computed to make locale reactive, if not apply i18n, you can define it without computed
+  const { formRules } = useFormRules();
+
+  return {
+    userName: formRules.userName,
+    password: formRules.pwd
+  };
+});
 
 async function handleSubmit() {
   await validate();
@@ -51,7 +55,9 @@ async function handleSubmit() {
     <ASpace direction="vertical" size="large" class="w-full">
       <div class="flex-y-center justify-between">
         <ACheckbox>{{ $t('page.login.pwdLogin.rememberMe') }}</ACheckbox>
-        <AButton type="text">{{ $t('page.login.pwdLogin.forgetPassword') }}</AButton>
+        <AButton type="text" @click="toggleLoginModule('reset-pwd')">
+          {{ $t('page.login.pwdLogin.forgetPassword') }}
+        </AButton>
       </div>
       <AButton type="primary" block size="large" shape="round" :loading="authStore.loginLoading" @click="handleSubmit">
         {{ $t('common.confirm') }}

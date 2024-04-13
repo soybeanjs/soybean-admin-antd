@@ -102,7 +102,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
-   * Re-cache routes by route key
+   * Re cache routes by route key
    *
    * @param routeKey
    */
@@ -115,7 +115,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
-   * Re-cache routes by route keys
+   * Re cache routes by route keys
    *
    * @param routeKeys
    */

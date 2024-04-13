@@ -55,7 +55,7 @@ function getPopupContainer(triggerNode: HTMLElement) {
 </script>
 
 <template>
-  <!-- define component: Button -->
+  <!-- define component start: Button -->
   <DefineButton v-slot="{ $slots, className }">
     <AButton type="text" :class="className">
       <div class="flex-center gap-8px">
@@ -63,8 +63,8 @@ function getPopupContainer(triggerNode: HTMLElement) {
       </div>
     </AButton>
   </DefineButton>
+  <!-- define component end: Button -->
 
-  <!-- template -->
   <ATooltip
     v-if="tooltipContent"
     :placement="tooltipPlacement"

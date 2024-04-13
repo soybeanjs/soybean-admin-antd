@@ -17,7 +17,7 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
 
 <template>
   <ADivider>{{ $t('theme.themeColor.title') }}</ADivider>
-  <div class="flex-vertical-stretch gap-12px">
+  <div class="flex-col-stretch gap-12px">
     <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
       <template v-if="key === 'info'" #suffix>
         <ACheckbox v-model:checked="themeStore.isInfoFollowPrimary">

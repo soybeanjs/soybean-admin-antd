@@ -247,6 +247,7 @@ const local: App.I18n.Schema = {
     }
   },
   form: {
+    required: 'Cannot be empty',
     userName: {
       required: 'Please enter user name',
       invalid: 'User name format is incorrect'
@@ -258,6 +259,10 @@ const local: App.I18n.Schema = {
     pwd: {
       required: 'Please enter password',
       invalid: 'Password format is incorrect'
+    },
+    confirmPwd: {
+      required: 'Please enter password again',
+      invalid: 'The two passwords are inconsistent'
     },
     code: {
       required: 'Please enter verification code',

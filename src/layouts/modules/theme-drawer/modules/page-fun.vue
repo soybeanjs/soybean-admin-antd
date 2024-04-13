@@ -20,7 +20,7 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
 
 <template>
   <ADivider>{{ $t('theme.pageFunTitle') }}</ADivider>
-  <TransitionGroup tag="div" name="setting-list" class="flex-vertical-stretch gap-12px">
+  <TransitionGroup tag="div" name="setting-list" class="flex-col-stretch gap-12px">
     <SettingItem key="1" :label="$t('theme.scrollMode.title')">
       <ASelect v-model:value="themeStore.layout.scrollMode" class="w-120px">
         <ASelectOption v-for="option in themeScrollModeOptions" :key="option.value" :value="option.value">
@@ -104,16 +104,15 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
 .setting-list-move,
 .setting-list-enter-active,
 .setting-list-leave-active {
-  transition: all 0.3s ease-in-out;
+  --uno: transition-all-300;
 }
 
 .setting-list-enter-from,
 .setting-list-leave-to {
-  opacity: 0;
-  transform: translateX(-30px);
+  --uno: opacity-0 -translate-x-30px;
 }
 
 .setting-list-leave-active {
-  position: absolute;
+  --uno: absolute;
 }
 </style>

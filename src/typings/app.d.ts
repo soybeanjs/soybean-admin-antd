@@ -428,9 +428,11 @@ declare namespace App {
         };
       };
       form: {
+        required: string;
         userName: FormMsg;
         phone: FormMsg;
         pwd: FormMsg;
+        confirmPwd: FormMsg;
         code: FormMsg;
         email: FormMsg;
       };

@@ -7,7 +7,7 @@ import { useRouteStore } from '@/store/modules/route';
 import HorizontalMenu from '../global-menu/base-menu.vue';
 import GlobalLogo from '../global-logo/index.vue';
 import GlobalBreadcrumb from '../global-breadcrumb/index.vue';
-import { useMixMenuContext } from '../../hooks/use-mix-menu';
+import { useMixMenuContext } from '../../context';
 import ThemeButton from './components/theme-button.vue';
 import UserAvatar from './components/user-avatar.vue';
 
