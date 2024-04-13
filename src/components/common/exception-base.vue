@@ -36,7 +36,7 @@ const icon = computed(() => iconMap[props.type]);
     <div class="flex text-400px text-primary">
       <SvgIcon :local-icon="icon" />
     </div>
-    <AButton type="primary" @clikc="routerPushByKey('root')">{{ $t('common.backToHome') }}</AButton>
+    <AButton type="primary" @click="routerPushByKey('root')">{{ $t('common.backToHome') }}</AButton>
   </div>
 </template>
 
