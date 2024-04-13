@@ -143,7 +143,7 @@ init();
                   class="inline-block align-text-bottom text-16px"
                 />
               </template>
-              <span>{{ tab.label }}</span>
+              <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
             </PageTab>
           </ContextMenu>
         </div>
