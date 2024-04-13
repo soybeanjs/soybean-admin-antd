@@ -3,24 +3,44 @@ const local: App.I18n.Schema = {
     title: 'SoybeanAdmin'
   },
   common: {
-    tip: 'Tip',
+    action: 'Action',
     add: 'Add',
     addSuccess: 'Add Success',
-    edit: 'Edit',
-    editSuccess: 'Edit Success',
+    backToHome: 'Back to home',
+    batchDelete: 'Batch Delete',
+    cancel: 'Cancel',
+    close: 'Close',
+    check: 'Check',
+    columnSetting: 'Column Setting',
+    config: 'Config',
+    confirm: 'Confirm',
     delete: 'Delete',
     deleteSuccess: 'Delete Success',
-    batchDelete: 'Batch Delete',
-    confirm: 'Confirm',
-    cancel: 'Cancel',
-    pleaseCheckValue: 'Please check whether the value is valid',
-    action: 'Action',
-    backToHome: 'Back to home',
-    lookForward: 'Coming soon',
-    userCenter: 'User Center',
+    confirmDelete: 'Are you sure you want to delete?',
+    edit: 'Edit',
+    index: 'Index',
+    keywordSearch: 'Please enter keyword',
     logout: 'Logout',
     logoutConfirm: 'Are you sure you want to log out?',
-    trigger: 'Trigger'
+    lookForward: 'Coming soon',
+    modify: 'Modify',
+    modifySuccess: 'Modify Success',
+    noData: 'No Data',
+    operate: 'Operate',
+    pleaseCheckValue: 'Please check whether the value is valid',
+    refresh: 'Refresh',
+    reset: 'Reset',
+    search: 'Search',
+    switch: 'Switch',
+    tip: 'Tip',
+    trigger: 'Trigger',
+    update: 'Update',
+    updateSuccess: 'Update Success',
+    userCenter: 'User Center',
+    yesOrNo: {
+      yes: 'Yes',
+      no: 'No'
+    }
   },
   request: {
     logout: 'Logout user after request failed',
@@ -128,11 +148,13 @@ const local: App.I18n.Schema = {
     'function_hide-child_two': 'Two',
     'function_hide-child_three': 'Three',
     function_request: 'Request',
+    'function_toggle-auth': 'Toggle Auth',
+    'function_super-page': 'Super Admin Visible',
     manage: 'System Manage',
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
     manage_role: 'Role Manage',
-    manage_route: 'Route Manage',
+    manage_menu: 'Menu Manage',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
     'multi-menu_first_child': 'Menu One Child',
@@ -167,9 +189,9 @@ const local: App.I18n.Schema = {
         register: 'Register',
         otherAccountLogin: 'Other Account Login',
         otherLoginMode: 'Other Login Mode',
-        superAdmin: 'Super Administrator',
-        admin: 'Administrator',
-        user: 'Ordinary User'
+        superAdmin: 'Super Admin',
+        admin: 'Admin',
+        user: 'User'
       },
       codeLogin: {
         title: 'Verification Code Login',
@@ -255,6 +277,126 @@ const local: App.I18n.Schema = {
       multiTab: {
         routeParam: 'Route Param',
         backTab: 'Back function_tab'
+      },
+      toggleAuth: {
+        toggleAccount: 'Toggle Account',
+        authHook: 'Auth Hook Function `hasAuth`',
+        superAdminVisible: 'Super Admin Visible',
+        adminVisible: 'Admin Visible',
+        adminOrUserVisible: 'Admin and User Visible'
+      }
+    },
+    manage: {
+      common: {
+        status: {
+          enable: 'Enable',
+          disable: 'Disable'
+        }
+      },
+      role: {
+        title: 'Role List',
+        roleName: 'Role Name',
+        roleCode: 'Role Code',
+        roleStatus: 'Role Status',
+        roleDesc: 'Role Description',
+        menuAuth: 'Menu Auth',
+        buttonAuth: 'Button Auth',
+        form: {
+          roleName: 'Please enter role name',
+          roleCode: 'Please enter role code',
+          roleStatus: 'Please select role status',
+          roleDesc: 'Please enter role description'
+        },
+        addRole: 'Add Role',
+        editRole: 'Edit Role'
+      },
+      user: {
+        title: 'User List',
+        userName: 'User Name',
+        userGender: 'Gender',
+        nickName: 'Nick Name',
+        userPhone: 'Phone Number',
+        userEmail: 'Email',
+        userStatus: 'User Status',
+        userRole: 'User Role',
+        form: {
+          userName: 'Please enter user name',
+          userGender: 'Please select gender',
+          nickName: 'Please enter nick name',
+          userPhone: 'Please enter phone number',
+          userEmail: 'Please enter email',
+          userStatus: 'Please select user status',
+          userRole: 'Please select user role'
+        },
+        addUser: 'Add User',
+        editUser: 'Edit User',
+        gender: {
+          male: 'Male',
+          female: 'Female'
+        }
+      },
+      menu: {
+        home: 'Home',
+        title: 'Menu List',
+        id: 'ID',
+        parentId: 'Parent ID',
+        menuType: 'Menu Type',
+        menuName: 'Menu Name',
+        routeName: 'Route Name',
+        routePath: 'Route Path',
+        routeParams: 'Route Params',
+        layout: 'Layout Component',
+        page: 'Page Component',
+        i18nKey: 'I18n Key',
+        icon: 'Icon',
+        localIcon: 'Local Icon',
+        iconTypeTitle: 'Icon Type',
+        order: 'Order',
+        keepAlive: 'Keep Alive',
+        href: 'Href',
+        hideInMenu: 'Hide In Menu',
+        activeMenu: 'Active Menu',
+        multiTab: 'Multi Tab',
+        fixedIndexInTab: 'Fixed Index In Tab',
+        button: 'Button',
+        buttonCode: 'Button Code',
+        buttonDesc: 'Button Desc',
+        menuStatus: 'Menu Status',
+        form: {
+          home: 'Please select home',
+          menuType: 'Please select menu type',
+          menuName: 'Please enter menu name',
+          routeName: 'Please enter route name',
+          routePath: 'Please enter route path',
+          page: 'Please select page component',
+          layout: 'Please select layout component',
+          i18nKey: 'Please enter i18n key',
+          icon: 'Please enter iconify name',
+          localIcon: 'Please enter local icon name',
+          order: 'Please enter order',
+          keepAlive: 'Please select whether to cache route',
+          href: 'Please enter href',
+          hideInMenu: 'Please select whether to hide menu',
+          activeMenu: 'Please enter the route name of the highlighted menu',
+          multiTab: 'Please select whether to support multiple tabs',
+          fixedInTab: 'Please select whether to fix in the tab',
+          fixedIndexInTab: 'Please enter the index fixed in the tab',
+          button: 'Please select whether it is a button',
+          buttonCode: 'Please enter button code',
+          buttonDesc: 'Please enter button description',
+          menuStatus: 'Please select menu status'
+        },
+        addMenu: 'Add Menu',
+        editMenu: 'Edit Menu',
+        addChildMenu: 'Add Child Menu',
+        type: {
+          directory: 'Directory',
+          menu: 'Menu'
+        },
+        iconType: {
+          iconify: 'Iconify Icon',
+          local: 'Local Icon'
+        }
       }
     }
   },
@@ -270,7 +412,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: 'Please enter password',
-      invalid: 'Password format is incorrect'
+      invalid: '6-18 characters, including letters, numbers, and underscores'
     },
     confirmPwd: {
       required: 'Please enter password again',

@@ -3,24 +3,44 @@ const local: App.I18n.Schema = {
     title: 'Soybean 管理系统'
   },
   common: {
-    tip: '提示',
-    add: '添加',
+    action: '操作',
+    add: '新增',
     addSuccess: '添加成功',
-    edit: '修改',
-    editSuccess: '修改成功',
+    backToHome: '返回首页',
+    batchDelete: '批量删除',
+    cancel: '取消',
+    close: '关闭',
+    check: '勾选',
+    columnSetting: '列设置',
+    config: '配置',
+    confirm: '确认',
     delete: '删除',
     deleteSuccess: '删除成功',
-    batchDelete: '批量删除',
-    confirm: '确认',
-    cancel: '取消',
-    pleaseCheckValue: '请检查输入的值是否合法',
-    action: '操作',
-    backToHome: '返回首页',
-    lookForward: '敬请期待',
-    userCenter: '个人中心',
+    confirmDelete: '确认删除吗？',
+    edit: '编辑',
+    index: '序号',
+    keywordSearch: '请输入关键词搜索',
     logout: '退出登录',
     logoutConfirm: '确认退出登录吗？',
-    trigger: '触发'
+    lookForward: '敬请期待',
+    modify: '修改',
+    modifySuccess: '修改成功',
+    noData: '无数据',
+    operate: '操作',
+    pleaseCheckValue: '请检查输入的值是否合法',
+    refresh: '刷新',
+    reset: '重置',
+    search: '搜索',
+    switch: '切换',
+    tip: '提示',
+    trigger: '触发',
+    update: '更新',
+    updateSuccess: '更新成功',
+    userCenter: '个人中心',
+    yesOrNo: {
+      yes: '是',
+      no: '否'
+    }
   },
   request: {
     logout: '请求失败后登出用户',
@@ -128,11 +148,13 @@ const local: App.I18n.Schema = {
     'function_hide-child_two': '菜单二',
     'function_hide-child_three': '菜单三',
     function_request: '请求',
+    'function_toggle-auth': '切换权限',
+    'function_super-page': '超级管理员可见',
     manage: '系统管理',
     manage_user: '用户管理',
     'manage_user-detail': '用户详情',
     manage_role: '角色管理',
-    manage_route: '路由管理',
+    manage_menu: '菜单管理',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
     'multi-menu_first_child': '菜单一子菜单',
@@ -255,6 +277,126 @@ const local: App.I18n.Schema = {
       multiTab: {
         routeParam: '路由参数',
         backTab: '返回 function_tab'
+      },
+      toggleAuth: {
+        toggleAccount: '切换账号',
+        authHook: '权限钩子函数 `hasAuth`',
+        superAdminVisible: '超级管理员可见',
+        adminVisible: '管理员可见',
+        adminOrUserVisible: '管理员和用户可见'
+      }
+    },
+    manage: {
+      common: {
+        status: {
+          enable: '启用',
+          disable: '禁用'
+        }
+      },
+      role: {
+        title: '角色列表',
+        roleName: '角色名称',
+        roleCode: '角色编码',
+        roleStatus: '角色状态',
+        roleDesc: '角色描述',
+        menuAuth: '菜单权限',
+        buttonAuth: '按钮权限',
+        form: {
+          roleName: '请输入角色名称',
+          roleCode: '请输入角色编码',
+          roleStatus: '请选择角色状态',
+          roleDesc: '请输入角色描述'
+        },
+        addRole: '新增角色',
+        editRole: '编辑角色'
+      },
+      user: {
+        title: '用户列表',
+        userName: '用户名',
+        userGender: '性别',
+        nickName: '昵称',
+        userPhone: '手机号',
+        userEmail: '邮箱',
+        userStatus: '用户状态',
+        userRole: '用户角色',
+        form: {
+          userName: '请输入用户名',
+          userGender: '请选择性别',
+          nickName: '请输入昵称',
+          userPhone: '请输入手机号',
+          userEmail: '请输入邮箱',
+          userStatus: '请选择用户状态',
+          userRole: '请选择用户角色'
+        },
+        addUser: '新增用户',
+        editUser: '编辑用户',
+        gender: {
+          male: '男',
+          female: '女'
+        }
+      },
+      menu: {
+        home: '首页',
+        title: '菜单列表',
+        id: 'ID',
+        parentId: '父级菜单ID',
+        menuType: '菜单类型',
+        menuName: '菜单名称',
+        routeName: '路由名称',
+        routePath: '路由路径',
+        routeParams: '路由参数',
+        layout: '布局',
+        page: '页面组件',
+        i18nKey: '国际化key',
+        icon: '图标',
+        localIcon: '本地图标',
+        iconTypeTitle: '图标类型',
+        order: '排序',
+        keepAlive: '缓存路由',
+        href: '外链',
+        hideInMenu: '隐藏菜单',
+        activeMenu: '高亮的菜单',
+        multiTab: '支持多页签',
+        fixedIndexInTab: '固定在页签中的序号',
+        button: '按钮',
+        buttonCode: '按钮编码',
+        buttonDesc: '按钮描述',
+        menuStatus: '菜单状态',
+        form: {
+          home: '请选择首页',
+          menuType: '请选择菜单类型',
+          menuName: '请输入菜单名称',
+          routeName: '请输入路由名称',
+          routePath: '请输入路由路径',
+          page: '请选择页面组件',
+          layout: '请选择布局组件',
+          i18nKey: '请输入国际化key',
+          icon: '请输入图标',
+          localIcon: '请选择本地图标',
+          order: '请输入排序',
+          keepAlive: '请选择是否缓存路由',
+          href: '请输入外链',
+          hideInMenu: '请选择是否隐藏菜单',
+          activeMenu: '请输入高亮的菜单的路由名称',
+          multiTab: '请选择是否支持多标签',
+          fixedInTab: '请选择是否固定在页签中',
+          fixedIndexInTab: '请输入固定在页签中的序号',
+          button: '请选择是否按钮',
+          buttonCode: '请输入按钮编码',
+          buttonDesc: '请输入按钮描述',
+          menuStatus: '请选择菜单状态'
+        },
+        addMenu: '新增菜单',
+        editMenu: '编辑菜单',
+        addChildMenu: '新增子菜单',
+        type: {
+          directory: '目录',
+          menu: '菜单'
+        },
+        iconType: {
+          iconify: 'iconify图标',
+          local: '本地图标'
+        }
       }
     }
   },
@@ -270,7 +412,7 @@ const local: App.I18n.Schema = {
     },
     pwd: {
       required: '请输入密码',
-      invalid: '密码格式不正确'
+      invalid: '密码格式不正确，6-18位字符，包含字母、数字、下划线'
     },
     confirmPwd: {
       required: '请输入确认密码',

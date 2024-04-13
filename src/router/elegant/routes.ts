@@ -123,7 +123,21 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.function_request',
         meta: {
           title: 'function_request',
-          i18nKey: 'route.function_request'
+          i18nKey: 'route.function_request',
+          icon: 'carbon:network-overlay',
+          order: 3
+        }
+      },
+      {
+        name: 'function_super-page',
+        path: '/function/super-page',
+        component: 'view.function_super-page',
+        meta: {
+          title: 'function_super-page',
+          i18nKey: 'route.function_super-page',
+          icon: 'ic:round-supervisor-account',
+          order: 5,
+          roles: ['R_SUPER']
         }
       },
       {
@@ -133,7 +147,19 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'function_tab',
           i18nKey: 'route.function_tab',
-          icon: 'ic:round-tab'
+          icon: 'ic:round-tab',
+          order: 1
+        }
+      },
+      {
+        name: 'function_toggle-auth',
+        path: '/function/toggle-auth',
+        component: 'view.function_toggle-auth',
+        meta: {
+          title: 'function_toggle-auth',
+          i18nKey: 'route.function_toggle-auth',
+          icon: 'ic:round-construction',
+          order: 4
         }
       }
     ]
@@ -173,6 +199,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'manage_menu',
+        path: '/manage/menu',
+        component: 'view.manage_menu',
+        meta: {
+          title: 'manage_menu',
+          i18nKey: 'route.manage_menu'
+        }
+      },
+      {
         name: 'manage_role',
         path: '/manage/role',
         component: 'view.manage_role',
@@ -182,19 +217,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'carbon:user-role',
           order: 2,
           roles: ['R_ADMIN']
-        }
-      },
-      {
-        name: 'manage_route',
-        path: '/manage/route',
-        component: 'view.manage_route',
-        meta: {
-          title: 'manage_route',
-          i18nKey: 'route.manage_route',
-          icon: 'material-symbols:route',
-          order: 3,
-          roles: ['R_ADMIN'],
-          keepAlive: true
         }
       },
       {

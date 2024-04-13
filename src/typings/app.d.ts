@@ -247,24 +247,44 @@ declare namespace App {
         title: string;
       };
       common: {
-        tip: string;
+        action: string;
         add: string;
         addSuccess: string;
-        edit: string;
-        editSuccess: string;
+        backToHome: string;
+        batchDelete: string;
+        cancel: string;
+        close: string;
+        check: string;
+        columnSetting: string;
+        config: string;
+        confirm: string;
         delete: string;
         deleteSuccess: string;
-        batchDelete: string;
-        confirm: string;
-        cancel: string;
-        pleaseCheckValue: string;
-        action: string;
-        backToHome: string;
-        lookForward: string;
-        userCenter: string;
+        confirmDelete: string;
+        edit: string;
+        index: string;
+        keywordSearch: string;
         logout: string;
         logoutConfirm: string;
+        lookForward: string;
+        modify: string;
+        modifySuccess: string;
+        noData: string;
+        operate: string;
+        pleaseCheckValue: string;
+        refresh: string;
+        reset: string;
+        search: string;
+        switch: string;
+        tip: string;
         trigger: string;
+        update: string;
+        updateSuccess: string;
+        userCenter: string;
+        yesOrNo: {
+          yes: string;
+          no: string;
+        };
       };
       request: {
         logout: string;
@@ -435,6 +455,126 @@ declare namespace App {
           multiTab: {
             routeParam: string;
             backTab: string;
+          };
+          toggleAuth: {
+            toggleAccount: string;
+            authHook: string;
+            superAdminVisible: string;
+            adminVisible: string;
+            adminOrUserVisible: string;
+          };
+        };
+        manage: {
+          common: {
+            status: {
+              enable: string;
+              disable: string;
+            };
+          };
+          role: {
+            title: string;
+            roleName: string;
+            roleCode: string;
+            roleStatus: string;
+            roleDesc: string;
+            form: {
+              roleName: string;
+              roleCode: string;
+              roleStatus: string;
+              roleDesc: string;
+            };
+            addRole: string;
+            editRole: string;
+            menuAuth: string;
+            buttonAuth: string;
+          };
+          user: {
+            title: string;
+            userName: string;
+            userGender: string;
+            nickName: string;
+            userPhone: string;
+            userEmail: string;
+            userStatus: string;
+            userRole: string;
+            form: {
+              userName: string;
+              userGender: string;
+              nickName: string;
+              userPhone: string;
+              userEmail: string;
+              userStatus: string;
+              userRole: string;
+            };
+            addUser: string;
+            editUser: string;
+            gender: {
+              male: string;
+              female: string;
+            };
+          };
+          menu: {
+            home: string;
+            title: string;
+            id: string;
+            parentId: string;
+            menuType: string;
+            menuName: string;
+            routeName: string;
+            routePath: string;
+            routeParams: string;
+            layout: string;
+            page: string;
+            i18nKey: string;
+            icon: string;
+            localIcon: string;
+            iconTypeTitle: string;
+            order: string;
+            keepAlive: string;
+            href: string;
+            hideInMenu: string;
+            activeMenu: string;
+            multiTab: string;
+            fixedIndexInTab: string;
+            button: string;
+            buttonCode: string;
+            buttonDesc: string;
+            menuStatus: string;
+            form: {
+              home: string;
+              menuType: string;
+              menuName: string;
+              routeName: string;
+              routePath: string;
+              layout: string;
+              page: string;
+              i18nKey: string;
+              icon: string;
+              localIcon: string;
+              order: string;
+              keepAlive: string;
+              href: string;
+              hideInMenu: string;
+              activeMenu: string;
+              multiTab: string;
+              fixedInTab: string;
+              fixedIndexInTab: string;
+              button: string;
+              buttonCode: string;
+              buttonDesc: string;
+              menuStatus: string;
+            };
+            addMenu: string;
+            editMenu: string;
+            addChildMenu: string;
+            type: {
+              directory: string;
+              menu: string;
+            };
+            iconType: {
+              iconify: string;
+              local: string;
+            };
           };
         };
       };
