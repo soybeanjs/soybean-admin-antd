@@ -13,7 +13,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: '403',
       i18nKey: 'route.403',
-      constant: true
+      constant: true,
+      hideInMenu: true
     }
   },
   {
@@ -23,7 +24,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: '404',
       i18nKey: 'route.404',
-      constant: true
+      constant: true,
+      hideInMenu: true
     }
   },
   {
@@ -33,7 +35,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: '500',
       i18nKey: 'route.500',
-      constant: true
+      constant: true,
+      hideInMenu: true
     }
   },
   {
@@ -64,7 +67,8 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'function_hide-child',
           i18nKey: 'route.function_hide-child',
-          icon: 'material-symbols:filter-list-off'
+          icon: 'material-symbols:filter-list-off',
+          order: 2
         },
         redirect: '/function/hide-child/one',
         children: [
@@ -183,7 +187,8 @@ export const generatedRoutes: GeneratedRoute[] = [
     meta: {
       title: 'login',
       i18nKey: 'route.login',
-      constant: true
+      constant: true,
+      hideInMenu: true
     }
   },
   {
@@ -204,7 +209,11 @@ export const generatedRoutes: GeneratedRoute[] = [
         component: 'view.manage_menu',
         meta: {
           title: 'manage_menu',
-          i18nKey: 'route.manage_menu'
+          i18nKey: 'route.manage_menu',
+          icon: 'material-symbols:route',
+          order: 3,
+          roles: ['R_ADMIN'],
+          keepAlive: true
         }
       },
       {
@@ -216,7 +225,7 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_role',
           icon: 'carbon:user-role',
           order: 2,
-          roles: ['R_ADMIN']
+          roles: ['R_SUPER']
         }
       },
       {

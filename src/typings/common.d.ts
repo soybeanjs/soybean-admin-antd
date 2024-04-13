@@ -1,5 +1,5 @@
 /** The common type namespace */
-declare namespace Common {
+declare namespace CommonType {
   /** The strategic pattern */
   interface StrategicPattern {
     /** The condition */
@@ -14,7 +14,12 @@ declare namespace Common {
    * @property value: The option value
    * @property label: The option label
    */
-  type Option<K> = { value: K; label: string };
+  type Option<K = string> = { value: K; label: string };
 
   type YesOrNo = 'Y' | 'N';
+
+  /** add null to all properties */
+  type RecordNullable<T> = {
+    [K in keyof T]?: T[K] | null;
+  };
 }

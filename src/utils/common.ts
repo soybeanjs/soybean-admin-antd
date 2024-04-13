@@ -20,5 +20,5 @@ export function transformRecordToOption<T extends Record<string, string>>(record
   return Object.entries(record).map(([value, label]) => ({
     value,
     label
-  })) as Common.Option<keyof T>[];
+  })) as CommonType.Option<keyof T>[];
 }

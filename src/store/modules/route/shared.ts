@@ -10,14 +10,6 @@ import { useSvgIcon } from '@/hooks/common/icon';
  * @param roles Roles
  */
 export function filterAuthRoutesByRoles(routes: ElegantConstRoute[], roles: string[]) {
-  // in static mode of auth route, the super admin role is defined in front-end
-  const SUPER_ROLE = 'R_SUPER';
-
-  // if the user is super admin, then it is allowed to access all routes
-  if (roles.includes(SUPER_ROLE)) {
-    return routes;
-  }
-
   return routes.flatMap(route => filterAuthRouteByRoles(route, roles));
 }
 
@@ -290,4 +282,23 @@ export function getBreadcrumbsByRoute(
   }
 
   return [];
+}
+
+/**
+ * Transform menu to searchMenus
+ *
+ * @param menus - menus
+ * @param treeMap
+ */
+export function transformMenuToSearchMenus(menus: App.Global.Menu[], treeMap: App.Global.Menu[] = []) {
+  if (menus && menus.length === 0) return [];
+  return menus.reduce((acc, cur) => {
+    if (!cur.children) {
+      acc.push(cur);
+    }
+    if (cur.children && cur.children.length > 0) {
+      transformMenuToSearchMenus(cur.children, treeMap);
+    }
+    return acc;
+  }, treeMap);
 }

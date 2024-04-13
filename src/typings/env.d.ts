@@ -70,7 +70,7 @@ declare namespace Env {
      *
      * Only valid in the development environment
      */
-    readonly VITE_HTTP_PROXY?: Common.YesOrNo;
+    readonly VITE_HTTP_PROXY?: CommonType.YesOrNo;
     /**
      * The auth route mode
      *
@@ -92,7 +92,7 @@ declare namespace Env {
      */
     readonly VITE_MENU_ICON: string;
     /** Whether to build with sourcemap */
-    readonly VITE_SOURCE_MAP?: Common.YesOrNo;
+    readonly VITE_SOURCE_MAP?: CommonType.YesOrNo;
     /**
      * Iconify api provider url
      *
