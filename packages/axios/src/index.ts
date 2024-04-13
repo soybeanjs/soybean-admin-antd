@@ -105,13 +105,13 @@ function createCommonRequest<ResponseData = any>(
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createRequest<ResponseData = any>(
+export function createRequest<ResponseData = any, State = Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
   options?: Partial<RequestOption<ResponseData>>
 ) {
   const { instance, opts, cancelRequest, cancelAllRequest } = createCommonRequest<ResponseData>(axiosConfig, options);
 
-  const request: RequestInstance = async function request<T = any, R extends ResponseType = 'json'>(
+  const request: RequestInstance<State> = async function request<T = any, R extends ResponseType = 'json'>(
     config: CustomAxiosRequestConfig
   ) {
     const response: AxiosResponse<ResponseData> = await instance(config);
@@ -123,7 +123,7 @@ export function createRequest<ResponseData = any>(
     }
 
     return response.data as MappedType<R, T>;
-  } as RequestInstance;
+  } as RequestInstance<State>;
 
   request.cancelRequest = cancelRequest;
   request.cancelAllRequest = cancelAllRequest;
@@ -139,15 +139,16 @@ export function createRequest<ResponseData = any>(
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createFlatRequest<ResponseData = any>(
+export function createFlatRequest<ResponseData = any, State = Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
   options?: Partial<RequestOption<ResponseData>>
 ) {
   const { instance, opts, cancelRequest, cancelAllRequest } = createCommonRequest<ResponseData>(axiosConfig, options);
 
-  const flatRequest: FlatRequestInstance = async function flatRequest<T = any, R extends ResponseType = 'json'>(
-    config: CustomAxiosRequestConfig
-  ) {
+  const flatRequest: FlatRequestInstance<State, ResponseData> = async function flatRequest<
+    T = any,
+    R extends ResponseType = 'json'
+  >(config: CustomAxiosRequestConfig) {
     try {
       const response: AxiosResponse<ResponseData> = await instance(config);
 
@@ -163,10 +164,11 @@ export function createFlatRequest<ResponseData = any>(
     } catch (error) {
       return { data: null, error };
     }
-  } as FlatRequestInstance;
+  } as FlatRequestInstance<State, ResponseData>;
 
   flatRequest.cancelRequest = cancelRequest;
   flatRequest.cancelAllRequest = cancelAllRequest;
+  flatRequest.state = {} as State;
 
   return flatRequest;
 }
