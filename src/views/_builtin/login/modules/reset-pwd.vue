@@ -70,7 +70,7 @@ async function handleSubmit() {
       <AButton type="primary" block size="large" shape="round" @click="handleSubmit">
         {{ $t('common.confirm') }}
       </AButton>
-      <AButton type="primary" block size="large" shape="round" @click="toggleLoginModule('pwd-login')">
+      <AButton block size="large" shape="round" @click="toggleLoginModule('pwd-login')">
         {{ $t('page.login.common.back') }}
       </AButton>
     </ASpace>
