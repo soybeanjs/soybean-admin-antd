@@ -164,6 +164,8 @@ const local: App.I18n.Schema = {
       codeLogin: {
         title: 'Verification Code Login',
         getCode: 'Get verification code',
+        reGetCode: 'Reacquire after {time}s',
+        sendCodeSuccess: 'Verification code sent successfully',
         imageCodePlaceholder: 'Please enter image verification code'
       },
       register: {

@@ -40,23 +40,29 @@ const rules = computed<RuleRecord>(() => {
 async function handleSubmit() {
   await validate();
   // request to reset password
+  window.$message?.success($t('page.login.common.validateSuccess'));
 }
 </script>
 
 <template>
   <AForm ref="formRef" :model="model" :rules="rules">
     <AFormItem name="phone">
-      <AInput v-model:value="model.phone" :placeholder="$t('page.login.common.phonePlaceholder')" />
+      <AInput v-model:value="model.phone" size="large" :placeholder="$t('page.login.common.phonePlaceholder')" />
     </AFormItem>
     <AFormItem name="code">
-      <AInput v-model:value="model.code" :placeholder="$t('page.login.common.codePlaceholder')" />
+      <AInput v-model:value="model.code" size="large" :placeholder="$t('page.login.common.codePlaceholder')" />
     </AFormItem>
     <AFormItem name="password">
-      <AInputPassword v-model:value="model.password" :placeholder="$t('page.login.common.passwordPlaceholder')" />
+      <AInputPassword
+        v-model:value="model.password"
+        size="large"
+        :placeholder="$t('page.login.common.passwordPlaceholder')"
+      />
     </AFormItem>
     <AFormItem name="confirmPassword">
       <AInputPassword
         v-model:value="model.confirmPassword"
+        size="large"
         :placeholder="$t('page.login.common.confirmPasswordPlaceholder')"
       />
     </AFormItem>

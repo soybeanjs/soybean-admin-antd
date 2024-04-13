@@ -164,6 +164,8 @@ const local: App.I18n.Schema = {
       codeLogin: {
         title: '验证码登录',
         getCode: '获取验证码',
+        reGetCode: '{time}秒后重新获取',
+        sendCodeSuccess: '验证码发送成功',
         imageCodePlaceholder: '请输入图片验证码'
       },
       register: {

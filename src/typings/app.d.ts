@@ -345,6 +345,8 @@ declare namespace App {
           codeLogin: {
             title: string;
             getCode: string;
+            reGetCode: string;
+            sendCodeSuccess: string;
             imageCodePlaceholder: string;
           };
           register: {
