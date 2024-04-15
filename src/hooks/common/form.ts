@@ -85,8 +85,13 @@ export function useAntdForm() {
     await formRef.value?.validate();
   }
 
+  function resetFields() {
+    formRef.value?.resetFields();
+  }
+
   return {
     formRef,
-    validate
+    validate,
+    resetFields
   };
 }
