@@ -60,7 +60,7 @@ importers:
         specifier: 3.4.21
         version: 3.4.21(typescript@5.4.5)
       vue-draggable-plus:
-        specifier: ^0.4.0
+        specifier: 0.4.0
         version: 0.4.0(@types/sortablejs@1.15.8)
       vue-i18n:
         specifier: 9.12.0
@@ -2081,7 +2081,7 @@ packages:
     engines: {node: '>=14'}
     dependencies:
       '@unocss/core': 0.59.2
-      unconfig: 0.3.12
+      unconfig: 0.3.13
     dev: true
 
   /@unocss/core@0.59.2:
@@ -8222,13 +8222,12 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /unconfig@0.3.12:
-    resolution: {integrity: sha512-oDtfWDC0TMYFuwdt7E7CaqYZGqq1wAiC12PRTFe/93IkgNi+wVlF/LCjcD/bgNkGoopb0RsU363Ge3YXy7NGSw==}
+  /unconfig@0.3.13:
+    resolution: {integrity: sha512-N9Ph5NC4+sqtcOjPfHrRcHekBCadCXWTBzp2VYYbySOHW0PfD9XLCeXshTXjkPYwLrBr9AtSeU0CZmkYECJhng==}
     dependencies:
       '@antfu/utils': 0.7.7
       defu: 6.1.4
       jiti: 1.21.0
-      mlly: 1.6.1
     dev: true
 
   /undici-types@5.26.5:
