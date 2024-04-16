@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type { Component } from 'vue';
 import { getColorPalette, mixColor } from '@sa/utils';
+import { useRoute } from 'vue-router';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
@@ -12,12 +13,7 @@ import Register from './modules/register.vue';
 import ResetPwd from './modules/reset-pwd.vue';
 import BindWechat from './modules/bind-wechat.vue';
 
-interface Props {
-  /** The login module */
-  module?: UnionKey.LoginModule;
-}
-
-const props = defineProps<Props>();
+const route = useRoute();
 
 const appStore = useAppStore();
 const themeStore = useThemeStore();
@@ -35,7 +31,7 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
   'bind-wechat': { label: loginModuleRecord['bind-wechat'], component: BindWechat }
 };
 
-const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
+const activeModule = computed(() => moduleMap[(route.query.module as UnionKey.LoginModule) || 'pwd-login']);
 
 const bgThemeColor = computed(() =>
   themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
