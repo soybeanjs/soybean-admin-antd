@@ -1,5 +1,7 @@
 <script setup lang="tsx">
+import { computed, shallowRef } from 'vue';
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
+import { useElementSize } from '@vueuse/core';
 import { fetchGetRoleList } from '@/service/api';
 // import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
@@ -9,6 +11,16 @@ import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
 // const appStore = useAppStore();
+
+const wrapperEl = shallowRef<HTMLElement | null>(null);
+const { height: wrapperElHeight } = useElementSize(wrapperEl);
+
+const scrollConfig = computed(() => {
+  return {
+    y: wrapperElHeight.value - 72,
+    x: 702
+  };
+});
 
 const { columns, columnChecks, data, loading, getData, mobilePagination, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetRoleList,
@@ -123,7 +135,12 @@ function edit(id: number) {
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
     <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
-    <ACard :title="$t('page.manage.role.title')" :bordered="false" class="sm:flex-1-hidden card-wrapper">
+    <ACard
+      :title="$t('page.manage.role.title')"
+      :bordered="false"
+      :body-style="{ flex: 1, overflow: 'hidden' }"
+      class="flex-col-stretch sm:flex-1-hidden card-wrapper"
+    >
       <template #extra>
         <TableHeaderOperation
           v-model:columns="columnChecks"
@@ -135,14 +152,15 @@ function edit(id: number) {
         />
       </template>
       <ATable
+        ref="wrapperEl"
         :columns="columns"
         :data-source="data"
         :loading="loading"
         row-key="id"
         size="small"
         :pagination="mobilePagination"
-        :scroll="{ x: 702 }"
-        class="sm:h-full"
+        :scroll="scrollConfig"
+        class="h-full"
       />
       <RoleOperateDrawer
         v-model:visible="drawerVisible"

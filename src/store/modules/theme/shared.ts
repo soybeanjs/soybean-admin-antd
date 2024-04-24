@@ -204,6 +204,9 @@ export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
     },
     algorithm: [darkMode ? darkAlgorithm : defaultAlgorithm],
     components: {
+      Button: {
+        controlHeightSM: 28
+      },
       Menu: {
         colorSubItemBg: 'transparent'
       }

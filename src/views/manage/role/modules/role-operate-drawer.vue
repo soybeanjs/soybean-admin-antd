@@ -124,10 +124,10 @@ watch(visible, () => {
       <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" />
     </ASpace>
     <template #footer>
-      <ASpace :size="16">
+      <div class="flex-y-center justify-end gap-12px">
         <AButton @click="closeDrawer">{{ $t('common.cancel') }}</AButton>
         <AButton type="primary" @click="handleSubmit">{{ $t('common.confirm') }}</AButton>
-      </ASpace>
+      </div>
     </template>
   </ADrawer>
 </template>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
+import type { SelectProps } from 'ant-design-vue';
+import type { DataNode } from 'ant-design-vue/es/tree';
 import { $t } from '@/locales';
 import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
 
@@ -32,10 +34,10 @@ async function getHome() {
   home.value = 'home';
 }
 
-async function updateHome(val: string) {
+async function updateHome(val: SelectProps['value']) {
   // request
 
-  home.value = val;
+  home.value = val as string;
 }
 
 const pages = shallowRef<string[]>([]);
@@ -57,14 +59,33 @@ const pageSelectOptions = computed(() => {
   return opts;
 });
 
-const tree = shallowRef<Api.SystemManage.MenuTree[]>([]);
+const tree = shallowRef<DataNode[]>([]);
 
 async function getTree() {
   const { error, data } = await fetchGetMenuTree();
 
   if (!error) {
-    tree.value = data;
+    tree.value = recursiveTransform(data);
   }
+}
+
+function recursiveTransform(data: Api.SystemManage.MenuTree[]): DataNode[] {
+  return data.map(item => {
+    const { id: key, label } = item;
+
+    if (item.children) {
+      return {
+        key,
+        title: label,
+        children: recursiveTransform(item.children)
+      };
+    }
+
+    return {
+      key,
+      title: label
+    };
+  });
 }
 
 const checks = shallowRef<number[]>([]);
@@ -72,7 +93,7 @@ const checks = shallowRef<number[]>([]);
 async function getChecks() {
   console.log(props.roleId);
   // request
-  checks.value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+  checks.value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21];
 }
 
 function handleSubmit() {
@@ -84,11 +105,11 @@ function handleSubmit() {
   closeModal();
 }
 
-function init() {
+async function init() {
   getHome();
   getPages();
-  getTree();
-  getChecks();
+  await getTree();
+  await getChecks();
 }
 
 watch(visible, val => {
@@ -99,32 +120,21 @@ watch(visible, val => {
 </script>
 
 <template>
-  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
+  <AModal v-model:open="visible" :title="title" class="w-480px">
     <div class="flex-y-center gap-16px pb-12px">
       <div>{{ $t('page.manage.menu.home') }}</div>
-      <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
+      <ASelect :value="home" :options="pageSelectOptions" class="w-240px" @update:value="updateHome" />
     </div>
-    <NTree
-      v-model:checked-keys="checks"
-      :data="tree"
-      key-field="id"
-      checkable
-      expand-on-click
-      virtual-scroll
-      block-line
-      class="h-280px"
-    />
+    <ATree v-model:checked-keys="checks" :tree-data="tree" checkable :height="280" class="h-280px" />
     <template #footer>
-      <NSpace justify="end">
-        <NButton size="small" class="mt-16px" @click="closeModal">
-          {{ $t('common.cancel') }}
-        </NButton>
-        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
-          {{ $t('common.confirm') }}
-        </NButton>
-      </NSpace>
+      <AButton size="small" class="mt-16px" @click="closeModal">
+        {{ $t('common.cancel') }}
+      </AButton>
+      <AButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
+        {{ $t('common.confirm') }}
+      </AButton>
     </template>
-  </NModal>
+  </AModal>
 </template>
 
 <style scoped></style>
