@@ -25,31 +25,6 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-type SlotFn = (props?: Record<string, unknown>) => any;
-
-type Slots = {
-  /**
-   * Slot
-   *
-   * The center content of the tab
-   */
-  default?: SlotFn;
-  /**
-   * Slot
-   *
-   * The left content of the tab
-   */
-  prefix?: SlotFn;
-  /**
-   * Slot
-   *
-   * The right content of the tab
-   */
-  suffix?: SlotFn;
-};
-
-defineSlots<Slots>();
-
 const activeTabComponent = computed(() => {
   const { mode, chromeClass, buttonClass } = props;
 
