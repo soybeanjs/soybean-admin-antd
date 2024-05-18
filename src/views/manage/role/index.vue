@@ -90,7 +90,7 @@ const { columns, columnChecks, data, loading, getData, mobilePagination, searchP
           <Button type="primary" ghost size="small" onClick={() => edit(record.id)}>
             {$t('common.edit')}
           </Button>
-          <Popconfirm onConfirm={() => handleDelete(record.id)} content={$t('common.confirmDelete')}>
+          <Popconfirm onConfirm={() => handleDelete(record.id)} title={$t('common.confirmDelete')}>
             <Button danger size="small">
               {$t('common.delete')}
             </Button>
