@@ -29,16 +29,16 @@ const tree = shallowRef<DataNode[]>([]);
 async function getAllButtons() {
   // request
   tree.value = [
-    { key: '01', title: 'button1', code: 'code1' },
-    { key: '02', title: 'button2', code: 'code2' },
-    { key: '03', title: 'button3', code: 'code3' },
-    { key: '04', title: 'button4', code: 'code4' },
-    { key: '05', title: 'button5', code: 'code5' },
-    { key: '06', title: 'button6', code: 'code6' },
-    { key: '07', title: 'button7', code: 'code7' },
-    { key: '08', title: 'button8', code: 'code8' },
-    { key: '09', title: 'button9', code: 'code9' },
-    { key: '10', title: 'button10', code: 'code10' }
+    { key: 1, title: 'button1', code: 'code1' },
+    { key: 2, title: 'button2', code: 'code2' },
+    { key: 3, title: 'button3', code: 'code3' },
+    { key: 4, title: 'button4', code: 'code4' },
+    { key: 5, title: 'button5', code: 'code5' },
+    { key: 6, title: 'button6', code: 'code6' },
+    { key: 7, title: 'button7', code: 'code7' },
+    { key: 8, title: 'button8', code: 'code8' },
+    { key: 9, title: 'button9', code: 'code9' },
+    { key: 10, title: 'button10', code: 'code10' }
   ];
 }
 

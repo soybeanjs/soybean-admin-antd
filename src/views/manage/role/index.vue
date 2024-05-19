@@ -78,7 +78,7 @@ const { columns, columnChecks, data, loading, getData, mobilePagination, searchP
           <Button type="primary" ghost size="small" onClick={() => edit(record.id)}>
             {$t('common.edit')}
           </Button>
-          <Popconfirm onConfirm={() => handleDelete(record.id)} content={$t('common.confirmDelete')}>
+          <Popconfirm title={$t('common.confirmDelete')} onConfirm={() => handleDelete(record.id)}>
             <Button danger size="small">
               {$t('common.delete')}
             </Button>
@@ -97,13 +97,13 @@ const {
   handleEdit,
   checkedRowKeys,
   onBatchDeleted,
-  onDeleted
+  onDeleted,
+  onSelectChange
   // closeDrawer
 } = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
   // request
-  console.log(checkedRowKeys.value);
 
   onBatchDeleted();
 }
@@ -137,6 +137,11 @@ function edit(id: number) {
       <ATable
         :columns="columns"
         :data-source="data"
+        :row-selection="{
+          type: 'checkbox',
+          selectedRowKeys: checkedRowKeys,
+          onChange: onSelectChange
+        }"
         :loading="loading"
         row-key="id"
         size="small"

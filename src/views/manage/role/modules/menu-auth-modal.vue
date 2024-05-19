@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, shallowRef, watch } from 'vue';
+import type { DataNode } from 'ant-design-vue/es/tree';
 import { $t } from '@/locales';
 import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
-
 defineOptions({
   name: 'MenuAuthModal'
 });
@@ -30,12 +30,6 @@ async function getHome() {
   console.log(props.roleId);
 
   home.value = 'home';
-}
-
-async function updateHome(val: string) {
-  // request
-
-  home.value = val;
 }
 
 const pages = shallowRef<string[]>([]);
@@ -66,6 +60,19 @@ async function getTree() {
     tree.value = data;
   }
 }
+
+// function getTreeDate(data: Api.SystemManage.MenuTree[]) {
+//   const TreeData = data.map(item => {
+//     const children: DataNode[] = item.children ? getTreeDate(item.children) : [];
+
+//     return {
+//       key: item.id,
+//       title: item.label,
+//       children
+//     };
+//   });
+//   return TreeData;
+// }
 
 const checks = shallowRef<number[]>([]);
 
@@ -99,32 +106,30 @@ watch(visible, val => {
 </script>
 
 <template>
-  <NModal v-model:show="visible" :title="title" preset="card" class="w-480px">
+  <AModal v-model:open="visible" :title="title" class="w-480px">
     <div class="flex-y-center gap-16px pb-12px">
       <div>{{ $t('page.manage.menu.home') }}</div>
-      <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
+      <ASelect v-model:value="home" :options="pageSelectOptions" size="small" class="w-160px" />
     </div>
-    <NTree
+    <ATree
       v-model:checked-keys="checks"
-      :data="tree"
-      key-field="id"
+      :tree-data="tree as unknown as DataNode[]"
+      :field-names="{ children: 'children', title: 'label', key: 'id' }"
       checkable
-      expand-on-click
-      virtual-scroll
-      block-line
-      class="h-280px"
+      block-node
+      :height="280"
     />
     <template #footer>
-      <NSpace justify="end">
-        <NButton size="small" class="mt-16px" @click="closeModal">
+      <ASpace justify="end">
+        <AButton size="small" class="mt-16px" @click="closeModal">
           {{ $t('common.cancel') }}
-        </NButton>
-        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
+        </AButton>
+        <AButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
           {{ $t('common.confirm') }}
-        </NButton>
-      </NSpace>
+        </AButton>
+      </ASpace>
     </template>
-  </NModal>
+  </AModal>
 </template>
 
 <style scoped></style>
