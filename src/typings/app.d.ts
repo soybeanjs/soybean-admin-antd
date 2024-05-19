@@ -520,6 +520,7 @@ declare namespace App {
             parentId: string;
             menuType: string;
             menuName: string;
+            constant: string;
             routeName: string;
             routePath: string;
             routeParams: string;
@@ -530,6 +531,7 @@ declare namespace App {
             localIcon: string;
             iconTypeTitle: string;
             order: string;
+            pathParam: string;
             keepAlive: string;
             href: string;
             hideInMenu: string;
@@ -540,6 +542,7 @@ declare namespace App {
             buttonCode: string;
             buttonDesc: string;
             menuStatus: string;
+            query: string;
             form: {
               home: string;
               menuType: string;
@@ -547,10 +550,14 @@ declare namespace App {
               routeName: string;
               routePath: string;
               layout: string;
+              queryKey: string;
               page: string;
+              createInput: string;
               i18nKey: string;
               icon: string;
               localIcon: string;
+              pathParam: string;
+              queryValue: string;
               order: string;
               keepAlive: string;
               href: string;

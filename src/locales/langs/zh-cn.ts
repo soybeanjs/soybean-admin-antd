@@ -343,6 +343,7 @@ const local: App.I18n.Schema = {
         menuType: '菜单类型',
         menuName: '菜单名称',
         routeName: '路由名称',
+        query: '路由参数',
         routePath: '路由路径',
         routeParams: '路由参数',
         layout: '布局',
@@ -362,6 +363,8 @@ const local: App.I18n.Schema = {
         buttonCode: '按钮编码',
         buttonDesc: '按钮描述',
         menuStatus: '菜单状态',
+        pathParam: '路径参数',
+        constant: '常量路由',
         form: {
           home: '请选择首页',
           menuType: '请选择菜单类型',
@@ -372,6 +375,9 @@ const local: App.I18n.Schema = {
           layout: '请选择布局组件',
           i18nKey: '请输入国际化key',
           icon: '请输入图标',
+          queryKey: '请输入路由参数Key',
+          queryValue: '请输入路由参数Value',
+          pathParam: '请输入路径参数',
           localIcon: '请选择本地图标',
           order: '请输入排序',
           keepAlive: '请选择是否缓存路由',
@@ -384,7 +390,8 @@ const local: App.I18n.Schema = {
           button: '请选择是否按钮',
           buttonCode: '请输入按钮编码',
           buttonDesc: '请输入按钮描述',
-          menuStatus: '请选择菜单状态'
+          menuStatus: '请选择菜单状态',
+          createInput: '添加'
         },
         addMenu: '新增菜单',
         editMenu: '编辑菜单',

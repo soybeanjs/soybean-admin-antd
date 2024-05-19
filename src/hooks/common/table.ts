@@ -172,7 +172,11 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
   }
 
   /** the checked row keys of table */
-  const checkedRowKeys = ref<string[]>([]);
+  const checkedRowKeys: Ref<T['id'][]> = ref([]);
+
+  function onSelectChange(keys: (string | number)[]) {
+    checkedRowKeys.value = keys as T['id'][];
+  }
 
   /** the hook after the batch delete operation is completed */
   async function onBatchDeleted() {
@@ -199,6 +203,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     editingData,
     handleEdit,
     checkedRowKeys,
+    onSelectChange,
     onBatchDeleted,
     onDeleted
   };
