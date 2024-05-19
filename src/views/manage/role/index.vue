@@ -109,13 +109,13 @@ const {
   handleEdit,
   checkedRowKeys,
   onBatchDeleted,
-  onDeleted
+  onDeleted,
+  onSelectChange
   // closeDrawer
 } = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
   // request
-  console.log(checkedRowKeys.value);
 
   onBatchDeleted();
 }
@@ -155,6 +155,11 @@ function edit(id: number) {
         ref="wrapperEl"
         :columns="columns"
         :data-source="data"
+        :row-selection="{
+          type: 'checkbox',
+          selectedRowKeys: checkedRowKeys,
+          onChange: onSelectChange
+        }"
         :loading="loading"
         row-key="id"
         size="small"
