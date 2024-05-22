@@ -93,7 +93,7 @@ export function useTable<A extends AntDesign.TableApiFn>(config: AntDesign.AntDe
     current: 1,
     pageSize: 10,
     showSizeChanger: true,
-    pageSizeOptions: [10, 15, 20, 25, 30],
+    pageSizeOptions: ['10', '15', '20', '25', '30'],
     total: 0,
     onChange: async (current: number, size: number) => {
       pagination.current = current;
