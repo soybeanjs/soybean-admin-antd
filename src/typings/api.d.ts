@@ -124,7 +124,7 @@ declare namespace Api {
       /** user name */
       userName: string;
       /** user gender */
-      userGender: UserGender | null;
+      userGender: UserGender;
       /** user nick name */
       nickName: string;
       /** user phone */
@@ -136,7 +136,7 @@ declare namespace Api {
     }>;
 
     /** user search params */
-    type UserSearchParams = CommonType.RecordNullable<
+    type UserSearchParams = Partial<
       Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
         CommonSearchParams
     >;
