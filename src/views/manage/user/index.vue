@@ -6,7 +6,7 @@ import { fetchGetUserList } from '@/service/api';
 import { $t } from '@/locales';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
 import { useTable, useTableOperate } from '@/hooks/common/table';
-// import UserOperateDrawer from './modules/user-operate-drawer.vue';
+import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import UserSearch from './modules/user-search.vue';
 const wrapperEl = shallowRef<HTMLElement | null>(null);
 const { height: wrapperElHeight } = useElementSize(wrapperEl);
@@ -131,9 +131,9 @@ const { columns, columnChecks, data, getData, loading, mobilePagination, searchP
 });
 
 const {
-  // drawerVisible,
-  // operateType,
-  // editingData,
+  drawerVisible,
+  operateType,
+  editingData,
   handleAdd,
   onSelectChange,
   handleEdit,
@@ -145,7 +145,7 @@ const {
 
 async function handleBatchDelete() {
   // request
-  console.log(checkedRowKeys.value);
+  // console.log(checkedRowKeys.value);
 
   onBatchDeleted();
 }
@@ -197,14 +197,13 @@ function edit(id: number) {
         :pagination="mobilePagination"
         class="h-full"
       />
-      <!--
- <UserOperateDrawer
+
+      <UserOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"
         @submitted="getData"
-      /> 
--->
+      />
     </ACard>
   </div>
 </template>
