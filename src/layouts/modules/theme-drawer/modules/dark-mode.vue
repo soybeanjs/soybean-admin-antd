@@ -46,7 +46,9 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
     <div class="i-flex-center">
       <ASegmented :value="themeStore.themeScheme" :options="options" class="bg-layout" @change="handleSegmentChange">
         <template #label="{ payload }">
-          <ButtonIcon :icon="payload.icon" class="h-28px text-icon-small" />
+          <div class="w-[70px] flex justify-center">
+            <SvgIcon :icon="payload.icon" class="h-28px text-icon-small" />
+          </div>
         </template>
       </ASegmented>
     </div>
