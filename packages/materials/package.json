@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@sa/utils": "workspace:*",
-    "@simonwep/pickr": "1.9.0",
-    "simplebar-vue": "2.3.3"
+    "@simonwep/pickr": "1.9.1",
+    "simplebar-vue": "2.3.4"
   },
   "devDependencies": {
     "typed-css-modules": "0.9.1"
