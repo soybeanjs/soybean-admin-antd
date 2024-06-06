@@ -1,4 +1,5 @@
 import { computed, reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { SetupStoreId } from '@/enum';
@@ -10,8 +11,9 @@ import { useRouteStore } from '../route';
 import { clearAuthStorage, getToken, getUserInfo } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
+  const route = useRoute();
   const routeStore = useRouteStore();
-  const { route, toLogin, redirectFromLogin } = useRouterPush(false);
+  const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
   const token = ref(getToken());
@@ -36,7 +38,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     authStore.$reset();
 
-    if (!route.value.meta.constant) {
+    if (!route.meta.constant) {
       await toLogin();
     }
 
