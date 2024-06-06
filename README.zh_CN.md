@@ -3,17 +3,16 @@
 	<h1>SoybeanAdmin</h1>
   <span><a href="./README.zh_CN.md">English</a> | 中文</span>
 </div>
-<br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
+---
+
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![github stars](https://img.shields.io/github/stars/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github forks](https://img.shields.io/github/forks/honghuangdc/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
 
 > [!NOTE]
 > 如果您觉得 `SoybeanAdmin`对您有所帮助，或者您喜欢我们的项目，请在 GitHub 上给我们一个 ⭐️。您的支持是我们持续改进和增加新功能的动力！感谢您的支持！
-
-<br />
-
-[![Star History Chart](https://api.star-history.com/svg?repos=soybeanjs/soybean-admin&type=Date)](https://star-history.com/#soybeanjs/soybean-admin&Date)
-
 
 ## 简介
 
@@ -45,7 +44,7 @@
   - [预览地址](https://antd.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin-antd)
   - [Gitee 仓库](https://gitee.com/honghuangdc/soybean-admin-antd)
-  -
+
 - **旧版:**
   - [预览地址](https://legacy.soybeanjs.cn/)
   - [Github 仓库](https://github.com/soybeanjs/soybean-admin/tree/legacy)
@@ -78,9 +77,8 @@
 确保你的环境满足以下要求：
 
 - **git**: 你需要git来克隆和管理项目版本。
-- **NodeJS**: >=18.0.0，推荐 18.19.0 或更高。
-  > 你可以使用 [fnm](https://github.com/Schniz/fnm) 来管理你的NodeJS版本，[安装教程](https://juejin.cn/post/7113462239734022158)。
-- **pnpm**: >= 8.0.0，推荐 8.14.0 或更高。
+- **NodeJS**: >=18.12.0，推荐 18.19.0 或更高。
+- **pnpm**: >= 8.7.0，推荐 8.14.0 或更高。
 
 **克隆项目**
 
@@ -107,13 +105,25 @@ pnpm dev
 pnpm build
 ```
 
+## 周边生态
+
+- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): 一个 Mock Api 管理系统，帮助前端开发伙伴快速实现接口的 mock。
+- [T-Shell](https://github.com/TheBlindM/T-Shell): 是一个可配置命令提示的终端模拟器和 SSH 客户端。
+- [pea](https://github.com/haitang1894/pea) : 采用SpringBoot3.2 + JDK21、MyBatis-Plus、SpringSecurity安全框架等，适配 [soybean-admin](https://gitee.com/honghuangdc/soybean-admin) 开发的简单权限系统。
+- [MalusAdmin](https://github.com/pridejoy/MalusAdmin): 基于 Vue3/TypeScript/NaiveUI 和 NET7 & Sqlsugar 开发的后台管理框架。采用最原生最简洁的方式来实现, 前端清新优雅高颜值，后端 结构清晰，优雅易懂，功能强大。
+- [PanisAdmin](https://github.com/paynezhuang/panis-admin): 采用SpringBoot3、SaToken、MySQL等框架开发，二次修改 [soybean-admin](https://github.com/soybeanjs/soybean-admin)，适配动态菜单/按钮级别的鉴权，保留原汁原味、清新优雅、高颜值的后台管理系统脚手架。
+- [snail-job](https://github.com/aizuda/snail-job): 一款兼具 “高性能、高颜值、高活跃” 的分布式任务重试和分布式任务调度平台。
+- [SuperApi](https://github.com/TmmTop/SuperApi): 快速将你的 idea 变成线上稳定运行的产品！ 无实体建库建表，对无实体库表进行增删改查，支持 15 种条件查询，以及分页，列表，无限级树形列表 等功能的 API 部署！ 拥有接口文档，Auth 授权，接口限流，获取客户端真实 IP，先进的服务器缓存组件，动态 API 等功能，期待您的体验！
+- [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): 基于 FastAPI+Vue3+Naive UI 的现代化轻量管理平台.
+
+
 ## 如何贡献
 
 我们热烈欢迎并感谢所有形式的贡献。如果您有任何想法或建议，欢迎通过提交 [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) 或创建 GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new) 来分享。
 
 ## Git 提交规范
 
-本项目已内置 `commit` 命令，您可以通过执行 `pnpm commit` 来生成符合 [Conventional Commits](conventionalcommits) 规范的提交信息。在提交PR时，请务必使用 `commit` 命令来创建提交信息，以确保信息的规范性。
+本项目已内置 `commit` 命令，您可以通过执行 `pnpm commit` 来生成符合 [Conventional Commits]([conventionalcommits](https://www.conventionalcommits.org/)) 规范的提交信息。在提交PR时，请务必使用 `commit` 命令来创建提交信息，以确保信息的规范性。
 
 
 ## 浏览器支持
@@ -128,6 +138,7 @@ pnpm build
 
 [Soybean](https://github.com/honghuangdc)
 
+
 ## 贡献者
 
 感谢以下贡献者的贡献。如果您想为本项目做出贡献，请参考 [如何贡献](#如何贡献)。
@@ -135,6 +146,27 @@ pnpm build
 <a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
+
+## 交流
+
+`SoybeanAdmin` 是完全开源免费的项目，在帮助开发者更方便地进行中大型管理系统开发，同时也提供微信和 QQ 交流群，使用问题欢迎在群内提问。
+
+  <div>
+  	<p>QQ交流群</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-2.jpg" style="width:200px" />
+  </div>
+	<!-- <div>
+		<p>微信群</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-0402.jpg" style="width:200px" />
+	</div> -->
+	<div>
+		<p>添加下面微信邀请进微信群</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
+	</div>
+  <div>
+    <p>添加 Soybean 的微信，业务咨询、合作、项目架构、一对一指导等</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
+  </div>
 
 ## Star 趋势
 

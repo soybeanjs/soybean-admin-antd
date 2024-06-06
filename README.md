@@ -3,9 +3,13 @@
 	<h1>SoybeanAdmin</h1>
   <span>English | <a href="./README.zh_CN.md">中文</a></span>
 </div>
-<br />
 
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
+---
+
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+[![github stars](https://img.shields.io/github/stars/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![github forks](https://img.shields.io/github/forks/soybeanjs/soybean-admin)](https://github.com/soybeanjs/soybean-admin)
+[![gitee stars](https://gitee.com/honghuangdc/soybean-admin/badge/star.svg)](https://gitee.com/honghuangdc/soybean-admin)
 
 > [!NOTE]
 > If you think `SoybeanAdmin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
@@ -74,9 +78,8 @@
 Make sure your environment meets the following requirements:
 
 - **git**: you need git to clone and manage project versions.
-- **NodeJS**: >=18.0.0, recommended 18.19.0 or higher.
-  > You can use [fnm](https://github.com/Schniz/fnm) to manage your NodeJS version, [installation tutorial](https://juejin.cn/post/7113462239734022158).
-- **pnpm**: >= 8.0.0, recommended 8.14.0 or higher.
+- **NodeJS**: >=18.12.0, recommended 18.19.0 or higher.
+- **pnpm**: >= 8.7.0, recommended 8.14.0 or higher.
 
 **Clone Project**
 
@@ -103,13 +106,25 @@ pnpm dev
 pnpm build
 ```
 
+## Ecosystem
+
+- [electron-mock-admin](https://github.com/lixin59/electron-mock-api): A Mock Api management system that helps front-end developers quickly implement interface mocks.
+- [T-Shell](https://github.com/TheBlindM/T-Shell): A terminal emulator and SSH client with configurable command prompts.
+- [pea](https://github.com/haitang1894/pea) : Adopting SpringBoot3.2 + JDK21, MyBatis-Plus, SpringSecurity security framework, etc., suitable for the simple permission system developed by [soybean-admin](https://gitee.com/honghuangdc/soybean-admin).
+- [MalusAdmin](https://github.com/pridejoy/MalusAdmin): A backend management framework developed based on Vue3/TypeScript/NaiveUI and NET7 & Sqlsugar. It is implemented in the most original and simplest way, with a fresh and elegant front-end, a clear and elegant backend structure, and powerful functions.
+- [PanisAdmin](https://github.com/paynezhuang/panis-admin): Adopting SpringBoot 3, SaToken, MySQL and other frameworks to develop and modify [soybean-admin](https://github.com/soybeanjs/soybean-admin) for the second time, adapting dynamic menu/button-level authorization. Retaining the original flavor, fresh and elegant, high-value back-end management system scaffold.
+- [snail-job](https://github.com/aizuda/snail-job): A distributed task retry and task scheduling platform with "high performance, high value and high activity".
+- [SuperApi](https://github.com/TmmTop/SuperApi): Quickly turn your idea into an online stable product! Entity-less library and table building, add, delete, change and check entity-less library table, support 15 kinds of condition query, as well as paging, list, unlimited tree list and other functions of the API deployment! With interface documentation, Auth authorisation, interface flow restriction, access to the client's real IP, advanced server caching components, dynamic APIs and other features, we look forward to your experience!
+- [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): A modern Management Platform based on FastAPI+Vue3+Naive UI.
+
+
 ## How to Contribute
 
 We warmly welcome and appreciate all forms of contributions. If you have any ideas or suggestions, please feel free to share them by submitting [pull requests](https://github.com/soybeanjs/soybean-admin/pulls) or creating GitHub [issue](https://github.com/soybeanjs/soybean-admin/issues/new).
 
 ## Git Commit Guidelines
 
-This project has built-in `commit` command, you can execute `pnpm commit` to generate commit information that conforms to [Conventional Commits](conventionalcommits) specification. When submitting PR, please be sure to use `commit` command to create commit information to ensure the standardization of information.
+This project has built-in `commit` command, you can execute `pnpm commit` to generate commit information that conforms to [Conventional Commits](https://www.conventionalcommits.org/) specification. When submitting PR, please be sure to use `commit` command to create commit information to ensure the standardization of information.
 
 ## Browser Support
 
@@ -130,6 +145,27 @@ Thanks the following people for their contributions. If you want to contribute t
 <a href="https://github.com/soybeanjs/soybean-admin/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=soybeanjs/soybean-admin" />
 </a>
+
+## Communication
+
+`SoybeanAdmin` is a completely open source and free project, helping developers to develop medium and large-scale management systems more conveniently. It also provides WeChat and QQ communication groups. If you have any questions, please feel free to ask in the group.
+
+  <div>
+  	<p>QQ Group</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/qq-soybean-admin-2.jpg" style="width:200px" />
+  </div>
+	<!-- <div>
+		<p>WeChat Group</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-0402.jpg" style="width:200px" />
+	</div> -->
+	<div>
+		<p>Add the following WeChat to invite to the WeChat group</p>
+		<img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybeanjs.jpg" style="width:200px" />
+	</div>
+  <div>
+    <p>Add Soybean's WeChat for business consultation, cooperation, project architecture, one-on-one guidance, etc.</p>
+    <img src="https://soybeanjs-1300612522.cos.ap-guangzhou.myqcloud.com/uPic/wechat-soybean.jpg" style="width:200px" />
+  </div>
 
 ## Star Trend
 
