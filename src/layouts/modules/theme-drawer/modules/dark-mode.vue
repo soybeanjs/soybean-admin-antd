@@ -38,6 +38,12 @@ function handleSegmentChange(value: string | number) {
 }
 
 const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layout.mode.includes('vertical'));
+
+type CheckedType = boolean | string | number;
+
+function handleGrayscaleChange(value: CheckedType) {
+  themeStore.setGrayscale(value as boolean);
+}
 </script>
 
 <template>
@@ -57,6 +63,9 @@ const showSiderInverted = computed(() => !themeStore.darkMode && themeStore.layo
         <ASwitch v-model:checked="themeStore.sider.inverted" />
       </SettingItem>
     </Transition>
+    <SettingItem :label="$t('theme.grayscale')">
+      <ASwitch :checked="themeStore.grayscale" @update:checked="handleGrayscaleChange" />
+    </SettingItem>
   </div>
 </template>
 
