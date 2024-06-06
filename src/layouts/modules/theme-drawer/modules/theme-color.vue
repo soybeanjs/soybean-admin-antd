@@ -18,6 +18,26 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
 <template>
   <ADivider>{{ $t('theme.themeColor.title') }}</ADivider>
   <div class="flex-col-stretch gap-12px">
+    <ATooltip placement="topLeft">
+      <SettingItem key="recommend-color" :label="$t('theme.recommendColor')">
+        <ASwitch v-model:checked="themeStore.recommendColor" />
+      </SettingItem>
+      <template #title>
+        <p>
+          <span class="pr-12px">{{ $t('theme.recommendColorDesc') }}</span>
+          <br />
+          <AButton
+            type="link"
+            href="https://uicolors.app/create"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray"
+          >
+            https://uicolors.app/create
+          </AButton>
+        </p>
+      </template>
+    </ATooltip>
     <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
       <template v-if="key === 'info'" #suffix>
         <ACheckbox v-model:checked="themeStore.isInfoFollowPrimary">

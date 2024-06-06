@@ -302,6 +302,8 @@ declare namespace App {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         grayscale: string;
         layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
+        recommendColor: string;
+        recommendColorDesc: string;
         themeColor: {
           title: string;
           followPrimary: string;

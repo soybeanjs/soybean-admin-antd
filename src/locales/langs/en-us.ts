@@ -65,6 +65,8 @@ const local: App.I18n.Schema = {
       'vertical-mix': 'Vertical Mix Menu Mode',
       'horizontal-mix': 'Horizontal Mix menu Mode'
     },
+    recommendColor: 'Apply Recommended Color Algorithm',
+    recommendColorDesc: 'The recommended color algorithm refers to',
     themeColor: {
       title: 'Theme Color',
       primary: 'Primary',
