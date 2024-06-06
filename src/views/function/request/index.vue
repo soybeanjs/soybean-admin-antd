@@ -13,6 +13,25 @@ async function logoutWithModal() {
 async function refreshToken() {
   await fetchCustomBackendError('9999', $t('request.tokenExpired'));
 }
+
+async function handleRepeatedMessageError() {
+  await Promise.all([
+    fetchCustomBackendError('2222', $t('page.function.request.repeatedErrorMsg1')),
+    fetchCustomBackendError('2222', $t('page.function.request.repeatedErrorMsg1')),
+    fetchCustomBackendError('2222', $t('page.function.request.repeatedErrorMsg1')),
+    fetchCustomBackendError('3333', $t('page.function.request.repeatedErrorMsg2')),
+    fetchCustomBackendError('3333', $t('page.function.request.repeatedErrorMsg2')),
+    fetchCustomBackendError('3333', $t('page.function.request.repeatedErrorMsg2'))
+  ]);
+}
+
+async function handleRepeatedModalError() {
+  await Promise.all([
+    fetchCustomBackendError('7777', $t('request.logoutWithModalMsg')),
+    fetchCustomBackendError('7777', $t('request.logoutWithModalMsg')),
+    fetchCustomBackendError('7777', $t('request.logoutWithModalMsg'))
+  ]);
+}
 </script>
 
 <template>
@@ -25,6 +44,17 @@ async function refreshToken() {
     </ACard>
     <ACard :title="$t('request.refreshToken')" :bordered="false" size="small" class="card-wrapper">
       <AButton @click="refreshToken">{{ $t('common.trigger') }}</AButton>
+    </ACard>
+    <ACard
+      :title="$t('page.function.request.repeatedErrorOccurOnce')"
+      :bordered="false"
+      size="small"
+      class="card-wrapper"
+    >
+      <AButton @click="handleRepeatedMessageError">{{ $t('page.function.request.repeatedError') }}(Message)</AButton>
+      <AButton class="ml-12px" @click="handleRepeatedModalError">
+        {{ $t('page.function.request.repeatedError') }}(Modal)
+      </AButton>
     </ACard>
   </ASpace>
 </template>
