@@ -1,6 +1,6 @@
 <div align="center">
 	<img src="./public/favicon.svg" width="160" />
-	<h1>Soybean Admin</h1>
+	<h1>SoybeanAdmin</h1>
   <span>English | <a href="./README.zh_CN.md">中文</a></span>
 </div>
 <br />
@@ -8,11 +8,11 @@
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE) ![](https://img.shields.io/github/stars/soybeanjs/soybean-admin) ![](https://img.shields.io/github/forks/soybeanjs/soybean-admin)
 
 > [!NOTE]
-> If you think `Soybean Admin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
+> If you think `SoybeanAdmin` is helpful to you, or you like our project, please give us a ⭐️ on GitHub. Your support is the driving force for us to continue to improve and add new features! Thank you for your support!
 
 ## Introduction
 
-[`Soybean Admin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `Soybean Admin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
+[`SoybeanAdmin`](https://github.com/soybeanjs/soybean-admin) is a clean, elegant, beautiful and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. `SoybeanAdmin` provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.
 
 
 ## Features
