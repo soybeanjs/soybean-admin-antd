@@ -1,8 +1,8 @@
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useEventListener } from '@vueuse/core';
 import type { RouteKey } from '@elegant-router/types';
+import { router } from '@/router';
 import { SetupStoreId } from '@/enum';
 import { useRouterPush } from '@/hooks/common/router';
 import { localStg } from '@/utils/storage';
@@ -17,13 +17,13 @@ import {
   getDefaultHomeTab,
   getFixedTabIds,
   getTabByRoute,
+  getTabIdByRoute,
   isTabInTabs,
   updateTabByI18nKey,
   updateTabsByI18nKey
 } from './shared';
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
-  const router = useRouter();
   const routeStore = useRouteStore();
   const themeStore = useThemeStore();
   const { routerPush } = useRouterPush(false);
@@ -34,11 +34,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   /** Get active tab */
   const homeTab = ref<App.Global.Tab>();
 
-  /**
-   * Init home tab
-   *
-   * @param router Router instance
-   */
+  /** Init home tab */
   function initHomeTab() {
     homeTab.value = getDefaultHomeTab(router, routeStore.routeHome);
   }
@@ -67,8 +63,8 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     const storageTabs = localStg.get('globalTabs');
 
     if (themeStore.tab.cache && storageTabs) {
-      const filteredTabs = extractTabsByAllRoutes(router, storageTabs);
-      tabs.value = updateTabsByI18nKey(filteredTabs);
+      const extractedTabs = extractTabsByAllRoutes(router, storageTabs);
+      tabs.value = updateTabsByI18nKey(extractedTabs);
     }
 
     addTab(currentRoute);
@@ -293,6 +289,7 @@ export const useTabStore = defineStore(SetupStoreId.Tab, () => {
     setTabLabel,
     resetTabLabel,
     isTabRetain,
-    updateTabsByLocale
+    updateTabsByLocale,
+    getTabIdByRoute
   };
 });
