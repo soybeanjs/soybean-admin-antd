@@ -158,7 +158,7 @@ declare namespace App {
       /** The menu label */
       label: string;
       /** The menu i18n key */
-      i18nKey?: I18n.I18nKey;
+      i18nKey?: I18n.I18nKey | null;
       /** The route key */
       routeKey: RouteKey;
       /** The route path */
@@ -200,7 +200,7 @@ declare namespace App {
       /** The tab route full path */
       fullPath: string;
       /** The tab fixed index */
-      fixedIndex?: number;
+      fixedIndex?: number | null;
       /**
        * Tab icon
        *
@@ -214,7 +214,7 @@ declare namespace App {
        */
       localIcon?: string;
       /** I18n key */
-      i18nKey?: I18n.I18nKey;
+      i18nKey?: I18n.I18nKey | null;
     };
 
     /** Form rule */
@@ -536,7 +536,7 @@ declare namespace App {
             constant: string;
             routeName: string;
             routePath: string;
-            routeParams: string;
+            pathParam: string;
             layout: string;
             page: string;
             i18nKey: string;
@@ -544,32 +544,30 @@ declare namespace App {
             localIcon: string;
             iconTypeTitle: string;
             order: string;
-            pathParam: string;
             keepAlive: string;
             href: string;
             hideInMenu: string;
             activeMenu: string;
             multiTab: string;
             fixedIndexInTab: string;
+            query: string;
             button: string;
             buttonCode: string;
             buttonDesc: string;
             menuStatus: string;
-            query: string;
             form: {
               home: string;
               menuType: string;
               menuName: string;
               routeName: string;
               routePath: string;
+              pathParam: string;
               layout: string;
               queryKey: string;
               page: string;
-              createInput: string;
               i18nKey: string;
               icon: string;
               localIcon: string;
-              pathParam: string;
               queryValue: string;
               order: string;
               keepAlive: string;

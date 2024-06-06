@@ -94,7 +94,7 @@ function createDefaultModel(): Model {
     component: '',
     layout: '',
     page: '',
-    i18nKey: undefined,
+    i18nKey: null,
     icon: '',
     iconType: '1',
     parentId: 0,
@@ -102,11 +102,11 @@ function createDefaultModel(): Model {
     keepAlive: false,
     constant: false,
     order: 0,
-    href: undefined,
+    href: null,
     hideInMenu: false,
-    activeMenu: undefined,
+    activeMenu: null,
     multiTab: false,
-    fixedIndexInTab: undefined,
+    fixedIndexInTab: null,
     query: [],
     buttons: []
   };
@@ -181,37 +181,29 @@ async function getRoleOptions() {
 }
 
 /** - add a query input */
-function addQueryInput(index?: number) {
-  index === 0 || index
-    ? model.query.splice(index + 1, 0, {
-        key: '',
-        value: ''
-      })
-    : model.query.push({
-        key: '',
-        value: ''
-      });
+function addQuery(index: number) {
+  model.query.splice(index + 1, 0, {
+    key: '',
+    value: ''
+  });
 }
 
 /** - remove a query input */
-function removeQueryInput(index: number, attribute: keyof Pick<Model, 'query' | 'buttons'>) {
-  model[attribute].splice(index, 1);
+function removeQuery(index: number) {
+  model.query.splice(index, 1);
 }
 
 /** - add a button input */
-function addButtonInput(index?: number) {
-  index === 0 || index
-    ? model.buttons.splice(index + 1, 0, handleCreateButton())
-    : model.buttons.push(handleCreateButton());
-}
-
-function handleCreateButton() {
-  const buttonItem: Api.SystemManage.MenuButton = {
+function addButton(index: number) {
+  model.buttons.splice(index + 1, 0, {
     code: '',
     desc: ''
-  };
+  });
+}
 
-  return buttonItem;
+/** - remove a button input */
+function removeButton(index: number) {
+  model.buttons.splice(index, 1);
 }
 
 function handleInitModel() {
@@ -258,7 +250,7 @@ function handleUpdateI18nKeyByRouteName() {
   if (model.routeName) {
     model.i18nKey = `route.${model.routeName}` as App.I18n.I18nKey;
   } else {
-    model.i18nKey = undefined;
+    model.i18nKey = null;
   }
 }
 
@@ -306,9 +298,9 @@ watch(
 
 <template>
   <AModal v-model:open="visible" :title="title" width="800px">
-    <div class="h-480px pr-20px">
+    <div class="h-480px">
       <SimpleScrollbar>
-        <AForm ref="formRef" :model="model" :rules="rules" :label-col="{ lg: 8, xs: 4 }" label-wrap>
+        <AForm ref="formRef" :model="model" :rules="rules" :label-col="{ lg: 8, xs: 4 }" label-wrap class="pr-20px">
           <ARow>
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.menuType')" name="menuType">
@@ -359,13 +351,13 @@ watch(
             </ACol>
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.i18nKey')" name="i18nKey">
-                <AInput v-model:value="model.i18nKey" :placeholder="$t('page.manage.menu.form.i18nKey')" />
+                <AInput v-model:value="model.i18nKey as string" :placeholder="$t('page.manage.menu.form.i18nKey')" />
               </AFormItem>
             </ACol>
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.order')" name="order">
                 <AInputNumber
-                  v-model:value="model.order"
+                  v-model:value="model.order as number"
                   class="w-full"
                   :placeholder="$t('page.manage.menu.form.order')"
                 />
@@ -411,7 +403,6 @@ watch(
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.keepAlive')" name="keepAlive">
                 <ARadioGroup v-model:value="model.keepAlive">
-                  <!-- eslint-disable-next-line vue/prefer-true-attribute-shorthand -->
                   <ARadio :value="true">{{ $t('common.yesOrNo.yes') }}</ARadio>
                   <ARadio :value="false">{{ $t('common.yesOrNo.no') }}</ARadio>
                 </ARadioGroup>
@@ -431,13 +422,12 @@ watch(
             </ACol>
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.href')" name="href">
-                <AInput v-model:value="model.href" :placeholder="$t('page.manage.menu.form.href')" />
+                <AInput v-model:value="model.href as string" :placeholder="$t('page.manage.menu.form.href')" />
               </AFormItem>
             </ACol>
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.hideInMenu')" name="hideInMenu">
                 <ARadioGroup v-model:value="model.hideInMenu">
-                  <!-- eslint-disable-next-line vue/prefer-true-attribute-shorthand -->
                   <ARadio :value="true">{{ $t('common.yesOrNo.yes') }}</ARadio>
                   <ARadio :value="false">{{ $t('common.yesOrNo.no') }}</ARadio>
                 </ARadioGroup>
@@ -446,7 +436,7 @@ watch(
             <ACol v-if="model.hideInMenu" :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.activeMenu')" name="activeMenu">
                 <ASelect
-                  v-model:value="model.activeMenu"
+                  v-model:value="model.activeMenu as string"
                   :options="pageOptions"
                   clearable
                   :placeholder="$t('page.manage.menu.form.activeMenu')"
@@ -464,7 +454,7 @@ watch(
             <ACol :lg="12" :xs="24">
               <AFormItem :label="$t('page.manage.menu.fixedIndexInTab')" name="fixedIndexInTab">
                 <AInputNumber
-                  v-model:value="model.fixedIndexInTab"
+                  v-model:value="model.fixedIndexInTab as number"
                   class="w-full"
                   clearable
                   :placeholder="$t('page.manage.menu.form.fixedIndexInTab')"
@@ -473,10 +463,10 @@ watch(
             </ACol>
             <ACol :span="24">
               <AFormItem :label-col="{ span: 4 }" :label="$t('page.manage.menu.query')" name="query">
-                <AButton v-if="model.query.length === 0" type="dashed" block @click="() => addQueryInput()">
+                <AButton v-if="model.query.length === 0" type="dashed" block @click="addQuery(-1)">
                   <div class="flex-center">
                     <icon-carbon-add class="text-icon" />
-                    <span>{{ $t('page.manage.menu.form.createInput') }}</span>
+                    <span>{{ $t('common.add') }}</span>
                   </div>
                 </AButton>
                 <template v-else>
@@ -487,7 +477,7 @@ watch(
                           v-model:value="item.key"
                           :placeholder="$t('page.manage.menu.form.queryKey')"
                           class="flex-1"
-                        ></AInput>
+                        />
                       </AFormItem>
                     </ACol>
                     <ACol :span="9">
@@ -496,15 +486,15 @@ watch(
                           v-model:value="item.value"
                           :placeholder="$t('page.manage.menu.form.queryValue')"
                           class="flex-1"
-                        ></AInput>
+                        />
                       </AFormItem>
                     </ACol>
                     <ACol :span="5">
                       <ASpace class="ml-12px">
-                        <AButton size="middle" @click="() => addQueryInput(index)">
+                        <AButton size="middle" @click="addQuery(index)">
                           <icon-ic:round-plus class="text-icon" />
                         </AButton>
-                        <AButton size="middle" @click="() => removeQueryInput(index, 'query')">
+                        <AButton size="middle" @click="removeQuery(index)">
                           <icon-ic-round-remove class="text-icon" />
                         </AButton>
                       </ASpace>
@@ -515,10 +505,10 @@ watch(
             </ACol>
             <ACol :span="24">
               <AFormItem :label-col="{ span: 4 }" :label="$t('page.manage.menu.button')" name="buttons">
-                <AButton v-if="model.buttons.length === 0" type="dashed" block @click="() => addButtonInput()">
+                <AButton v-if="model.buttons.length === 0" type="dashed" block @click="addButton(-1)">
                   <div class="flex-center">
                     <icon-carbon-add class="text-icon" />
-                    <span>{{ $t('page.manage.menu.form.createInput') }}</span>
+                    <span>{{ $t('common.add') }}</span>
                   </div>
                 </AButton>
                 <template v-else>
@@ -543,10 +533,10 @@ watch(
                     </ACol>
                     <ACol :span="5">
                       <ASpace class="ml-12px">
-                        <AButton size="middle" @click="() => addButtonInput(index)">
+                        <AButton size="middle" @click="addButton(index)">
                           <icon-ic:round-plus class="text-icon" />
                         </AButton>
-                        <AButton size="middle" @click="() => removeQueryInput(index, 'buttons')">
+                        <AButton size="middle" @click="removeButton(index)">
                           <icon-ic-round-remove class="text-icon" />
                         </AButton>
                       </ASpace>

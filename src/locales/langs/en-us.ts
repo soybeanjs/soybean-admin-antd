@@ -363,7 +363,6 @@ const local: App.I18n.Schema = {
         query: 'Query Params',
         routeName: 'Route Name',
         routePath: 'Route Path',
-        routeParams: 'Route Params',
         layout: 'Layout Component',
         page: 'Page Component',
         i18nKey: 'I18n Key',
@@ -408,8 +407,7 @@ const local: App.I18n.Schema = {
           button: 'Please select whether it is a button',
           buttonCode: 'Please enter button code',
           buttonDesc: 'Please enter button description',
-          menuStatus: 'Please select menu status',
-          createInput: 'Create'
+          menuStatus: 'Please select menu status'
         },
         addMenu: 'Add Menu',
         editMenu: 'Edit Menu',
