@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { SegmentedOption } from 'ant-design-vue/es/segmented/src/segmented';
+import { $t } from '@/locales';
 import { themeSchemaRecord } from '@/constants/app';
 import { useThemeStore } from '@/store/modules/theme';
 import SettingItem from '../components/setting-item.vue';
