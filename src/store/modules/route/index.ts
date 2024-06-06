@@ -56,7 +56,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const constantRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addConstantRoutes(routes: ElegantConstRoute[]) {
-    const constantRoutesMap = new Map(constantRoutes.value.map(route => [route.name, route]));
+    const constantRoutesMap = new Map<string, ElegantConstRoute>([]);
 
     routes.forEach(route => {
       constantRoutesMap.set(route.name, route);
@@ -69,7 +69,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   const authRoutes = shallowRef<ElegantConstRoute[]>([]);
 
   function addAuthRoutes(routes: ElegantConstRoute[]) {
-    const authRoutesMap = new Map(authRoutes.value.map(route => [route.name, route]));
+    const authRoutesMap = new Map<string, ElegantConstRoute>([]);
 
     routes.forEach(route => {
       authRoutesMap.set(route.name, route);
@@ -97,13 +97,19 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Cache routes */
   const cacheRoutes = ref<RouteKey[]>([]);
 
+  /** All cache routes */
+  const allCacheRoutes = shallowRef<RouteKey[]>([]);
+
   /**
    * Get cache routes
    *
    * @param routes Vue routes
    */
   function getCacheRoutes(routes: RouteRecordRaw[]) {
-    cacheRoutes.value = getCacheRouteNames(routes);
+    const alls = getCacheRouteNames(routes);
+
+    cacheRoutes.value = alls;
+    allCacheRoutes.value = [...alls];
   }
 
   /**
@@ -131,11 +137,22 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
+   * Is cached route
+   *
+   * @param routeKey
+   */
+  function isCachedRoute(routeKey: RouteKey) {
+    return allCacheRoutes.value.includes(routeKey);
+  }
+
+  /**
    * Re cache routes by route key
    *
    * @param routeKey
    */
   async function reCacheRoutesByKey(routeKey: RouteKey) {
+    if (!isCachedRoute(routeKey)) return;
+
     removeCacheRoutes(routeKey);
 
     await appStore.reloadPage();
@@ -179,15 +196,18 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   async function initConstantRoute() {
     if (isInitConstantRoute.value) return;
 
-    if (authRouteMode.value === 'static') {
-      const staticRoute = createStaticRoutes();
+    const staticRoute = createStaticRoutes();
 
+    if (authRouteMode.value === 'static') {
       addConstantRoutes(staticRoute.constantRoutes);
     } else {
       const { data, error } = await fetchGetConstantRoutes();
 
       if (!error) {
         addConstantRoutes(data);
+      } else {
+        // if fetch constant routes failed, use static constant routes
+        addConstantRoutes(staticRoute.constantRoutes);
       }
     }
 
@@ -240,6 +260,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       handleUpdateRootRouteRedirect(home);
 
       setIsInitAuthRoute(true);
+    } else {
+      // if fetch user routes failed, reset store
+      authStore.resetStore();
     }
   }
 
@@ -332,18 +355,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   }
 
   /**
-   * Get selected menu meta by key
-   *
-   * @param selectedKey Selected menu key
-   */
-  function getSelectedMenuMetaByKey(selectedKey: string) {
-    // The routes in router.options.routes are static, you need to use router.getRoutes() to get all the routes.
-    const allRoutes = router.getRoutes();
-
-    return allRoutes.find(route => route.name === selectedKey)?.meta || null;
-  }
-
-  /**
    * Get route meta by key
    *
    * @param key Route key
@@ -388,7 +399,6 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     setIsInitAuthRoute,
     getIsAuthRouteExist,
     getSelectedMenuKeyPath,
-    getSelectedMenuMetaByKey,
     getRouteQueryOfMetaByKey
   };
 });
