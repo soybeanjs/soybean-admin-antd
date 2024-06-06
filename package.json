@@ -62,6 +62,7 @@
     "lodash-es": "4.17.21",
     "nprogress": "0.2.0",
     "pinia": "2.1.7",
+    "tailwind-merge": "^2.3.0",
     "vue": "3.4.27",
     "vue-draggable-plus": "0.5.0",
     "vue-i18n": "9.13.1",
