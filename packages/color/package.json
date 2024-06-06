@@ -1,6 +1,6 @@
 {
-  "name": "@sa/color-palette",
-  "version": "1.0.0",
+  "name": "@sa/color",
+  "version": "1.2.0",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -10,6 +10,7 @@
     }
   },
   "dependencies": {
+    "@sa/utils": "workspace:*",
     "colord": "2.9.3"
   }
 }

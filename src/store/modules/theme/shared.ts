@@ -1,6 +1,6 @@
 import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
-import { getColorPalette } from '@sa/color-palette';
+import { getColorPalette } from '@sa/color';
 import { getRgbOfColor } from '@sa/utils';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
@@ -34,9 +34,10 @@ export function initThemeSettings() {
  * Create theme token
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
-export function createThemeToken(colors: App.Theme.ThemeColor) {
-  const paletteColors = createThemePaletteColors(colors);
+export function createThemeToken(colors: App.Theme.ThemeColor, recommended = false) {
+  const paletteColors = createThemePaletteColors(colors, recommended);
 
   const themeTokens: App.Theme.ThemeToken = {
     colors: {
@@ -76,18 +77,19 @@ export function createThemeToken(colors: App.Theme.ThemeColor) {
  * Create theme palette colors
  *
  * @param colors Theme colors
+ * @param [recommended=false] Use recommended color. Default is `false`
  */
-function createThemePaletteColors(colors: App.Theme.ThemeColor) {
+function createThemePaletteColors(colors: App.Theme.ThemeColor, recommended = false) {
   const colorKeys = Object.keys(colors) as App.Theme.ThemeColorKey[];
   const colorPaletteVar = {} as App.Theme.ThemePaletteColor;
 
   colorKeys.forEach(key => {
-    const { palettes, main } = getColorPalette(colors[key], key);
+    const colorMap = getColorPalette(colors[key], recommended);
 
-    colorPaletteVar[key] = main.hexcode;
+    colorPaletteVar[key] = colorMap.get(500)!;
 
-    palettes.forEach(item => {
-      colorPaletteVar[`${key}-${item.number}`] = item.hexcode;
+    colorMap.forEach((hex, number) => {
+      colorPaletteVar[`${key}-${number}`] = hex;
     });
   });
 

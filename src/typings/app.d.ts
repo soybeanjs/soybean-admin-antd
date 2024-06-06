@@ -2,7 +2,7 @@
 declare namespace App {
   /** Theme namespace */
   namespace Theme {
-    type ColorPaletteNumber = import('@sa/color-palette').ColorPaletteNumber;
+    type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
     /** Theme token */
     type ThemeToken = {
@@ -18,6 +18,8 @@ declare namespace App {
     interface ThemeSetting {
       /** Theme scheme */
       themeScheme: UnionKey.ThemeScheme;
+      /** Whether to recommend color */
+      recommendColor: boolean;
       /** Theme color */
       themeColor: string;
       /** Other color */
