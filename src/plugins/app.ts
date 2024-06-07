@@ -21,7 +21,7 @@ export function setupAppVersionNotification() {
                   window.$notification?.destroy(key);
                 }
               },
-              $t('system.updateCancel')
+              () => $t('system.updateCancel')
             ),
             h(
               Button,
@@ -31,7 +31,7 @@ export function setupAppVersionNotification() {
                   location.reload();
                 }
               },
-              $t('system.updateConfirm')
+              () => $t('system.updateConfirm')
             )
           ]);
         }
