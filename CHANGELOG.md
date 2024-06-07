@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [v1.2.1](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.0...v1.2.1) (2024-06-07)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix get user info when page reload &nbsp;-&nbsp; by @soybeanjs [<samp>(0f6b7)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0f6b73f)
+  - fix setupAppVersionNotification render &nbsp;-&nbsp; by @soybeanjs [<samp>(63d5d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/63d5dc5)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(a6c0e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a6c0eae)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.0](https://github.com/soybeanjs/soybean-admin-antd/compare/undefined...v1.2.0) (2024-06-07)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
