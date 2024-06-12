@@ -14,10 +14,10 @@ const columns = defineModel<AntDesign.TableColumnCheck[]>('columns', {
 <template>
   <APopover placement="bottomRight" trigger="click">
     <AButton size="small">
-      <div class="flex-y-center gap-8px">
-        <icon-ant-design-setting-outlined class="text-icon" />
-        <span>{{ $t('common.columnSetting') }}</span>
-      </div>
+      <template #icon>
+        <icon-ant-design-setting-outlined class="align-sub text-icon" />
+      </template>
+      <span class="ml-8px">{{ $t('common.columnSetting') }}</span>
     </AButton>
     <template #content>
       <VueDraggable v-model="columns" :animation="150" filter=".none_draggable">

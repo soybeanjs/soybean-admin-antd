@@ -464,10 +464,10 @@ watch(
             <ACol :span="24">
               <AFormItem :label-col="{ span: 4 }" :label="$t('page.manage.menu.query')" name="query">
                 <AButton v-if="model.query.length === 0" type="dashed" block @click="addQuery(-1)">
-                  <div class="flex-center">
-                    <icon-carbon-add class="text-icon" />
-                    <span>{{ $t('common.add') }}</span>
-                  </div>
+                  <template #icon>
+                    <icon-carbon-add class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ $t('common.add') }}</span>
                 </AButton>
                 <template v-else>
                   <div v-for="(item, index) in model.query" :key="index" class="flex gap-3">
@@ -492,10 +492,14 @@ watch(
                     <ACol :span="5">
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addQuery(index)">
-                          <icon-ic:round-plus class="text-icon" />
+                          <template #icon>
+                            <icon-ic:round-plus class="align-sub text-icon" />
+                          </template>
                         </AButton>
                         <AButton size="middle" @click="removeQuery(index)">
-                          <icon-ic-round-remove class="text-icon" />
+                          <template #icon>
+                            <icon-ic-round-remove class="align-sub text-icon" />
+                          </template>
                         </AButton>
                       </ASpace>
                     </ACol>
@@ -506,10 +510,10 @@ watch(
             <ACol :span="24">
               <AFormItem :label-col="{ span: 4 }" :label="$t('page.manage.menu.button')" name="buttons">
                 <AButton v-if="model.buttons.length === 0" type="dashed" block @click="addButton(-1)">
-                  <div class="flex-center">
-                    <icon-carbon-add class="text-icon" />
-                    <span>{{ $t('common.add') }}</span>
-                  </div>
+                  <template #icon>
+                    <icon-carbon-add class="align-sub text-icon" />
+                  </template>
+                  <span class="ml-8px">{{ $t('common.add') }}</span>
                 </AButton>
                 <template v-else>
                   <div v-for="(item, index) in model.buttons" :key="index" class="flex gap-3">
@@ -534,10 +538,14 @@ watch(
                     <ACol :span="5">
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addButton(index)">
-                          <icon-ic:round-plus class="text-icon" />
+                          <template #icon>
+                            <icon-ic:round-plus class="align-sub text-icon" />
+                          </template>
                         </AButton>
                         <AButton size="middle" @click="removeButton(index)">
-                          <icon-ic-round-remove class="text-icon" />
+                          <template #icon>
+                            <icon-ic-round-remove class="align-sub text-icon" />
+                          </template>
                         </AButton>
                       </ASpace>
                     </ACol>

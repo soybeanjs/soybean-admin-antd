@@ -99,15 +99,15 @@ async function search() {
             <div class="w-full flex-y-center justify-end gap-12px">
               <AButton @click="reset">
                 <template #icon>
-                  <icon-ic-round-refresh class="text-icon" />
+                  <icon-ic-round-refresh class="align-sub text-icon" />
                 </template>
-                {{ $t('common.reset') }}
+                <span class="ml-8px">{{ $t('common.reset') }}</span>
               </AButton>
               <AButton type="primary" ghost @click="search">
                 <template #icon>
-                  <icon-ic-round-search class="text-icon" />
+                  <icon-ic-round-search class="align-sub text-icon" />
                 </template>
-                {{ $t('common.search') }}
+                <span class="ml-8px">{{ $t('common.search') }}</span>
               </AButton>
             </div>
           </AFormItem>
