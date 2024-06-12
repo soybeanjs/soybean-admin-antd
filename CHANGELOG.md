@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [v1.2.2](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.1...v1.2.2) (2024-06-12)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: reset scroll position when tab change &nbsp;-&nbsp; by @soybeanjs [<samp>(804f9)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/804f9e6)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - hide AppVersionNotification in DEV mode &nbsp;-&nbsp; by @soybeanjs [<samp>(e3d91)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/e3d91df)
+  - fix menu-toggler hidden in mobile layout &nbsp;-&nbsp; by @soybeanjs [<samp>(a73d2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a73d2e1)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @soybeanjs [<samp>(bab68)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/bab6817)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.1](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.0...v1.2.1) (2024-06-07)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
