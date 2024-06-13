@@ -1,6 +1,7 @@
 import { computed, effectScope, onScopeDispose, reactive, ref, shallowRef, toValue, watch } from 'vue';
 import type { MaybeRef, Ref } from 'vue';
 import type { TablePaginationConfig } from 'ant-design-vue';
+import type { TableRowSelection } from 'ant-design-vue/es/table/interface';
 import { cloneDeep } from 'lodash-es';
 import { useElementSize } from '@vueuse/core';
 import { useBoolean, useHookTable } from '@sa/hooks';
@@ -181,6 +182,14 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     checkedRowKeys.value = keys as T['id'][];
   }
 
+  const rowSelection = computed<TableRowSelection<T>>(() => {
+    return {
+      type: 'checkbox',
+      selectedRowKeys: checkedRowKeys.value,
+      onChange: onSelectChange
+    };
+  });
+
   /** the hook after the batch delete operation is completed */
   async function onBatchDeleted() {
     window.$message?.success($t('common.deleteSuccess'));
@@ -207,6 +216,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     handleEdit,
     checkedRowKeys,
     onSelectChange,
+    rowSelection,
     onBatchDeleted,
     onDeleted
   };

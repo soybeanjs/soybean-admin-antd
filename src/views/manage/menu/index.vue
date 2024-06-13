@@ -162,7 +162,7 @@ const { columns, columnChecks, data, loading, pagination, getData } = useTable({
   ]
 });
 
-const { checkedRowKeys, onBatchDeleted, onDeleted, onSelectChange } = useTableOperate(data, getData);
+const { checkedRowKeys, rowSelection, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
 
 const operateType = ref<OperateType>('add');
 
@@ -238,11 +238,7 @@ init();
         ref="tableWrapperRef"
         :columns="columns"
         :data-source="data"
-        :row-selection="{
-          type: 'checkbox',
-          selectedRowKeys: checkedRowKeys,
-          onChange: onSelectChange
-        }"
+        :row-selection="rowSelection"
         size="small"
         :loading="loading"
         row-key="id"

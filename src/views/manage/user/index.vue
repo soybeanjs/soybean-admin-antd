@@ -127,9 +127,9 @@ const {
   operateType,
   editingData,
   handleAdd,
-  onSelectChange,
   handleEdit,
   checkedRowKeys,
+  rowSelection,
   onBatchDeleted,
   onDeleted
   // closeDrawer
@@ -178,11 +178,7 @@ function edit(id: number) {
         :columns="columns"
         :data-source="data"
         size="small"
-        :row-selection="{
-          type: 'checkbox',
-          selectedRowKeys: checkedRowKeys,
-          onChange: onSelectChange
-        }"
+        :row-selection="rowSelection"
         :scroll="scrollConfig"
         :loading="loading"
         row-key="id"
