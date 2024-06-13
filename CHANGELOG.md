@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [v1.2.4](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.3...v1.2.4) (2024-06-14)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize `setupAppVersionNotification` &nbsp;-&nbsp; by @soybeanjs [<samp>(f061d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f061d8b)
+  - get buildTime with timezone 'Asia/Shanghai' &nbsp;-&nbsp; by @soybeanjs [<samp>(b256a)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/b256a3e)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- **projects**: add github config &nbsp;-&nbsp; by @soybeanjs [<samp>(fe15a)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/fe15a9a)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.3](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.2...v1.2.3) (2024-06-13)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
