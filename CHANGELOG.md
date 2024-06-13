@@ -1,6 +1,43 @@
 # Changelog
 
 
+## [v1.2.3](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.2...v1.2.3) (2024-06-13)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix mobile browser theme issue by adding color-scheme meta tag to index.html &nbsp;-&nbsp; by @KickCashew in https://github.com/soybeanjs/soybean-admin-antd/issues/27 [<samp>(6bf97)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/6bf972d)
+  - Fix secondary directory components is empty &nbsp;-&nbsp; by @paynezhuang in https://github.com/soybeanjs/soybean-admin-antd/issues/29 [<samp>(fb48f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/fb48f41)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize table scrollConfig. fixed #25 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/25 [<samp>(d0f8e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d0f8e55)
+  - optimize table rowSelection &nbsp;-&nbsp; by @soybeanjs [<samp>(49c57)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/49c572b)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - Fixed the hyperlink pointing error &nbsp;-&nbsp; by **Azir** [<samp>(d5602)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d5602ed)
+  - update README &nbsp;-&nbsp; by @soybeanjs [<samp>(9527e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9527ead)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(9954c)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9954c8e)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(d9f9f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d9f9f9f)
+
+### &nbsp;&nbsp;&nbsp;🎨 Styles
+
+- **projects**:
+  - unify button icon style. close #26 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/26 [<samp>(ef60e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ef60e2c)
+  - fit table column width of checkbox &nbsp;-&nbsp; by @soybeanjs [<samp>(ebcfb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ebcfbe1)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![paynezhuang](https://github.com/paynezhuang.png?size=48)](https://github.com/paynezhuang)&nbsp;&nbsp;[![KickCashew](https://github.com/KickCashew.png?size=48)](https://github.com/KickCashew)&nbsp;&nbsp;
+[Azir](mailto:2075125282@qq.com)
+
 ## [v1.2.2](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.1...v1.2.2) (2024-06-12)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
