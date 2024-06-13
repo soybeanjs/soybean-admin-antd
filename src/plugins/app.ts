@@ -3,10 +3,18 @@ import { Button } from 'ant-design-vue';
 import { $t } from '../locales';
 
 export function setupAppVersionNotification() {
+  let isShow = false;
+
   document.addEventListener('visibilitychange', async () => {
+    const preConditions = [!isShow, document.visibilityState === 'visible', !import.meta.env.DEV];
+
+    if (!preConditions.every(Boolean)) return;
+
     const buildTime = await getHtmlBuildTime();
 
-    if (!import.meta.env.DEV && buildTime !== BUILD_TIME && document.visibilityState === 'visible') {
+    if (buildTime !== BUILD_TIME) {
+      isShow = true;
+
       const key = `open${Date.now()}`;
 
       window.$notification?.open({
@@ -34,6 +42,9 @@ export function setupAppVersionNotification() {
               () => $t('system.updateConfirm')
             )
           ]);
+        },
+        onClose() {
+          isShow = false;
         }
       });
     }
