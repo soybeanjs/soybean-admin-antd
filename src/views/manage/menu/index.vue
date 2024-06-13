@@ -4,7 +4,7 @@ import { Button, Popconfirm, Tag } from 'ant-design-vue';
 import type { Ref } from 'vue';
 import { useBoolean } from '@sa/hooks';
 import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
-import { useTable, useTableOperate } from '@/hooks/common/table';
+import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { yesOrNoRecord } from '@/constants/common';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
@@ -12,6 +12,7 @@ import SvgIcon from '@/components/custom/svg-icon.vue';
 import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal.vue';
 
 const { bool: visible, setTrue: openModal } = useBoolean();
+const { tableWrapperRef, scrollConfig } = useTableScroll();
 
 const { columns, columnChecks, data, loading, pagination, getData } = useTable({
   apiFn: fetchGetMenuList,
@@ -216,8 +217,13 @@ init();
 </script>
 
 <template>
-  <div class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <ACard :title="$t('page.manage.menu.title')" :bordered="false" class="sm:flex-1-hidden card-wrapper">
+  <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <ACard
+      :title="$t('page.manage.menu.title')"
+      :bordered="false"
+      :body-style="{ flex: 1, overflow: 'hidden' }"
+      class="flex-col-stretch sm:flex-1-hidden card-wrapper"
+    >
       <template #extra>
         <TableHeaderOperation
           v-model:columns="columnChecks"
@@ -229,6 +235,7 @@ init();
         />
       </template>
       <ATable
+        ref="tableWrapperRef"
         :columns="columns"
         :data-source="data"
         :row-selection="{
@@ -239,9 +246,9 @@ init();
         size="small"
         :loading="loading"
         row-key="id"
-        :scroll="{ x: 702 }"
+        :scroll="scrollConfig"
         :pagination="pagination"
-        class="sm:h-full"
+        class="h-full"
       />
       <MenuOperateModal
         v-model:visible="visible"

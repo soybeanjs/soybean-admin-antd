@@ -1,22 +1,14 @@
 <script setup lang="tsx">
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
-import { computed, shallowRef } from 'vue';
-import { useElementSize } from '@vueuse/core';
 import { fetchGetUserList } from '@/service/api';
+import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
-import { useTable, useTableOperate } from '@/hooks/common/table';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import UserSearch from './modules/user-search.vue';
-const wrapperEl = shallowRef<HTMLElement | null>(null);
-const { height: wrapperElHeight } = useElementSize(wrapperEl);
 
-const scrollConfig = computed(() => {
-  return {
-    y: wrapperElHeight.value - 72,
-    x: 702
-  };
-});
+const { tableWrapperRef, scrollConfig } = useTableScroll();
+
 const { columns, columnChecks, data, getData, loading, mobilePagination, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetUserList,
   apiParams: {
@@ -182,7 +174,7 @@ function edit(id: number) {
         />
       </template>
       <ATable
-        ref="wrapperEl"
+        ref="tableWrapperRef"
         :columns="columns"
         :data-source="data"
         size="small"

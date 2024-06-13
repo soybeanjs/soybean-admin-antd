@@ -1,26 +1,13 @@
 <script setup lang="tsx">
-import { computed, shallowRef } from 'vue';
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
-import { useElementSize } from '@vueuse/core';
 import { fetchGetRoleList } from '@/service/api';
-// import { useAppStore } from '@/store/modules/app';
-import { useTable, useTableOperate } from '@/hooks/common/table';
+import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import { $t } from '@/locales';
 import { enableStatusRecord } from '@/constants/business';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
-// const appStore = useAppStore();
-
-const wrapperEl = shallowRef<HTMLElement | null>(null);
-const { height: wrapperElHeight } = useElementSize(wrapperEl);
-
-const scrollConfig = computed(() => {
-  return {
-    y: wrapperElHeight.value - 72,
-    x: 702
-  };
-});
+const { tableWrapperRef, scrollConfig } = useTableScroll();
 
 const { columns, columnChecks, data, loading, getData, mobilePagination, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetRoleList,
@@ -152,7 +139,7 @@ function edit(id: number) {
         />
       </template>
       <ATable
-        ref="wrapperEl"
+        ref="tableWrapperRef"
         :columns="columns"
         :data-source="data"
         :row-selection="{

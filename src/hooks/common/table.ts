@@ -1,7 +1,8 @@
-import { computed, effectScope, onScopeDispose, reactive, ref, watch } from 'vue';
-import type { Ref } from 'vue';
+import { computed, effectScope, onScopeDispose, reactive, ref, shallowRef, toValue, watch } from 'vue';
+import type { MaybeRef, Ref } from 'vue';
 import type { TablePaginationConfig } from 'ant-design-vue';
 import { cloneDeep } from 'lodash-es';
+import { useElementSize } from '@vueuse/core';
 import { useBoolean, useHookTable } from '@sa/hooks';
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
@@ -208,5 +209,22 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
     onSelectChange,
     onBatchDeleted,
     onDeleted
+  };
+}
+
+export function useTableScroll(scrollX: MaybeRef<number> = 702) {
+  const tableWrapperRef = shallowRef<HTMLElement | null>(null);
+  const { height: wrapperElHeight } = useElementSize(tableWrapperRef);
+
+  const scrollConfig = computed(() => {
+    return {
+      y: wrapperElHeight.value - 72,
+      x: toValue(scrollX)
+    };
+  });
+
+  return {
+    tableWrapperRef,
+    scrollConfig
   };
 }
