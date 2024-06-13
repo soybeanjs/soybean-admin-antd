@@ -184,6 +184,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
 
   const rowSelection = computed<TableRowSelection<T>>(() => {
     return {
+      columnWidth: 48,
       type: 'checkbox',
       selectedRowKeys: checkedRowKeys.value,
       onChange: onSelectChange
