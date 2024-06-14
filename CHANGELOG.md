@@ -1,6 +1,26 @@
 # Changelog
 
 
+## [v1.2.5](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.4...v1.2.5) (2024-06-15)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: Fix the issue of abnormal tab caching after logout &nbsp;-&nbsp; by @soybeanjs [<samp>(e6349)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/e63490e)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: Initializing the static routing function does not require asynchronization &nbsp;-&nbsp; by @soybeanjs [<samp>(02d66)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/02d66cb)
+- **types**: Enhance compatibility of global types &nbsp;-&nbsp; by @soybeanjs [<samp>(dc359)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/dc359f5)
+- **utils**: Reduce code indentation and improve readability &nbsp;-&nbsp; by @soybeanjs [<samp>(54ae8)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/54ae82b)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(423fa)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/423fafc)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.4](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.3...v1.2.4) (2024-06-14)
 
 ### &nbsp;&nbsp;&nbsp;🛠 Optimizations
