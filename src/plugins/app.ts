@@ -12,42 +12,44 @@ export function setupAppVersionNotification() {
 
     const buildTime = await getHtmlBuildTime();
 
-    if (buildTime !== BUILD_TIME) {
-      isShow = true;
-
-      const key = `open${Date.now()}`;
-
-      window.$notification?.open({
-        message: $t('system.updateTitle'),
-        description: $t('system.updateContent'),
-        btn() {
-          return h('div', { style: { display: 'flex', justifyContent: 'end', gap: '12px', width: '325px' } }, [
-            h(
-              Button,
-              {
-                onClick() {
-                  window.$notification?.destroy(key);
-                }
-              },
-              () => $t('system.updateCancel')
-            ),
-            h(
-              Button,
-              {
-                type: 'primary',
-                onClick() {
-                  location.reload();
-                }
-              },
-              () => $t('system.updateConfirm')
-            )
-          ]);
-        },
-        onClose() {
-          isShow = false;
-        }
-      });
+    if (buildTime === BUILD_TIME) {
+      return;
     }
+
+    isShow = true;
+
+    const key = `open${Date.now()}`;
+
+    window.$notification?.open({
+      message: $t('system.updateTitle'),
+      description: $t('system.updateContent'),
+      btn() {
+        return h('div', { style: { display: 'flex', justifyContent: 'end', gap: '12px', width: '325px' } }, [
+          h(
+            Button,
+            {
+              onClick() {
+                window.$notification?.destroy(key);
+              }
+            },
+            () => $t('system.updateCancel')
+          ),
+          h(
+            Button,
+            {
+              type: 'primary',
+              onClick() {
+                location.reload();
+              }
+            },
+            () => $t('system.updateConfirm')
+          )
+        ]);
+      },
+      onClose() {
+        isShow = false;
+      }
+    });
   });
 }
 
