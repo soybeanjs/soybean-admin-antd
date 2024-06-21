@@ -40,7 +40,6 @@ const icon = computed(() => {
     :key="String(collapsed)"
     :tooltip-content="collapsed ? $t('icon.expand') : $t('icon.collapse')"
     tooltip-placement="bottomLeft"
-    trigger-parent
   >
     <SvgIcon :icon="icon" />
   </ButtonIcon>
