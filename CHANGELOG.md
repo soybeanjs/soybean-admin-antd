@@ -1,6 +1,31 @@
 # Changelog
 
 
+## [v1.2.6](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.5...v1.2.6) (2024-06-21)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - request modal title use i18n &nbsp;-&nbsp; by @honghuangdc [<samp>(f97e7)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f97e74e)
+  - add `getDataByPage` for `useTable` &nbsp;-&nbsp; by @honghuangdc [<samp>(cf265)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/cf2659d)
+  - fix login redirect to routeHome when routeHome of dynamic route is not same as static route &nbsp;-&nbsp; by @honghuangdc [<samp>(f6c66)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f6c66ec)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @honghuangdc [<samp>(a769b)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a769b1a)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin-antd/issues/30 [<samp>(e110d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/e110dd0)
+
+### &nbsp;&nbsp;&nbsp;🤖 CI
+
+- **projects**: add and update github issues template &nbsp;-&nbsp; by @honghuangdc [<samp>(a3619)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a361927)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![honghuangdc](https://github.com/honghuangdc.png?size=48)](https://github.com/honghuangdc)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+
 ## [v1.2.5](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.4...v1.2.5) (2024-06-15)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
