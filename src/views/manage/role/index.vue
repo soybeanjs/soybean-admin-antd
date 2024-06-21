@@ -9,7 +9,17 @@ import RoleSearch from './modules/role-search.vue';
 
 const { tableWrapperRef, scrollConfig } = useTableScroll();
 
-const { columns, columnChecks, data, loading, getData, mobilePagination, searchParams, resetSearchParams } = useTable({
+const {
+  columns,
+  columnChecks,
+  data,
+  loading,
+  getData,
+  getDataByPage,
+  mobilePagination,
+  searchParams,
+  resetSearchParams
+} = useTable({
   apiFn: fetchGetRoleList,
   apiParams: {
     current: 1,
@@ -121,7 +131,7 @@ function edit(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getData" />
+    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
     <ACard
       :title="$t('page.manage.role.title')"
       :bordered="false"
@@ -154,7 +164,7 @@ function edit(id: number) {
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"
-        @submitted="getData"
+        @submitted="getDataByPage"
       />
     </ACard>
   </div>

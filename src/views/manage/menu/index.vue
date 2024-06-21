@@ -14,7 +14,7 @@ import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal
 const { bool: visible, setTrue: openModal } = useBoolean();
 const { tableWrapperRef, scrollConfig } = useTableScroll();
 
-const { columns, columnChecks, data, loading, pagination, getData } = useTable({
+const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
   apiFn: fetchGetMenuList,
   columns: () => [
     {
@@ -251,7 +251,7 @@ init();
         :operate-type="operateType"
         :row-data="editingData"
         :all-pages="allPages"
-        @submitted="getData"
+        @submitted="getDataByPage"
       />
     </ACard>
   </div>

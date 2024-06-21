@@ -124,6 +124,24 @@ export function useTable<A extends AntDesign.TableApiFn>(config: AntDesign.AntDe
     Object.assign(pagination, update);
   }
 
+  /**
+   * get data by page number
+   *
+   * @param pageNum the page number. default is 1
+   */
+  async function getDataByPage(pageNum: number = 1) {
+    updatePagination({
+      current: pageNum
+    });
+
+    updateSearchParams({
+      current: pageNum,
+      size: pagination.pageSize!
+    });
+
+    await getData();
+  }
+
   scope.run(() => {
     watch(
       () => appStore.locale,
@@ -148,6 +166,7 @@ export function useTable<A extends AntDesign.TableApiFn>(config: AntDesign.AntDe
     mobilePagination,
     updatePagination,
     getData,
+    getDataByPage,
     searchParams,
     updateSearchParams,
     resetSearchParams
