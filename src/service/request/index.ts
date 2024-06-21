@@ -63,7 +63,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
         window.addEventListener('beforeunload', handleLogout);
 
         window.$modal?.error({
-          title: 'Error',
+          title: $t('common.error'),
           content: response.data.msg,
           okText: $t('common.confirm'),
           maskClosable: false,
