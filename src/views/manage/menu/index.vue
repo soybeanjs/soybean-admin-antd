@@ -248,6 +248,7 @@ init();
       />
       <MenuOperateModal
         v-model:visible="visible"
+        v-if="visible"
         :operate-type="operateType"
         :row-data="editingData"
         :all-pages="allPages"

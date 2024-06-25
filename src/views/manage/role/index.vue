@@ -162,6 +162,7 @@ function edit(id: number) {
       />
       <RoleOperateDrawer
         v-model:visible="drawerVisible"
+        v-if="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"
         @submitted="getDataByPage"
