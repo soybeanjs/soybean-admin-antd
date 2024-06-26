@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { SimpleScrollbar } from '@sa/materials';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { $t } from '@/locales';
@@ -206,10 +206,12 @@ function removeButton(index: number) {
   model.buttons.splice(index, 1);
 }
 
-function handleInitModel() {
+async function handleInitModel() {
   Object.assign(model, createDefaultModel());
 
   if (!props.rowData) return;
+
+  await nextTick();
 
   if (props.operateType === 'addChild') {
     const { id } = props.rowData;

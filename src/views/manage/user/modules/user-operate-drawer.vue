@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, nextTick, reactive, ref, watch } from 'vue';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
@@ -89,10 +89,11 @@ async function getRoleOptions() {
   }
 }
 
-function handleInitModel() {
+async function handleInitModel() {
   Object.assign(model, createDefaultModel());
 
   if (props.operateType === 'edit' && props.rowData) {
+    await nextTick();
     Object.assign(model, props.rowData);
   }
 }
