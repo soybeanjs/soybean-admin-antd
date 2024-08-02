@@ -118,7 +118,7 @@ function handleClickMenu(menuInfo: MenuInfo) {
     }
 
     .ant-menu-submenu-title {
-      padding-inline: calc(50% - 14px);
+      padding-inline: calc(50% - 18px);
     }
   }
 
