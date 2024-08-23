@@ -15,7 +15,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
   const routeStore = useRouteStore();
   const tabStore = useTabStore();
-  const { toLogin, redirectFromLogin } = useRouterPush(false);
+  const { toLogin, redirectFromLogin, toHome } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
   const token = ref(getToken());
@@ -73,6 +73,8 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
         if (redirect) {
           await redirectFromLogin();
+        } else {
+          toHome();
         }
 
         if (routeStore.isInitAuthRoute) {

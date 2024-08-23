@@ -92,6 +92,7 @@ export function useRouterPush(inSetup = true) {
   }
 
   return {
+    toHome,
     routerPush,
     routerBack,
     routerPushByKey,
