@@ -17,8 +17,6 @@ interface PromptObject {
  * @param lang
  */
 export async function gitCommit(lang: Lang = 'en-us') {
-  console.log(lang);
-
   const { gitCommitMessages, gitCommitTypes, gitCommitScopes } = locales[lang];
 
   const typesChoices = gitCommitTypes.map(([value, msg]) => {
