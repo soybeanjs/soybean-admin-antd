@@ -125,7 +125,11 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
   /** Setup theme vars to html */
   function setupThemeVarsToHtml() {
-    const { themeTokens, darkThemeTokens } = createThemeToken(themeColors.value);
+    const { themeTokens, darkThemeTokens } = createThemeToken(
+      themeColors.value,
+      settings.value.tokens,
+      settings.value.recommendColor
+    );
     addThemeVarsToHtml(themeTokens, darkThemeTokens);
   }
 
