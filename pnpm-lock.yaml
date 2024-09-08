@@ -47,6 +47,9 @@ importers:
       echarts:
         specifier: 5.5.1
         version: 5.5.1
+      json5:
+        specifier: ^2.2.3
+        version: 2.2.3
       nprogress:
         specifier: 0.2.0
         version: 0.2.0
