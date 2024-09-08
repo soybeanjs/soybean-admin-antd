@@ -1,6 +1,28 @@
 # Changelog
 
 
+## [v1.2.8](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.7...v1.2.8) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **packages**:
+  - @sa/hooks: fix searchParams of useHookTable &nbsp;-&nbsp; by @soybeanjs [<samp>(cb5bf)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/cb5bf07)
+- **types**:
+  - Fixed the reference type error &nbsp;-&nbsp; by @soybeanjs [<samp>(6b868)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/6b86861)
+  - fix data type of useHookTable &nbsp;-&nbsp; by @soybeanjs [<samp>(3dd78)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/3dd78d4)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: replace `cloneDeep` of `lodash-es` with `klona` &nbsp;-&nbsp; by @soybeanjs [<samp>(240ab)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/240ab79)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(7bc1d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/7bc1d98)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.7](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.6...v1.2.7) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
