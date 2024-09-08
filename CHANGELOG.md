@@ -1,6 +1,16 @@
 # Changelog
 
 
+## [v1.3.4](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.3...v1.3.4) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize code &nbsp;-&nbsp; by @soybeanjs [<samp>(6e8a5)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/6e8a55d)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.3](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.2...v1.3.3) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
