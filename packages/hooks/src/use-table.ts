@@ -1,5 +1,6 @@
 import { computed, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
+import { jsonClone } from '@sa/utils';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
 
@@ -129,7 +130,7 @@ export default function useHookTable<A extends ApiFn, T, C>(config: TableConfig<
 
   /** reset search params */
   function resetSearchParams() {
-    Object.assign(searchParams, apiParams);
+    Object.assign(searchParams, jsonClone(apiParams));
   }
 
   if (immediate) {
