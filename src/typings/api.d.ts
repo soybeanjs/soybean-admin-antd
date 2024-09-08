@@ -20,6 +20,9 @@ declare namespace Api {
       records: T[];
     }
 
+    /** common search params of table */
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
+
     /**
      * enable status
      *
@@ -88,8 +91,6 @@ declare namespace Api {
    * backend api module: "systemManage"
    */
   namespace SystemManage {
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
-
     /** role */
     type Role = Common.CommonRecord<{
       /** role name */
@@ -102,7 +103,7 @@ declare namespace Api {
 
     /** role search params */
     type RoleSearchParams = Partial<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
+      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & Common.CommonSearchParams
     >;
 
     /** role list */
@@ -138,7 +139,7 @@ declare namespace Api {
     /** user search params */
     type UserSearchParams = Partial<
       Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
-        CommonSearchParams
+        Common.CommonSearchParams
     >;
 
     /** user list */
