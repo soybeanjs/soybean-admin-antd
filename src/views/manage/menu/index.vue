@@ -29,7 +29,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
       align: 'center',
       width: 80,
       customRender: ({ record }) => {
-        const tagMap: Record<Api.Common.EnableStatus, string> = {
+        const tagMap: Record<Api.SystemManage.MenuType, string> = {
           1: 'default',
           2: 'processing'
         };
