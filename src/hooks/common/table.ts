@@ -2,9 +2,9 @@ import { computed, effectScope, onScopeDispose, reactive, ref, shallowRef, toVal
 import type { MaybeRef, Ref } from 'vue';
 import type { TablePaginationConfig } from 'ant-design-vue';
 import type { TableRowSelection } from 'ant-design-vue/es/table/interface';
-import { cloneDeep } from 'lodash-es';
 import { useElementSize } from '@vueuse/core';
 import { useBoolean, useHookTable } from '@sa/hooks';
+import { jsonClone } from '@sa/utils';
 import { useAppStore } from '@/store/modules/app';
 import { $t } from '@/locales';
 
@@ -189,7 +189,7 @@ export function useTableOperate<T extends TableData = TableData>(data: Ref<T[]>,
   function handleEdit(id: T['id']) {
     operateType.value = 'edit';
     const findItem = data.value.find(item => item.id === id) || null;
-    editingData.value = cloneDeep(findItem);
+    editingData.value = jsonClone(findItem);
 
     openDrawer();
   }
