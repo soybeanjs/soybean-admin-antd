@@ -45,6 +45,10 @@ type CheckedType = boolean | string | number;
 function handleGrayscaleChange(value: CheckedType) {
   themeStore.setGrayscale(value as boolean);
 }
+
+function handleColourWeaknessChange(value: CheckedType) {
+  themeStore.setColourWeakness(value as boolean);
+}
 </script>
 
 <template>
@@ -66,6 +70,9 @@ function handleGrayscaleChange(value: CheckedType) {
     </Transition>
     <SettingItem :label="$t('theme.grayscale')">
       <ASwitch :checked="themeStore.grayscale" @update:checked="handleGrayscaleChange" />
+    </SettingItem>
+    <SettingItem :label="$t('theme.colourWeakness')">
+      <ASwitch :checked="themeStore.colourWeakness" @update:checked="handleColourWeaknessChange" />
     </SettingItem>
   </div>
 </template>

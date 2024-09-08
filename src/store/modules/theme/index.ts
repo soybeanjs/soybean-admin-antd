@@ -10,8 +10,8 @@ import {
   createThemeToken,
   getAntdTheme,
   initThemeSettings,
-  toggleCssDarkMode,
-  toggleGrayscaleMode
+  toggleAuxiliaryColorModes,
+  toggleCssDarkMode
 } from './shared';
 
 /** Theme store */
@@ -51,6 +51,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   /** grayscale mode */
   const grayscaleMode = computed(() => settings.value.grayscale);
 
+  /** colourWeakness mode */
+  const colourWeaknessMode = computed(() => settings.value.colourWeakness);
+
   /** Antd theme */
   const antdTheme = computed(() => getAntdTheme(themeColors.value, darkMode.value));
 
@@ -77,6 +80,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    */
   function setGrayscale(isGrayscale: boolean) {
     settings.value.grayscale = isGrayscale;
+  }
+
+  /**
+   * Set colourWeakness value
+   *
+   * @param isColourWeakness
+   */
+  function setColourWeakness(isColourWeakness: boolean) {
+    settings.value.colourWeakness = isColourWeakness;
   }
 
   /** Toggle theme scheme */
@@ -168,9 +180,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     );
 
     watch(
-      grayscaleMode,
+      [grayscaleMode, colourWeaknessMode],
       val => {
-        toggleGrayscaleMode(val);
+        toggleAuxiliaryColorModes(val[0], val[1]);
       },
       { immediate: true }
     );
@@ -198,6 +210,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     antdTheme,
     settingsJson,
     setGrayscale,
+    setColourWeakness,
     resetStore,
     toggleThemeScheme,
     setThemeScheme,
