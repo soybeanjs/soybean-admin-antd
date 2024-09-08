@@ -1,0 +1,49 @@
+.menu-wrapper {
+  :deep(.ant-menu-inline) {
+    .ant-menu-item {
+      width: calc(100% - 16px);
+      margin-inline: 8px;
+    }
+  }
+
+  :deep(.ant-menu-submenu-title) {
+    width: calc(100% - 16px);
+    margin-inline: 8px;
+  }
+
+  :deep(.ant-menu-inline-collapsed) {
+    > .ant-menu-item {
+      padding-inline: calc(50% - 14px);
+    }
+
+    .ant-menu-item-icon {
+      vertical-align: -0.25em;
+    }
+
+    .ant-menu-submenu-title {
+      padding-inline: calc(50% - 18px);
+    }
+  }
+}
+
+.select-menu {
+  :deep(.ant-menu-inline) {
+    .ant-menu-item-selected {
+      background-color: var(--selected-bg-color);
+    }
+  }
+}
+
+.horizontal-menu {
+  :deep(.ant-menu-horizontal) {
+    .ant-menu-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .ant-menu-submenu-title {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

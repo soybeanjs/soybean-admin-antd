@@ -133,6 +133,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     addThemeVarsToGlobal(themeTokens, darkThemeTokens);
   }
 
+  /**
+   * Set layout reverse horizontal mix
+   *
+   * @param reverse Reverse horizontal mix
+   */
+  function setLayoutReverseHorizontalMix(reverse: boolean) {
+    settings.value.layout.reverseHorizontalMix = reverse;
+  }
+
   /** Cache theme settings */
   function cacheThemeSettings() {
     const isProd = import.meta.env.PROD;
@@ -193,6 +202,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     toggleThemeScheme,
     setThemeScheme,
     updateThemeColors,
-    setThemeLayout
+    setThemeLayout,
+    setLayoutReverseHorizontalMix
   };
 });
