@@ -8,6 +8,7 @@ export const { setupStore: setupMixMenuContext, useStore: useMixMenuContext } = 
 function useMixMenu() {
   const route = useRoute();
   const routeStore = useRouteStore();
+  const { selectedKeys } = useMenu();
 
   const activeFirstLevelMenuKey = ref('');
 
@@ -16,19 +17,34 @@ function useMixMenu() {
   }
 
   function getActiveFirstLevelMenuKey() {
-    const { hideInMenu, activeMenu } = route.meta;
-    const name = route.name as string;
-
-    const routeName = (hideInMenu ? activeMenu : name) || name;
-
-    const [firstLevelRouteName] = routeName.split('_');
+    const [firstLevelRouteName] = selectedKeys.value[0].split('_');
 
     setActiveFirstLevelMenuKey(firstLevelRouteName);
   }
 
-  const menus = computed(
+  const allMenus = computed<App.Global.Menu[]>(() => routeStore.menus);
+
+  const firstLevelMenus = computed<App.Global.Menu[]>(() =>
+    routeStore.menus.map(menu => {
+      const { children: _, ...rest } = menu;
+
+      return rest;
+    })
+  );
+
+  const childLevelMenus = computed<App.Global.Menu[]>(
     () => routeStore.menus.find(menu => menu.key === activeFirstLevelMenuKey.value)?.children || []
   );
+
+  const isActiveFirstLevelMenuHasChildren = computed(() => {
+    if (!activeFirstLevelMenuKey.value) {
+      return false;
+    }
+
+    const findItem = allMenus.value.find(item => item.key === activeFirstLevelMenuKey.value);
+
+    return Boolean(findItem?.children?.length);
+  });
 
   watch(
     () => route.name,
@@ -39,9 +55,35 @@ function useMixMenu() {
   );
 
   return {
+    allMenus,
+    firstLevelMenus,
+    childLevelMenus,
+    isActiveFirstLevelMenuHasChildren,
     activeFirstLevelMenuKey,
     setActiveFirstLevelMenuKey,
-    getActiveFirstLevelMenuKey,
-    menus
+    getActiveFirstLevelMenuKey
+  };
+}
+
+export function useMenu() {
+  const route = useRoute();
+  const routeStore = useRouteStore();
+
+  const selectedKeys = computed(() => {
+    const { hideInMenu, activeMenu } = route.meta;
+    const name = route.name as string;
+
+    const routeName = (hideInMenu ? activeMenu : name) || name;
+
+    return [routeName];
+  });
+
+  const openKeys = computed(() => {
+    return routeStore.getSelectedMenuKeyPath(selectedKeys.value[0]);
+  });
+
+  return {
+    selectedKeys,
+    openKeys
   };
 }

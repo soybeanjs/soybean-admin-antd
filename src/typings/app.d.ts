@@ -34,6 +34,12 @@ declare namespace App {
         mode: UnionKey.ThemeLayoutMode;
         /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
+        /**
+         * Whether to reverse the horizontal mix
+         *
+         * if true, the vertical child level menus in left and horizontal first level menus in top
+         */
+        reverseHorizontalMix?: boolean;
       };
       /** Page */
       page: {
@@ -306,7 +312,7 @@ declare namespace App {
       theme: {
         themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
         grayscale: string;
-        layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string>;
+        layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
         recommendColor: string;
         recommendColorDesc: string;
         themeColor: {
