@@ -268,9 +268,21 @@ export function getBreadcrumbsByRoute(
 
   for (const menu of menus) {
     if (menu.key === menuKey) {
-      const breadcrumb = menuKey !== activeKey ? menu : getGlobalMenuByBaseRoute(route);
+      return [menu];
+    }
 
-      return [breadcrumb];
+    if (menu.key === activeKey) {
+      const ROUTE_DEGREE_SPLITTER = '_';
+
+      const parentKey = key.split(ROUTE_DEGREE_SPLITTER).slice(0, -1).join(ROUTE_DEGREE_SPLITTER);
+
+      const breadcrumbMenu = getGlobalMenuByBaseRoute(route);
+
+      if (parentKey !== activeKey) {
+        return [breadcrumbMenu];
+      }
+
+      return [menu, breadcrumbMenu];
     }
 
     if (menu.children?.length) {
