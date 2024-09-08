@@ -1,6 +1,16 @@
 # Changelog
 
 
+## [v1.3.1](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.0...v1.3.1) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix abnormal width of the sidebar in the top menu mix and reverse mode &nbsp;-&nbsp; by @soybeanjs [<samp>(0abce)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0abce88)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.0](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.8...v1.3.0) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
