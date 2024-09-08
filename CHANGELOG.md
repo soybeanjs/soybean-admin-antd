@@ -1,6 +1,16 @@
 # Changelog
 
 
+## [v1.3.3](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.2...v1.3.3) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**: fix watermark settings &nbsp;-&nbsp; by @soybeanjs [<samp>(dbe8e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/dbe8ec6)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.2](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.1...v1.3.2) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
