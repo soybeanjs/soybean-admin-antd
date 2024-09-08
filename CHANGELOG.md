@@ -1,6 +1,40 @@
 # Changelog
 
 
+## [v1.3.5](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.4...v1.3.5) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **packages**:
+  - @sa/scripts: add more commit types according to Apache specifications &nbsp;-&nbsp; by @soybeanjs [<samp>(5a020)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5a020dd)
+  - @sa/axios: add response to flatRequest when success &nbsp;-&nbsp; by @soybeanjs [<samp>(aace8)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/aace819)
+- **projects**:
+  - does the configuration support automatic updates &nbsp;-&nbsp; by @soybeanjs [<samp>(ffe4c)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ffe4cef)
+  - add app error handler &nbsp;-&nbsp; by @soybeanjs [<samp>(60366)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/60366c2)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - avoid retrieving cached HTML &nbsp;-&nbsp; by @soybeanjs [<samp>(75df1)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/75df11c)
+  - fix breadcrumb when activeMenu is parent menu &nbsp;-&nbsp; by @soybeanjs [<samp>(49092)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/4909291)
+  - fix refresh token when meet multi requests &nbsp;-&nbsp; by @soybeanjs [<samp>(5ae17)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5ae17e6)
+- **projects): fix(projects**:
+  - fix login redirect &nbsp;-&nbsp; by @soybeanjs [<samp>(5ccdb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5ccdb17)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize type &nbsp;-&nbsp; by @soybeanjs [<samp>(4679b)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/4679b17)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **projects**:
+  - rename script czh to `commit:zh` &nbsp;-&nbsp; by @soybeanjs [<samp>(01d96)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/01d962a)
+  - use json5 resolve env VITE_OTHER_SERVICE_BASE_URL & fix proxy enable &nbsp;-&nbsp; by @soybeanjs [<samp>(f8b29)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f8b29c4)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.4](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.3...v1.3.4) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🛠 Optimizations
