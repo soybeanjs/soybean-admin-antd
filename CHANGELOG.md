@@ -1,6 +1,31 @@
 # Changelog
 
 
+## [v1.2.7](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.6...v1.2.7) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: supports custom menu icon sizes &nbsp;-&nbsp; by **Soybean** [<samp>(c8a9e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/c8a9e85)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **components**:
+  - fix click `MenuToggler` throw error &nbsp;-&nbsp; by **Soybean** [<samp>(45588)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/455880b)
+  - fix `TableHeaderOperation` style &nbsp;-&nbsp; by **Soybean** [<samp>(251d1)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/251d15a)
+- **projects**:
+  - fix manage page edit data. fixed #32 &nbsp;-&nbsp; by **Soybean** in https://github.com/soybeanjs/soybean-admin-antd/issues/32 [<samp>(740d6)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/740d6f5)
+  - fix menu style &nbsp;-&nbsp; by **Soybean** [<samp>(4355b)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/4355b6e)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by **Soybean** [<samp>(5fcf2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5fcf2bd)
+- **projects**: Fix deprecated configuration config &nbsp;-&nbsp; by **Soybean** [<samp>(5275b)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5275bb4)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+
+[Soybean](mailto:soybeanjs@outlook.com)
+
 ## [v1.2.6](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.5...v1.2.6) (2024-06-21)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
