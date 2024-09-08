@@ -1,6 +1,38 @@
 # Changelog
 
 
+## [v1.3.0](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.8...v1.3.0) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
+
+- **packages**: modify request retry times to 0 &nbsp;-&nbsp; by @soybeanjs [<samp>(d87e9)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d87e9c1)
+- **projects**: refactor global menu & support reversed-horizontal-mix-menu &nbsp;-&nbsp; by @soybeanjs [<samp>(2244f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/2244f0c)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **packages**:
+  - @sa/scripts: command gitCommit support Chinese &nbsp;-&nbsp; by @soybeanjs [<samp>(8eb1d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/8eb1d5e)
+  - @sa/axios: replace CancelTokenSource by AbortController &nbsp;-&nbsp; by @soybeanjs [<samp>(91296)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9129601)
+  - @sa/scripts: add ignore pattern list for command gitCommitVerify &nbsp;-&nbsp; by @soybeanjs [<samp>(5a950)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5a95026)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **hooks**: prevent program freezing when pagesize returns 0 &nbsp;-&nbsp; by @soybeanjs [<samp>(05912)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/05912b6)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**:
+  - combine theme tokens and theme settings &nbsp;-&nbsp; by @soybeanjs [<samp>(3f289)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/3f28911)
+  - change css vars mount to root &nbsp;-&nbsp; by @soybeanjs [<samp>(47c46)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/47c46e3)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **projects**: add script czh &nbsp;-&nbsp; by @soybeanjs [<samp>(1e345)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/1e345aa)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.2.8](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.2.7...v1.2.8) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
