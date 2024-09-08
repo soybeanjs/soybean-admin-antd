@@ -1,6 +1,22 @@
 # Changelog
 
 
+## [v1.3.2](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.1...v1.3.2) (2024-09-08)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**:
+  - add color fading mode &nbsp;-&nbsp; by @soybeanjs [<samp>(719f0)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/719f02f)
+  - add full screen watermark &nbsp;-&nbsp; by @soybeanjs [<samp>(6bb66)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/6bb66a0)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: optimize response code comparison &nbsp;-&nbsp; by @soybeanjs [<samp>(d7025)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d702524)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.1](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.0...v1.3.1) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
