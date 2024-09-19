@@ -1,6 +1,30 @@
 # Changelog
 
 
+## [v1.3.6](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.5...v1.3.6) (2024-09-20)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix click global-tab in iPad &nbsp;-&nbsp; by @soybeanjs [<samp>(740cf)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/740cf4c)
+  - when the roles filter submenu is empty, the parent menu is not excluded &nbsp;-&nbsp; by @soybeanjs [<samp>(6b2fc)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/6b2fc0a)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**: remove defineModel setting，enabled by default &nbsp;-&nbsp; by @mufeng889 in https://github.com/soybeanjs/soybean-admin-antd/issues/42 [<samp>(05bad)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/05bad8d)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update QQ group link. &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin-antd/issues/43 [<samp>(589ec)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/589ecae)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(5e0c2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5e0c288)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;[![mufeng889](https://github.com/mufeng889.png?size=48)](https://github.com/mufeng889)&nbsp;&nbsp;
+
 ## [v1.3.5](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.4...v1.3.5) (2024-09-08)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
