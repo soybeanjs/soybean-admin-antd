@@ -41,7 +41,7 @@ async function handleSubmit() {
 </script>
 
 <template>
-  <AForm ref="formRef" :model="model" :rules="rules">
+  <AForm ref="formRef" :model="model" :rules="rules" @keyup.enter="handleSubmit">
     <AFormItem name="userName">
       <AInput v-model:value="model.userName" size="large" :placeholder="$t('page.login.common.userNamePlaceholder')" />
     </AFormItem>
