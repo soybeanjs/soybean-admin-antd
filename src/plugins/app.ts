@@ -33,6 +33,7 @@ export function setupAppVersionNotification() {
     const key = `open${Date.now()}`;
 
     window.$notification?.open({
+      key,
       message: $t('system.updateTitle'),
       description: $t('system.updateContent'),
       btn() {
