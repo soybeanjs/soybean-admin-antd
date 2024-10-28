@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { SimpleScrollbar } from '@sa/materials';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { $t } from '@/locales';
@@ -82,7 +82,7 @@ type Model = Pick<
   pathParam: string;
 };
 
-const model: Model = reactive(createDefaultModel());
+const model = ref(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
@@ -134,15 +134,15 @@ const localIconOptions = localIcons.map(item => ({
   value: item
 }));
 
-const showLayout = computed(() => model.parentId === 0);
+const showLayout = computed(() => model.value.parentId === 0);
 
-const showPage = computed(() => model.menuType === '2');
+const showPage = computed(() => model.value.menuType === '2');
 
 const pageOptions = computed(() => {
   const allPages = [...props.allPages];
 
-  if (model.routeName && !allPages.includes(model.routeName)) {
-    allPages.unshift(model.routeName);
+  if (model.value.routeName && !allPages.includes(model.value.routeName)) {
+    allPages.unshift(model.value.routeName);
   }
 
   const opts: CommonType.Option[] = allPages.map(page => ({
@@ -182,7 +182,7 @@ async function getRoleOptions() {
 
 /** - add a query input */
 function addQuery(index: number) {
-  model.query.splice(index + 1, 0, {
+  model.value.query.splice(index + 1, 0, {
     key: '',
     value: ''
   });
@@ -190,12 +190,12 @@ function addQuery(index: number) {
 
 /** - remove a query input */
 function removeQuery(index: number) {
-  model.query.splice(index, 1);
+  model.value.query.splice(index, 1);
 }
 
 /** - add a button input */
 function addButton(index: number) {
-  model.buttons.splice(index + 1, 0, {
+  model.value.buttons.splice(index + 1, 0, {
     code: '',
     desc: ''
   });
@@ -203,11 +203,11 @@ function addButton(index: number) {
 
 /** - remove a button input */
 function removeButton(index: number) {
-  model.buttons.splice(index, 1);
+  model.value.buttons.splice(index, 1);
 }
 
 async function handleInitModel() {
-  Object.assign(model, createDefaultModel());
+  model.value = createDefaultModel();
 
   if (!props.rowData) return;
 
@@ -216,7 +216,7 @@ async function handleInitModel() {
   if (props.operateType === 'addChild') {
     const { id } = props.rowData;
 
-    Object.assign(model, { parentId: id });
+    Object.assign(model.value, { parentId: id });
   }
 
   if (props.operateType === 'edit') {
@@ -225,14 +225,14 @@ async function handleInitModel() {
     const { layout, page } = getLayoutAndPage(component);
     const { path, param } = getPathParamFromRoutePath(rest.routePath);
 
-    Object.assign(model, rest, { layout, page, routePath: path, pathParam: param });
+    Object.assign(model.value, rest, { layout, page, routePath: path, pathParam: param });
   }
 
-  if (!model.query) {
-    model.query = [];
+  if (!model.value.query) {
+    model.value.query = [];
   }
-  if (!model.buttons) {
-    model.buttons = [];
+  if (!model.value.buttons) {
+    model.value.buttons = [];
   }
 }
 
@@ -241,26 +241,26 @@ function closeDrawer() {
 }
 
 function handleUpdateRoutePathByRouteName() {
-  if (model.routeName) {
-    model.routePath = getRoutePathByRouteName(model.routeName);
+  if (model.value.routeName) {
+    model.value.routePath = getRoutePathByRouteName(model.value.routeName);
   } else {
-    model.routePath = '';
+    model.value.routePath = '';
   }
 }
 
 function handleUpdateI18nKeyByRouteName() {
-  if (model.routeName) {
-    model.i18nKey = `route.${model.routeName}` as App.I18n.I18nKey;
+  if (model.value.routeName) {
+    model.value.i18nKey = `route.${model.value.routeName}` as App.I18n.I18nKey;
   } else {
-    model.i18nKey = null;
+    model.value.i18nKey = null;
   }
 }
 
 function getSubmitParams() {
-  const { layout, page, pathParam, ...params } = model;
+  const { layout, page, pathParam, ...params } = model.value;
 
   const component = transformLayoutAndPageToComponent(layout, page);
-  const routePath = getRoutePathWithParam(model.routePath, pathParam);
+  const routePath = getRoutePathWithParam(model.value.routePath, pathParam);
 
   params.component = component;
   params.routePath = routePath;
@@ -290,7 +290,7 @@ watch(visible, () => {
 });
 
 watch(
-  () => model.routeName,
+  () => model.value.routeName,
   () => {
     handleUpdateRoutePathByRouteName();
     handleUpdateI18nKeyByRouteName();

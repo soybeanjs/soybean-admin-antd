@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
@@ -44,7 +44,7 @@ type Model = Pick<
   'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'userRoles' | 'status'
 >;
 
-const model: Model = reactive(createDefaultModel());
+const model = ref(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
@@ -79,7 +79,7 @@ async function getRoleOptions() {
 
     // the mock data does not have the roleCode, so fill it
     // if the real request, remove the following code
-    const userRoleOptions = model.userRoles.map(item => ({
+    const userRoleOptions = model.value.userRoles.map(item => ({
       label: item,
       value: item
     }));
@@ -89,12 +89,11 @@ async function getRoleOptions() {
   }
 }
 
-async function handleInitModel() {
-  Object.assign(model, createDefaultModel());
+function handleInitModel() {
+  model.value = createDefaultModel();
 
   if (props.operateType === 'edit' && props.rowData) {
-    await nextTick();
-    Object.assign(model, props.rowData);
+    Object.assign(model.value, props.rowData);
   }
 }
 
