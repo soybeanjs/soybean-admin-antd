@@ -12,7 +12,7 @@
   "dependencies": {
     "@sa/utils": "workspace:*",
     "@simonwep/pickr": "1.9.1",
-    "simplebar-vue": "2.3.5"
+    "simplebar-vue": "2.4.0"
   },
   "devDependencies": {
     "typed-css-modules": "0.9.1"
