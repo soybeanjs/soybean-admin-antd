@@ -1,6 +1,55 @@
 # Changelog
 
 
+## [v1.3.8](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.10...v1.3.8) (2024-10-25)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**:
+  - support scheduled detection and update system. close #657 &nbsp;-&nbsp; by @Azir-11 in https://github.com/soybeanjs/soybean-admin-antd/issues/669 and https://github.com/soybeanjs/soybean-admin-antd/issues/657 [<samp>(d088f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d088f813)
+  - app version notification plugin support sub deploy path. close #668 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/668 [<samp>(a53eb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a53eb10c)
+  - support show tab when not loggedIn &nbsp;-&nbsp; by @soybeanjs [<samp>(ba381)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ba38119e)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **deps**:
+  - reduced eslint version to 9.14.0 &nbsp;-&nbsp; by @soybeanjs [<samp>(af417)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/af4177e7)
+- **projects**:
+  - fix route guard hook `onRouteSwitchWhenLoggedIn`. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/680 [<samp>(ab985)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ab9858c7)
+  - check if init userInfo when initAuthRoute. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/680 [<samp>(9f4fb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9f4fb8c3)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize code &nbsp;-&nbsp; by @soybeanjs [<samp>(9ad5d)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9ad5d717)
+  - optimize router guard &nbsp;-&nbsp; by @soybeanjs [<samp>(0dfcf)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0dfcf18b)
+  - use `defu` to fill added theme config &nbsp;-&nbsp; by @soybeanjs [<samp>(101b6)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/101b6f90)
+
+### &nbsp;&nbsp;&nbsp;💅 Refactors
+
+- **projects**: refactor router guard. fix #655 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/667 and https://github.com/soybeanjs/soybean-admin-antd/issues/655 [<samp>(09144)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/09144dfe)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**:
+  - set the Chinese version of README as default &nbsp;-&nbsp; by @soybeanjs [<samp>(9d28b)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9d28b31c)
+  - ✏️  add element-plus version link &nbsp;-&nbsp; by **一寸灰** in https://github.com/soybeanjs/soybean-admin-antd/issues/679 [<samp>(5c6ab)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5c6ab0b5)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- rename env.d.ts to vite-env.d.ts &nbsp;-&nbsp; by @wzc520pyfm in https://github.com/soybeanjs/soybean-admin-antd/issues/675 [<samp>(b93c2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/b93c2036)
+- **deps**:
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(91de4)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/91de4a8e)
+  - update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(0c809)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0c809de6)
+- **projects**:
+  - add desc for base url of app &nbsp;-&nbsp; by @soybeanjs [<samp>(17d7e)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/17d7e522)
+  - update deps & fix vite config &nbsp;-&nbsp; by @soybeanjs [<samp>(3e0eb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/3e0eb720)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wzc520pyfm](https://github.com/wzc520pyfm.png?size=48)](https://github.com/wzc520pyfm)&nbsp;&nbsp;[![Azir-11](https://github.com/Azir-11.png?size=48)](https://github.com/Azir-11)&nbsp;&nbsp;
+[一寸灰](mailto:webzhangfei@163.com),&nbsp;
+
 ## [v1.3.7](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.6...v1.3.7) (2024-09-21)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
