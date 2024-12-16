@@ -19,7 +19,7 @@ const antdLocale = computed(() => {
 
 const watermarkProps = computed(() => {
   const props: WatermarkProps = {
-    content: themeStore.watermark?.text || 'SoybeanAdmin',
+    content: themeStore.watermark.text,
     width: 120,
     height: 120,
     font: {
@@ -39,7 +39,7 @@ const watermarkProps = computed(() => {
     <AppProvider>
       <RouterView class="bg-layout" />
       <AWatermark
-        v-if="themeStore.watermark?.visible"
+        v-if="themeStore.watermark.visible"
         v-bind="watermarkProps"
         class="pointer-events-none absolute-lt! size-full"
       />

@@ -2,6 +2,7 @@ import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
 import { getColorPalette } from '@sa/color';
 import { getRgbOfColor } from '@sa/utils';
+import { defu } from 'defu';
 import { overrideThemeSettings, themeSettings } from '@/theme/settings';
 import { themeVars } from '@/theme/vars';
 import { toggleHtmlClass } from '@/utils/common';
@@ -19,12 +20,15 @@ export function initThemeSettings() {
   // if it is production mode, the theme settings will be cached in localStorage
   // if want to update theme settings when publish new version, please update `overrideThemeSettings` in `src/theme/settings.ts`
 
-  const settings = localStg.get('themeSettings') || themeSettings;
+  const localSettings = localStg.get('themeSettings');
+
+  let settings = defu(localSettings, themeSettings);
 
   const isOverride = localStg.get('overrideThemeFlag') === BUILD_TIME;
 
   if (!isOverride) {
-    Object.assign(settings, overrideThemeSettings);
+    settings = defu(overrideThemeSettings, settings);
+
     localStg.set('overrideThemeFlag', BUILD_TIME);
   }
 

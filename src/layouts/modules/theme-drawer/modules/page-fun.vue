@@ -111,10 +111,10 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
     >
       <ASwitch v-model:checked="themeStore.footer.right" />
     </SettingItem>
-    <SettingItem v-if="themeStore.watermark" key="8" :label="$t('theme.watermark.visible')">
+    <SettingItem key="8" :label="$t('theme.watermark.visible')">
       <ASwitch v-model:checked="themeStore.watermark.visible" />
     </SettingItem>
-    <SettingItem v-if="themeStore.watermark?.visible" key="8-1" :label="$t('theme.watermark.text')">
+    <SettingItem v-if="themeStore.watermark.visible" key="8-1" :label="$t('theme.watermark.text')">
       <AInput v-model:value="themeStore.watermark.text" placeholder="SoybeanAdmin" class="w-120px" />
     </SettingItem>
   </TransitionGroup>
