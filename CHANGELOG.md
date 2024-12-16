@@ -1,6 +1,40 @@
 # Changelog
 
 
+## [v1.3.9](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.10...v1.3.9) (2024-11-17)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **projects**: support show tab when not loggedIn &nbsp;-&nbsp; by @soybeanjs [<samp>(ba381)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ba38119e)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **deps**:
+  - reduced eslint version to 9.14.0 &nbsp;-&nbsp; by @soybeanjs [<samp>(af417)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/af4177e7)
+- **projects**:
+  - fix route guard hook `onRouteSwitchWhenLoggedIn`. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/680 [<samp>(ab985)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/ab9858c7)
+  - check if init userInfo when initAuthRoute. fixed #680 &nbsp;-&nbsp; by @soybeanjs in https://github.com/soybeanjs/soybean-admin-antd/issues/680 [<samp>(9f4fb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/9f4fb8c3)
+
+### &nbsp;&nbsp;&nbsp;🛠 Optimizations
+
+- **projects**:
+  - optimize router guard &nbsp;-&nbsp; by @soybeanjs [<samp>(0dfcf)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0dfcf18b)
+  - use `defu` to fill added theme config &nbsp;-&nbsp; by @soybeanjs [<samp>(101b6)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/101b6f90)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: ✏️  add element-plus version link &nbsp;-&nbsp; by **一寸灰** in https://github.com/soybeanjs/soybean-admin-antd/issues/679 [<samp>(5c6ab)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5c6ab0b5)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- rename env.d.ts to vite-env.d.ts &nbsp;-&nbsp; by @wzc520pyfm in https://github.com/soybeanjs/soybean-admin-antd/issues/675 [<samp>(b93c2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/b93c2036)
+- **projects**: update deps & fix vite config &nbsp;-&nbsp; by @soybeanjs [<samp>(3e0eb)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/3e0eb720)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;[![wzc520pyfm](https://github.com/wzc520pyfm.png?size=48)](https://github.com/wzc520pyfm)&nbsp;&nbsp;
+[一寸灰](mailto:webzhangfei@163.com),&nbsp;
+
 ## [v1.3.8](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.10...v1.3.8) (2024-10-25)
 
 ### &nbsp;&nbsp;&nbsp;🚀 Features
