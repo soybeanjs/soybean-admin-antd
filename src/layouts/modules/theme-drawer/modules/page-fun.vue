@@ -8,7 +8,6 @@ import {
   themeScrollModeOptions,
   themeTabModeOptions
 } from '@/constants/app';
-import { translateOptions } from '@/utils/common';
 import SettingItem from '../components/setting-item.vue';
 
 defineOptions({
@@ -28,12 +27,11 @@ const isWrapperScrollMode = computed(() => themeStore.layout.scrollMode === 'wra
   <ADivider>{{ $t('theme.pageFunTitle') }}</ADivider>
   <TransitionGroup tag="div" name="setting-list" class="flex-col-stretch gap-12px">
     <SettingItem key="0" :label="$t('theme.resetCacheStrategy.title')">
-      <NSelect
-        v-model:value="themeStore.resetCacheStrategy"
-        :options="translateOptions(resetCacheStrategyOptions)"
-        size="small"
-        class="w-120px"
-      />
+      <ASelect v-model:value="themeStore.resetCacheStrategy">
+        <ASelectOption v-for="option in resetCacheStrategyOptions" :key="option.value" :value="option.value">
+          {{ $t(option.label) }}
+        </ASelectOption>
+      </ASelect>
     </SettingItem>
     <SettingItem key="1" :label="$t('theme.scrollMode.title')">
       <ASelect v-model:value="themeStore.layout.scrollMode" class="w-120px">
