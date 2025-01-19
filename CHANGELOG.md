@@ -1,6 +1,27 @@
 # Changelog
 
 
+## [v1.3.11](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.10...v1.3.11) (2025-01-19)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **projects**:
+  - fix select in theme setting drawer &nbsp;-&nbsp; by @soybeanjs [<samp>(00ab5)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/00ab5df)
+  - fix login success notification &nbsp;-&nbsp; by @soybeanjs [<samp>(b955f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/b955f6f)
+  - fix update notifications &nbsp;-&nbsp; by @soybeanjs [<samp>(42586)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/4258650)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **projects**: update README &nbsp;-&nbsp; by @soybeanjs [<samp>(cc3ae)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/cc3ae57)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**: update deps &nbsp;-&nbsp; by @soybeanjs [<samp>(37c29)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/37c2930)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+[![soybeanjs](https://github.com/soybeanjs.png?size=48)](https://github.com/soybeanjs)&nbsp;&nbsp;
+
 ## [v1.3.10](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.9...v1.3.10) (2024-12-16)
 
 ### &nbsp;&nbsp;&nbsp;🚨 Breaking Changes
