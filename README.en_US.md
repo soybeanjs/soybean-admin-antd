@@ -130,6 +130,7 @@ Refer to the [Code Synchronization](https://docs.soybeanjs.cn/guide/sync) docume
 
 ## Ecosystem
 
+- [skyroc-admin](https://github.com/Ohh-889/skyroc-admin): SoybeanAdmin's React version implementation.
 - [electron-mock-admin](https://github.com/lixin59/electron-mock-api): A Mock Api management system that helps front-end developers quickly implement interface mocks.
 - [T-Shell](https://github.com/TheBlindM/T-Shell): A terminal emulator and SSH client with configurable command prompts.
 - [pea](https://github.com/haitang1894/pea) : Adopting SpringBoot3.2 + JDK21, MyBatis-Plus, SpringSecurity security framework, etc., suitable for the simple permission system developed by [soybean-admin](https://gitee.com/honghuangdc/soybean-admin).
@@ -138,6 +139,8 @@ Refer to the [Code Synchronization](https://docs.soybeanjs.cn/guide/sync) docume
 - [snail-job](https://github.com/aizuda/snail-job): A distributed task retry and task scheduling platform with "high performance, high value and high activity".
 - [SuperApi](https://github.com/TmmTop/SuperApi): Quickly turn your idea into an online stable product! Entity-less library and table building, add, delete, change and check entity-less library table, support 15 kinds of condition query, as well as paging, list, unlimited tree list and other functions of the API deployment! With interface documentation, Auth authorisation, interface flow restriction, access to the client's real IP, advanced server caching components, dynamic APIs and other features, we look forward to your experience!
 - [FastSoyAdmin](https://github.com/sleep1223/fast-soy-admin): A modern Management Platform based on FastAPI+Vue3+Naive UI.
+- [ba](https://github.com/xiatianYa/Ba-Server): Backend service docking with soybean admin based on goFrame framework, adapted to dynamic routing, and interface authentication permissions.
+- [soybean-admin-go](https://github.com/WgoW/soybean-admin-go):A Go backend service developed based on the Gin and GORM frameworks, integrated with the example branch of Soybean Admin. It supports dynamic routing and API permission authentication.
 
 
 ## How to Contribute
