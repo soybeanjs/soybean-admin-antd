@@ -346,7 +346,7 @@ declare namespace App {
         themeColor: {
           title: string;
           followPrimary: string;
-        } & Theme.ThemeColor;
+        } & Record<Theme.ThemeColorKey, string>;
         scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
         page: {
           animate: string;
