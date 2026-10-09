@@ -40,8 +40,9 @@ add/edit drawer cancellation, logout cancellation/confirmation, dynamic local
 SVGs on all exception screens, and expired-token refresh/retry
 with the refreshed Authorization header.
 
-The existing invalid-login handler exposes Ant Design form-validation rejections
-as browser page errors (`Object`). Required-field and password-format checks
+In development, the existing invalid-login handler exposes Ant Design
+form-validation rejections as browser page errors (`Object`). Required-field and
+password-format checks
 verify the visible messages and that no login API call occurs, and retain those
 validation rejections in the evidence. This suite does not claim a globally
 error-free browser console.

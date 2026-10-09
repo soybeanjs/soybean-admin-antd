@@ -79,11 +79,12 @@ availability or backend persistence.
 
 ## Validation limits
 
-The existing invalid-login path rejects the Ant Design form-validation promise
+In development, the existing invalid-login path rejects the Ant Design form-validation promise
 without catching it. Negative-input browser tests observe two unhandled
 `Object` rejections, while the expected inline validation appears and no login
 request is sent. That handler is unchanged from the baseline; other exercised
-authentication, refresh-token, and navigation flows have no page errors.
+authentication, refresh-token, and navigation flows have no page errors. The
+built-preview browser run recorded no page errors.
 
 The live public ApiFox integration was not validated. A read-only route request
 returned HTTP 500 in the validation environment; all repeatable browser tests
