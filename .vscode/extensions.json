@@ -5,15 +5,16 @@
     "antfu.unocss",
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
-    "esbenp.prettier-vscode",
     "lokalise.i18n-ally",
     "mhutchie.git-graph",
     "mikestead.dotenv",
     "naumovs.color-highlight",
+    "oxc.oxc-vscode",
     "pkief.material-icon-theme",
     "sdras.vue-vscode-snippets",
     "vue.volar",
     "whtouche.vscode-js-console-utils",
-    "zhuangtongfa.material-theme"
+    "zhuangtongfa.material-theme",
+    "ant-design-vue.ant-design-vue-intelligence"
   ]
 }

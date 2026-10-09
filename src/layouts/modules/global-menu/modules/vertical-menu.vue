@@ -3,12 +3,12 @@ import { computed } from 'vue';
 import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface';
 import type { RouteKey } from '@elegant-router/types';
 import { SimpleScrollbar } from '@sa/materials';
-import { useAppStore } from '@/store/modules/app';
-import { useThemeStore } from '@/store/modules/theme';
-import { useRouteStore } from '@/store/modules/route';
-import { useRouterPush } from '@/hooks/common/router';
 import { GLOBAL_SIDER_MENU_ID } from '@/constants/app';
-import { useMenu } from '../../../context';
+import { useAppStore } from '@/store/modules/app';
+import { useRouteStore } from '@/store/modules/route';
+import { useThemeStore } from '@/store/modules/theme';
+import { useRouterPush } from '@/hooks/common/router';
+import { useMenu } from '../context';
 
 defineOptions({
   name: 'VerticalMenu'

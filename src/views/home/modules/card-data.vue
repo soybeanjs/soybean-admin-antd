@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { createReusableTemplate } from '@vueuse/core';
 import { $t } from '@/locales';
+import { useThemeStore } from '@/store/modules/theme';
 
 defineOptions({
   name: 'CardData'
@@ -72,6 +73,8 @@ interface GradientBgProps {
 
 const [DefineGradientBg, GradientBg] = createReusableTemplate<GradientBgProps>();
 
+const themeStore = useThemeStore();
+
 function getGradientColor(color: CardData['color']) {
   return `linear-gradient(to bottom right, ${color.start}, ${color.end})`;
 }
@@ -81,7 +84,10 @@ function getGradientColor(color: CardData['color']) {
   <ACard :bordered="false" size="small" class="card-wrapper">
     <!-- define component start: GradientBg -->
     <DefineGradientBg v-slot="{ $slots, gradientColor }">
-      <div class="rd-8px px-16px pb-4px pt-8px text-white" :style="{ backgroundImage: gradientColor }">
+      <div
+        class="px-16px pb-4px pt-8px text-white"
+        :style="{ backgroundImage: gradientColor, borderRadius: themeStore.themeRadius + 'px' }"
+      >
         <component :is="$slots.default" />
       </div>
     </DefineGradientBg>
