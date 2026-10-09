@@ -1,10 +1,13 @@
 // @unocss-include
 import { getColorPalette, getRgb } from '@sa/color';
+import { DARK_CLASS } from '@/constants/app';
+import { toggleHtmlClass } from '@/utils/common';
 import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 
 export function setupLoading() {
   const themeColor = localStg.get('themeColor') || '#646cff';
+  const darkMode = localStg.get('darkMode') || false;
   const palette = getColorPalette(themeColor);
 
   const { r, g, b } = getRgb(themeColor);
@@ -16,6 +19,10 @@ export function setupLoading() {
     .join(';');
 
   const cssVars = `${primaryColor}; ${svgCssVars}`;
+
+  if (darkMode) {
+    toggleHtmlClass(DARK_CLASS).add();
+  }
 
   const loadingClasses = [
     'left-0 top-0',

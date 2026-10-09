@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { nextTick, reactive, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
-import BetterScroll from '@/components/custom/better-scroll.vue';
-import { useAppStore } from '@/store/modules/app';
-import { useThemeStore } from '@/store/modules/theme';
-import { useRouteStore } from '@/store/modules/route';
-import { useTabStore } from '@/store/modules/tab';
+import { GLOBAL_TAB_WHEEL_SPEED_RATIO } from '@/constants/app';
 import { isPC } from '@/utils/agent';
+import { useAppStore } from '@/store/modules/app';
+import { useTabStore } from '@/store/modules/tab';
+import { useThemeStore } from '@/store/modules/theme';
+import BetterScroll from '@/components/custom/better-scroll.vue';
 import ContextMenu from './context-menu.vue';
 
 defineOptions({
@@ -18,7 +18,6 @@ defineOptions({
 const route = useRoute();
 const appStore = useAppStore();
 const themeStore = useThemeStore();
-const routeStore = useRouteStore();
 const tabStore = useTabStore();
 
 const bsWrapper = ref<HTMLElement>();
@@ -28,6 +27,8 @@ const tabRef = ref<HTMLElement>();
 const isPCFlag = isPC();
 
 const TAB_DATA_ID = 'data-tab-id';
+const MIDDLE_MOUSE_BUTTON = 1;
+const RIGHT_MOUSE_BUTTON = 2;
 
 type TabNamedNodeMap = NamedNodeMap & {
   [TAB_DATA_ID]: Attr;
@@ -71,6 +72,17 @@ function scrollByClientX(clientX: number) {
   }
 }
 
+// Convert vertical wheel delta into horizontal tab scroll
+function handleWheel(e: WheelEvent) {
+  const bs = bsScroll.value?.instance;
+  if (!bs) return;
+  // Do not intercept when there is no horizontal scroll space, keep native vertical scrolling
+  if (bs.maxScrollX === 0) return;
+  e.preventDefault();
+  // deltaY > 0 (scroll down) -> tabs slide left; deltaY < 0 (scroll up) -> tabs slide right
+  bs.scrollBy(-e.deltaY * GLOBAL_TAB_WHEEL_SPEED_RATIO, 0, 0);
+}
+
 function getContextMenuDisabledKeys(tabId: string) {
   const disabledKeys: App.Global.DropdownKey[] = [];
 
@@ -82,24 +94,88 @@ function getContextMenuDisabledKeys(tabId: string) {
   return disabledKeys;
 }
 
-async function handleCloseTab(tab: App.Global.Tab) {
-  await tabStore.removeTab(tab.id);
+function handleCloseTab(tab: App.Global.Tab) {
+  tabStore.removeTab(tab.id);
+}
 
-  if (themeStore.resetCacheStrategy === 'close') {
-    routeStore.resetRouteCache(tab.routeKey);
+function handleMousedown(e: MouseEvent, tab: App.Global.Tab) {
+  const isMiddleClick = e.button === MIDDLE_MOUSE_BUTTON;
+  if (!isMiddleClick || !themeStore.tab.closeTabByMiddleClick) {
+    return;
   }
+
+  if (tabStore.isTabRetain(tab.id)) {
+    return;
+  }
+
+  e.preventDefault();
+  handleCloseTab(tab);
+}
+
+function switchTab(e: MouseEvent, tab: App.Global.Tab) {
+  if ([MIDDLE_MOUSE_BUTTON, RIGHT_MOUSE_BUTTON].includes(e.button)) return;
+
+  tabStore.switchRouteByTab(tab);
 }
 
 async function refresh() {
   appStore.reloadPage(500);
 }
 
-function removeFocus() {
-  (document.activeElement as HTMLElement)?.blur();
+interface DropdownConfig {
+  visible: boolean;
+  x: number;
+  y: number;
+  tabId: string;
+}
+
+const dropdown: DropdownConfig = reactive({
+  visible: false,
+  x: 0,
+  y: 0,
+  tabId: ''
+});
+
+function setDropdown(config: Partial<DropdownConfig>) {
+  Object.assign(dropdown, config);
+}
+
+let isClickContextMenu = false;
+
+function handleDropdownVisible(visible: boolean | undefined) {
+  if (!isClickContextMenu) {
+    setDropdown({ visible });
+  }
+}
+
+async function handleContextMenu(e: MouseEvent, tabId: string) {
+  e.preventDefault();
+
+  const { clientX, clientY } = e;
+
+  isClickContextMenu = true;
+
+  const DURATION = dropdown.visible ? 150 : 0;
+
+  setDropdown({ visible: false });
+
+  setTimeout(() => {
+    setDropdown({
+      visible: true,
+      x: clientX,
+      y: clientY,
+      tabId
+    });
+    isClickContextMenu = false;
+  }, DURATION);
 }
 
 function init() {
   tabStore.initTabStore(route);
+}
+
+function removeFocus() {
+  (document.activeElement as HTMLElement)?.blur();
 }
 
 // watch
@@ -122,45 +198,48 @@ init();
 
 <template>
   <DarkModeContainer class="size-full flex-y-center px-16px shadow-tab">
-    <div ref="bsWrapper" class="h-full flex-1-hidden">
+    <div ref="bsWrapper" class="h-full flex-1-hidden" @wheel="handleWheel">
       <BetterScroll ref="bsScroll" :options="{ scrollX: true, scrollY: false, click: !isPCFlag }" @click="removeFocus">
         <div
           ref="tabRef"
           class="h-full flex pr-18px"
-          :class="[themeStore.tab.mode === 'chrome' ? 'items-end' : 'items-center gap-12px']"
+          :class="[
+            themeStore.tab.mode === 'chrome' || themeStore.tab.mode === 'slider' ? 'items-end' : 'items-center gap-12px'
+          ]"
         >
-          <ContextMenu
+          <PageTab
             v-for="tab in tabStore.tabs"
             :key="tab.id"
-            :tab-id="tab.id"
-            :disabled-keys="getContextMenuDisabledKeys(tab.id)"
+            :[TAB_DATA_ID]="tab.id"
+            :mode="themeStore.tab.mode"
+            :dark-mode="themeStore.darkMode"
+            :active="tab.id === tabStore.activeTabId"
+            :active-color="themeStore.themeColor"
+            :closable="!tabStore.isTabRetain(tab.id)"
+            @pointerdown="switchTab($event, tab)"
+            @mousedown="handleMousedown($event, tab)"
+            @close="handleCloseTab(tab)"
+            @contextmenu="handleContextMenu($event, tab.id)"
           >
-            <PageTab
-              :[TAB_DATA_ID]="tab.id"
-              :mode="themeStore.tab.mode"
-              :dark-mode="themeStore.darkMode"
-              :active="tab.id === tabStore.activeTabId"
-              :active-color="themeStore.themeColor"
-              :closable="!tabStore.isTabRetain(tab.id)"
-              @click="tabStore.switchRouteByTab(tab)"
-              @close="handleCloseTab(tab)"
-            >
-              <template #prefix>
-                <SvgIcon
-                  :icon="tab.icon"
-                  :local-icon="tab.localIcon"
-                  class="inline-block align-text-bottom text-16px"
-                />
-              </template>
-              <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
-            </PageTab>
-          </ContextMenu>
+            <template #prefix>
+              <SvgIcon :icon="tab.icon" :local-icon="tab.localIcon" class="inline-block align-text-bottom text-16px" />
+            </template>
+            <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
+          </PageTab>
         </div>
       </BetterScroll>
     </div>
     <ReloadButton :loading="!appStore.reloadFlag" @click="refresh" />
     <FullScreen :full="appStore.fullContent" @click="appStore.toggleFullContent" />
   </DarkModeContainer>
+  <ContextMenu
+    :visible="dropdown.visible"
+    :tab-id="dropdown.tabId"
+    :disabled-keys="getContextMenuDisabledKeys(dropdown.tabId)"
+    :x="dropdown.x"
+    :y="dropdown.y"
+    @update:visible="handleDropdownVisible"
+  />
 </template>
 
 <style scoped></style>

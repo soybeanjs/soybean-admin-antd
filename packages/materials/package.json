@@ -1,20 +1,26 @@
 {
   "name": "@sa/materials",
-  "version": "1.3.11",
+  "version": "2.3.0",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./src/*"
+      ]
+    }
+  },
   "exports": {
     ".": "./src/index.ts"
   },
-  "typesVersions": {
-    "*": {
-      "*": ["./src/*"]
-    }
+  "scripts": {
+    "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@sa/utils": "workspace:*",
     "@simonwep/pickr": "1.9.1",
+    "@sa/utils": "workspace:*",
     "simplebar-vue": "2.4.2"
   },
   "devDependencies": {
-    "typed-css-modules": "0.9.1"
+    "typed-css-modules": "0.9.1",
+    "vue-tsc": "^3.3.12"
   }
 }

@@ -15,6 +15,8 @@ const local: App.I18n.Schema = {
     cancel: 'Cancel',
     close: 'Close',
     check: 'Check',
+    selectAll: 'Select All',
+    expandColumn: 'Expand Column',
     columnSetting: 'Column Setting',
     config: 'Config',
     confirm: 'Confirm',
@@ -22,6 +24,7 @@ const local: App.I18n.Schema = {
     deleteSuccess: 'Delete Success',
     confirmDelete: 'Are you sure you want to delete?',
     edit: 'Edit',
+    warning: 'Warning',
     error: 'Error',
     index: 'Index',
     keywordSearch: 'Please enter keyword',
@@ -56,93 +59,162 @@ const local: App.I18n.Schema = {
     tokenExpired: 'The requested token has expired'
   },
   theme: {
-    themeSchema: {
-      title: 'Theme Schema',
-      light: 'Light',
-      dark: 'Dark',
-      auto: 'Follow System'
-    },
-    grayscale: 'Grayscale',
-    colourWeakness: 'Colour Weakness',
-    layoutMode: {
-      title: 'Layout Mode',
-      vertical: 'Vertical Menu Mode',
-      horizontal: 'Horizontal Menu Mode',
-      'vertical-mix': 'Vertical Mix Menu Mode',
-      'horizontal-mix': 'Horizontal Mix menu Mode',
-      reverseHorizontalMix: 'Reverse first level menus and child level menus position'
-    },
-    recommendColor: 'Apply Recommended Color Algorithm',
-    recommendColorDesc: 'The recommended color algorithm refers to',
-    themeColor: {
-      title: 'Theme Color',
-      primary: 'Primary',
-      info: 'Info',
-      success: 'Success',
-      warning: 'Warning',
-      error: 'Error',
-      followPrimary: 'Follow Primary'
-    },
-    scrollMode: {
-      title: 'Scroll Mode',
-      wrapper: 'Wrapper',
-      content: 'Content'
-    },
-    page: {
-      animate: 'Page Animate',
-      mode: {
-        title: 'Page Animate Mode',
-        fade: 'Fade',
-        'fade-slide': 'Slide',
-        'fade-bottom': 'Fade Zoom',
-        'fade-scale': 'Fade Scale',
-        'zoom-fade': 'Zoom Fade',
-        'zoom-out': 'Zoom Out',
-        none: 'None'
-      }
-    },
-    fixedHeaderAndTab: 'Fixed Header And Tab',
-    header: {
-      height: 'Header Height',
-      breadcrumb: {
-        visible: 'Breadcrumb Visible',
-        showIcon: 'Breadcrumb Icon Visible'
-      }
-    },
-    tab: {
-      visible: 'Tab Visible',
-      cache: 'Tag Bar Info Cache',
-      height: 'Tab Height',
-      mode: {
-        title: 'Tab Mode',
-        chrome: 'Chrome',
-        button: 'Button'
-      }
-    },
-    sider: {
-      inverted: 'Dark Sider',
-      width: 'Sider Width',
-      collapsedWidth: 'Sider Collapsed Width',
-      mixWidth: 'Mix Sider Width',
-      mixCollapsedWidth: 'Mix Sider Collapse Width',
-      mixChildMenuWidth: 'Mix Child Menu Width'
-    },
-    footer: {
-      visible: 'Footer Visible',
-      fixed: 'Fixed Footer',
-      height: 'Footer Height',
-      right: 'Right Footer'
-    },
-    watermark: {
-      visible: 'Watermark Full Screen Visible',
-      text: 'Watermark Text'
-    },
     themeDrawerTitle: 'Theme Configuration',
-    pageFunTitle: 'Page Function',
-    resetCacheStrategy: {
-      title: 'Reset Cache Strategy',
-      close: 'Close Page',
-      refresh: 'Refresh Page'
+    tabs: {
+      appearance: 'Appearance',
+      layout: 'Layout',
+      general: 'General',
+      preset: 'Preset'
+    },
+    appearance: {
+      themeSchema: {
+        title: 'Theme Schema',
+        light: 'Light',
+        dark: 'Dark',
+        auto: 'Follow System'
+      },
+      grayscale: 'Grayscale',
+      colourWeakness: 'Colour Weakness',
+      themeColor: {
+        title: 'Theme Color',
+        primary: 'Primary',
+        info: 'Info',
+        success: 'Success',
+        warning: 'Warning',
+        error: 'Error',
+        followPrimary: 'Follow Primary'
+      },
+      themeRadius: {
+        title: 'Theme Radius'
+      },
+      recommendColor: 'Apply Recommended Color Algorithm',
+      recommendColorDesc: 'The recommended color algorithm refers to',
+      preset: {
+        title: 'Theme Presets',
+        apply: 'Apply',
+        applySuccess: 'Preset applied successfully',
+        default: {
+          name: 'Default Preset',
+          desc: 'Default theme preset with balanced settings'
+        },
+        dark: {
+          name: 'Dark Preset',
+          desc: 'Dark theme preset for night time usage'
+        },
+        compact: {
+          name: 'Compact Preset',
+          desc: 'Compact layout preset for small screens'
+        },
+        azir: {
+          name: "Azir's Preset",
+          desc: 'It is a cold and elegant preset that Azir likes'
+        }
+      }
+    },
+    layout: {
+      layoutMode: {
+        title: 'Layout Mode',
+        vertical: 'Vertical Mode',
+        horizontal: 'Horizontal Mode',
+        'vertical-mix': 'Vertical Mix Mode',
+        'vertical-hybrid-header-first': 'Left Hybrid Header-First',
+        'top-hybrid-sidebar-first': 'Top-Hybrid Sidebar-First',
+        'top-hybrid-header-first': 'Top-Hybrid Header-First',
+        vertical_detail: 'Vertical menu layout, with the menu on the left and content on the right.',
+        'vertical-mix_detail':
+          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter left side.',
+        'vertical-hybrid-header-first_detail':
+          'Left hybrid layout, with the primary menu at the top, the secondary menu on the dark left side, and the tertiary menu on the lighter left side.',
+        horizontal_detail: 'Horizontal menu layout, with the menu at the top and content below.',
+        'top-hybrid-sidebar-first_detail':
+          'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',
+        'top-hybrid-header-first_detail':
+          'Top hybrid layout, with the primary menu at the top and the secondary menu on the left.'
+      },
+      tab: {
+        title: 'Tab Settings',
+        visible: 'Tab Visible',
+        cache: 'Tag Bar Info Cache',
+        cacheTip: 'Keep the tab bar information after leaving the page',
+        height: 'Tab Height',
+        mode: {
+          title: 'Tab Mode',
+          slider: 'Slider',
+          chrome: 'Chrome',
+          button: 'Button'
+        },
+        closeByMiddleClick: 'Close Tab by Middle Click',
+        closeByMiddleClickTip: 'Enable closing tabs by clicking with the middle mouse button'
+      },
+      header: {
+        title: 'Header Settings',
+        height: 'Header Height',
+        breadcrumb: {
+          visible: 'Breadcrumb Visible',
+          showIcon: 'Breadcrumb Icon Visible'
+        }
+      },
+      sider: {
+        title: 'Sider Settings',
+        inverted: 'Dark Sider',
+        width: 'Sider Width',
+        collapsedWidth: 'Sider Collapsed Width',
+        mixWidth: 'Mix Sider Width',
+        mixCollapsedWidth: 'Mix Sider Collapse Width',
+        mixChildMenuWidth: 'Mix Child Menu Width',
+        autoSelectFirstMenu: 'Auto Select First Submenu',
+        autoSelectFirstMenuTip:
+          'When a first-level menu is clicked, the first submenu is automatically selected and navigated to the deepest level'
+      },
+      footer: {
+        title: 'Footer Settings',
+        visible: 'Footer Visible',
+        fixed: 'Fixed Footer',
+        height: 'Footer Height',
+        right: 'Right Footer'
+      },
+      content: {
+        title: 'Content Area Settings',
+        scrollMode: {
+          title: 'Scroll Mode',
+          tip: 'The theme scroll only scrolls the main part, the outer scroll can carry the header and footer together',
+          wrapper: 'Wrapper',
+          content: 'Content'
+        },
+        page: {
+          animate: 'Page Animate',
+          mode: {
+            title: 'Page Animate Mode',
+            fade: 'Fade',
+            'fade-slide': 'Slide',
+            'fade-bottom': 'Fade Zoom',
+            'fade-scale': 'Fade Scale',
+            'zoom-fade': 'Zoom Fade',
+            'zoom-out': 'Zoom Out',
+            none: 'None'
+          }
+        },
+        fixedHeaderAndTab: 'Fixed Header And Tab'
+      }
+    },
+    general: {
+      title: 'General Settings',
+      watermark: {
+        title: 'Watermark Settings',
+        visible: 'Watermark Full Screen Visible',
+        text: 'Custom Watermark Text',
+        enableUserName: 'Enable User Name Watermark',
+        enableTime: 'Show Current Time',
+        timeFormat: 'Time Format'
+      },
+      multilingual: {
+        title: 'Multilingual Settings',
+        visible: 'Display multilingual button'
+      },
+      globalSearch: {
+        title: 'Global Search Settings',
+        visible: 'Display GlobalSearch button'
+      }
     },
     configOperation: {
       copyConfig: 'Copy Config',
@@ -157,42 +229,7 @@ const local: App.I18n.Schema = {
     404: 'Page Not Found',
     500: 'Server Error',
     'iframe-page': 'Iframe',
-    home: 'Home',
-    document: 'Document',
-    document_project: 'Project Document',
-    'document_project-link': 'Project Document(External Link)',
-    document_vue: 'Vue Document',
-    document_vite: 'Vite Document',
-    document_unocss: 'UnoCSS Document',
-    document_naive: 'Naive UI Document',
-    document_antd: 'Ant Design Vue Document',
-    'user-center': 'User Center',
-    about: 'About',
-    function: 'System Function',
-    function_tab: 'Tab',
-    'function_multi-tab': 'Multi Tab',
-    'function_hide-child': 'Hide Child',
-    'function_hide-child_one': 'Hide Child',
-    'function_hide-child_two': 'Two',
-    'function_hide-child_three': 'Three',
-    function_request: 'Request',
-    'function_toggle-auth': 'Toggle Auth',
-    'function_super-page': 'Super Admin Visible',
-    manage: 'System Manage',
-    manage_user: 'User Manage',
-    'manage_user-detail': 'User Detail',
-    manage_role: 'Role Manage',
-    manage_menu: 'Menu Manage',
-    'multi-menu': 'Multi Menu',
-    'multi-menu_first': 'Menu One',
-    'multi-menu_first_child': 'Menu One Child',
-    'multi-menu_second': 'Menu Two',
-    'multi-menu_second_child': 'Menu Two Child',
-    'multi-menu_second_child_home': 'Menu Two Child Home',
-    exception: 'Exception',
-    exception_403: '403',
-    exception_404: '404',
-    exception_500: '500'
+    home: 'Home'
   },
   page: {
     login: {
@@ -241,20 +278,9 @@ const local: App.I18n.Schema = {
         title: 'Bind WeChat'
       }
     },
-    about: {
-      title: 'About',
-      introduction: `SoybeanAdmin is an elegant and powerful admin template, based on the latest front-end technology stack, including Vue3, Vite5, TypeScript, Pinia and UnoCSS. It has built-in rich theme configuration and components, strict code specifications, and an automated file routing system. In addition, it also uses the online mock data solution based on ApiFox. SoybeanAdmin provides you with a one-stop admin solution, no additional configuration, and out of the box. It is also a best practice for learning cutting-edge technologies quickly.`,
-      projectInfo: {
-        title: 'Project Info',
-        version: 'Version',
-        latestBuildTime: 'Latest Build Time',
-        githubLink: 'Github Link',
-        previewLink: 'Preview Link'
-      },
-      prdDep: 'Production Dependency',
-      devDep: 'Development Dependency'
-    },
     home: {
+      branchDesc:
+        'For the convenience of everyone in developing and updating the merge, we have streamlined the code of the main branch, only retaining the homepage menu, and the rest of the content has been moved to the example branch for maintenance. The preview address displays the content of the example branch.',
       greeting: 'Good morning, {userName}, today is another day full of vitality!',
       weatherDesc: 'Today is cloudy to clear, 20℃ - 25℃!',
       projectCount: 'Project Count',
@@ -280,163 +306,6 @@ const local: App.I18n.Schema = {
         desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!'
       },
       creativity: 'Creativity'
-    },
-    function: {
-      tab: {
-        tabOperate: {
-          title: 'Tab Operation',
-          addTab: 'Add Tab',
-          addTabDesc: 'To about page',
-          closeTab: 'Close Tab',
-          closeCurrentTab: 'Close Current Tab',
-          closeAboutTab: 'Close "About" Tab',
-          addMultiTab: 'Add Multi Tab',
-          addMultiTabDesc1: 'To MultiTab page',
-          addMultiTabDesc2: 'To MultiTab page(with query params)'
-        },
-        tabTitle: {
-          title: 'Tab Title',
-          changeTitle: 'Change Title',
-          change: 'Change',
-          resetTitle: 'Reset Title',
-          reset: 'Reset'
-        }
-      },
-      multiTab: {
-        routeParam: 'Route Param',
-        backTab: 'Back function_tab'
-      },
-      toggleAuth: {
-        toggleAccount: 'Toggle Account',
-        authHook: 'Auth Hook Function `hasAuth`',
-        superAdminVisible: 'Super Admin Visible',
-        adminVisible: 'Admin Visible',
-        adminOrUserVisible: 'Admin and User Visible'
-      },
-      request: {
-        repeatedErrorOccurOnce: 'Repeated Request Error Occurs Once',
-        repeatedError: 'Repeated Request Error',
-        repeatedErrorMsg1: 'Custom Request Error 1',
-        repeatedErrorMsg2: 'Custom Request Error 2'
-      }
-    },
-    manage: {
-      common: {
-        status: {
-          enable: 'Enable',
-          disable: 'Disable'
-        }
-      },
-      role: {
-        title: 'Role List',
-        roleName: 'Role Name',
-        roleCode: 'Role Code',
-        roleStatus: 'Role Status',
-        roleDesc: 'Role Description',
-        menuAuth: 'Menu Auth',
-        buttonAuth: 'Button Auth',
-        form: {
-          roleName: 'Please enter role name',
-          roleCode: 'Please enter role code',
-          roleStatus: 'Please select role status',
-          roleDesc: 'Please enter role description'
-        },
-        addRole: 'Add Role',
-        editRole: 'Edit Role'
-      },
-      user: {
-        title: 'User List',
-        userName: 'User Name',
-        userGender: 'Gender',
-        nickName: 'Nick Name',
-        userPhone: 'Phone Number',
-        userEmail: 'Email',
-        userStatus: 'User Status',
-        userRole: 'User Role',
-        form: {
-          userName: 'Please enter user name',
-          userGender: 'Please select gender',
-          nickName: 'Please enter nick name',
-          userPhone: 'Please enter phone number',
-          userEmail: 'Please enter email',
-          userStatus: 'Please select user status',
-          userRole: 'Please select user role'
-        },
-        addUser: 'Add User',
-        editUser: 'Edit User',
-        gender: {
-          male: 'Male',
-          female: 'Female'
-        }
-      },
-      menu: {
-        home: 'Home',
-        title: 'Menu List',
-        id: 'ID',
-        parentId: 'Parent ID',
-        menuType: 'Menu Type',
-        menuName: 'Menu Name',
-        query: 'Query Params',
-        routeName: 'Route Name',
-        routePath: 'Route Path',
-        layout: 'Layout Component',
-        page: 'Page Component',
-        i18nKey: 'I18n Key',
-        icon: 'Icon',
-        localIcon: 'Local Icon',
-        constant: 'Constant',
-        iconTypeTitle: 'Icon Type',
-        order: 'Order',
-        keepAlive: 'Keep Alive',
-        pathParam: 'Path Param',
-        href: 'Href',
-        hideInMenu: 'Hide In Menu',
-        activeMenu: 'Active Menu',
-        multiTab: 'Multi Tab',
-        fixedIndexInTab: 'Fixed Index In Tab',
-        button: 'Button',
-        buttonCode: 'Button Code',
-        buttonDesc: 'Button Desc',
-        menuStatus: 'Menu Status',
-        form: {
-          home: 'Please select home',
-          menuType: 'Please select menu type',
-          menuName: 'Please enter menu name',
-          routeName: 'Please enter route name',
-          routePath: 'Please enter route path',
-          pathParam: 'Please enter path param',
-          page: 'Please select page component',
-          layout: 'Please select layout component',
-          i18nKey: 'Please enter i18n key',
-          icon: 'Please enter iconify name',
-          localIcon: 'Please enter local icon name',
-          order: 'Please enter order',
-          keepAlive: 'Please select whether to cache route',
-          href: 'Please enter href',
-          hideInMenu: 'Please select whether to hide menu',
-          activeMenu: 'Please enter the route name of the highlighted menu',
-          multiTab: 'Please select whether to support multiple tabs',
-          queryKey: 'Please enter route parameter Key',
-          queryValue: 'Please enter route parameter Value',
-          fixedInTab: 'Please select whether to fix in the tab',
-          fixedIndexInTab: 'Please enter the index fixed in the tab',
-          button: 'Please select whether it is a button',
-          buttonCode: 'Please enter button code',
-          buttonDesc: 'Please enter button description',
-          menuStatus: 'Please select menu status'
-        },
-        addMenu: 'Add Menu',
-        editMenu: 'Edit Menu',
-        addChildMenu: 'Add Child Menu',
-        type: {
-          directory: 'Directory',
-          menu: 'Menu'
-        },
-        iconType: {
-          iconify: 'Iconify Icon',
-          local: 'Local Icon'
-        }
-      }
     }
   },
   form: {
@@ -471,7 +340,9 @@ const local: App.I18n.Schema = {
     closeOther: 'Close Other',
     closeLeft: 'Close Left',
     closeRight: 'Close Right',
-    closeAll: 'Close All'
+    closeAll: 'Close All',
+    pin: 'Pin Tab',
+    unpin: 'Unpin Tab'
   },
   icon: {
     themeConfig: 'Theme Configuration',
@@ -484,6 +355,14 @@ const local: App.I18n.Schema = {
     expand: 'Expand Menu',
     pin: 'Pin',
     unpin: 'Unpin'
+  },
+  datatable: {
+    itemCount: 'Total {total} items',
+    fixed: {
+      left: 'Left Fixed',
+      right: 'Right Fixed',
+      unFixed: 'Unfixed'
+    }
   }
 };
 

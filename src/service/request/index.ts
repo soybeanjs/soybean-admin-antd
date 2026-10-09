@@ -1,16 +1,16 @@
 import type { AxiosResponse } from 'axios';
 import { BACKEND_ERROR_CODE, createFlatRequest, createRequest } from '@sa/axios';
-import { useAuthStore } from '@/store/modules/auth';
-import { localStg } from '@/utils/storage';
 import { getServiceBaseURL } from '@/utils/service';
+import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
+import { useAuthStore } from '@/store/modules/auth';
 import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
-export const request = createFlatRequest<App.Service.Response, RequestInstanceState>(
+export const request = createFlatRequest(
   {
     baseURL,
     headers: {
@@ -18,6 +18,13 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     }
   },
   {
+    defaultState: {
+      errMsgStack: [],
+      refreshTokenPromise: null
+    } as RequestInstanceState,
+    transform(response: AxiosResponse<App.Service.Response<any>>) {
+      return response.data.data;
+    },
     async onRequest(config) {
       const Authorization = getAuthorization();
       Object.assign(config.headers, { Authorization });
@@ -53,21 +60,22 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
 
       // when the backend response code is in `modalLogoutCodes`, it means the user will be logged out by displaying a modal
       const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
-      if (modalLogoutCodes.includes(responseCode) && !request.state.errMsgStack?.includes(responseCode)) {
+      if (modalLogoutCodes.includes(responseCode) && !request.state.errMsgStack?.includes(response.data.msg)) {
         request.state.errMsgStack = [...(request.state.errMsgStack || []), response.data.msg];
 
         // prevent the user from refreshing the page
         window.addEventListener('beforeunload', handleLogout);
 
-        window.$modal?.error({
+        window.$dialog?.error({
           title: $t('common.error'),
           content: response.data.msg,
-          okText: $t('common.confirm'),
+          positiveText: $t('common.confirm'),
           maskClosable: false,
-          onOk() {
+          closeOnEsc: false,
+          onPositiveClick() {
             logoutAndCleanup();
           },
-          onCancel() {
+          onClose() {
             logoutAndCleanup();
           }
         });
@@ -90,9 +98,6 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
 
       return null;
     },
-    transformBackendResponse(response) {
-      return response.data.data;
-    },
     onError(error) {
       // when the request is fail, you can show error message
 
@@ -102,7 +107,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
       // get backend error message and code
       if (error.code === BACKEND_ERROR_CODE) {
         message = error.response?.data?.msg || message;
-        backendErrorCode = String(error.response?.data?.code) || '';
+        backendErrorCode = String(error.response?.data?.code || '');
       }
 
       // the error message is displayed in the modal
@@ -122,11 +127,14 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
   }
 );
 
-export const demoRequest = createRequest<App.Service.DemoResponse>(
+export const demoRequest = createRequest(
   {
     baseURL: otherBaseURL.demo
   },
   {
+    transform(response: AxiosResponse<App.Service.DemoResponse>) {
+      return response.data.result;
+    },
     async onRequest(config) {
       const { headers } = config;
 
@@ -145,9 +153,6 @@ export const demoRequest = createRequest<App.Service.DemoResponse>(
     async onBackendFail(_response) {
       // when the backend response code is not "200", it means the request is fail
       // for example: the token is expired, refresh token and retry request
-    },
-    transformBackendResponse(response) {
-      return response.data.result;
     },
     onError(error) {
       // when the request is fail, you can show error message
