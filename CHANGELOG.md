@@ -1,6 +1,52 @@
 # Changelog
 
 
+## [v2.3.0](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.11...v2.3.0) (2026-10-10)
+
+### &nbsp;&nbsp;&nbsp;🚀 Features
+
+- **docs**:
+  - add GitCode star badge to README files &nbsp;-&nbsp; by **Soybean** [<samp>(0546c)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0546ce2a)
+  - add DartNode sponsorship badge to README files &nbsp;-&nbsp; by **Azir** [<samp>(0a106)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/0a106901)
+  - update QQ group image in README &nbsp;-&nbsp; by **Soybean** [<samp>(fd1ce)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/fd1ceb5e)
+  - add skyroc-admin and soybean-admin-go to ecosystem section in README &nbsp;-&nbsp; by **Soybean** [<samp>(a0ca3)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/a0ca3fe7)
+- **logo**:
+  - use new logo &nbsp;-&nbsp; by **Soybean** [<samp>(b48e6)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/b48e67b9)
+
+### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes
+
+- **README**: update FeiShu group image URL to include cache-busting query parameter &nbsp;-&nbsp; by **Soybean** [<samp>(4caf7)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/4caf7484)
+- **types**: fix ts error &nbsp;-&nbsp; by **Soybean** [<samp>(dbf6f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/dbf6fed6)
+
+### &nbsp;&nbsp;&nbsp;📖 Documentation
+
+- **README**:
+  - add FeiShu group info and update  some links &nbsp;-&nbsp; by **Soybean** [<samp>(d6eb2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/d6eb2a88)
+- **projects**:
+  - update README &nbsp;-&nbsp; by **青菜白玉汤** [<samp>(aed7c)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/aed7c68f)
+  - add gitcode link &nbsp;-&nbsp; by **Soybean** [<samp>(5cfbf)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/5cfbf5b3)
+
+### &nbsp;&nbsp;&nbsp;🏡 Chore
+
+- **deps**:
+  - update deps &nbsp;-&nbsp; by **Soybean** [<samp>(1bb8a)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/1bb8a808)
+  - update deps &nbsp;-&nbsp; by **Soybean** [<samp>(958fa)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/958facd0)
+- **other**:
+  - remove DartNode sponsorship badge from README files. &nbsp;-&nbsp; by **Azir-11** [<samp>(7ef47)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/7ef47088)
+  - 补齐上游新增的仓库文件并移除未使用的 @sa/fetch 包 &nbsp;-&nbsp; by **Soybean** [<samp>(f85bd)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f85bd761)
+
+- **sync**:
+  - checkout unmodified upstream files (76 files) &nbsp;-&nbsp; by **Soybean** [<samp>(29eac)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/29eacbaf)
+  - three-way merge non-UI diverged files (19 clean merges) &nbsp;-&nbsp; by **Soybean** [<samp>(29d3f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/29d3fdc1)
+  - manually resolve merge conflicts and add theme presets &nbsp;-&nbsp; by **Soybean** [<samp>(f89d2)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/f89d2c51)
+  - apply upstream delta to small UI files (7 files) &nbsp;-&nbsp; by **Soybean** [<samp>(239e6)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/239e6f23)
+  - port rewrite-level files, refactor theme-drawer, migrate global-menu/global-search and upgrade deps to the vite-plus ecosystem &nbsp;-&nbsp; by **Soybean** [<samp>(8457f)</samp>](https://github.com/soybeanjs/soybean-admin-antd/commit/8457f405)
+
+### &nbsp;&nbsp;&nbsp;❤️ Contributors
+
+
+[Soybean](mailto:soybeanjs@outlook.com),&nbsp;[soybean](mailto:soybean@example.com),&nbsp;[Azir-11](mailto:2075125282@qq.com),&nbsp;[青菜白玉汤](mailto:79054161+Azir-11@users.noreply.github.com)
+
 ## [v1.3.11](https://github.com/soybeanjs/soybean-admin-antd/compare/v1.3.10...v1.3.11) (2025-01-19)
 
 ### &nbsp;&nbsp;&nbsp;🐞 Bug Fixes

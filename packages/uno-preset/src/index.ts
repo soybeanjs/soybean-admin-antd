@@ -18,6 +18,7 @@ export function presetSoybeanAdmin(): Preset<Theme> {
         'i-flex-x-center': 'inline-flex justify-center',
         'i-flex-y-center': 'inline-flex items-center',
         'i-flex-col': 'flex-col inline-flex',
+        'i-flex-col-center': 'flex-col i-flex-center',
         'i-flex-col-stretch': 'i-flex-col items-stretch',
         'flex-1-hidden': 'flex-1 overflow-hidden'
       },
