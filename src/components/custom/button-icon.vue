@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
 import { twMerge } from 'tailwind-merge';
+import type { TooltipPlacement } from 'ant-design-vue/es/tooltip';
+
 defineOptions({
   name: 'ButtonIcon',
   inheritAttrs: false

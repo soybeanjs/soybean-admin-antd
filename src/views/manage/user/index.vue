@@ -1,37 +1,34 @@
 <script setup lang="tsx">
+import { ref } from 'vue';
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
-import { fetchGetUserList } from '@/service/api';
-import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
-import { $t } from '@/locales';
 import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { fetchGetUserList } from '@/service/api';
+import { $t } from '@/locales';
+import { defaultTransform, useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import UserOperateDrawer from './modules/user-operate-drawer.vue';
 import UserSearch from './modules/user-search.vue';
 
 const { tableWrapperRef, scrollConfig } = useTableScroll();
 
-const {
-  columns,
-  columnChecks,
-  data,
-  getData,
-  getDataByPage,
-  loading,
-  mobilePagination,
-  searchParams,
-  resetSearchParams
-} = useTable({
-  apiFn: fetchGetUserList,
-  apiParams: {
-    current: 1,
-    size: 10,
-    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
-    // the value can not be undefined, otherwise the property in Form will not be reactive
-    status: undefined,
-    userName: undefined,
-    userGender: undefined,
-    nickName: undefined,
-    userPhone: undefined,
-    userEmail: undefined
+const searchParams = ref<Api.SystemManage.UserSearchParams>({
+  current: 1,
+  size: 10,
+  // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+  // the value can not be undefined, otherwise the property in Form will not be reactive
+  status: undefined,
+  userName: undefined,
+  userGender: undefined,
+  nickName: undefined,
+  userPhone: undefined,
+  userEmail: undefined
+});
+
+const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagination } = useTable({
+  api: () => fetchGetUserList(searchParams.value),
+  transform: response => defaultTransform(response),
+  onPaginationParamsChange: params => {
+    searchParams.value.current = params.page;
+    searchParams.value.size = params.pageSize;
   },
   columns: () => [
     {
@@ -166,7 +163,7 @@ function edit(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <UserSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <UserSearch v-model:model="searchParams" @search="getDataByPage" />
     <ACard
       :title="$t('page.manage.user.title')"
       :bordered="false"

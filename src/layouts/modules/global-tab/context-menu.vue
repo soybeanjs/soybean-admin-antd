@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabledKeys: () => []
 });
 
-const { removeTab, clearTabs, clearLeftTabs, clearRightTabs } = useTabStore();
+const { removeTab, clearTabs, clearLeftTabs, clearRightTabs, fixTab, unfixTab, isTabRetain, homeTab } = useTabStore();
 
 interface DropdownOption {
   key: App.Global.DropdownKey;
@@ -58,6 +58,23 @@ const options = computed(() => {
       icon: 'ant-design:line-outlined'
     }
   ];
+
+  if (props.tabId !== homeTab?.id) {
+    if (isTabRetain(props.tabId)) {
+      opts.push({
+        key: 'unpin',
+        label: $t('dropdown.unpin'),
+        icon: 'mdi:pin-off-outline'
+      });
+    } else {
+      opts.push({
+        key: 'pin',
+        label: $t('dropdown.pin'),
+        icon: 'mdi:pin-outline'
+      });
+    }
+  }
+
   const { excludeKeys, disabledKeys } = props;
 
   const result = opts.filter(opt => !excludeKeys.includes(opt.key));
@@ -88,6 +105,12 @@ const dropdownAction: Record<App.Global.DropdownKey, () => void> = {
   },
   closeAll() {
     clearTabs();
+  },
+  pin() {
+    fixTab(props.tabId);
+  },
+  unpin() {
+    unfixTab(props.tabId);
   }
 };
 </script>

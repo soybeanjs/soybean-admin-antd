@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ColorPicker } from '@sa/materials';
-import { useThemeStore } from '@/store/modules/theme';
 import { $t } from '@/locales';
-import SettingItem from '../components/setting-item.vue';
+import { useThemeStore } from '@/store/modules/theme';
+import SettingItem from '../../../components/setting-item.vue';
 
 defineOptions({
   name: 'ThemeColor'
@@ -16,15 +16,15 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
 </script>
 
 <template>
-  <ADivider>{{ $t('theme.themeColor.title') }}</ADivider>
+  <ADivider>{{ $t('theme.appearance.themeColor.title') }}</ADivider>
   <div class="flex-col-stretch gap-12px">
     <ATooltip placement="topLeft">
-      <SettingItem key="recommend-color" :label="$t('theme.recommendColor')">
+      <SettingItem key="recommend-color" :label="$t('theme.appearance.recommendColor')">
         <ASwitch v-model:checked="themeStore.recommendColor" />
       </SettingItem>
       <template #title>
         <p>
-          <span class="pr-12px">{{ $t('theme.recommendColorDesc') }}</span>
+          <span class="pr-12px">{{ $t('theme.appearance.recommendColorDesc') }}</span>
           <br />
           <AButton
             type="link"
@@ -38,10 +38,14 @@ function handleUpdateColor(color: string, key: App.Theme.ThemeColorKey) {
         </p>
       </template>
     </ATooltip>
-    <SettingItem v-for="(_, key) in themeStore.themeColors" :key="key" :label="$t(`theme.themeColor.${key}`)">
+    <SettingItem
+      v-for="(_, key) in themeStore.themeColors"
+      :key="key"
+      :label="$t(`theme.appearance.themeColor.${key}`)"
+    >
       <template v-if="key === 'info'" #suffix>
         <ACheckbox v-model:checked="themeStore.isInfoFollowPrimary">
-          {{ $t('theme.themeColor.followPrimary') }}
+          {{ $t('theme.appearance.themeColor.followPrimary') }}
         </ACheckbox>
       </template>
       <ColorPicker

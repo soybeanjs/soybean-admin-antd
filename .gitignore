@@ -32,6 +32,8 @@ coverage
 package-lock.json
 yarn.lock
 
+# Vite+ Git hook dispatcher（生成物；项目自有 hook 脚本 .vite-hooks/* 需提交）
+.vite-hooks/_
 .VSCodeCounter
 src-tauri/target
 .codegraph

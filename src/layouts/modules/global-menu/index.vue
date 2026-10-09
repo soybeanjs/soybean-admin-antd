@@ -47,7 +47,7 @@ const selectedBgColor = computed(() => {
   <component :is="activeMenu" :key="reRenderVertical" />
 </template>
 
-<style>
+<style lang="scss">
 @import './index.scss';
 
 .select-menu {

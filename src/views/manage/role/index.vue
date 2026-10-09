@@ -1,32 +1,29 @@
 <script setup lang="tsx">
+import { ref } from 'vue';
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
-import { fetchGetRoleList } from '@/service/api';
-import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
-import { $t } from '@/locales';
 import { enableStatusRecord } from '@/constants/business';
+import { fetchGetRoleList } from '@/service/api';
+import { $t } from '@/locales';
+import { defaultTransform, useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
 const { tableWrapperRef, scrollConfig } = useTableScroll();
 
-const {
-  columns,
-  columnChecks,
-  data,
-  loading,
-  getData,
-  getDataByPage,
-  mobilePagination,
-  searchParams,
-  resetSearchParams
-} = useTable({
-  apiFn: fetchGetRoleList,
-  apiParams: {
-    current: 1,
-    size: 10,
-    status: undefined,
-    roleName: undefined,
-    roleCode: undefined
+const searchParams = ref<Api.SystemManage.RoleSearchParams>({
+  current: 1,
+  size: 10,
+  status: undefined,
+  roleName: undefined,
+  roleCode: undefined
+});
+
+const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagination } = useTable({
+  api: () => fetchGetRoleList(searchParams.value),
+  transform: response => defaultTransform(response),
+  onPaginationParamsChange: params => {
+    searchParams.value.current = params.page;
+    searchParams.value.size = params.pageSize;
   },
   columns: () => [
     {
@@ -131,7 +128,7 @@ function edit(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <RoleSearch v-model:model="searchParams" @search="getDataByPage" />
     <ACard
       :title="$t('page.manage.role.title')"
       :bordered="false"

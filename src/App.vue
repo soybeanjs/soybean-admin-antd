@@ -2,9 +2,9 @@
 import { computed } from 'vue';
 import { ConfigProvider } from 'ant-design-vue';
 import type { WatermarkProps } from 'ant-design-vue';
+import { antdLocales } from './locales/antd';
 import { useAppStore } from './store/modules/app';
 import { useThemeStore } from './store/modules/theme';
-import { antdLocales } from './locales/antd';
 
 defineOptions({
   name: 'App'
@@ -19,7 +19,7 @@ const antdLocale = computed(() => {
 
 const watermarkProps = computed(() => {
   const props: WatermarkProps = {
-    content: themeStore.watermark.text,
+    content: themeStore.watermarkContent,
     width: 120,
     height: 120,
     font: {

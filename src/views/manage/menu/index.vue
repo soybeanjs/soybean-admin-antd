@@ -1,21 +1,23 @@
 <script setup lang="tsx">
 import { ref } from 'vue';
-import { Button, Popconfirm, Tag } from 'ant-design-vue';
 import type { Ref } from 'vue';
+import { Button, Popconfirm, Tag } from 'ant-design-vue';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
-import { useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
-import { $t } from '@/locales';
-import { yesOrNoRecord } from '@/constants/common';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
+import { yesOrNoRecord } from '@/constants/common';
+import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
+import { $t } from '@/locales';
+import { defaultTransform, useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal.vue';
+import MenuOperateModal from './modules/menu-operate-modal.vue';
+import type { OperateType } from './modules/menu-operate-modal.vue';
 
 const { bool: visible, setTrue: openModal } = useBoolean();
-const { tableWrapperRef, scrollConfig } = useTableScroll();
+const { tableWrapperRef, scrollConfig } = useTableScroll(1088);
 
 const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
-  apiFn: fetchGetMenuList,
+  api: () => fetchGetMenuList(),
+  transform: response => defaultTransform(response),
   columns: () => [
     {
       key: 'id',

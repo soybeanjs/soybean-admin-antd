@@ -1,14 +1,13 @@
 import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
+import { defu } from 'defu';
 import { getColorPalette } from '@sa/color';
 import { getRgbOfColor } from '@sa/utils';
-import { defu } from 'defu';
-import { overrideThemeSettings, themeSettings } from '@/theme/settings';
-import { themeVars } from '@/theme/vars';
+import { DARK_CLASS } from '@/constants/app';
 import { toggleHtmlClass } from '@/utils/common';
 import { localStg } from '@/utils/storage';
-
-const DARK_CLASS = 'dark';
+import { overrideThemeSettings, themeSettings } from '@/theme/settings';
+import { themeVars } from '@/theme/vars';
 
 /** Init theme settings */
 export function initThemeSettings() {
@@ -204,7 +203,7 @@ export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness 
  * @param colors Theme colors
  * @param darkMode Is dark mode
  */
-export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
+export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean, settings?: App.Theme.ThemeSetting) {
   const { defaultAlgorithm, darkAlgorithm } = antdTheme;
 
   const { primary, info, success, warning, error } = colors;
@@ -215,7 +214,8 @@ export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
       colorInfo: info,
       colorSuccess: success,
       colorWarning: warning,
-      colorError: error
+      colorError: error,
+      borderRadius: settings ? settings.themeRadius : 6
     },
     algorithm: [darkMode ? darkAlgorithm : defaultAlgorithm],
     components: {
@@ -229,4 +229,34 @@ export function getAntdTheme(colors: App.Theme.ThemeColor, darkMode: boolean) {
   };
 
   return theme;
+}
+
+/**
+ * Get theme radius css value
+ *
+ * @param settings Theme settings
+ */
+export function getThemeRadius(settings: App.Theme.ThemeSetting) {
+  return `${settings.themeRadius}px`;
+}
+
+/**
+ * Get antd theme with optional preset overrides
+ *
+ * @param colors Theme colors
+ * @param darkMode Is dark mode
+ * @param settings Theme settings
+ * @param overrides Optional manual overrides from preset
+ */
+export function getAntdThemeWithOverrides(
+  colors: App.Theme.ThemeColor,
+  darkMode: boolean,
+  settings: App.Theme.ThemeSetting,
+  overrides?: App.Theme.AntdThemeOverride
+) {
+  const theme = getAntdTheme(colors, darkMode, settings);
+
+  // If there are overrides, merge them with priority
+  // overrides has higher priority than auto-generated theme
+  return overrides ? (defu(overrides, theme) as ConfigProviderProps['theme']) : theme;
 }

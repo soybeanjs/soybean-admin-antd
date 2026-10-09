@@ -1,12 +1,12 @@
 <script setup lang="tsx">
 import { computed, nextTick, ref, watch } from 'vue';
 import { SimpleScrollbar } from '@sa/materials';
-import { useAntdForm, useFormRules } from '@/hooks/common/form';
-import { $t } from '@/locales';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
-import SvgIcon from '@/components/custom/svg-icon.vue';
 import { getLocalIcons } from '@/utils/icon';
 import { fetchGetAllRoles } from '@/service/api';
+import { $t } from '@/locales';
+import { useAntdForm, useFormRules } from '@/hooks/common/form';
+import SvgIcon from '@/components/custom/svg-icon.vue';
 import {
   getLayoutAndPage,
   getPathParamFromRoutePath,
@@ -495,7 +495,7 @@ watch(
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addQuery(index)">
                           <template #icon>
-                            <icon-ic:round-plus class="align-sub text-icon" />
+                            <icon-ic-round-plus class="align-sub text-icon" />
                           </template>
                         </AButton>
                         <AButton size="middle" @click="removeQuery(index)">
@@ -541,7 +541,7 @@ watch(
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addButton(index)">
                           <template #icon>
-                            <icon-ic:round-plus class="align-sub text-icon" />
+                            <icon-ic-round-plus class="align-sub text-icon" />
                           </template>
                         </AButton>
                         <AButton size="middle" @click="removeButton(index)">

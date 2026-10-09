@@ -4,6 +4,9 @@ declare namespace App {
   namespace Theme {
     type ColorPaletteNumber = import('@sa/color').ColorPaletteNumber;
 
+    /** Antd theme overrides that can be specified in preset */
+    type AntdThemeOverride = NonNullable<import('ant-design-vue').ConfigProviderProps['theme']>;
+
     /** Theme setting */
     interface ThemeSetting {
       /** Theme scheme */
@@ -16,24 +19,18 @@ declare namespace App {
       recommendColor: boolean;
       /** Theme color */
       themeColor: string;
+      /** Theme radius */
+      themeRadius: number;
       /** Other color */
       otherColor: OtherColor;
       /** Whether info color is followed by the primary color */
       isInfoFollowPrimary: boolean;
-      /** Reset cache strategy */
-      resetCacheStrategy: UnionKey.ResetCacheStrategy;
       /** Layout */
       layout: {
         /** Layout mode */
         mode: UnionKey.ThemeLayoutMode;
         /** Scroll mode */
         scrollMode: UnionKey.ThemeScrollMode;
-        /**
-         * Whether to reverse the horizontal mix
-         *
-         * if true, the vertical child level menus in left and horizontal first level menus in top
-         */
-        reverseHorizontalMix: boolean;
       };
       /** Page */
       page: {
@@ -53,6 +50,14 @@ declare namespace App {
           /** Whether to show the breadcrumb icon */
           showIcon: boolean;
         };
+        /** Whether to show the multilingual button */
+        multilingual: {
+          visible: boolean;
+        };
+        /** Whether to show the global search button */
+        globalSearch: {
+          visible: boolean;
+        };
       };
       /** Tab */
       tab: {
@@ -68,6 +73,8 @@ declare namespace App {
         height: number;
         /** Tab mode */
         mode: UnionKey.ThemeTabMode;
+        /** Weather to close tab by middle click */
+        closeTabByMiddleClick: boolean;
       };
       /** Fixed header and tab */
       fixedHeaderAndTab: boolean;
@@ -83,6 +90,8 @@ declare namespace App {
         mixWidth: number;
         /** Collapsed sider width when the layout is 'vertical-mix' or 'horizontal-mix' */
         mixCollapsedWidth: number;
+        /** Whether to auto select the first menu of the second level menus when the layout is hybrid */
+        autoSelectFirstMenu: boolean;
         /** Child menu width when the layout is 'vertical-mix' or 'horizontal-mix' */
         mixChildMenuWidth: number;
       };
@@ -103,6 +112,12 @@ declare namespace App {
         visible: boolean;
         /** Watermark text */
         text: string;
+        /** Whether to show the user name in the watermark */
+        enableUserName: boolean;
+        /** Whether to show the current time in the watermark */
+        enableTime: boolean;
+        /** Watermark time format */
+        timeFormat: string;
       };
       /** define some theme settings tokens, will transform to css variables */
       tokens: {
@@ -170,6 +185,13 @@ declare namespace App {
     type RoutePath = import('@elegant-router/types').RoutePath;
     type LastLevelRouteKey = import('@elegant-router/types').LastLevelRouteKey;
 
+    /** The router push options */
+    type RouterPushOptions = {
+      query?: Record<string, string>;
+      params?: Record<string, string>;
+      force?: boolean;
+    };
+
     /** The global header props */
     interface HeaderProps {
       /** Whether to show the logo */
@@ -198,10 +220,14 @@ declare namespace App {
       routePath: RoutePath;
       /** The menu icon */
       icon?: () => VNode;
-      /** The tooltip title */
+      /** The menu text */
       title?: string;
       /** The menu children */
       children?: Menu[];
+    };
+
+    type Breadcrumb = Omit<Menu, 'children'> & {
+      options?: Breadcrumb[];
     };
 
     /** Tab route */
@@ -254,7 +280,7 @@ declare namespace App {
     type FormRule = import('ant-design-vue/es/form/interface.d.ts').Rule;
 
     /** The global dropdown key */
-    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll';
+    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll' | 'pin' | 'unpin';
   }
 
   /**
@@ -296,6 +322,8 @@ declare namespace App {
         cancel: string;
         close: string;
         check: string;
+        selectAll: string;
+        expandColumn: string;
         columnSetting: string;
         config: string;
         confirm: string;
@@ -303,6 +331,7 @@ declare namespace App {
         deleteSuccess: string;
         confirmDelete: string;
         edit: string;
+        warning: string;
         error: string;
         index: string;
         keywordSearch: string;
@@ -337,56 +366,107 @@ declare namespace App {
         tokenExpired: string;
       };
       theme: {
-        themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
-        grayscale: string;
-        colourWeakness: string;
-        layoutMode: { title: string; reverseHorizontalMix: string } & Record<UnionKey.ThemeLayoutMode, string>;
-        recommendColor: string;
-        recommendColorDesc: string;
-        themeColor: {
-          title: string;
-          followPrimary: string;
-        } & Record<Theme.ThemeColorKey, string>;
-        scrollMode: { title: string } & Record<UnionKey.ThemeScrollMode, string>;
-        page: {
-          animate: string;
-          mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+        themeDrawerTitle: string;
+        tabs: {
+          appearance: string;
+          layout: string;
+          general: string;
+          preset: string;
         };
-        fixedHeaderAndTab: string;
-        header: {
-          height: string;
-          breadcrumb: {
-            visible: string;
-            showIcon: string;
+        appearance: {
+          themeSchema: { title: string } & Record<UnionKey.ThemeScheme, string>;
+          grayscale: string;
+          colourWeakness: string;
+          themeColor: {
+            title: string;
+            followPrimary: string;
+          } & Record<Theme.ThemeColorKey, string>;
+          recommendColor: string;
+          recommendColorDesc: string;
+          themeRadius: {
+            title: string;
+          };
+          preset: {
+            title: string;
+            apply: string;
+            applySuccess: string;
+            [key: string]:
+              | {
+                  name: string;
+                  desc: string;
+                }
+              | string;
           };
         };
-        tab: {
-          visible: string;
-          cache: string;
-          height: string;
-          mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+        layout: {
+          layoutMode: { title: string } & Record<UnionKey.ThemeLayoutMode, string> & {
+              [K in `${UnionKey.ThemeLayoutMode}_detail`]: string;
+            };
+          tab: {
+            title: string;
+            visible: string;
+            cache: string;
+            cacheTip: string;
+            height: string;
+            mode: { title: string } & Record<UnionKey.ThemeTabMode, string>;
+            closeByMiddleClick: string;
+            closeByMiddleClickTip: string;
+          };
+          header: {
+            title: string;
+            height: string;
+            breadcrumb: {
+              visible: string;
+              showIcon: string;
+            };
+          };
+          sider: {
+            title: string;
+            inverted: string;
+            width: string;
+            collapsedWidth: string;
+            mixWidth: string;
+            mixCollapsedWidth: string;
+            mixChildMenuWidth: string;
+            autoSelectFirstMenu: string;
+            autoSelectFirstMenuTip: string;
+          };
+          footer: {
+            title: string;
+            visible: string;
+            fixed: string;
+            height: string;
+            right: string;
+          };
+          content: {
+            title: string;
+            scrollMode: { title: string; tip: string } & Record<UnionKey.ThemeScrollMode, string>;
+            page: {
+              animate: string;
+              mode: { title: string } & Record<UnionKey.ThemePageAnimateMode, string>;
+            };
+            fixedHeaderAndTab: string;
+          };
         };
-        sider: {
-          inverted: string;
-          width: string;
-          collapsedWidth: string;
-          mixWidth: string;
-          mixCollapsedWidth: string;
-          mixChildMenuWidth: string;
+        general: {
+          title: string;
+          watermark: {
+            title: string;
+            visible: string;
+            text: string;
+            enableUserName: string;
+            enableTime: string;
+            timeFormat: string;
+          };
+          multilingual: {
+            title: string;
+            visible: string;
+          };
+          globalSearch: {
+            title: string;
+            visible: string;
+          };
         };
-        footer: {
-          visible: string;
-          fixed: string;
-          height: string;
-          right: string;
-        };
-        watermark: {
-          visible: string;
-          text: string;
-        };
-        themeDrawerTitle: string;
-        pageFunTitle: string;
-        resetCacheStrategy: { title: string } & Record<UnionKey.ResetCacheStrategy, string>;
         configOperation: {
           copyConfig: string;
           copySuccessMsg: string;
@@ -456,6 +536,7 @@ declare namespace App {
           devDep: string;
         };
         home: {
+          branchDesc: string;
           greeting: string;
           weatherDesc: string;
           projectCount: string;
@@ -662,6 +743,14 @@ declare namespace App {
         pin: string;
         unpin: string;
       };
+      datatable: {
+        itemCount: string;
+        fixed: {
+          left: string;
+          right: string;
+          unFixed: string;
+        };
+      };
     };
 
     type GetI18nKey<T extends Record<string, unknown>, K extends keyof T = keyof T> = K extends string
@@ -677,8 +766,8 @@ declare namespace App {
     interface $T {
       (key: I18nKey): string;
       (key: I18nKey, plural: number, options?: TranslateOptions<LangType>): string;
-      (key: I18nKey, defaultMsg: string, options?: TranslateOptions<LangType>): string;
-      (key: I18nKey, list: unknown[], options?: TranslateOptions<LangType>): string;
+      (key: I18nKey, defaultMsg: string, options?: TranslateOptions<I18nKey>): string;
+      (key: I18nKey, list: unknown[], options?: TranslateOptions<I18nKey>): string;
       (key: I18nKey, list: unknown[], plural: number): string;
       (key: I18nKey, list: unknown[], defaultMsg: string): string;
       (key: I18nKey, named: Record<string, unknown>, options?: TranslateOptions<LangType>): string;

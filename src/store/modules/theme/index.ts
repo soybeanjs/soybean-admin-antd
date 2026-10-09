@@ -1,14 +1,15 @@
 import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue';
 import type { Ref } from 'vue';
+import { useDateFormat, useEventListener, useNow, usePreferredColorScheme } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { useEventListener, usePreferredColorScheme } from '@vueuse/core';
 import { getPaletteColorByNumber } from '@sa/color';
-import { SetupStoreId } from '@/enum';
 import { localStg } from '@/utils/storage';
+import { SetupStoreId } from '@/enum';
+import { useAuthStore } from '../auth';
 import {
   addThemeVarsToGlobal,
   createThemeToken,
-  getAntdTheme,
+  getAntdThemeWithOverrides,
   initThemeSettings,
   toggleAuxiliaryColorModes,
   toggleCssDarkMode
@@ -18,9 +19,16 @@ import {
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope();
   const osTheme = usePreferredColorScheme();
+  const authStore = useAuthStore();
 
   /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings());
+
+  /** Optional antd theme overrides from preset */
+  const antdThemeOverrides: Ref<App.Theme.AntdThemeOverride | undefined> = ref(undefined);
+
+  /** Watermark time instance with controls */
+  const { now: watermarkTime, pause: pauseWatermarkTime, resume: resumeWatermarkTime } = useNow({ controls: true });
 
   /** Reset store */
   function resetStore() {
@@ -55,7 +63,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const colourWeaknessMode = computed(() => settings.value.colourWeakness);
 
   /** Antd theme */
-  const antdTheme = computed(() => getAntdTheme(themeColors.value, darkMode.value));
+  const antdTheme = computed(() =>
+    getAntdThemeWithOverrides(themeColors.value, darkMode.value, settings.value, antdThemeOverrides.value)
+  );
 
   /**
    * Settings json
@@ -63,6 +73,28 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
    * It is for copy settings
    */
   const settingsJson = computed(() => JSON.stringify(settings.value));
+
+  /** Watermark time date formatter */
+  const formattedWatermarkTime = computed(() => {
+    const { watermark } = settings.value;
+    const date = useDateFormat(watermarkTime, watermark.timeFormat);
+    return date.value;
+  });
+
+  /** Watermark content */
+  const watermarkContent = computed(() => {
+    const { watermark } = settings.value;
+
+    if (watermark.enableUserName && authStore.userInfo.userName) {
+      return authStore.userInfo.userName;
+    }
+
+    if (watermark.enableTime) {
+      return formattedWatermarkTime.value;
+    }
+
+    return watermark.text;
+  });
 
   /**
    * Set theme scheme
@@ -146,12 +178,50 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * Set layout reverse horizontal mix
+   * Set watermark enable user name
    *
-   * @param reverse Reverse horizontal mix
+   * @param enable Whether to enable user name watermark
    */
-  function setLayoutReverseHorizontalMix(reverse: boolean) {
-    settings.value.layout.reverseHorizontalMix = reverse;
+  function setWatermarkEnableUserName(enable: boolean) {
+    settings.value.watermark.enableUserName = enable;
+
+    if (enable) {
+      settings.value.watermark.enableTime = false;
+    }
+  }
+
+  /**
+   * Set watermark enable time
+   *
+   * @param enable Whether to enable time watermark
+   */
+  function setWatermarkEnableTime(enable: boolean) {
+    settings.value.watermark.enableTime = enable;
+
+    if (enable) {
+      settings.value.watermark.enableUserName = false;
+    }
+  }
+
+  /**
+   * Set Antd theme overrides
+   *
+   * @param overrides Antd theme overrides or undefined to clear
+   */
+  function setAntdThemeOverrides(overrides?: App.Theme.AntdThemeOverride) {
+    antdThemeOverrides.value = overrides;
+  }
+
+  /** Only run timer when watermark is visible and time display is enabled */
+  function updateWatermarkTimer() {
+    const { watermark } = settings.value;
+    const shouldRunTimer = watermark.visible && watermark.enableTime;
+
+    if (shouldRunTimer) {
+      resumeWatermarkTime();
+    } else {
+      pauseWatermarkTime();
+    }
   }
 
   /** Cache theme settings */
@@ -175,6 +245,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       darkMode,
       val => {
         toggleCssDarkMode(val);
+        localStg.set('darkMode', val);
       },
       { immediate: true }
     );
@@ -196,6 +267,15 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
       },
       { immediate: true }
     );
+
+    // watch watermark settings to control timer
+    watch(
+      () => [settings.value.watermark.visible, settings.value.watermark.enableTime],
+      () => {
+        updateWatermarkTimer();
+      },
+      { immediate: true }
+    );
   });
 
   /** On scope dispose */
@@ -208,7 +288,9 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     darkMode,
     themeColors,
     antdTheme,
+    antdThemeOverrides,
     settingsJson,
+    watermarkContent,
     setGrayscale,
     setColourWeakness,
     resetStore,
@@ -216,6 +298,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     setThemeScheme,
     updateThemeColors,
     setThemeLayout,
-    setLayoutReverseHorizontalMix
+    setWatermarkEnableUserName,
+    setWatermarkEnableTime,
+    setAntdThemeOverrides
   };
 });

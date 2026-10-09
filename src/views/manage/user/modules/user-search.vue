@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { $t } from '@/locales';
-import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import { enableStatusOptions, userGenderOptions } from '@/constants/business';
 import { translateOptions } from '@/utils/common';
+import { $t } from '@/locales';
+import { useAntdForm, useFormRules } from '@/hooks/common/form';
 
 defineOptions({
   name: 'UserSearch'
 });
 
 interface Emits {
-  (e: 'reset'): void;
   (e: 'search'): void;
 }
 
@@ -33,7 +32,6 @@ const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
 
 async function reset() {
   await resetFields();
-  emit('reset');
 }
 
 async function search() {

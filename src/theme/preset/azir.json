@@ -35,18 +35,18 @@
       }
     }
   },
-  "naiveui": {
-    "Alert": {
-      "borderRadiusMedium": "12px",
-      "fontWeightStrong": "600",
-      "paddingMedium": "0 20px"
+  "antd": {
+    "token": {
+      "borderRadius": 10,
+      "fontWeightStrong": 600
     },
-    "Card": {
-      "borderRadius": "16px",
-      "paddingMedium": "24px"
-    },
-    "Input": {
-      "borderRadius": "10px"
+    "components": {
+      "Alert": {
+        "borderRadiusLG": 12
+      },
+      "Card": {
+        "borderRadiusLG": 16
+      }
     }
   }
 }

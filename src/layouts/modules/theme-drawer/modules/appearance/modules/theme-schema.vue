@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { SegmentedOption } from 'ant-design-vue/es/segmented/src/segmented';
-import { $t } from '@/locales';
 import { themeSchemaRecord } from '@/constants/app';
+import { $t } from '@/locales';
 import { useThemeStore } from '@/store/modules/theme';
-import SettingItem from '../components/setting-item.vue';
+import SettingItem from '../../../components/setting-item.vue';
 
 defineOptions({
-  name: 'DarkMode'
+  name: 'ThemeSchema'
 });
 
 const themeStore = useThemeStore();
@@ -52,7 +52,7 @@ function handleColourWeaknessChange(value: CheckedType) {
 </script>
 
 <template>
-  <ADivider>{{ $t('theme.themeSchema.title') }}</ADivider>
+  <ADivider>{{ $t('theme.appearance.themeSchema.title') }}</ADivider>
   <div class="flex-col-stretch gap-16px">
     <div class="i-flex-center">
       <ASegmented :value="themeStore.themeScheme" :options="options" class="bg-layout" @change="handleSegmentChange">
@@ -64,14 +64,14 @@ function handleColourWeaknessChange(value: CheckedType) {
       </ASegmented>
     </div>
     <Transition name="sider-inverted">
-      <SettingItem v-if="showSiderInverted" :label="$t('theme.sider.inverted')">
+      <SettingItem v-if="showSiderInverted" :label="$t('theme.layout.sider.inverted')">
         <ASwitch v-model:checked="themeStore.sider.inverted" />
       </SettingItem>
     </Transition>
-    <SettingItem :label="$t('theme.grayscale')">
+    <SettingItem :label="$t('theme.appearance.grayscale')">
       <ASwitch :checked="themeStore.grayscale" @update:checked="handleGrayscaleChange" />
     </SettingItem>
-    <SettingItem :label="$t('theme.colourWeakness')">
+    <SettingItem :label="$t('theme.appearance.colourWeakness')">
       <ASwitch :checked="themeStore.colourWeakness" @update:checked="handleColourWeaknessChange" />
     </SettingItem>
   </div>

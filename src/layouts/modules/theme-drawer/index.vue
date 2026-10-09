@@ -1,39 +1,69 @@
 <script setup lang="ts">
-import { SimpleScrollbar } from '@sa/materials';
-import { useAppStore } from '@/store/modules/app';
+import { computed, ref } from 'vue';
 import { $t } from '@/locales';
-import DarkMode from './modules/dark-mode.vue';
-import LayoutMode from './modules/layout-mode.vue';
-import ThemeColor from './modules/theme-color.vue';
-import PageFun from './modules/page-fun.vue';
+import { useAppStore } from '@/store/modules/app';
+import AppearanceSettings from './modules/appearance/index.vue';
 import ConfigOperation from './modules/config-operation.vue';
+import GeneralSettings from './modules/general/index.vue';
+import LayoutSettings from './modules/layout/index.vue';
+import PresetSettings from './modules/preset/index.vue';
 
 defineOptions({
   name: 'ThemeDrawer'
 });
 
 const appStore = useAppStore();
+
+const activeTab = ref('appearance');
+
+const drawerWidth = computed(() => {
+  const width = 400;
+
+  // On mobile devices, use 90% of viewport width with a maximum of 400px
+  if (appStore.isMobile) {
+    return `min(90vw, ${width}px)`;
+  }
+
+  return width;
+});
+
+const tabItems = computed(() => [
+  { key: 'appearance', label: $t('theme.tabs.appearance') },
+  { key: 'layout', label: $t('theme.tabs.layout') },
+  { key: 'general', label: $t('theme.tabs.general') },
+  { key: 'preset', label: $t('theme.tabs.preset') }
+]);
+
+function handleClose() {
+  appStore.closeThemeDrawer();
+}
 </script>
 
 <template>
   <ADrawer
     :open="appStore.themeDrawerVisible"
+    :width="drawerWidth"
     :title="$t('theme.themeDrawerTitle')"
-    :closable="false"
     :body-style="{ padding: '0px' }"
-    @close="appStore.closeThemeDrawer"
+    @close="handleClose"
   >
     <template #extra>
-      <ButtonIcon icon="ant-design:close-outlined" class="h-28px" @click="appStore.closeThemeDrawer" />
+      <ButtonIcon icon="ant-design:close-outlined" class="h-28px" @click="handleClose" />
     </template>
-    <SimpleScrollbar>
-      <div class="px-24px pb-24px pt-8px">
-        <DarkMode />
-        <LayoutMode />
-        <ThemeColor />
-        <PageFun />
+
+    <div class="h-full flex-col-stretch">
+      <ATabs v-model:active-key="activeTab" :items="tabItems" class="px-24px pt-8px" />
+
+      <div class="min-h-400px flex-1 overflow-y-auto px-24px pb-24px">
+        <KeepAlive>
+          <AppearanceSettings v-if="activeTab === 'appearance'" />
+          <LayoutSettings v-else-if="activeTab === 'layout'" />
+          <GeneralSettings v-else-if="activeTab === 'general'" />
+          <PresetSettings v-else-if="activeTab === 'preset'" />
+        </KeepAlive>
       </div>
-    </SimpleScrollbar>
+    </div>
+
     <template #footer>
       <ConfigOperation />
     </template>
