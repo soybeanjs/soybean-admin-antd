@@ -20,6 +20,8 @@ declare namespace StorageType {
     refreshToken: string;
     /** The theme color */
     themeColor: string;
+    /** The dark mode */
+    darkMode: boolean;
     /** The theme settings */
     themeSettings: App.Theme.ThemeSetting;
     /**
@@ -35,5 +37,7 @@ declare namespace StorageType {
       layout: UnionKey.ThemeLayoutMode;
       siderCollapse: boolean;
     };
+    /** The last login user id */
+    lastLoginUserId: string;
   }
 }

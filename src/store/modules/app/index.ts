@@ -1,12 +1,12 @@
 import { effectScope, nextTick, onScopeDispose, ref, watch } from 'vue';
-import { defineStore } from 'pinia';
 import { breakpointsTailwind, useBreakpoints, useEventListener, useTitle } from '@vueuse/core';
+import { defineStore } from 'pinia';
 import { useBoolean } from '@sa/hooks';
-import { SetupStoreId } from '@/enum';
-import { router } from '@/router';
+import { localStg } from '@/utils/storage';
 import { $t, setLocale } from '@/locales';
 import { setDayjsLocale } from '@/locales/dayjs';
-import { localStg } from '@/utils/storage';
+import { router } from '@/router';
+import { SetupStoreId } from '@/enum';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
 import { useThemeStore } from '../theme';
@@ -46,10 +46,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     });
 
     setReloadFlag(true);
-
-    if (themeStore.resetCacheStrategy === 'refresh') {
-      routeStore.resetRouteCache();
-    }
+    routeStore.resetRouteCache();
   }
 
   const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');

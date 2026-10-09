@@ -1,9 +1,10 @@
-import axios, { AxiosError } from 'axios';
+import { create, AxiosError } from 'axios';
 import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
-import axiosRetry from 'axios-retry';
 import { nanoid } from '@sa/utils';
-import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
+import axiosRetry from 'axios-retry';
 import { BACKEND_ERROR_CODE, REQUEST_ID_KEY } from './constant';
+import { transformResponse } from './shared';
+import { createAxiosConfig, createDefaultOptions, createRetryOptions } from './options';
 import type {
   CustomAxiosRequestConfig,
   FlatRequestInstance,
@@ -13,14 +14,15 @@ import type {
   ResponseType
 } from './type';
 
-function createCommonRequest<ResponseData = any>(
-  axiosConfig?: CreateAxiosDefaults,
-  options?: Partial<RequestOption<ResponseData>>
-) {
-  const opts = createDefaultOptions<ResponseData>(options);
+function createCommonRequest<
+  ResponseData,
+  ApiData = ResponseData,
+  State extends Record<string, unknown> = Record<string, unknown>
+>(axiosConfig?: CreateAxiosDefaults, options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
+  const opts = createDefaultOptions<ResponseData, ApiData, State>(options);
 
   const axiosConf = createAxiosConfig(axiosConfig);
-  const instance = axios.create(axiosConf);
+  const instance = create(axiosConf);
 
   const abortControllerMap = new Map<string, AbortController>();
 
@@ -52,6 +54,8 @@ function createCommonRequest<ResponseData = any>(
     async response => {
       const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
 
+      await transformResponse(response);
+
       if (responseType !== 'json' || opts.isBackendSuccess(response)) {
         return Promise.resolve(response);
       }
@@ -80,14 +84,6 @@ function createCommonRequest<ResponseData = any>(
     }
   );
 
-  function cancelRequest(requestId: string) {
-    const abortController = abortControllerMap.get(requestId);
-    if (abortController) {
-      abortController.abort();
-      abortControllerMap.delete(requestId);
-    }
-  }
-
   function cancelAllRequest() {
     abortControllerMap.forEach(abortController => {
       abortController.abort();
@@ -98,7 +94,6 @@ function createCommonRequest<ResponseData = any>(
   return {
     instance,
     opts,
-    cancelRequest,
     cancelAllRequest
   };
 }
@@ -109,27 +104,27 @@ function createCommonRequest<ResponseData = any>(
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createRequest<ResponseData = any, State = Record<string, unknown>>(
+export function createRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
-  options?: Partial<RequestOption<ResponseData>>
+  options?: Partial<RequestOption<ResponseData, ApiData, State>>
 ) {
-  const { instance, opts, cancelRequest, cancelAllRequest } = createCommonRequest<ResponseData>(axiosConfig, options);
+  const { instance, opts, cancelAllRequest } = createCommonRequest<ResponseData, ApiData, State>(axiosConfig, options);
 
-  const request: RequestInstance<State> = async function request<T = any, R extends ResponseType = 'json'>(
-    config: CustomAxiosRequestConfig
-  ) {
+  const request: RequestInstance<ApiData, State> = async function request<
+    T extends ApiData = ApiData,
+    R extends ResponseType = 'json'
+  >(config: CustomAxiosRequestConfig) {
     const response: AxiosResponse<ResponseData> = await instance(config);
 
     const responseType = response.config?.responseType || 'json';
 
     if (responseType === 'json') {
-      return opts.transformBackendResponse(response);
+      return opts.transform(response);
     }
 
     return response.data as MappedType<R, T>;
-  } as RequestInstance<State>;
+  } as RequestInstance<ApiData, State>;
 
-  request.cancelRequest = cancelRequest;
   request.cancelAllRequest = cancelAllRequest;
   request.state = {} as State;
 
@@ -144,14 +139,14 @@ export function createRequest<ResponseData = any, State = Record<string, unknown
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createFlatRequest<ResponseData = any, State = Record<string, unknown>>(
+export function createFlatRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
   axiosConfig?: CreateAxiosDefaults,
-  options?: Partial<RequestOption<ResponseData>>
+  options?: Partial<RequestOption<ResponseData, ApiData, State>>
 ) {
-  const { instance, opts, cancelRequest, cancelAllRequest } = createCommonRequest<ResponseData>(axiosConfig, options);
+  const { instance, opts, cancelAllRequest } = createCommonRequest<ResponseData, ApiData, State>(axiosConfig, options);
 
-  const flatRequest: FlatRequestInstance<State, ResponseData> = async function flatRequest<
-    T = any,
+  const flatRequest: FlatRequestInstance<ResponseData, ApiData, State> = async function flatRequest<
+    T extends ApiData = ApiData,
     R extends ResponseType = 'json'
   >(config: CustomAxiosRequestConfig) {
     try {
@@ -160,20 +155,21 @@ export function createFlatRequest<ResponseData = any, State = Record<string, unk
       const responseType = response.config?.responseType || 'json';
 
       if (responseType === 'json') {
-        const data = opts.transformBackendResponse(response);
+        const data = await opts.transform(response);
 
         return { data, error: null, response };
       }
 
-      return { data: response.data as MappedType<R, T>, error: null };
+      return { data: response.data as MappedType<R, T>, error: null, response };
     } catch (error) {
       return { data: null, error, response: (error as AxiosError<ResponseData>).response };
     }
-  } as FlatRequestInstance<State, ResponseData>;
+  } as FlatRequestInstance<ResponseData, ApiData, State>;
 
-  flatRequest.cancelRequest = cancelRequest;
   flatRequest.cancelAllRequest = cancelAllRequest;
-  flatRequest.state = {} as State;
+  flatRequest.state = {
+    ...opts.defaultState
+  } as State;
 
   return flatRequest;
 }

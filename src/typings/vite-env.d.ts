@@ -8,6 +8,7 @@ declare namespace Env {
   type RouterHistoryMode = 'hash' | 'history' | 'memory';
 
   /** Interface for import.meta */
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   interface ImportMeta extends ImportMetaEnv {
     /** The base url of the application */
     readonly VITE_BASE_URL: string;
@@ -24,7 +25,7 @@ declare namespace Env {
      *
      * This prefix is start with the icon prefix
      */
-    readonly VITE_ICON_LOCAL_PREFIX: 'local-icon';
+    readonly VITE_ICON_LOCAL_PREFIX: 'icon-local';
     /** backend service base url */
     readonly VITE_SERVICE_BASE_URL: string;
     /**
@@ -105,6 +106,10 @@ declare namespace Env {
     readonly VITE_STORAGE_PREFIX?: string;
     /** Whether to automatically detect updates after configuring application packaging */
     readonly VITE_AUTOMATICALLY_DETECT_UPDATE?: CommonType.YesOrNo;
+    /** show proxy url log in terminal */
+    readonly VITE_PROXY_LOG?: CommonType.YesOrNo;
+    /** The launch editor */
+    readonly VITE_DEVTOOLS_LAUNCH_EDITOR?: import('vite-plugin-vue-devtools').VitePluginVueDevToolsOptions['launchEditor'];
   }
 }
 

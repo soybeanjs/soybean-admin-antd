@@ -1,19 +1,23 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.fixAll.oxc": "explicit"
   },
-  "eslint.useFlatConfig": true,
-  "editor.formatOnSave": false,
-  "eslint.validate": ["html", "css", "scss", "json", "jsonc"],
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  "eslint.validate": ["vue"],
   "i18n-ally.displayLanguage": "zh-cn",
   "i18n-ally.enabledParsers": ["ts"],
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.editor.preferEditor": true,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["src/locales/langs"],
-  "prettier.enable": false,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "unocss.root": ["./"],
-  "vue.server.hybridMode": true
+  "i18n-ally.parsers.typescript.compilerOptions": {
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
+    "rootDir": ".",
+    "baseUrl": "."
+  },
+  "oxc.fmt.configPath": "./vite.config.ts",
+  "unocss.root": ["./"]
 }
