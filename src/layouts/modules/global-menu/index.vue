@@ -4,11 +4,12 @@ import type { Component } from 'vue';
 import { transformColorWithOpacity } from '@sa/utils';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
+import HorizontalMenu from './modules/horizontal-menu.vue';
+import TopHybridHeaderFirst from './modules/top-hybrid-header-first.vue';
+import TopHybridSidebarFirst from './modules/top-hybrid-sidebar-first.vue';
+import VerticalHybridHeaderFirst from './modules/vertical-hybrid-header-first.vue';
 import VerticalMenu from './modules/vertical-menu.vue';
 import VerticalMixMenu from './modules/vertical-mix-menu.vue';
-import HorizontalMenu from './modules/horizontal-menu.vue';
-import HorizontalMixMenu from './modules/horizontal-mix-menu.vue';
-import ReversedHorizontalMixMenu from './modules/reversed-horizontal-mix-menu.vue';
 
 defineOptions({
   name: 'GlobalMenu'
@@ -21,8 +22,10 @@ const activeMenu = computed(() => {
   const menuMap: Record<UnionKey.ThemeLayoutMode, Component> = {
     vertical: VerticalMenu,
     'vertical-mix': VerticalMixMenu,
+    'vertical-hybrid-header-first': VerticalHybridHeaderFirst,
     horizontal: HorizontalMenu,
-    'horizontal-mix': themeStore.layout.reverseHorizontalMix ? ReversedHorizontalMixMenu : HorizontalMixMenu
+    'top-hybrid-sidebar-first': TopHybridSidebarFirst,
+    'top-hybrid-header-first': TopHybridHeaderFirst
   };
 
   return menuMap[themeStore.layout.mode];

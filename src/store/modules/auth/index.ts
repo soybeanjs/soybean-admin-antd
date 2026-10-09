@@ -2,23 +2,24 @@ import { computed, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
-import { SetupStoreId } from '@/enum';
-import { useRouterPush } from '@/hooks/common/router';
-import { fetchGetUserInfo, fetchLogin } from '@/service/api';
 import { localStg } from '@/utils/storage';
+import { fetchGetUserInfo, fetchLogin } from '@/service/api';
 import { $t } from '@/locales';
+import { useRouterPush } from '@/hooks/common/router';
+import { SetupStoreId } from '@/enum';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
 import { clearAuthStorage, getToken } from './shared';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
+  const authStore = useAuthStore();
   const routeStore = useRouteStore();
   const tabStore = useTabStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  const token = ref(getToken());
+  const token = ref('');
 
   const userInfo: Api.Auth.UserInfo = reactive({
     userId: '',
@@ -39,7 +40,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   /** Reset auth store */
   async function resetStore() {
-    const authStore = useAuthStore();
+    recordUserId();
 
     clearAuthStorage();
 
@@ -51,6 +52,41 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     tabStore.cacheTabs();
     routeStore.resetStore();
+  }
+
+  /** Record the user ID of the previous login session Used to compare with the current user ID on next login */
+  function recordUserId() {
+    if (!userInfo.userId) {
+      return;
+    }
+
+    // Store current user ID locally for next login comparison
+    localStg.set('lastLoginUserId', userInfo.userId);
+  }
+
+  /**
+   * Check if current login user is different from previous login user If different, clear all tabs
+   *
+   * @returns {boolean} Whether to clear all tabs
+   */
+  function checkTabClear(): boolean {
+    if (!userInfo.userId) {
+      return false;
+    }
+
+    const lastLoginUserId = localStg.get('lastLoginUserId');
+
+    // Clear all tabs if current user is different from previous user
+    if (!lastLoginUserId || lastLoginUserId !== userInfo.userId) {
+      localStg.remove('globalTabs');
+      tabStore.clearTabs();
+
+      localStg.remove('lastLoginUserId');
+      return true;
+    }
+
+    localStg.remove('lastLoginUserId');
+    return false;
   }
 
   /**
@@ -69,7 +105,15 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
       const pass = await loginByToken(loginToken);
 
       if (pass) {
-        await redirectFromLogin(redirect);
+        // Check if the tab needs to be cleared
+        const isClear = checkTabClear();
+        let needRedirect = redirect;
+
+        if (isClear) {
+          // If the tab needs to be cleared,it means we don't need to redirect.
+          needRedirect = false;
+        }
+        await redirectFromLogin(needRedirect);
 
         window.$notification?.success({
           message: $t('page.login.common.loginSuccess'),
@@ -114,9 +158,10 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   async function initUserInfo() {
-    const hasToken = getToken();
+    const maybeToken = getToken();
 
-    if (hasToken) {
+    if (maybeToken) {
+      token.value = maybeToken;
       const pass = await getUserInfo();
 
       if (!pass) {

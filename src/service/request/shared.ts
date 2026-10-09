@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/store/modules/auth';
 import { localStg } from '@/utils/storage';
+import { useAuthStore } from '@/store/modules/auth';
 import { fetchRefreshToken } from '../api';
 import type { RequestInstanceState } from './type';
 
@@ -28,14 +28,14 @@ async function handleRefreshToken() {
 }
 
 export async function handleExpiredRequest(state: RequestInstanceState) {
-  if (!state.refreshTokenFn) {
-    state.refreshTokenFn = handleRefreshToken();
+  if (!state.refreshTokenPromise) {
+    state.refreshTokenPromise = handleRefreshToken();
   }
 
-  const success = await state.refreshTokenFn;
+  const success = await state.refreshTokenPromise;
 
   setTimeout(() => {
-    state.refreshTokenFn = null;
+    state.refreshTokenPromise = null;
   }, 1000);
 
   return success;
