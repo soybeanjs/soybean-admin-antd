@@ -214,12 +214,6 @@ importers:
         specifier: ^3.3.12
         version: 3.3.12(typescript-native-bridge@6.0.3-bridge.18.tsgo.7.0.2)
 
-  packages/ofetch:
-    dependencies:
-      ofetch:
-        specifier: 1.5.1
-        version: 1.5.1
-
   packages/scripts:
     devDependencies:
       '@soybeanjs/changelog':
