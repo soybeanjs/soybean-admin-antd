@@ -34,3 +34,7 @@ yarn.lock
 
 .VSCodeCounter
 **/.vitepress/cache
+
+# Playwright artifacts
+/test-results/
+/playwright-report/

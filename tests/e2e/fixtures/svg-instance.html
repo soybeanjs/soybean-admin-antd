@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8"><title>Local SVG instance regression fixture</title></head>
+  <body style="margin: 0; background: white">
+    <div id="probe"></div>
+    <script type="module">
+      import { createApp, h } from 'vue';
+      import SvgIcon from '/src/components/custom/svg-icon.vue';
+
+      const params = new URL(location.href).searchParams;
+      const repeated = params.has('repeat');
+      const localIcon = params.get('icon') || 'no-icon';
+      const style = params.has('blank') ? 'visibility:hidden' : ''; 
+
+      createApp({
+        render: () => h('div', [
+          repeated ? h('div', { style: 'display:none' }, [h(SvgIcon, { localIcon, style })]) : null,
+          h('div', {
+            id: 'visible',
+            style: 'width:200px;height:200px;font-size:200px;color:#646cff'
+          }, [h(SvgIcon, { localIcon, style })])
+        ])
+      }).mount('#probe');
+    </script>
+  </body>
+</html>

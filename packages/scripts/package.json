@@ -13,15 +13,15 @@
     }
   },
   "devDependencies": {
-    "@soybeanjs/changelog": "0.4.3",
-    "bumpp": "10.3.2",
-    "c12": "3.3.3",
-    "cac": "6.7.14",
+    "@soybeanjs/changelog": "0.5.3",
+    "bumpp": "12.3.0",
+    "c12": "3.3.4",
+    "cac": "7.0.1",
     "consola": "3.4.2",
     "enquirer": "2.4.1",
-    "execa": "9.6.1",
+    "execa": "10.1.0",
     "kolorist": "1.8.0",
-    "npm-check-updates": "19.2.0",
-    "rimraf": "6.1.2"
+    "npm-check-updates": "23.1.0",
+    "rimraf": "6.1.3"
   }
 }

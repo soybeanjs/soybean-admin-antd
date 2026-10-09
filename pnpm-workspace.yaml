@@ -1,2 +1,7 @@
 packages:
   - "packages/*"
+
+# Upstream still pins micromatch 4.0.7; unplugin can retain an old optional Rollup peer.
+overrides:
+  "@elegant-router/core>micromatch": "4.0.8"
+  "rollup@<4.59.0": "^4.59.0"

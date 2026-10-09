@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError, create } from 'axios';
 import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 import axiosRetry from 'axios-retry';
 import { nanoid } from '@sa/utils';
@@ -20,7 +20,7 @@ function createCommonRequest<ResponseData = any>(
   const opts = createDefaultOptions<ResponseData>(options);
 
   const axiosConf = createAxiosConfig(axiosConfig);
-  const instance = axios.create(axiosConf);
+  const instance = create(axiosConf);
 
   const abortControllerMap = new Map<string, AbortController>();
 

@@ -495,7 +495,7 @@ watch(
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addQuery(index)">
                           <template #icon>
-                            <icon-ic:round-plus class="align-sub text-icon" />
+                            <icon-ic-round-plus class="align-sub text-icon" />
                           </template>
                         </AButton>
                         <AButton size="middle" @click="removeQuery(index)">
@@ -541,7 +541,7 @@ watch(
                       <ASpace class="ml-12px">
                         <AButton size="middle" @click="addButton(index)">
                           <template #icon>
-                            <icon-ic:round-plus class="align-sub text-icon" />
+                            <icon-ic-round-plus class="align-sub text-icon" />
                           </template>
                         </AButton>
                         <AButton size="middle" @click="removeButton(index)">

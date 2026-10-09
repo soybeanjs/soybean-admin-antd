@@ -130,8 +130,8 @@
 Make sure your environment meets the following requirements:
 
 - **git**: you need git to clone and manage project versions.
-- **NodeJS**: >=20.19.0, recommended 20.19.0 or higher.
-- **pnpm**: >= 10.5.0, recommended 10.5.0 or higher.
+- **NodeJS**: 22.x (>=22.22.2), 24.x (>=24.15.0), or >=26; Node.js 24 LTS is recommended.
+- **pnpm**: 10.34.6 (pinned in packageManager).
 
 **Clone Project**
 
