@@ -71,7 +71,7 @@
     "@sa/uno-preset": "workspace:*",
     "@soybeanjs/eslint-config-vue": "^0.1.1",
     "@soybeanjs/oxc-config": "^0.2.6",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.5",
     "@types/nprogress": "0.2.3",
     "@vitejs/plugin-vue": "^6.0.9",
     "@vitejs/plugin-vue-jsx": "^5.1.6",
