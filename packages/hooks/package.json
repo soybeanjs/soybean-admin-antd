@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@sa/axios": "workspace:*",
-    "@sa/utils": "workspace:^"
+    "@sa/utils": "workspace:*"
   }
 }

@@ -95,5 +95,6 @@
     "node": ">=20.19.0",
     "pnpm": ">=10.5.0"
   },
+  "packageManager": "pnpm@12.10.1",
   "website": "https://antd.soybeanjs.cn"
 }
