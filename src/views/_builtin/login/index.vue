@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { getColorPalette, mixColor } from '@sa/utils';
+import { getPaletteColorByNumber, mixColor } from '@sa/color';
 import { loginModuleRecord } from '@/constants/app';
+import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
-import { $t } from '@/locales';
-import PwdLogin from './modules/pwd-login.vue';
+import BindWechat from './modules/bind-wechat.vue';
 import CodeLogin from './modules/code-login.vue';
+import PwdLogin from './modules/pwd-login.vue';
 import Register from './modules/register.vue';
 import ResetPwd from './modules/reset-pwd.vue';
-import BindWechat from './modules/bind-wechat.vue';
 
 interface Props {
   /** The login module */
@@ -38,7 +38,7 @@ const moduleMap: Record<UnionKey.LoginModule, LoginModule> = {
 const activeModule = computed(() => moduleMap[props.module || 'pwd-login']);
 
 const bgThemeColor = computed(() =>
-  themeStore.darkMode ? getColorPalette(themeStore.themeColor, 7) : themeStore.themeColor
+  themeStore.darkMode ? getPaletteColorByNumber(themeStore.themeColor, 600) : themeStore.themeColor
 );
 
 const bgColor = computed(() => {

@@ -1,8 +1,7 @@
 import { theme as antdTheme } from 'ant-design-vue';
 import type { ConfigProviderProps } from 'ant-design-vue';
 import { defu } from 'defu';
-import { getColorPalette } from '@sa/color';
-import { getRgbOfColor } from '@sa/utils';
+import { getColorPalette, getRgb } from '@sa/color';
 import { DARK_CLASS } from '@/constants/app';
 import { toggleHtmlClass } from '@/utils/common';
 import { localStg } from '@/utils/storage';
@@ -124,7 +123,7 @@ function getCssVarByTokens(tokens: App.Theme.BaseToken) {
 
       if (key === 'colors') {
         cssVarsKey = removeRgbPrefix(cssVarsKey);
-        const { r, g, b } = getRgbOfColor(cssValue);
+        const { r, g, b } = getRgb(cssValue);
         cssValue = `${r} ${g} ${b}`;
       }
 
