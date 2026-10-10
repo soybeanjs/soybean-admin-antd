@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Component } from 'vue';
-import { transformColorWithOpacity } from '@sa/utils';
+import { transformColorWithOpacity } from '@sa/color';
 import { useAppStore } from '@/store/modules/app';
 import { useThemeStore } from '@/store/modules/theme';
 import HorizontalMenu from './modules/horizontal-menu.vue';
@@ -48,7 +48,7 @@ const selectedBgColor = computed(() => {
 </template>
 
 <style lang="scss">
-@import './index.scss';
+@use './index.scss';
 
 .select-menu {
   --selected-bg-color: v-bind(selectedBgColor);

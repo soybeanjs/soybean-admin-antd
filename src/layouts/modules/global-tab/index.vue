@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, reactive, ref, watch } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useElementBounding } from '@vueuse/core';
 import { PageTab } from '@sa/materials';
@@ -122,54 +122,6 @@ async function refresh() {
   appStore.reloadPage(500);
 }
 
-interface DropdownConfig {
-  visible: boolean;
-  x: number;
-  y: number;
-  tabId: string;
-}
-
-const dropdown: DropdownConfig = reactive({
-  visible: false,
-  x: 0,
-  y: 0,
-  tabId: ''
-});
-
-function setDropdown(config: Partial<DropdownConfig>) {
-  Object.assign(dropdown, config);
-}
-
-let isClickContextMenu = false;
-
-function handleDropdownVisible(visible: boolean | undefined) {
-  if (!isClickContextMenu) {
-    setDropdown({ visible });
-  }
-}
-
-async function handleContextMenu(e: MouseEvent, tabId: string) {
-  e.preventDefault();
-
-  const { clientX, clientY } = e;
-
-  isClickContextMenu = true;
-
-  const DURATION = dropdown.visible ? 150 : 0;
-
-  setDropdown({ visible: false });
-
-  setTimeout(() => {
-    setDropdown({
-      visible: true,
-      x: clientX,
-      y: clientY,
-      tabId
-    });
-    isClickContextMenu = false;
-  }, DURATION);
-}
-
 function init() {
   tabStore.initTabStore(route);
 }
@@ -207,39 +159,39 @@ init();
             themeStore.tab.mode === 'chrome' || themeStore.tab.mode === 'slider' ? 'items-end' : 'items-center gap-12px'
           ]"
         >
-          <PageTab
+          <ContextMenu
             v-for="tab in tabStore.tabs"
             :key="tab.id"
-            :[TAB_DATA_ID]="tab.id"
-            :mode="themeStore.tab.mode"
-            :dark-mode="themeStore.darkMode"
-            :active="tab.id === tabStore.activeTabId"
-            :active-color="themeStore.themeColor"
-            :closable="!tabStore.isTabRetain(tab.id)"
-            @pointerdown="switchTab($event, tab)"
-            @mousedown="handleMousedown($event, tab)"
-            @close="handleCloseTab(tab)"
-            @contextmenu="handleContextMenu($event, tab.id)"
+            :tab-id="tab.id"
+            :disabled-keys="getContextMenuDisabledKeys(tab.id)"
           >
-            <template #prefix>
-              <SvgIcon :icon="tab.icon" :local-icon="tab.localIcon" class="inline-block align-text-bottom text-16px" />
-            </template>
-            <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
-          </PageTab>
+            <PageTab
+              :[TAB_DATA_ID]="tab.id"
+              :mode="themeStore.tab.mode"
+              :dark-mode="themeStore.darkMode"
+              :active="tab.id === tabStore.activeTabId"
+              :active-color="themeStore.themeColor"
+              :closable="!tabStore.isTabRetain(tab.id)"
+              @pointerdown="switchTab($event, tab)"
+              @mousedown="handleMousedown($event, tab)"
+              @close="handleCloseTab(tab)"
+            >
+              <template #prefix>
+                <SvgIcon
+                  :icon="tab.icon"
+                  :local-icon="tab.localIcon"
+                  class="inline-block align-text-bottom text-16px"
+                />
+              </template>
+              <div class="max-w-240px ellipsis-text">{{ tab.label }}</div>
+            </PageTab>
+          </ContextMenu>
         </div>
       </BetterScroll>
     </div>
     <ReloadButton :loading="!appStore.reloadFlag" @click="refresh" />
     <FullScreen :full="appStore.fullContent" @click="appStore.toggleFullContent" />
   </DarkModeContainer>
-  <ContextMenu
-    :visible="dropdown.visible"
-    :tab-id="dropdown.tabId"
-    :disabled-keys="getContextMenuDisabledKeys(dropdown.tabId)"
-    :x="dropdown.x"
-    :y="dropdown.y"
-    @update:visible="handleDropdownVisible"
-  />
 </template>
 
 <style scoped></style>

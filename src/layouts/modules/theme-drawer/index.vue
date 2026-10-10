@@ -27,13 +27,6 @@ const drawerWidth = computed(() => {
   return width;
 });
 
-const tabItems = computed(() => [
-  { key: 'appearance', label: $t('theme.tabs.appearance') },
-  { key: 'layout', label: $t('theme.tabs.layout') },
-  { key: 'general', label: $t('theme.tabs.general') },
-  { key: 'preset', label: $t('theme.tabs.preset') }
-]);
-
 function handleClose() {
   appStore.closeThemeDrawer();
 }
@@ -52,7 +45,12 @@ function handleClose() {
     </template>
 
     <div class="h-full flex-col-stretch">
-      <ATabs v-model:active-key="activeTab" :items="tabItems" class="px-24px pt-8px" />
+      <ATabs v-model:active-key="activeTab" class="px-24px pt-8px">
+        <ATabPane key="appearance" :tab="$t('theme.tabs.appearance')" />
+        <ATabPane key="layout" :tab="$t('theme.tabs.layout')" />
+        <ATabPane key="general" :tab="$t('theme.tabs.general')" />
+        <ATabPane key="preset" :tab="$t('theme.tabs.preset')" />
+      </ATabs>
 
       <div class="min-h-400px flex-1 overflow-y-auto px-24px pb-24px">
         <KeepAlive>

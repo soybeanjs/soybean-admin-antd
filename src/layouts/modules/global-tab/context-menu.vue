@@ -10,6 +10,7 @@ defineOptions({
 
 interface Props {
   tabId: string;
+  /** Dropdown trigger, default is `contextmenu` */
   trigger?: Trigger[];
   excludeKeys?: App.Global.DropdownKey[];
   disabledKeys?: App.Global.DropdownKey[];
