@@ -33,17 +33,21 @@ function search() {
       <ARow :gutter="[16, 16]" wrap>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.role.roleName')" name="roleName" class="m-0">
-            <AInput v-model:value="model.roleName" :placeholder="$t('page.manage.role.form.roleName')" />
+            <AInput v-model:value="model.roleName as string" :placeholder="$t('page.manage.role.form.roleName')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.role.roleCode')" name="roleCode" class="m-0">
-            <AInput v-model:value="model.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
+            <AInput v-model:value="model.roleCode as string" :placeholder="$t('page.manage.role.form.roleCode')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.role.roleStatus')" name="status" class="m-0">
-            <ASelect v-model:value="model.status" :placeholder="$t('page.manage.role.form.roleStatus')" allow-clear>
+            <ASelect
+              v-model:value="model.status as string"
+              :placeholder="$t('page.manage.role.form.roleStatus')"
+              allow-clear
+            >
               <ASelectOption v-for="option in enableStatusOptions" :key="option.value" :value="option.value">
                 {{ $t(option.label) }}
               </ASelectOption>

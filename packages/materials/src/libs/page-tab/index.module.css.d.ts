@@ -15,4 +15,5 @@ declare const styles: {
   readonly 'slider-tab_active_dark': string;
   readonly 'slider-tab_dark': string;
 };
+
 export default styles;

@@ -61,6 +61,7 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
  */
 export function getTabByRoute(route: App.Global.TabRoute) {
   const { name, path, fullPath = path, meta } = route;
+
   const { title, i18nKey, fixedIndexInTab } = meta;
 
   // Get icon and localIcon from getRouteIcons function
@@ -183,7 +184,7 @@ export function extractTabsByAllRoutes(router: Router, tabs: App.Global.Tab[]) {
  * @param tabs
  */
 export function getFixedTabs(tabs: App.Global.Tab[]) {
-  return tabs.filter(tab => tab.fixedIndex !== undefined);
+  return tabs.filter(isFixedTab);
 }
 
 /**

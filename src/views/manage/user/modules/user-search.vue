@@ -54,13 +54,13 @@ async function search() {
       <ARow :gutter="[16, 16]" wrap>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.userName')" name="userName" class="m-0">
-            <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />
+            <AInput v-model:value="model.userName as string" :placeholder="$t('page.manage.user.form.userName')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.userGender')" name="userGender" class="m-0">
             <ASelect
-              v-model:value="model.userGender"
+              v-model:value="model.userGender as string"
               :placeholder="$t('page.manage.user.form.userGender')"
               :options="translateOptions(userGenderOptions)"
               clearable
@@ -69,23 +69,23 @@ async function search() {
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.nickName')" name="nickName" class="m-0">
-            <AInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
+            <AInput v-model:value="model.nickName as string" :placeholder="$t('page.manage.user.form.nickName')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.userPhone')" name="userPhone" class="m-0">
-            <AInput v-model:value="model.userPhone" :placeholder="$t('page.manage.user.form.userPhone')" />
+            <AInput v-model:value="model.userPhone as string" :placeholder="$t('page.manage.user.form.userPhone')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.userEmail')" name="userEmail" class="m-0">
-            <AInput v-model:value="model.userEmail" :placeholder="$t('page.manage.user.form.userEmail')" />
+            <AInput v-model:value="model.userEmail as string" :placeholder="$t('page.manage.user.form.userEmail')" />
           </AFormItem>
         </ACol>
         <ACol :span="24" :md="12" :lg="6">
           <AFormItem :label="$t('page.manage.user.userStatus')" name="userStatus" class="m-0">
             <ASelect
-              v-model:value="model.status"
+              v-model:value="model.status as string"
               :placeholder="$t('page.manage.user.form.userStatus')"
               :options="translateOptions(enableStatusOptions)"
               clearable
