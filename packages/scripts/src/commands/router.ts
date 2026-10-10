@@ -2,7 +2,7 @@ import { existsSync, mkdirSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
-import { prompt } from 'enquirer';
+import enquirer from 'enquirer';
 import { green, red } from 'kolorist';
 
 interface PromptObject {
@@ -13,7 +13,7 @@ interface PromptObject {
 
 /** generate route */
 export async function generateRoute() {
-  const result = await prompt<PromptObject>([
+  const result = await enquirer.prompt<PromptObject>([
     {
       name: 'routeName',
       type: 'text',
@@ -29,7 +29,7 @@ export async function generateRoute() {
   ]);
 
   if (result.addRouteParams) {
-    const answers = await prompt<PromptObject>({
+    const answers = await enquirer.prompt<PromptObject>({
       name: 'routeParams',
       type: 'text',
       message: 'please enter route params',

@@ -32,7 +32,7 @@ export interface HookRequestInstance<
   State extends Record<string, unknown>
 > extends RequestInstanceCommon<State> {
   <T extends ApiData = ApiData, R extends ResponseType = 'json'>(
-    config: CustomAxiosRequestConfig
+    config: CustomAxiosRequestConfig<R>
   ): HookRequestInstanceResponseData<ResponseData, MappedType<R, T>>;
 }
 
@@ -51,7 +51,7 @@ export default function createHookRequest<ResponseData, ApiData, State extends R
   const hookRequest: HookRequestInstance<ResponseData, ApiData, State> = function hookRequest<
     T extends ApiData = ApiData,
     R extends ResponseType = 'json'
-  >(config: CustomAxiosRequestConfig) {
+  >(config: CustomAxiosRequestConfig<R>) {
     const { loading, startLoading, endLoading } = useLoading();
 
     const data = ref(null) as Ref<MappedType<R, T>>;
@@ -59,15 +59,15 @@ export default function createHookRequest<ResponseData, ApiData, State extends R
 
     startLoading();
 
-    request(config).then(res => {
-      if (res.data) {
-        data.value = res.data as MappedType<R, T>;
-      } else {
-        error.value = res.error;
-      }
-
-      endLoading();
-    });
+    request<T, R>(config)
+      .then(res => {
+        if (res.error === null) {
+          data.value = res.data;
+        } else {
+          error.value = res.error;
+        }
+      })
+      .finally(endLoading);
 
     return {
       loading,

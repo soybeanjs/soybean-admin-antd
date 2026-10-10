@@ -4,6 +4,7 @@ import ElegantVueRouter from '@elegant-router/vue/vite';
 
 export function setupElegantRouter() {
   return ElegantVueRouter({
+    layoutLazyImport: () => true,
     layouts: {
       base: 'src/layouts/base-layout/index.vue',
       blank: 'src/layouts/blank-layout/index.vue'
@@ -44,6 +45,8 @@ export function setupElegantRouter() {
         title: key,
         i18nKey: `route.${key}` as App.I18n.I18nKey
       };
+
+      if (key === 'function_multi-tab') meta.keepAlive = true;
 
       if (constantRoutes.includes(key)) {
         meta.constant = true;

@@ -1,4 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["./src/**/*.ts", "./bin.ts"]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "lib": ["ESNext"]
+  },
+  "include": ["src/**/*.ts", "bin.ts"],
+  "exclude": ["node_modules", "dist"]
 }

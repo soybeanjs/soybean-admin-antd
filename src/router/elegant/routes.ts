@@ -118,7 +118,8 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'ic:round-tab',
           multiTab: true,
           hideInMenu: true,
-          activeMenu: 'function_tab'
+          activeMenu: 'function_tab',
+          keepAlive: true
         }
       },
       {

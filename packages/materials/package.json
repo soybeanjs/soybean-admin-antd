@@ -1,6 +1,7 @@
 {
   "name": "@sa/materials",
   "version": "2.3.0",
+  "type": "module",
   "typesVersions": {
     "*": {
       "*": [
@@ -15,8 +16,8 @@
     "typecheck": "vue-tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
-    "@simonwep/pickr": "1.9.1",
     "@sa/utils": "workspace:*",
+    "@simonwep/pickr": "1.9.1",
     "simplebar-vue": "2.4.2"
   },
   "devDependencies": {

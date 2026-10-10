@@ -1,7 +1,17 @@
 export interface RequestInstanceState {
-  /** the promise of refreshing token */
-  refreshTokenPromise: Promise<boolean> | null;
+  [key: string]: unknown;
+  /** whether the request is refreshing token */
+  refreshTokenFn: Promise<boolean> | null;
   /** the request error message stack */
   errMsgStack: string[];
-  [key: string]: unknown;
+  /** Business codes currently represented by a logout modal. */
+  modalLogoutCodes: string[];
+}
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    skipAuthRefresh?: boolean;
+    authRetryCount?: number;
+    authSessionVersion?: number;
+  }
 }

@@ -5,6 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import { localStg } from '@/utils/storage';
 import { $t, setLocale } from '@/locales';
 import { setDayjsLocale } from '@/locales/dayjs';
+import { normalizeLocale } from '@/locales/utils';
 import { router } from '@/router';
 import { SetupStoreId } from '@/enum';
 import { useRouteStore } from '../route';
@@ -49,7 +50,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
     routeStore.resetRouteCache();
   }
 
-  const locale = ref<App.I18n.LangType>(localStg.get('lang') || 'zh-CN');
+  const locale = ref<App.I18n.LangType>(normalizeLocale(localStg.get('lang')));
 
   const localeOptions: App.I18n.LangOption[] = [
     {
@@ -63,9 +64,9 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   ];
 
   function changeLocale(lang: App.I18n.LangType) {
-    locale.value = lang;
-    setLocale(lang);
-    localStg.set('lang', lang);
+    locale.value = normalizeLocale(lang);
+    setLocale(locale.value);
+    localStg.set('lang', locale.value);
   }
 
   /** Update document title by locale */

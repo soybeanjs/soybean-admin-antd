@@ -1,10 +1,11 @@
 import { computed } from 'vue';
 import { useCountDown, useLoading } from '@sa/hooks';
 import { REG_PHONE } from '@/constants/reg';
+import { notifyDemoAction } from '@/utils/demo';
 import { $t } from '@/locales';
 
 export function useCaptcha() {
-  const { loading, startLoading, endLoading } = useLoading();
+  const { loading } = useLoading();
   const { count, start, stop, isCounting } = useCountDown(10);
 
   const label = computed(() => {
@@ -43,21 +44,11 @@ export function useCaptcha() {
     const valid = isPhoneValid(phone);
 
     if (!valid || loading.value) {
-      return;
+      return false;
     }
 
-    startLoading();
-
-    // request
-    await new Promise(resolve => {
-      setTimeout(resolve, 500);
-    });
-
-    window.$message?.success?.($t('page.login.codeLogin.sendCodeSuccess'));
-
-    start();
-
-    endLoading();
+    notifyDemoAction();
+    return false;
   }
 
   return {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouterPush } from '@/hooks/common/router';
 import { $t } from '@/locales';
 import { useTabStore } from '@/store/modules/tab';
+import { useRouterPush } from '@/hooks/common/router';
 
 const tabStore = useTabStore();
 const { routerPushByKey } = useRouterPush();

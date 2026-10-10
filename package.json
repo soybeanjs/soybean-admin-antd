@@ -27,19 +27,27 @@
   "scripts": {
     "build": "vp build --mode prod",
     "build:test": "vp build --mode test",
+    "check:bundle": "node scripts/check-bundle.mjs",
     "cleanup": "pnpm sa cleanup",
     "commit": "pnpm sa git-commit",
     "commit:zh": "pnpm sa git-commit -l=zh-cn",
     "dev": "vp dev --mode test",
     "dev:prod": "vp dev --mode prod",
     "fmt": "vp fmt",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
     "gen-route": "pnpm sa gen-route",
-    "lint": "vp lint --fix && eslint --fix .",
-    "prepare": "vp config --no-agent",
+    "lint": "vp lint && eslint .",
+    "lint:fix": "vp lint --fix && eslint --fix .",
+    "prepare": "vp config --no-agent && simple-git-hooks",
     "preview": "vp preview",
     "release": "pnpm sa release",
-    "typecheck": "vue-tsc --noEmit --skipLibCheck",
-    "upkg": "pnpm sa update-pkg"
+    "test": "node --import tsx --test tests/*.test.ts",
+    "typecheck": "pnpm typecheck:app && pnpm typecheck:packages",
+    "typecheck:app": "vue-tsc -p tsconfig.json",
+    "typecheck:packages": "node scripts/typecheck-packages.mjs",
+    "upkg": "pnpm sa update-pkg",
+    "verify": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build && pnpm check:bundle"
   },
   "dependencies": {
     "@better-scroll/core": "2.5.1",
@@ -51,6 +59,7 @@
     "@sa/utils": "workspace:*",
     "@vueuse/core": "15.0.0",
     "ant-design-vue": "4.2.6",
+    "axios": "1.20.0",
     "clipboard": "2.0.11",
     "dayjs": "1.11.23",
     "defu": "6.1.7",
@@ -67,6 +76,7 @@
   "devDependencies": {
     "@elegant-router/vue": "0.3.8",
     "@iconify/json": "2.2.541",
+    "@iconify/utils": "3.1.0",
     "@sa/scripts": "workspace:*",
     "@sa/uno-preset": "workspace:*",
     "@soybeanjs/eslint-config-vue": "^0.1.1",
@@ -78,7 +88,9 @@
     "consola": "3.4.2",
     "eslint": "^10.12.0",
     "kolorist": "1.8.0",
+    "lint-staged": "16.2.7",
     "sass": "1.105.1",
+    "simple-git-hooks": "2.13.1",
     "tsx": "^4.23.15",
     "typescript": "catalog:",
     "unocss": "^66.10.5",
@@ -91,9 +103,22 @@
     "vite-plus": "catalog:",
     "vue-tsc": "^3.3.12"
   },
-  "engines": {
-    "node": ">=20.19.0",
-    "pnpm": ">=10.5.0"
+  "simple-git-hooks": {
+    "pre-commit": "pnpm typecheck && pnpm lint-staged",
+    "commit-msg": "pnpm sa git-commit-verify"
   },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,vue}": [
+      "vp lint --fix",
+      "vp fmt --write"
+    ],
+    "*.vue": "eslint --fix",
+    "*.{json,jsonc,json5,yml,yaml,css,scss,md,html}": "vp fmt --write"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0",
+    "pnpm": "11.16.0"
+  },
+  "packageManager": "pnpm@11.16.0",
   "website": "https://antd.soybeanjs.cn"
 }

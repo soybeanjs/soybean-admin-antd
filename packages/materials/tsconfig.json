@@ -1,7 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node", "vite/client"]
+    "noUnusedLocals": true,
+    "noUncheckedSideEffectImports": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
   },
-  "include": ["./src/**/*.ts", "./src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
 }

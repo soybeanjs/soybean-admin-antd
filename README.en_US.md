@@ -68,7 +68,7 @@
 
 - **Cutting-edge technology application**: using the latest popular technology stack such as Vue3, Vite8, TypeScript, Pinia and UnoCSS.
 - **Clear project architecture**: using pnpm monorepo architecture, clear structure, elegant and easy to understand.
-- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), integrate eslint, prettier and simple-git-hooks to ensure the code is standardized.
+- **Strict code specifications**: follow the [SoybeanJS specification](https://docs.soybeanjs.cn/standard), use Vite Plus with oxlint and oxfmt, Vue ESLint, and simple-git-hooks to ensure the code is standardized.
 - **TypeScript**: support strict type checking to improve code maintainability.
 - **Rich theme configuration**: built-in a variety of theme configurations, perfectly integrated with UnoCSS.
 - **Built-in internationalization solution**: easily realize multi-language support.
@@ -130,8 +130,8 @@
 Make sure your environment meets the following requirements:
 
 - **git**: you need git to clone and manage project versions.
-- **NodeJS**: >=20.19.0, recommended 20.19.0 or higher.
-- **pnpm**: >= 10.5.0, recommended 10.5.0 or higher.
+- **NodeJS**: `^20.19.0 || >=22.12.0`; Node 24 recommended, locally checked with 24.14.1.
+- **pnpm**: 11.16.0, pinned by `packageManager`.
 
 **Clone Project**
 
@@ -147,7 +147,7 @@ git clone https://gitcode.com/soybeanjs/soybean-admin.git
 **Install Dependencies**
 
 ```bash
-pnpm i
+pnpm install --frozen-lockfile
 ```
 
 > Since this project uses the pnpm monorepo management method, please do not use npm or yarn to install dependencies.
@@ -236,3 +236,7 @@ Here are the most active contributors from the past year. Thank you all for your
 ## License
 
 This project is based on the [MIT © 2021 Soybean](./LICENSE) protocol, for learning purposes only, please retain the author's copyright information for commercial use, the author does not guarantee and is not responsible for the software.
+
+## Project validation
+
+Run `pnpm verify` for lint, type checking, regression tests, production build and bundle budgets. `pnpm dev` uses the proxied mock environment; production uses a same-origin `/api` backend.

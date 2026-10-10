@@ -26,6 +26,10 @@ declare namespace Env {
      * This prefix is start with the icon prefix
      */
     readonly VITE_ICON_LOCAL_PREFIX: 'icon-local';
+    /** Backend entry that initiates and validates WeChat authorization. */
+    readonly VITE_WECHAT_AUTH_URL?: string;
+    readonly VITE_USE_MOCK?: CommonType.YesOrNo;
+    readonly VITE_APIFOX_TOKEN?: string;
     /** backend service base url */
     readonly VITE_SERVICE_BASE_URL: string;
     /**
@@ -71,6 +75,8 @@ declare namespace Env {
      *
      * Only valid in the development environment
      */
+    /** Local backend target for relative API paths in dev:prod. */
+    readonly VITE_DEV_BACKEND?: string;
     readonly VITE_HTTP_PROXY?: CommonType.YesOrNo;
     /**
      * The auth route mode

@@ -1,7 +1,8 @@
 import { setupVueRootValidator } from 'vite-plugin-vue-transition-root-validator/client';
 import { createApp } from 'vue';
-import { setupAppVersionNotification, setupDayjs, setupIconifyOffline, setupLoading, setupNProgress } from './plugins';
+import { setupAppVersionNotification, setupDayjs, setupIconifyProvider, setupLoading, setupNProgress } from './plugins';
 import './plugins/assets';
+import { setupAppErrorHandle } from './plugins/app';
 import { getLocale, setupI18n } from './locales';
 import { setupStore } from './store';
 import { setupRouter } from './router';
@@ -12,11 +13,12 @@ async function setupApp() {
 
   setupNProgress();
 
-  setupIconifyOffline();
+  setupIconifyProvider();
 
   setupDayjs();
 
   const app = createApp(App);
+  setupAppErrorHandle(app);
 
   setupStore(app);
 
@@ -24,7 +26,7 @@ async function setupApp() {
 
   setupI18n(app);
 
-  setupAppVersionNotification();
+  setupAppVersionNotification(app);
 
   setupVueRootValidator(app, {
     lang: getLocale() === 'zh-CN' ? 'zh' : 'en'
@@ -33,4 +35,7 @@ async function setupApp() {
   app.mount('#app');
 }
 
-setupApp();
+setupApp().catch(() => {
+  const app = document.querySelector('#app');
+  if (app) app.textContent = '应用加载失败，请刷新页面重试。 / Unable to load the application. Please refresh.';
+});

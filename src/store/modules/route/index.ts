@@ -182,6 +182,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
       await authStore.initUserInfo();
     }
 
+    if (!authStore.isLogin) return;
     if (authRouteMode.value === 'static') {
       initStaticAuthRoute();
     } else {
@@ -210,7 +211,9 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   /** Init dynamic auth route */
   async function initDynamicAuthRoute() {
+    const version = authStore.sessionVersion;
     const { data, error } = await fetchGetUserRoutes();
+    if (version !== authStore.sessionVersion || !authStore.isLogin) return;
 
     if (!error) {
       const { routes, home } = data;

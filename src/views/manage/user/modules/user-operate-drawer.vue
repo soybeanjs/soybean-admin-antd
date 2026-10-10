@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { useAntdForm, useFormRules } from '@/hooks/common/form';
+import { enableStatusOptions, userGenderOptions } from '@/constants/business';
+import { notifyDemoAction } from '@/utils/demo';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
-import { enableStatusOptions, userGenderOptions } from '@/constants/business';
+import { useAntdForm, useFormRules } from '@/hooks/common/form';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -17,12 +18,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-interface Emits {
-  (e: 'submitted'): void;
-}
-
-const emit = defineEmits<Emits>();
 
 const visible = defineModel<boolean>('visible', {
   default: false
@@ -103,10 +98,7 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
-  // request
-  window.$message?.success($t('common.updateSuccess'));
-  closeDrawer();
-  emit('submitted');
+  notifyDemoAction();
 }
 
 watch(visible, () => {
@@ -120,6 +112,7 @@ watch(visible, () => {
 
 <template>
   <ADrawer v-model:open="visible" :title="title" :width="360">
+    <AAlert :message="$t('common.demoOnly')" type="info" show-icon class="mb-16px" />
     <AForm ref="formRef" layout="vertical" :model="model" :rules="rules">
       <AFormItem :label="$t('page.manage.user.userName')" name="userName">
         <AInput v-model:value="model.userName" :placeholder="$t('page.manage.user.form.userName')" />

@@ -41,7 +41,7 @@ const watermarkProps = computed(() => {
       <AWatermark
         v-if="themeStore.watermark.visible"
         v-bind="watermarkProps"
-        class="pointer-events-none absolute-lt! size-full"
+        class="pointer-events-none size-full absolute-lt!"
       />
     </AppProvider>
   </ConfigProvider>

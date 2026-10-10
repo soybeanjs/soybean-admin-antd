@@ -1,4 +1,4 @@
-import type { ProxyOptions } from 'vite';
+import type { ProxyOptions } from 'vite-plus';
 import { consola } from 'consola';
 import { bgRed, bgYellow, green, lightBlue } from 'kolorist';
 import { createServiceConfig } from '../../src/utils/service';
@@ -18,20 +18,29 @@ export function createViteProxy(env: Env.ImportMeta, enable: boolean) {
 
   const { baseURL, proxyPattern, other } = createServiceConfig(env);
 
-  const proxy: Record<string, ProxyOptions> = createProxyItem({ baseURL, proxyPattern }, isEnableProxyLog);
+  const proxy: Record<string, ProxyOptions> = createProxyItem(
+    { baseURL, proxyPattern },
+    isEnableProxyLog,
+    env.VITE_DEV_BACKEND
+  );
 
   other.forEach(item => {
-    Object.assign(proxy, createProxyItem(item, isEnableProxyLog));
+    Object.assign(proxy, createProxyItem(item, isEnableProxyLog, env.VITE_DEV_BACKEND));
   });
 
   return proxy;
 }
 
-function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean) {
+function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean, devBackend?: string) {
   const proxy: Record<string, ProxyOptions> = {};
 
-  proxy[item.proxyPattern] = {
-    target: item.baseURL,
+  const relative = item.baseURL.startsWith('/');
+  const target = relative ? devBackend : item.baseURL;
+  if (!target || !/^https?:\/\//u.test(target)) return proxy;
+  const pattern = relative ? item.baseURL : item.proxyPattern;
+
+  proxy[pattern] = {
+    target,
     changeOrigin: true,
     configure: (_proxy, options) => {
       _proxy.on('proxyReq', (_proxyReq, req, _res) => {
@@ -48,7 +57,7 @@ function createProxyItem(item: App.Service.ServiceConfigItem, enableLog: boolean
         consola.log(bgRed(`Error: ${req.method} `), green(`${options.target}${req.url}`));
       });
     },
-    rewrite: path => path.replace(new RegExp(`^${item.proxyPattern}`), '')
+    rewrite: path => path.replace(new RegExp(`^${pattern.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')}`), '')
   };
 
   return proxy;

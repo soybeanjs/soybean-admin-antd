@@ -42,7 +42,7 @@ function resetScroll() {
       @after-leave="resetScroll"
       @after-enter="appStore.setContentXScrollable(false)"
     >
-      <KeepAlive :include="routeStore.cacheRoutes" :exclude="routeStore.excludeCacheRoutes">
+      <KeepAlive :include="routeStore.cacheRoutes" :exclude="routeStore.excludeCacheRoutes" :max="20">
         <component
           :is="Component"
           v-if="appStore.reloadFlag"

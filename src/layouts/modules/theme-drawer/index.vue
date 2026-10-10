@@ -48,7 +48,12 @@ function handleClose() {
     @close="handleClose"
   >
     <template #extra>
-      <ButtonIcon icon="ant-design:close-outlined" class="h-28px" @click="handleClose" />
+      <ButtonIcon
+        :aria-label="$t('common.close')"
+        icon="ant-design:close-outlined"
+        class="h-28px"
+        @click="handleClose"
+      />
     </template>
 
     <div class="h-full flex-col-stretch">

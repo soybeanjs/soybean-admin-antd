@@ -1,51 +1,26 @@
-import { computed, effectScope, nextTick, onScopeDispose, shallowRef, watch } from 'vue';
+import { computed, effectScope, nextTick, onActivated, onScopeDispose, shallowRef, watch } from 'vue';
 import { useElementSize } from '@vueuse/core';
-import { BarChart, GaugeChart, LineChart, PictorialBarChart, PieChart, RadarChart, ScatterChart } from 'echarts/charts';
+import { LineChart, PieChart } from 'echarts/charts';
+import type { LineSeriesOption, PieSeriesOption } from 'echarts/charts';
+import { GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
 import type {
-  BarSeriesOption,
-  GaugeSeriesOption,
-  LineSeriesOption,
-  PictorialBarSeriesOption,
-  PieSeriesOption,
-  RadarSeriesOption,
-  ScatterSeriesOption
-} from 'echarts/charts';
-import {
-  DatasetComponent,
-  GridComponent,
-  LegendComponent,
-  TitleComponent,
-  ToolboxComponent,
-  TooltipComponent,
-  TransformComponent
-} from 'echarts/components';
-import type {
-  DatasetComponentOption,
   GridComponentOption,
   LegendComponentOption,
   TitleComponentOption,
-  ToolboxComponentOption,
   TooltipComponentOption
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
-import { LabelLayout, UniversalTransition } from 'echarts/features';
+import { LabelLayout } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import { useThemeStore } from '@/store/modules/theme';
 
 export type ECOption = echarts.ComposeOption<
-  | BarSeriesOption
   | LineSeriesOption
   | PieSeriesOption
-  | ScatterSeriesOption
-  | PictorialBarSeriesOption
-  | RadarSeriesOption
-  | GaugeSeriesOption
   | TitleComponentOption
   | LegendComponentOption
   | TooltipComponentOption
   | GridComponentOption
-  | ToolboxComponentOption
-  | DatasetComponentOption
 >;
 
 echarts.use([
@@ -53,18 +28,9 @@ echarts.use([
   LegendComponent,
   TooltipComponent,
   GridComponent,
-  DatasetComponent,
-  TransformComponent,
-  ToolboxComponent,
-  BarChart,
   LineChart,
   PieChart,
-  ScatterChart,
-  PictorialBarChart,
-  RadarChart,
-  GaugeChart,
   LabelLayout,
-  UniversalTransition,
   CanvasRenderer
 ]);
 
@@ -91,6 +57,11 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
   const { width, height } = useElementSize(domRef, initialSize);
 
   const chart = shallowRef<echarts.ECharts | null>(null);
+  let disposed = false;
+  let optionsUpdated = false;
+  let resizeFrame: number | undefined;
+  let generation = 0;
+  let renderTask: Promise<void> | null = null;
   const chartOptions: T = optionsFactory();
 
   const {
@@ -111,6 +82,15 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     onDestroy
   } = hooks;
 
+  /**
+   * whether can render chart
+   *
+   * when domRef is ready and initialSize is valid
+   */
+  function canRender() {
+    return domRef.value && initialSize.width > 0 && initialSize.height > 0;
+  }
+
   /** is chart rendered */
   function isRendered() {
     return Boolean(domRef.value && chart.value);
@@ -122,21 +102,16 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
    * @param callback callback function
    */
   async function updateOptions(callback: (opts: T, optsFactory: () => T) => ECOption = () => chartOptions) {
+    if (disposed) return;
+
     const updatedOpts = callback(chartOptions, optionsFactory);
 
     Object.assign(chartOptions, updatedOpts);
-
-    await nextTick();
-
-    if (!isRendered()) return;
-
-    if (isRendered()) {
-      chart.value?.clear();
-    }
+    optionsUpdated = true;
 
     chart.value?.setOption({ ...updatedOpts, backgroundColor: 'transparent' });
 
-    await onUpdated?.(chart.value!);
+    if (chart.value) await onUpdated(chart.value);
   }
 
   function setOptions(options: T) {
@@ -145,36 +120,57 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
 
   /** render chart */
   async function render() {
-    if (isRendered()) return;
-
-    const chartTheme = darkMode.value ? 'dark' : 'light';
-
-    chart.value = echarts.init(domRef.value, chartTheme);
-
-    chart.value?.setOption({ ...chartOptions, backgroundColor: 'transparent' });
-
-    await onRender?.(chart.value!);
+    if (disposed || !canRender() || isRendered()) return;
+    if (renderTask) {
+      await renderTask;
+      return;
+    }
+    const current = generation;
+    const pending = (async () => {
+      await nextTick();
+      if (disposed || current !== generation || !canRender() || isRendered()) return;
+      chart.value = echarts.init(domRef.value!, darkMode.value ? 'dark' : 'light');
+      chart.value.setOption({ ...chartOptions, backgroundColor: 'transparent' });
+      const instance = chart.value;
+      await onRender(instance);
+      if (optionsUpdated && instance === chart.value && !disposed) await onUpdated(instance);
+    })();
+    renderTask = pending;
+    try {
+      await pending;
+    } finally {
+      if (renderTask === pending) renderTask = null;
+    }
   }
 
   /** resize chart */
   function resize() {
-    chart.value?.resize();
+    if (resizeFrame !== undefined) return;
+    resizeFrame = requestAnimationFrame(() => {
+      resizeFrame = undefined;
+      if (!disposed) chart.value?.resize();
+    });
   }
 
   /** destroy chart */
   async function destroy() {
-    if (!chart.value) return;
-
-    await onDestroy?.(chart.value);
-    chart.value?.dispose();
+    generation += 1;
+    renderTask = null;
+    const instance = chart.value;
     chart.value = null;
+    if (!instance) return;
+    try {
+      await onDestroy?.(instance);
+    } finally {
+      instance.dispose();
+    }
   }
 
   /** change chart theme */
   async function changeTheme() {
     await destroy();
     await render();
-    await onUpdated?.(chart.value!);
+    if (chart.value) await onUpdated(chart.value);
   }
 
   /**
@@ -187,37 +183,36 @@ export function useEcharts<T extends ECOption>(optionsFactory: () => T, hooks: C
     initialSize.width = w;
     initialSize.height = h;
 
+    // Hidden KeepAlive pages can have zero size; retain their chart and options.
+    if (!canRender()) return;
+
     // resize chart
     if (isRendered()) {
       resize();
-
-      return;
     }
 
     // render chart
     await render();
-
-    if (chart.value) {
-      await onUpdated?.(chart.value);
-    }
   }
 
   scope.run(() => {
-    watch(
-      [width, height],
-      ([newWidth, newHeight]) => {
-        renderChartBySize(newWidth, newHeight);
-      },
-      { flush: 'post' }
-    );
+    watch([width, height], ([newWidth, newHeight]) => {
+      renderChartBySize(newWidth, newHeight);
+    });
 
     watch(darkMode, () => {
       changeTheme();
     });
   });
 
+  onActivated(() => {
+    nextTick(resize);
+  });
+
   onScopeDispose(() => {
-    destroy();
+    disposed = true;
+    if (resizeFrame !== undefined) cancelAnimationFrame(resizeFrame);
+    destroy().catch(() => {});
     scope.stop();
   });
 

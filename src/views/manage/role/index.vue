@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { Button, Popconfirm, Tag } from 'ant-design-vue';
 import { enableStatusRecord } from '@/constants/business';
+import { notifyDemoAction } from '@/utils/demo';
 import { fetchGetRoleList } from '@/service/api';
 import { $t } from '@/locales';
 import { defaultTransform, useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
@@ -18,7 +19,12 @@ const searchParams = ref<Api.SystemManage.RoleSearchParams>({
   roleCode: undefined
 });
 
-const { columns, columnChecks, data, loading, getData, getDataByPage, mobilePagination } = useTable({
+const defaultSearchParams = { ...searchParams.value };
+function resetSearchParams() {
+  searchParams.value = { ...defaultSearchParams };
+}
+
+const { columns, columnChecks, data, loading, error, getData, getDataByPage, mobilePagination } = useTable({
   api: () => fetchGetRoleList(searchParams.value),
   transform: response => defaultTransform(response),
   onPaginationParamsChange: params => {
@@ -102,23 +108,16 @@ const {
   handleAdd,
   handleEdit,
   checkedRowKeys,
-  rowSelection,
-  onBatchDeleted,
-  onDeleted
+  rowSelection
   // closeDrawer
 } = useTableOperate(data, getData);
 
 async function handleBatchDelete() {
-  // request
-
-  onBatchDeleted();
+  notifyDemoAction();
 }
 
-function handleDelete(id: number) {
-  // request
-  console.log(id);
-
-  onDeleted();
+function handleDelete(_id: number) {
+  notifyDemoAction();
 }
 
 function edit(id: number) {
@@ -128,7 +127,9 @@ function edit(id: number) {
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @search="getDataByPage" />
+    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <AAlert v-if="error" :message="$t('common.loadFailed')" type="error" show-icon />
+    <AAlert :message="$t('common.demoOnly')" type="info" show-icon />
     <ACard
       :title="$t('page.manage.role.title')"
       :bordered="false"
@@ -157,12 +158,7 @@ function edit(id: number) {
         :scroll="scrollConfig"
         class="h-full"
       />
-      <RoleOperateDrawer
-        v-model:visible="drawerVisible"
-        :operate-type="operateType"
-        :row-data="editingData"
-        @submitted="getDataByPage"
-      />
+      <RoleOperateDrawer v-model:visible="drawerVisible" :operate-type="operateType" :row-data="editingData" />
     </ACard>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import HeaderBanner from './modules/header-banner.vue';
 import CardData from './modules/card-data.vue';
+import CreativityBanner from './modules/creativity-banner.vue';
+import HeaderBanner from './modules/header-banner.vue';
 import LineChart from './modules/line-chart.vue';
 import PieChart from './modules/pie-chart.vue';
 import ProjectNews from './modules/project-news.vue';
-import CreativityBanner from './modules/creativity-banner.vue';
 </script>
 
 <template>

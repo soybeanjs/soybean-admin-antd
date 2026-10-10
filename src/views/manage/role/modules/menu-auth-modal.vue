@@ -2,8 +2,9 @@
 import { computed, shallowRef, watch } from 'vue';
 import type { SelectProps } from 'ant-design-vue';
 import type { DataNode } from 'ant-design-vue/es/tree';
-import { $t } from '@/locales';
+import { notifyDemoAction } from '@/utils/demo';
 import { fetchGetAllPages, fetchGetMenuTree } from '@/service/api';
+import { $t } from '@/locales';
 
 defineOptions({
   name: 'MenuAuthModal'
@@ -14,7 +15,7 @@ interface Props {
   roleId: number;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const visible = defineModel<boolean>('visible', {
   default: false
@@ -29,8 +30,6 @@ const title = computed(() => $t('common.edit') + $t('page.manage.role.menuAuth')
 const home = shallowRef('');
 
 async function getHome() {
-  console.log(props.roleId);
-
   home.value = 'home';
 }
 
@@ -91,18 +90,12 @@ function recursiveTransform(data: Api.SystemManage.MenuTree[]): DataNode[] {
 const checks = shallowRef<number[]>([]);
 
 async function getChecks() {
-  console.log(props.roleId);
   // request
   checks.value = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21];
 }
 
 function handleSubmit() {
-  console.log(checks.value, props.roleId);
-  // request
-
-  window.$message?.success?.($t('common.modifySuccess'));
-
-  closeModal();
+  notifyDemoAction();
 }
 
 async function init() {
@@ -125,6 +118,7 @@ watch(visible, val => {
       <div>{{ $t('page.manage.menu.home') }}</div>
       <ASelect :value="home" :options="pageSelectOptions" class="w-240px" @update:value="updateHome" />
     </div>
+    <AAlert :message="$t('common.demoOnly')" :description="`#${roleId}`" type="info" show-icon class="mb-16px" />
     <ATree v-model:checked-keys="checks" :tree-data="tree" checkable :height="280" class="h-280px" />
     <template #footer>
       <AButton size="small" class="mt-16px" @click="closeModal">

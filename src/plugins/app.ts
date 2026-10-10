@@ -2,15 +2,23 @@ import { h } from 'vue';
 import type { App } from 'vue';
 import { Button } from 'ant-design-vue';
 import { $t } from '@/locales';
+import { readAppVersion } from './version';
 
 export function setupAppErrorHandle(app: App) {
-  app.config.errorHandler = (err, vm, info) => {
+  app.config.errorHandler = (err, _vm, info) => {
+    const detail = { name: err instanceof Error ? err.name : 'Error', info };
     // eslint-disable-next-line no-console
-    console.error(err, vm, info);
+    console.error('[app:error]', detail);
+    window.dispatchEvent(new CustomEvent('app:error', { detail }));
   };
+  const onRejection = () => {
+    window.dispatchEvent(new CustomEvent('app:error', { detail: { name: 'UnhandledRejection' } }));
+  };
+  window.addEventListener('unhandledrejection', onRejection);
+  app.onUnmount(() => window.removeEventListener('unhandledrejection', onRejection));
 }
 
-export function setupAppVersionNotification() {
+export function setupAppVersionNotification(app: App) {
   // Update check interval in milliseconds
   const UPDATE_CHECK_INTERVAL = 3 * 60 * 1000;
 
@@ -19,14 +27,23 @@ export function setupAppVersionNotification() {
 
   let isShow = false;
   let updateInterval: ReturnType<typeof setInterval> | undefined;
+  let pending = false;
+  let stopped = false;
 
   const checkForUpdates = async () => {
-    if (isShow) return;
+    if (isShow || pending || stopped || document.visibilityState !== 'visible') return;
+    pending = true;
+    const buildTime = await readAppVersion(`${import.meta.env.BASE_URL}version.json`);
+    pending = false;
 
-    const buildTime = await getHtmlBuildTime();
-
-    // If failed to get build time or build time hasn't changed, no update is needed.
-    if (!buildTime || buildTime === BUILD_TIME) {
+    // If build time hasn't changed, no update is needed
+    if (
+      !buildTime ||
+      buildTime === BUILD_TIME ||
+      stopped ||
+      document.visibilityState !== 'visible' ||
+      !window.$notification
+    ) {
       return;
     }
 
@@ -75,36 +92,18 @@ export function setupAppVersionNotification() {
     updateInterval = setInterval(checkForUpdates, UPDATE_CHECK_INTERVAL);
   };
 
-  // If updates should be checked, set up the visibility change listener and start the update interval
-  if (!isShow && document.visibilityState === 'visible') {
-    // Check for updates when the document is visible
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        checkForUpdates();
-        startUpdateInterval();
-      }
-    });
-
-    // Start the update interval
-    startUpdateInterval();
-  }
-}
-
-async function getHtmlBuildTime(): Promise<string | null> {
-  const baseUrl = import.meta.env.VITE_BASE_URL || '/';
-
-  try {
-    const res = await fetch(`${baseUrl}index.html?time=${Date.now()}`);
-
-    if (!res.ok) {
-      return null;
+  const onVisibilityChange = () => {
+    clearInterval(updateInterval);
+    if (document.visibilityState === 'visible') {
+      checkForUpdates();
+      startUpdateInterval();
     }
-
-    const html = await res.text();
-    const match = html.match(/<meta name="buildTime" content="(.*)">/);
-    return match?.[1] || null;
-  } catch (error) {
-    window.console.error('getHtmlBuildTime error:', error);
-    return null;
-  }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  if (document.visibilityState === 'visible') startUpdateInterval();
+  app.onUnmount(() => {
+    stopped = true;
+    clearInterval(updateInterval);
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+  });
 }

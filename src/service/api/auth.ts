@@ -10,6 +10,7 @@ export function fetchLogin(userName: string, password: string) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/login',
     method: 'post',
+    skipAuthRefresh: true,
     data: {
       userName,
       password
@@ -31,6 +32,7 @@ export function fetchRefreshToken(refreshToken: string) {
   return request<Api.Auth.LoginToken>({
     url: '/auth/refreshToken',
     method: 'post',
+    skipAuthRefresh: true,
     data: {
       refreshToken
     }

@@ -117,7 +117,9 @@ export function useTable<ResponseData, ApiData>(options: UseAntdPaginatedTableOp
     getColumns,
     onFetched: async data => {
       pagination.total = data.total;
+      pagination.current = data.pageNum;
       pagination.pageSize = data.pageSize;
+      await options.onFetched?.(data);
     }
   });
 
@@ -252,23 +254,23 @@ export function defaultTransform<ApiData>(
   response: FlatResponseData<any, Api.Common.PaginatingQueryRecord<ApiData>>
 ): PaginationData<ApiData> {
   const { data, error } = response;
-
-  if (!error) {
-    const { records, current, size, total } = data;
-
-    return {
-      data: records,
-      pageNum: current,
-      pageSize: size,
-      total
-    };
+  if (error) throw error;
+  const { records, current, size, total } = data;
+  if (
+    !Number.isSafeInteger(current) ||
+    current <= 0 ||
+    !Number.isSafeInteger(size) ||
+    size <= 0 ||
+    !Number.isSafeInteger(total) ||
+    total < 0
+  ) {
+    throw new Error('INVALID_PAGINATION');
   }
-
   return {
-    data: [],
-    pageNum: 1,
-    pageSize: 10,
-    total: 0
+    data: records.map((record, index) => ({ ...record, index: (current - 1) * size + index + 1 })),
+    pageNum: current,
+    pageSize: size,
+    total
   };
 }
 

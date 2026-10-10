@@ -1,10 +1,9 @@
-import localforage from 'localforage';
-
 /** The storage type */
 export type StorageType = 'local' | 'session';
 
 export function createStorage<T extends object>(type: StorageType, storagePrefix: string) {
-  const stg = type === 'session' ? window.sessionStorage : window.localStorage;
+  const fallback = new Map<string, string | null>();
+  const getStorage = () => (type === 'session' ? window.sessionStorage : window.localStorage);
 
   const storage = {
     /**
@@ -16,7 +15,14 @@ export function createStorage<T extends object>(type: StorageType, storagePrefix
     set<K extends keyof T>(key: K, value: T[K]) {
       const json = JSON.stringify(value);
 
-      stg.setItem(`${storagePrefix}${key as string}`, json);
+      const storageKey = `${storagePrefix}${key as string}`;
+      try {
+        getStorage().setItem(`${storagePrefix}${key as string}`, json);
+      } catch {
+        fallback.set(storageKey, json);
+        return;
+      }
+      fallback.delete(storageKey);
     },
     /**
      * Get session
@@ -24,54 +30,46 @@ export function createStorage<T extends object>(type: StorageType, storagePrefix
      * @param key Session key
      */
     get<K extends keyof T>(key: K): T[K] | null {
-      const json = stg.getItem(`${storagePrefix}${key as string}`);
-      if (json) {
-        let storageData: T[K] | null = null;
-
+      const storageKey = `${storagePrefix}${key as string}`;
+      try {
+        const stg = getStorage();
+        const json = fallback.has(storageKey) ? fallback.get(storageKey) : stg.getItem(storageKey);
+        if (json === null || json === undefined) return null;
         try {
-          storageData = JSON.parse(json);
-        } catch {}
-
-        // storageData may be `false` if it is boolean type
-        if (storageData !== null) {
-          return storageData as T[K];
+          return JSON.parse(json) as T[K];
+        } catch {
+          stg.removeItem(storageKey);
         }
+      } catch {
+        // Storage access can throw in restricted browser contexts.
       }
-
-      stg.removeItem(`${storagePrefix}${key as string}`);
-
-      return null;
+      const json = fallback.get(storageKey);
+      return json ? (JSON.parse(json) as T[K]) : null;
     },
     remove(key: keyof T) {
-      stg.removeItem(`${storagePrefix}${key as string}`);
+      const storageKey = `${storagePrefix}${key as string}`;
+      fallback.delete(storageKey);
+      try {
+        getStorage().removeItem(storageKey);
+      } catch {
+        fallback.set(storageKey, null);
+      }
     },
     clear() {
-      stg.clear();
+      fallback.clear();
+      try {
+        const stg = getStorage();
+        const keys = Array.from({ length: stg.length }, (_, index) => stg.key(index));
+        keys.forEach(key => {
+          if (!key?.startsWith(storagePrefix)) return;
+          try {
+            stg.removeItem(key);
+          } catch {
+            fallback.set(key, null);
+          }
+        });
+      } catch {}
     }
   };
   return storage;
-}
-
-type LocalForage<T extends object> = Omit<typeof localforage, 'getItem' | 'setItem' | 'removeItem'> & {
-  getItem<K extends keyof T>(key: K, callback?: (err: any, value: T[K] | null) => void): Promise<T[K] | null>;
-
-  setItem<K extends keyof T>(key: K, value: T[K], callback?: (err: any, value: T[K]) => void): Promise<T[K]>;
-
-  removeItem(key: keyof T, callback?: (err: any) => void): Promise<void>;
-};
-
-type LocalforageDriver = 'local' | 'indexedDB' | 'webSQL';
-
-export function createLocalforage<T extends object>(driver: LocalforageDriver) {
-  const driverMap: Record<LocalforageDriver, string> = {
-    local: localforage.LOCALSTORAGE,
-    indexedDB: localforage.INDEXEDDB,
-    webSQL: localforage.WEBSQL
-  };
-
-  localforage.config({
-    driver: driverMap[driver]
-  });
-
-  return localforage as LocalForage<T>;
 }

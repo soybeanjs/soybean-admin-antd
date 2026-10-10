@@ -2,18 +2,13 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { SimpleScrollbar } from '@sa/materials';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
+import { notifyDemoAction } from '@/utils/demo';
 import { getLocalIcons } from '@/utils/icon';
 import { fetchGetAllRoles } from '@/service/api';
 import { $t } from '@/locales';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import SvgIcon from '@/components/custom/svg-icon.vue';
-import {
-  getLayoutAndPage,
-  getPathParamFromRoutePath,
-  getRoutePathByRouteName,
-  getRoutePathWithParam,
-  transformLayoutAndPageToComponent
-} from './shared';
+import { getLayoutAndPage, getPathParamFromRoutePath, getRoutePathByRouteName } from './shared';
 
 defineOptions({
   name: 'MenuOperateModal'
@@ -31,12 +26,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-interface Emits {
-  (e: 'submitted'): void;
-}
-
-const emit = defineEmits<Emits>();
 
 const visible = defineModel<boolean>('visible', {
   default: false
@@ -256,29 +245,9 @@ function handleUpdateI18nKeyByRouteName() {
   }
 }
 
-function getSubmitParams() {
-  const { layout, page, pathParam, ...params } = model.value;
-
-  const component = transformLayoutAndPageToComponent(layout, page);
-  const routePath = getRoutePathWithParam(model.value.routePath, pathParam);
-
-  params.component = component;
-  params.routePath = routePath;
-
-  return params;
-}
-
 async function handleSubmit() {
   await validate();
-
-  const params = getSubmitParams();
-
-  console.log('params: ', params);
-
-  // request
-  window.$message?.success($t('common.updateSuccess'));
-  closeDrawer();
-  emit('submitted');
+  notifyDemoAction();
 }
 
 watch(visible, () => {
@@ -302,6 +271,7 @@ watch(
   <AModal v-model:open="visible" :title="title" width="800px">
     <div class="h-480px">
       <SimpleScrollbar>
+        <AAlert :message="$t('common.demoOnly')" type="info" show-icon class="mb-16px" />
         <AForm ref="formRef" :model="model" :rules="rules" :label-col="{ lg: 8, xs: 4 }" label-wrap class="pr-20px">
           <ARow>
             <ACol :lg="12" :xs="24">

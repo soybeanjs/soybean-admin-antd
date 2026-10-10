@@ -1,32 +1,44 @@
-import { computed, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { defineStore } from 'pinia';
 import { useLoading } from '@sa/hooks';
 import { localStg } from '@/utils/storage';
 import { fetchGetUserInfo, fetchLogin } from '@/service/api';
+import { resetRequestState } from '@/service/request';
 import { $t } from '@/locales';
 import { useRouterPush } from '@/hooks/common/router';
 import { SetupStoreId } from '@/enum';
 import { useRouteStore } from '../route';
 import { useTabStore } from '../tab';
-import { clearAuthStorage, getToken } from './shared';
+import { clearAuthStorage, getToken, setAuthTokens } from './shared';
+import { createAuthSession } from './session';
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute();
-  const authStore = useAuthStore();
   const routeStore = useRouteStore();
   const tabStore = useTabStore();
   const { toLogin, redirectFromLogin } = useRouterPush(false);
   const { loading: loginLoading, startLoading, endLoading } = useLoading();
 
-  const token = ref('');
+  const {
+    token,
+    userInfo,
+    isLogin,
+    sessionVersion,
+    clearSession: clearSessionState
+  } = createAuthSession(getToken(), clearAuthStorage);
+  const rememberLogin = ref(Boolean(localStg.get('token')) || !getToken());
+  let logoutTask: Promise<void> | null = null;
 
-  const userInfo: Api.Auth.UserInfo = reactive({
-    userId: '',
-    userName: '',
-    roles: [],
-    buttons: []
-  });
+  function clearSession() {
+    clearSessionState();
+    resetRequestState();
+  }
+
+  function updateTokens(tokens: Api.Auth.LoginToken) {
+    setAuthTokens(tokens, rememberLogin.value);
+    token.value = tokens.token;
+  }
 
   /** is super role in static route */
   const isStaticSuper = computed(() => {
@@ -35,23 +47,20 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     return VITE_AUTH_ROUTE_MODE === 'static' && userInfo.roles.includes(VITE_STATIC_SUPER_ROLE);
   });
 
-  /** Is login */
-  const isLogin = computed(() => Boolean(token.value));
-
-  /** Reset auth store */
-  async function resetStore() {
+  /** Clear the session before awaiting route or navigation work. */
+  function resetStore(): Promise<void> {
+    if (logoutTask) return logoutTask;
     recordUserId();
-
-    clearAuthStorage();
-
-    authStore.$reset();
-
-    if (!route.meta.constant) {
-      await toLogin();
-    }
-
+    clearSession();
     tabStore.cacheTabs();
-    routeStore.resetStore();
+    tabStore.$reset();
+    logoutTask = (async () => {
+      await routeStore.resetStore();
+      if (!route.meta.constant) await toLogin();
+    })().finally(() => {
+      logoutTask = null;
+    });
+    return logoutTask;
   }
 
   /** Record the user ID of the previous login session Used to compare with the current user ID on next login */
@@ -96,57 +105,54 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
    * @param password Password
    * @param [redirect=true] Whether to redirect after login. Default is `true`
    */
-  async function login(userName: string, password: string, redirect = true) {
+  async function login(
+    userName: string,
+    password: string,
+    options: boolean | { redirect?: boolean; remember?: boolean } = true
+  ) {
+    const { redirect = true, remember = true } = typeof options === 'boolean' ? { redirect: options } : options;
+    if (loginLoading.value || logoutTask) return false;
+    clearSession();
+    const version = sessionVersion.value;
+    rememberLogin.value = remember;
     startLoading();
-
-    const { data: loginToken, error } = await fetchLogin(userName, password);
-
-    if (!error) {
-      const pass = await loginByToken(loginToken);
-
-      if (pass) {
-        // Check if the tab needs to be cleared
-        const isClear = checkTabClear();
-        let needRedirect = redirect;
-
-        if (isClear) {
-          // If the tab needs to be cleared,it means we don't need to redirect.
-          needRedirect = false;
-        }
-        await redirectFromLogin(needRedirect);
-
-        window.$notification?.success({
-          message: $t('page.login.common.loginSuccess'),
-          description: $t('page.login.common.welcomeBack', { userName: userInfo.userName })
-        });
+    try {
+      const { data: loginToken, error } = await fetchLogin(userName, password);
+      if (version !== sessionVersion.value) return false;
+      if (error) {
+        await resetStore();
+        return false;
       }
-    } else {
-      resetStore();
-    }
-
-    endLoading();
-  }
-
-  async function loginByToken(loginToken: Api.Auth.LoginToken) {
-    // 1. stored in the localStorage, the later requests need it in headers
-    localStg.set('token', loginToken.token);
-    localStg.set('refreshToken', loginToken.refreshToken);
-
-    // 2. get user info
-    const pass = await getUserInfo();
-
-    if (pass) {
-      token.value = loginToken.token;
-
+      updateTokens(loginToken);
+      const pass = await getUserInfo();
+      if (version !== sessionVersion.value) return false;
+      if (!pass) {
+        await resetStore();
+        return false;
+      }
+      await routeStore.resetStore();
+      await routeStore.initAuthRoute();
+      if (version !== sessionVersion.value) return false;
+      const isClear = checkTabClear();
+      await redirectFromLogin(isClear ? false : redirect);
+      window.$notification?.success({
+        message: $t('page.login.common.loginSuccess'),
+        description: $t('page.login.common.welcomeBack', { userName: userInfo.userName })
+      });
       return true;
+    } catch {
+      if (version === sessionVersion.value) await resetStore();
+      return false;
+    } finally {
+      endLoading();
     }
-
-    return false;
   }
 
   async function getUserInfo() {
+    const version = sessionVersion.value;
     const { data: info, error } = await fetchGetUserInfo();
 
+    if (version !== sessionVersion.value) return false;
     if (!error) {
       // update store
       Object.assign(userInfo, info);
@@ -158,20 +164,23 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   async function initUserInfo() {
-    const maybeToken = getToken();
+    const hasToken = getToken();
 
-    if (maybeToken) {
-      token.value = maybeToken;
+    if (hasToken) {
       const pass = await getUserInfo();
 
       if (!pass) {
-        resetStore();
+        await resetStore();
       }
     }
   }
 
   return {
     token,
+    sessionVersion,
+    clearSession,
+    updateTokens,
+    $reset: clearSession,
     userInfo,
     isStaticSuper,
     isLogin,

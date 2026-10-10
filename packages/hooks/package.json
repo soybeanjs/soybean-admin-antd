@@ -1,6 +1,7 @@
 {
   "name": "@sa/hooks",
   "version": "2.3.0",
+  "type": "module",
   "typesVersions": {
     "*": {
       "*": [
@@ -16,6 +17,7 @@
   },
   "dependencies": {
     "@sa/axios": "workspace:*",
-    "@sa/utils": "workspace:^"
+    "@sa/utils": "workspace:^",
+    "@vueuse/core": "14.1.0"
   }
 }

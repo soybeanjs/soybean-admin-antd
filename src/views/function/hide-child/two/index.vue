@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RouteDemo from '@/components/custom/route-demo.vue';
+</script>
 
 <template>
-  <div>two</div>
+  <RouteDemo mode="hidden" />
 </template>
-
-<style scoped></style>

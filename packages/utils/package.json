@@ -1,6 +1,7 @@
 {
   "name": "@sa/utils",
   "version": "2.3.0",
+  "type": "module",
   "typesVersions": {
     "*": {
       "*": [
