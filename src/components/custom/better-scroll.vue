@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, onScopeDispose, ref, shallowRef, watch } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import BScroll from '@better-scroll/core';
 import type { Options } from '@better-scroll/core';
@@ -22,7 +22,7 @@ const bsContent = ref<HTMLElement>();
 const { width: wrapWidth } = useElementSize(bsWrapper);
 const { width, height } = useElementSize(bsContent);
 
-const instance = ref<BScroll>();
+const instance = shallowRef<BScroll>();
 const isScrollY = computed(() => Boolean(props.options.scrollY));
 
 function initBetterScroll() {
@@ -37,6 +37,11 @@ watch([() => wrapWidth.value, () => width.value, () => height.value], () => {
 
 onMounted(() => {
   initBetterScroll();
+});
+
+onScopeDispose(() => {
+  instance.value?.destroy();
+  instance.value = undefined;
 });
 
 defineExpose({ instance });

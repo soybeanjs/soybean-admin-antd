@@ -1,3 +1,6 @@
+import { findPaginatedRecord } from '@/utils/workspace';
+import { useAuthStore } from '@/store/modules/auth';
+import { userCache } from '../cache/users';
 import { request } from '../request';
 
 /** get role list */
@@ -22,12 +25,17 @@ export function fetchGetAllRoles() {
 }
 
 /** get user list */
-export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
-  return request<Api.SystemManage.UserList>({
+export async function fetchGetUserList(params?: Api.SystemManage.UserSearchParams, signal?: AbortSignal) {
+  const version = useAuthStore().sessionVersion;
+  const result = await request<Api.SystemManage.UserList>({
     url: '/systemManage/getUserList',
     method: 'get',
-    params
+    params,
+    signal
   });
+  if (!result.error && version === useAuthStore().sessionVersion)
+    result.data.records.forEach(record => userCache.set(record));
+  return result;
 }
 
 /** get menu list */
@@ -52,4 +60,19 @@ export function fetchGetMenuTree() {
     url: '/systemManage/getMenuTree',
     method: 'get'
   });
+}
+
+export async function fetchGetUserDetail(id: number, signal?: AbortSignal) {
+  signal?.throwIfAborted();
+  const cached = userCache.get(id);
+  if (cached) return cached;
+  return findPaginatedRecord(
+    async current => {
+      const result = await fetchGetUserList({ current, size: 100 }, signal);
+      if (result.error) throw result.error;
+      return result.data;
+    },
+    id,
+    signal
+  );
 }

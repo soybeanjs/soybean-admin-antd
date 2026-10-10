@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
 import type { DataNode } from 'ant-design-vue/es/tree';
+import { notifyDemoAction } from '@/utils/demo';
 import { $t } from '@/locales';
 
 defineOptions({
@@ -12,7 +13,7 @@ interface Props {
   roleId: number;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const visible = defineModel<boolean>('visible', {
   default: false
@@ -45,18 +46,12 @@ async function getAllButtons() {
 const checks = shallowRef<number[]>([]);
 
 async function getChecks() {
-  console.log(props.roleId);
   // request
   checks.value = [1, 2, 3, 4, 5];
 }
 
 function handleSubmit() {
-  console.log(checks.value, props.roleId);
-  // request
-
-  window.$message?.success?.($t('common.modifySuccess'));
-
-  closeModal();
+  notifyDemoAction();
 }
 
 function init() {
@@ -70,6 +65,7 @@ init();
 
 <template>
   <AModal v-model:open="visible" :title="title" class="w-480px">
+    <AAlert :message="$t('common.demoOnly')" :description="`#${roleId}`" type="info" show-icon class="mb-16px" />
     <ATree v-model:checked-keys="checks" :tree-data="tree" checkable :height="280" class="h-280px" />
     <template #footer>
       <AButton size="small" class="mt-16px" @click="closeModal">

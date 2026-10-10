@@ -11,6 +11,7 @@ defineOptions({
 
 interface Emits {
   (e: 'search'): void;
+  (e: 'reset'): void;
 }
 
 const emit = defineEmits<Emits>();
@@ -31,6 +32,7 @@ const rules = computed<Record<RuleKey, App.Global.FormRule>>(() => {
 });
 
 async function reset() {
+  emit('reset');
   await resetFields();
 }
 

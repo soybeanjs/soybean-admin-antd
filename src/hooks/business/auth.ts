@@ -7,6 +7,7 @@ export function useAuth() {
     if (!authStore.isLogin) {
       return false;
     }
+    if (authStore.isStaticSuper) return true;
 
     if (typeof codes === 'string') {
       return authStore.userInfo.buttons.includes(codes);

@@ -1,10 +1,11 @@
 import process from 'node:process';
 import { defineConfig, loadEnv } from 'vite-plus';
+import type { UserConfig } from 'vite-plus';
 import { fmt, lint } from '@soybeanjs/oxc-config';
 import { createViteProxy, getBuildTime } from './build/config';
 import { setupVitePlugins } from './build/plugins';
 
-export default defineConfig(configEnv => {
+export default defineConfig((configEnv): UserConfig => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta;
 
   const buildTime = getBuildTime();
@@ -16,11 +17,25 @@ export default defineConfig(configEnv => {
     staged: {
       '*': 'vp check --fix'
     },
-    lint,
+    lint: {
+      ...lint,
+      ignorePatterns: [
+        ...(lint.ignorePatterns || []),
+        'dist/**',
+        'coverage/**',
+        'src/router/elegant/**',
+        'src/typings/components.d.ts',
+        'src/typings/elegant-router.d.ts'
+      ],
+      rules: { ...lint.rules, 'no-debugger': 'error', eqeqeq: ['error', 'always', { null: 'ignore' }] }
+    },
     fmt: {
       ...fmt,
       ignorePatterns: [
         'CHANGELOG.md',
+        'pnpm-lock.yaml',
+        'dist/**',
+        'coverage/**',
         'src/typings/components.d.ts',
         'src/typings/elegant-router.d.ts',
         'src/router/elegant'
@@ -32,7 +47,6 @@ export default defineConfig(configEnv => {
     css: {
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler',
           additionalData: `@use "@/styles/scss/global.scss" as *;`
         }
       }
@@ -51,6 +65,7 @@ export default defineConfig(configEnv => {
       port: 9725
     },
     build: {
+      manifest: true,
       reportCompressedSize: false,
       sourcemap: viteEnv.VITE_SOURCE_MAP === 'Y',
       commonjsOptions: {

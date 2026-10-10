@@ -1,4 +1,4 @@
-import { create, AxiosError } from 'axios';
+import { create, AxiosError, isCancel } from 'axios';
 import type { AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig } from 'axios';
 import { nanoid } from '@sa/utils';
 import axiosRetry from 'axios-retry';
@@ -15,7 +15,7 @@ import type {
 } from './type';
 
 function createCommonRequest<
-  ResponseData,
+  ResponseData = any,
   ApiData = ResponseData,
   State extends Record<string, unknown> = Record<string, unknown>
 >(axiosConfig?: CreateAxiosDefaults, options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
@@ -26,15 +26,20 @@ function createCommonRequest<
 
   const abortControllerMap = new Map<string, AbortController>();
 
+  function releaseRequest(config?: InternalAxiosRequestConfig) {
+    const requestId = config?.headers.get(REQUEST_ID_KEY);
+    if (typeof requestId === 'string') abortControllerMap.delete(requestId);
+  }
+
   // config axios retry
   const retryOptions = createRetryOptions(axiosConf);
   axiosRetry(instance, retryOptions);
 
-  instance.interceptors.request.use(conf => {
+  instance.interceptors.request.use(async conf => {
     const config: InternalAxiosRequestConfig = { ...conf };
 
     // set request id
-    const requestId = nanoid();
+    const requestId = String(config.headers.get(REQUEST_ID_KEY) || nanoid());
     config.headers.set(REQUEST_ID_KEY, requestId);
 
     // config abort controller
@@ -45,42 +50,52 @@ function createCommonRequest<
     }
 
     // handle config by hook
-    const handledConfig = opts.onRequest?.(config) || config;
-
-    return handledConfig;
+    try {
+      return (await opts.onRequest(config)) || config;
+    } catch (error) {
+      releaseRequest(config);
+      throw error;
+    }
   });
 
   instance.interceptors.response.use(
     async response => {
-      const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
+      try {
+        const responseType: ResponseType = (response.config?.responseType as ResponseType) || 'json';
 
-      await transformResponse(response);
+        await transformResponse(response);
 
-      if (responseType !== 'json' || opts.isBackendSuccess(response)) {
-        return Promise.resolve(response);
+        if (responseType !== 'json' || opts.isBackendSuccess(response)) {
+          return Promise.resolve(response);
+        }
+
+        const fail = await opts.onBackendFail(response, instance);
+        if (fail) {
+          return fail;
+        }
+
+        const backendError = new AxiosError<ResponseData>(
+          'the backend request error',
+          BACKEND_ERROR_CODE,
+          response.config,
+          response.request,
+          response
+        );
+
+        await opts.onError(backendError);
+
+        return Promise.reject(backendError);
+      } finally {
+        releaseRequest(response.config);
       }
-
-      const fail = await opts.onBackendFail(response, instance);
-      if (fail) {
-        return fail;
-      }
-
-      const backendError = new AxiosError<ResponseData>(
-        'the backend request error',
-        BACKEND_ERROR_CODE,
-        response.config,
-        response.request,
-        response
-      );
-
-      await opts.onError(backendError);
-
-      return Promise.reject(backendError);
     },
     async (error: AxiosError<ResponseData>) => {
-      await opts.onError(error);
-
-      return Promise.reject(error);
+      try {
+        if (!isCancel(error)) await opts.onError(error);
+        return Promise.reject(error);
+      } finally {
+        releaseRequest(error.config);
+      }
     }
   );
 
@@ -104,10 +119,11 @@ function createCommonRequest<
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
-  axiosConfig?: CreateAxiosDefaults,
-  options?: Partial<RequestOption<ResponseData, ApiData, State>>
-) {
+export function createRequest<
+  ResponseData = any,
+  ApiData = any,
+  State extends Record<string, unknown> = Record<string, unknown>
+>(axiosConfig?: CreateAxiosDefaults, options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
   const { instance, opts, cancelAllRequest } = createCommonRequest<ResponseData, ApiData, State>(axiosConfig, options);
 
   const request: RequestInstance<ApiData, State> = async function request<
@@ -126,7 +142,7 @@ export function createRequest<ResponseData, ApiData, State extends Record<string
   } as RequestInstance<ApiData, State>;
 
   request.cancelAllRequest = cancelAllRequest;
-  request.state = {} as State;
+  request.state = { ...opts.defaultState } as State;
 
   return request;
 }
@@ -139,10 +155,11 @@ export function createRequest<ResponseData, ApiData, State extends Record<string
  * @param axiosConfig axios config
  * @param options request options
  */
-export function createFlatRequest<ResponseData, ApiData, State extends Record<string, unknown>>(
-  axiosConfig?: CreateAxiosDefaults,
-  options?: Partial<RequestOption<ResponseData, ApiData, State>>
-) {
+export function createFlatRequest<
+  ResponseData = any,
+  ApiData = any,
+  State extends Record<string, unknown> = Record<string, unknown>
+>(axiosConfig?: CreateAxiosDefaults, options?: Partial<RequestOption<ResponseData, ApiData, State>>) {
   const { instance, opts, cancelAllRequest } = createCommonRequest<ResponseData, ApiData, State>(axiosConfig, options);
 
   const flatRequest: FlatRequestInstance<ResponseData, ApiData, State> = async function flatRequest<

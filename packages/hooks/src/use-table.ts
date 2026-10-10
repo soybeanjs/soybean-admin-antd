@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, getCurrentScope, onScopeDispose, ref, shallowRef } from 'vue';
 import type { Ref, VNodeChild } from 'vue';
 import useBoolean from './use-boolean';
 import useLoading from './use-loading';
@@ -71,6 +71,9 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
 
   const { api, pagination, transform, columns, getColumnChecks, getColumns, onFetched, immediate = true } = options;
 
+  const error = shallowRef<unknown>(null);
+  let requestSequence = 0;
+
   const data = ref([]) as Ref<ApiData[]>;
 
   const columnChecks = ref(getColumnChecks(columns())) as Ref<TableColumnCheck[]>;
@@ -91,10 +94,12 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
   }
 
   async function getData() {
+    const sequence = ++requestSequence;
+    startLoading();
+    error.value = null;
     try {
-      startLoading();
-
       const response = await api();
+      if (sequence !== requestSequence) return;
 
       const transformed = transform(response);
 
@@ -103,9 +108,21 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
       setEmpty(data.value.length === 0);
 
       await onFetched?.(transformed);
+    } catch (cause) {
+      if (sequence === requestSequence) {
+        error.value = cause;
+        setEmpty(false);
+      }
     } finally {
-      endLoading();
+      if (sequence === requestSequence) endLoading();
     }
+  }
+
+  if (getCurrentScope()) {
+    onScopeDispose(() => {
+      requestSequence += 1;
+      endLoading();
+    });
   }
 
   if (immediate) {
@@ -114,6 +131,7 @@ export default function useTable<ResponseData, ApiData, Column, Pagination exten
 
   return {
     loading,
+    error,
     empty,
     data,
     columns: $columns,

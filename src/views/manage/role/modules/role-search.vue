@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { toRaw } from 'vue';
-import { jsonClone } from '@sa/utils';
 import { enableStatusOptions } from '@/constants/business';
 import { $t } from '@/locales';
 
@@ -10,16 +8,15 @@ defineOptions({
 
 interface Emits {
   (e: 'search'): void;
+  (e: 'reset'): void;
 }
 
 const emit = defineEmits<Emits>();
 
 const model = defineModel<Api.SystemManage.RoleSearchParams>('model', { required: true });
 
-const defaultModel = jsonClone(toRaw(model.value));
-
 function reset() {
-  Object.assign(model.value, defaultModel);
+  emit('reset');
 }
 
 function search() {

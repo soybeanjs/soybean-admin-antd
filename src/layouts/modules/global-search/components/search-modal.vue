@@ -25,7 +25,7 @@ const handleSearch = useDebounceFn(search, 300);
 const visible = defineModel<boolean>('show', { required: true });
 
 function search() {
-  resultOptions.value = routeStore.searchMenus.filter(menu => {
+  resultOptions.value = routeStore.searchMenus.filter((menu: App.Global.Menu) => {
     const trimKeyword = keyword.value.toLocaleLowerCase().trim();
     const title = (menu.i18nKey ? $t(menu.i18nKey) : menu.label).toLocaleLowerCase();
     return trimKeyword && title.includes(trimKeyword);

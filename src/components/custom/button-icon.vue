@@ -37,7 +37,12 @@ const DEFAULT_CLASS = 'h-[36px] text-icon';
 
 <template>
   <ATooltip :placement="tooltipPlacement" :get-popup-container="getPopupContainer" :title="tooltipContent">
-    <AButton type="text" :class="twMerge(DEFAULT_CLASS, props.class)" v-bind="$attrs">
+    <AButton
+      type="text"
+      :class="twMerge(DEFAULT_CLASS, props.class)"
+      :aria-label="tooltipContent || undefined"
+      v-bind="$attrs"
+    >
       <div class="flex-center gap-8px">
         <slot>
           <SvgIcon :icon="icon" />

@@ -1,7 +1,7 @@
 import { addAPIProvider } from '@iconify/vue';
 
-/** Setup the iconify offline */
-export function setupIconifyOffline() {
+/** Configure the Iconify API provider (dynamic icons may require network access) */
+export function setupIconifyProvider() {
   const { VITE_ICONIFY_URL } = import.meta.env;
 
   if (VITE_ICONIFY_URL) {

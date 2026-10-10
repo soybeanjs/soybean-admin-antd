@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, reactive } from 'vue';
+import { notifyDemoAction } from '@/utils/demo';
 import { $t } from '@/locales';
-import { useRouterPush } from '@/hooks/common/router';
 import { useAntdForm, useFormRules } from '@/hooks/common/form';
+import { useRouterPush } from '@/hooks/common/router';
 
 defineOptions({
   name: 'ResetPwd'
@@ -40,12 +41,13 @@ const rules = computed<RuleRecord>(() => {
 async function handleSubmit() {
   await validate();
   // request to reset password
-  window.$message?.success($t('page.login.common.validateSuccess'));
+  notifyDemoAction();
 }
 </script>
 
 <template>
   <AForm ref="formRef" :model="model" :rules="rules" @keyup.enter="handleSubmit">
+    <AAlert :message="$t('common.demoOnly')" type="info" show-icon class="mb-16px" />
     <AFormItem name="phone">
       <AInput v-model:value="model.phone" size="large" :placeholder="$t('page.login.common.phonePlaceholder')" />
     </AFormItem>

@@ -1,63 +1,34 @@
-import { computed, onScopeDispose, ref } from 'vue';
-import { useRafFn } from '@vueuse/core';
+import { computed, getCurrentScope, onScopeDispose, ref } from 'vue';
 
 /**
- * A hook for implementing a countdown timer. It uses `requestAnimationFrame` for smooth and accurate timing,
- * independent of the screen refresh rate.
+ * count down
  *
- * @param initialSeconds - The total number of seconds for the countdown.
+ * @param seconds - count down seconds
  */
-export default function useCountDown(initialSeconds: number) {
-  const remainingSeconds = ref(0);
+export default function useCountDown(seconds: number) {
+  const count = ref(0);
+  const isCounting = computed(() => count.value > 0);
+  let interval: ReturnType<typeof setInterval> | undefined;
 
-  const count = computed(() => Math.ceil(remainingSeconds.value));
-
-  const isCounting = computed(() => remainingSeconds.value > 0);
-
-  const { pause, resume } = useRafFn(
-    ({ delta }) => {
-      // delta: milliseconds elapsed since the last frame.
-
-      // If countdown already reached zero or below, ensure it's 0 and stop.
-      if (remainingSeconds.value <= 0) {
-        remainingSeconds.value = 0;
-        pause();
-        return;
-      }
-
-      // Calculate seconds passed since the last frame.
-      const secondsPassed = delta / 1000;
-      remainingSeconds.value -= secondsPassed;
-
-      // If countdown has finished after decrementing.
-      if (remainingSeconds.value <= 0) {
-        remainingSeconds.value = 0;
-        pause();
-      }
-    },
-    { immediate: false } // The timer does not start automatically.
-  );
-
-  /**
-   * Starts the countdown.
-   *
-   * @param [updatedSeconds=initialSeconds] - Optionally, start with a new duration. Default is `initialSeconds`
-   */
-  function start(updatedSeconds: number = initialSeconds) {
-    remainingSeconds.value = updatedSeconds;
-    resume();
+  function start(updateSeconds: number = seconds) {
+    stop();
+    const duration = Math.max(0, updateSeconds);
+    if (!Number.isFinite(duration) || duration === 0) return;
+    const deadline = Date.now() + duration * 1000;
+    count.value = Math.ceil(duration);
+    interval = setInterval(() => {
+      count.value = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      if (!count.value) stop();
+    }, 250);
   }
 
-  /** Stops the countdown and resets the remaining time to 0. */
   function stop() {
-    remainingSeconds.value = 0;
-    pause();
+    clearInterval(interval);
+    interval = undefined;
+    count.value = 0;
   }
 
-  // Ensure the rAF loop is cleaned up when the component is unmounted.
-  onScopeDispose(() => {
-    pause();
-  });
+  if (getCurrentScope()) onScopeDispose(stop);
 
   return {
     count,

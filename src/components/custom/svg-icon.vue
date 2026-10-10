@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue';
+import { computed, defineAsyncComponent, useAttrs } from 'vue';
 import { Icon } from '@iconify/vue';
 
 defineOptions({ name: 'SvgIcon', inheritAttrs: false });
@@ -20,11 +20,11 @@ interface Props {
 const props = defineProps<Props>();
 
 const attrs = useAttrs();
+const SvgIllustration = defineAsyncComponent(() => import('./svg-illustration.vue'));
+const illustrations = import.meta.glob<string>('/src/assets/illustrations/*.svg', { query: '?raw', import: 'default' });
+const illustrationLoader = computed(() => illustrations[`/src/assets/illustrations/${props.localIcon}.svg`]);
 
-const bindAttrs = computed<{ class: string; style: string }>(() => ({
-  class: (attrs.class as string) || '',
-  style: (attrs.style as string) || ''
-}));
+const bindAttrs = computed(() => ({ 'aria-hidden': true, ...attrs }));
 
 const symbolId = computed(() => {
   const { VITE_ICON_LOCAL_PREFIX: prefix } = import.meta.env;
@@ -42,7 +42,8 @@ const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 
 <template>
   <template v-if="renderLocalIcon">
-    <svg aria-hidden="true" width="1em" height="1em" v-bind="bindAttrs">
+    <SvgIllustration v-if="illustrationLoader" :load="illustrationLoader" v-bind="bindAttrs" />
+    <svg v-else width="1em" height="1em" v-bind="bindAttrs">
       <use :xlink:href="symbolId" fill="currentColor" />
     </svg>
   </template>

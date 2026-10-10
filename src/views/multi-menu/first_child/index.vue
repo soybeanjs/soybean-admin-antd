@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import RouteDemo from '@/components/custom/route-demo.vue';
+</script>
 
 <template>
-  <LookForward />
+  <RouteDemo mode="nested" />
 </template>
-
-<style scoped></style>

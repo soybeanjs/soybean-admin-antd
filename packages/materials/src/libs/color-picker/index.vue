@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, onScopeDispose, ref, shallowRef, watch } from 'vue';
 import ColorPicker from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/nano.min.css';
 
@@ -42,7 +42,7 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const domRef = ref<HTMLElement | null>(null);
-const instance = ref<ColorPicker | null>(null);
+const instance = shallowRef<ColorPicker | null>(null);
 
 function handleColorChange(hsva: ColorPicker.HSVaColor) {
   const color = hsva.toHEXA().toString();
@@ -106,6 +106,12 @@ watch(
 
 onMounted(() => {
   initColorPicker();
+});
+
+onScopeDispose(() => {
+  instance.value?.off('change', handleColorChange);
+  instance.value?.destroyAndRemove();
+  instance.value = null;
 });
 </script>
 

@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useLoading } from '@sa/hooks';
+import { notifyDemoAction } from '@/utils/demo';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { useAuthStore } from '@/store/modules/auth';
@@ -48,13 +49,22 @@ const accounts = computed<Account[]>(() => [
 const loginAccount = ref<AccountKey>('super');
 
 async function handleToggleAccount(account: Account) {
+  if (import.meta.env.VITE_USE_MOCK !== 'Y') {
+    notifyDemoAction();
+    return;
+  }
   loginAccount.value = account.key;
 
   startLoading();
-  await authStore.login(account.userName, account.password, false);
-  tabStore.initTabStore(route);
-  endLoading();
-  appStore.reloadPage();
+  try {
+    const success = await authStore.login(account.userName, account.password, false);
+    if (success) {
+      tabStore.initTabStore(route);
+      appStore.reloadPage();
+    }
+  } finally {
+    endLoading();
+  }
 }
 </script>
 
@@ -67,7 +77,7 @@ async function handleToggleAccount(account: Account) {
             <ATag v-for="role in authStore.userInfo.roles" :key="role">{{ role }}</ATag>
           </ASpace>
         </ADescriptionsItem>
-        <ADescriptionsItem ions-item :label="$t('page.function.toggleAuth.toggleAccount')">
+        <ADescriptionsItem :label="$t('page.function.toggleAuth.toggleAccount')">
           <ASpace>
             <AButton
               v-for="account in accounts"

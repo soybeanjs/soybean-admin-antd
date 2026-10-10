@@ -1,6 +1,9 @@
 /** The storage namespace */
 declare namespace StorageType {
   interface Session {
+    multiTabDrafts: Record<string, { text: string; count: number }>;
+    token: string;
+    refreshToken: string;
     /** The theme color */
     themeColor: string;
     // /**

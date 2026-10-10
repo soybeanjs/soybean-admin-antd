@@ -1,33 +1,63 @@
-import type { AxiosResponse } from 'axios';
-import { BACKEND_ERROR_CODE, createFlatRequest, createRequest } from '@sa/axios';
+import { BACKEND_ERROR_CODE, REQUEST_ID_KEY, createFlatRequest, createRequest } from '@sa/axios';
 import { getServiceBaseURL } from '@/utils/service';
-import { localStg } from '@/utils/storage';
 import { $t } from '@/locales';
 import { useAuthStore } from '@/store/modules/auth';
-import { getAuthorization, handleExpiredRequest, showErrorMsg } from './shared';
+import { userCache } from '../cache/users';
+import { getAuthorization, handleRefreshToken, showErrorMsg } from './shared';
+import { createAuthFailureHandler, createRequestState } from './lifecycle';
 import type { RequestInstanceState } from './type';
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y';
 const { baseURL, otherBaseURL } = getServiceBaseURL(import.meta.env, isHttpProxy);
 
-export const request = createFlatRequest(
+const requestState = createRequestState();
+const logoutListeners = new Set<() => void>();
+const handleAuthFailure = createAuthFailureHandler({
+  state: requestState,
+  logoutCodes: import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [],
+  modalLogoutCodes: import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [],
+  expiredTokenCodes: import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [],
+  refresh: handleRefreshToken,
+  logout: () => {
+    useAuthStore().resetStore();
+  },
+  getAuthorization,
+  isCurrentSession: response => response.config.authSessionVersion === useAuthStore().sessionVersion,
+  showLogoutModal(message, close) {
+    const cleanup = () => {
+      window.removeEventListener('beforeunload', cleanup);
+      logoutListeners.delete(cleanup);
+      close();
+    };
+    logoutListeners.add(cleanup);
+    window.addEventListener('beforeunload', cleanup);
+    if (!window.$modal) {
+      cleanup();
+      return;
+    }
+    window.$modal.error({
+      title: $t('common.error'),
+      content: message,
+      okText: $t('common.confirm'),
+      maskClosable: false,
+      onOk: cleanup,
+      onCancel: cleanup
+    });
+  }
+});
+
+export const request = createFlatRequest<App.Service.Response, any, RequestInstanceState>(
   {
     baseURL,
-    headers: {
-      apifoxToken: 'XL299LiMEDZ0H5h3A29PxwQXdMJqWyY2'
-    }
+    headers:
+      import.meta.env.VITE_USE_MOCK === 'Y' && import.meta.env.VITE_APIFOX_TOKEN
+        ? { apifoxToken: import.meta.env.VITE_APIFOX_TOKEN }
+        : undefined
   },
   {
-    defaultState: {
-      errMsgStack: [],
-      refreshTokenPromise: null
-    } as RequestInstanceState,
-    transform(response: AxiosResponse<App.Service.Response<any>>) {
-      return response.data.data;
-    },
     async onRequest(config) {
-      const Authorization = getAuthorization();
-      Object.assign(config.headers, { Authorization });
+      config.authSessionVersion ??= useAuthStore().sessionVersion;
+      config.headers.set('Authorization', getAuthorization());
 
       return config;
     },
@@ -36,77 +66,35 @@ export const request = createFlatRequest(
       // to change this logic by yourself, you can modify the `VITE_SERVICE_SUCCESS_CODE` in `.env` file
       return String(response.data.code) === import.meta.env.VITE_SERVICE_SUCCESS_CODE;
     },
-    async onBackendFail(response, instance) {
-      const authStore = useAuthStore();
-      const responseCode = String(response.data.code);
-
-      function handleLogout() {
-        authStore.resetStore();
-      }
-
-      function logoutAndCleanup() {
-        handleLogout();
-        window.removeEventListener('beforeunload', handleLogout);
-
-        request.state.errMsgStack = request.state.errMsgStack.filter(msg => msg !== response.data.msg);
-      }
-
-      // when the backend response code is in `logoutCodes`, it means the user will be logged out and redirected to login page
-      const logoutCodes = import.meta.env.VITE_SERVICE_LOGOUT_CODES?.split(',') || [];
-      if (logoutCodes.includes(responseCode)) {
-        handleLogout();
-        return null;
-      }
-
-      // when the backend response code is in `modalLogoutCodes`, it means the user will be logged out by displaying a modal
-      const modalLogoutCodes = import.meta.env.VITE_SERVICE_MODAL_LOGOUT_CODES?.split(',') || [];
-      if (modalLogoutCodes.includes(responseCode) && !request.state.errMsgStack?.includes(response.data.msg)) {
-        request.state.errMsgStack = [...(request.state.errMsgStack || []), response.data.msg];
-
-        // prevent the user from refreshing the page
-        window.addEventListener('beforeunload', handleLogout);
-
-        window.$modal?.error({
-          title: $t('common.error'),
-          content: response.data.msg,
-          okText: $t('common.confirm'),
-          maskClosable: false,
-          onOk() {
-            logoutAndCleanup();
-          },
-          onCancel() {
-            logoutAndCleanup();
-          }
-        });
-
-        return null;
-      }
-
-      // when the backend response code is in `expiredTokenCodes`, it means the token is expired, and refresh token
-      // the api `refreshToken` can not return error code in `expiredTokenCodes`, otherwise it will be a dead loop, should return `logoutCodes` or `modalLogoutCodes`
-      const expiredTokenCodes = import.meta.env.VITE_SERVICE_EXPIRED_TOKEN_CODES?.split(',') || [];
-      if (expiredTokenCodes.includes(responseCode)) {
-        const success = await handleExpiredRequest(request.state);
-        if (success) {
-          const Authorization = getAuthorization();
-          Object.assign(response.config.headers, { Authorization });
-
-          return instance.request(response.config) as Promise<AxiosResponse>;
-        }
-      }
-
-      return null;
+    onBackendFail: handleAuthFailure,
+    transform(response) {
+      return response.data.data;
     },
     onError(error) {
       // when the request is fail, you can show error message
 
+      if (
+        error.config?.authSessionVersion !== undefined &&
+        error.config.authSessionVersion !== useAuthStore().sessionVersion
+      )
+        return;
+      window.dispatchEvent(
+        new CustomEvent('request:error', {
+          detail: {
+            requestId: error.config?.headers.get(REQUEST_ID_KEY),
+            code: error.code,
+            status: error.response?.status,
+            method: error.config?.method
+          }
+        })
+      );
       let message = error.message;
       let backendErrorCode = '';
 
       // get backend error message and code
       if (error.code === BACKEND_ERROR_CODE) {
         message = error.response?.data?.msg || message;
-        backendErrorCode = String(error.response?.data?.code || '');
+        backendErrorCode = String(error.response?.data?.code) || '';
       }
 
       // the error message is displayed in the modal
@@ -125,21 +113,18 @@ export const request = createFlatRequest(
     }
   }
 );
+request.state = requestState;
 
-export const demoRequest = createRequest(
+export const demoRequest = createRequest<App.Service.DemoResponse>(
   {
     baseURL: otherBaseURL.demo
   },
   {
-    transform(response: AxiosResponse<App.Service.DemoResponse>) {
-      return response.data.result;
-    },
     async onRequest(config) {
       const { headers } = config;
 
       // set token
-      const token = localStg.get('token');
-      const Authorization = token ? `Bearer ${token}` : null;
+      const Authorization = getAuthorization();
       Object.assign(headers, { Authorization });
 
       return config;
@@ -152,6 +137,9 @@ export const demoRequest = createRequest(
     async onBackendFail(_response) {
       // when the backend response code is not "200", it means the request is fail
       // for example: the token is expired, refresh token and retry request
+    },
+    transform(response) {
+      return response.data.result;
     },
     onError(error) {
       // when the request is fail, you can show error message
@@ -167,3 +155,12 @@ export const demoRequest = createRequest(
     }
   }
 );
+
+export function resetRequestState() {
+  userCache.clear();
+  logoutListeners.forEach(listener => window.removeEventListener('beforeunload', listener));
+  logoutListeners.clear();
+  Object.assign(requestState, createRequestState());
+  request.cancelAllRequest();
+  demoRequest.cancelAllRequest();
+}

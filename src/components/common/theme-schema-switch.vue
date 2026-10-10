@@ -47,6 +47,7 @@ const tooltipContent = computed(() => {
 <template>
   <ButtonIcon
     :icon="icon"
+    :aria-label="$t('icon.themeSchema')"
     :tooltip-content="tooltipContent"
     :tooltip-placement="tooltipPlacement"
     @click="handleSwitch"

@@ -5,6 +5,7 @@ import { Button, Popconfirm, Tag } from 'ant-design-vue';
 import { useBoolean } from '@sa/hooks';
 import { enableStatusRecord, menuTypeRecord } from '@/constants/business';
 import { yesOrNoRecord } from '@/constants/common';
+import { notifyDemoAction } from '@/utils/demo';
 import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
 import { $t } from '@/locales';
 import { defaultTransform, useTable, useTableOperate, useTableScroll } from '@/hooks/common/table';
@@ -15,7 +16,7 @@ import type { OperateType } from './modules/menu-operate-modal.vue';
 const { bool: visible, setTrue: openModal } = useBoolean();
 const { tableWrapperRef, scrollConfig } = useTableScroll(1088);
 
-const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
+const { columns, columnChecks, data, loading, error, pagination, getData } = useTable({
   api: () => fetchGetMenuList(),
   transform: response => defaultTransform(response),
   columns: () => [
@@ -164,7 +165,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
   ]
 });
 
-const { checkedRowKeys, rowSelection, onBatchDeleted, onDeleted } = useTableOperate(data, getData);
+const { checkedRowKeys, rowSelection } = useTableOperate(data, getData);
 
 const operateType = ref<OperateType>('add');
 
@@ -174,16 +175,11 @@ function handleAdd() {
 }
 
 async function handleBatchDelete() {
-  // request
-
-  onBatchDeleted();
+  notifyDemoAction();
 }
 
-function handleDelete(id: number) {
-  // request
-  console.log(id);
-
-  onDeleted();
+function handleDelete(_id: number) {
+  notifyDemoAction();
 }
 /** the edit menu data or the parent menu data when adding a child menu */
 const editingData: Ref<Api.SystemManage.Menu | null> = ref(null);
@@ -220,6 +216,8 @@ init();
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <AAlert v-if="error" :message="$t('common.loadFailed')" type="error" show-icon />
+    <AAlert :message="$t('common.demoOnly')" type="info" show-icon />
     <ACard
       :title="$t('page.manage.menu.title')"
       :bordered="false"
@@ -253,7 +251,6 @@ init();
         :operate-type="operateType"
         :row-data="editingData"
         :all-pages="allPages"
-        @submitted="getDataByPage"
       />
     </ACard>
   </div>

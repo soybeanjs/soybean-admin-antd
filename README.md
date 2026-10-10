@@ -68,7 +68,7 @@
 
 - **前沿技术应用**：采用 Vue3, Vite8, TypeScript, Pinia 和 UnoCSS 等最新流行的技术栈。
 - **清晰的项目架构**：采用 pnpm monorepo 架构，结构清晰，优雅易懂。
-- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，集成了eslint, prettier 和 simple-git-hooks，保证代码的规范性。
+- **严格的代码规范**：遵循 [SoybeanJS 规范](https://docs.soybeanjs.cn/zh/standard)，使用 Vite Plus 内置的 oxlint、oxfmt，以及 Vue ESLint 和 simple-git-hooks，保证代码的规范性。
 - **TypeScript**： 支持严格的类型检查，提高代码的可维护性。
 - **丰富的主题配置**：内置多样的主题配置，与 UnoCSS 完美结合。
 - **内置国际化方案**：轻松实现多语言支持。
@@ -155,8 +155,8 @@
 确保你的环境满足以下要求：
 
 - **git**: 你需要git来克隆和管理项目版本。
-- **NodeJS**: >=20.19.0，推荐 20.19.0 或更高。
-- **pnpm**: >= 10.5.0，推荐 10.5.0 或更高。
+- **NodeJS**: `^20.19.0 || >=22.12.0`，推荐 Node 24；本机验证版本 24.14.1。
+- **pnpm**: 11.16.0（由 `packageManager` 固定）。
 
 **克隆项目**
 
@@ -172,7 +172,7 @@ git clone https://gitcode.com/soybeanjs/soybean-admin.git
 **安装依赖**
 
 ```bash
-pnpm i
+pnpm install --frozen-lockfile
 ```
 
 > 由于本项目采用了 pnpm monorepo 的管理方式，因此请不要使用 npm 或 yarn 来安装依赖。
@@ -261,3 +261,7 @@ pnpm build
 ## 开源协议
 
 项目基于 [MIT © 2021 Soybean](./LICENSE) 协议，仅供学习参考，商业使用请保留作者版权信息，作者不保证也不承担任何软件的使用风险。
+
+## 本项目开发与验收
+
+`pnpm dev` 使用 Apifox 演示环境及本地代理；`pnpm build` 使用 `/api` 同源生产接口。执行 `pnpm verify` 检查 lint、类型、关键行为测试、生产构建和体积预算。

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface';
 import type { RouteKey } from '@elegant-router/types';
+import type { MenuInfo } from 'ant-design-vue/es/menu/src/interface';
 import { GLOBAL_HEADER_MENU_ID } from '@/constants/app';
-import { useThemeStore } from '@/store/modules/theme';
 import { useRouteStore } from '@/store/modules/route';
+import { useThemeStore } from '@/store/modules/theme';
 import { useRouterPush } from '@/hooks/common/router';
 import { useMenu } from '../context';
 

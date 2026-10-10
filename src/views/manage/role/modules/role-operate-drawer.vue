@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useBoolean } from '@sa/hooks';
-import { useAntdForm, useFormRules } from '@/hooks/common/form';
-import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
-import MenuAuthModal from './menu-auth-modal.vue';
+import { notifyDemoAction } from '@/utils/demo';
+import { $t } from '@/locales';
+import { useAntdForm, useFormRules } from '@/hooks/common/form';
 import ButtonAuthModal from './button-auth-modal.vue';
+import MenuAuthModal from './menu-auth-modal.vue';
 
 defineOptions({
   name: 'RoleOperateDrawer'
@@ -19,12 +20,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-interface Emits {
-  (e: 'submitted'): void;
-}
-
-const emit = defineEmits<Emits>();
 
 const visible = defineModel<boolean>('visible', {
   default: false
@@ -82,10 +77,7 @@ function closeDrawer() {
 
 async function handleSubmit() {
   await validate();
-  // request
-  window.$message?.success($t('common.updateSuccess'));
-  closeDrawer();
-  emit('submitted');
+  notifyDemoAction();
 }
 
 watch(visible, () => {
@@ -98,6 +90,7 @@ watch(visible, () => {
 
 <template>
   <ADrawer v-model:open="visible" :title="title" :width="360">
+    <AAlert :message="$t('common.demoOnly')" type="info" show-icon class="mb-16px" />
     <AForm ref="formRef" layout="vertical" :model="model" :rules="rules">
       <AFormItem :label="$t('page.manage.role.roleName')" name="roleName">
         <AInput v-model:value="model.roleName" :placeholder="$t('page.manage.role.form.roleName')" />

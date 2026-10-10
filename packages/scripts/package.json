@@ -4,6 +4,7 @@
   "bin": {
     "sa": "./bin.ts"
   },
+  "type": "module",
   "typesVersions": {
     "*": {
       "*": [
