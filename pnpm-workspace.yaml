@@ -1,12 +1,12 @@
 packages:
   - 'packages/*'
 catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
-  vite-plus: latest
+  vite: npm:@voidzero-dev/vite-plus-core@1.1.0
+  vite-plus: 1.1.0
   typescript: npm:typescript-native-bridge@latest
 overrides:
-  vite: 'catalog:'
   typescript: 'catalog:'
+  vite@*: 'catalog:'
 allowBuilds:
   '@antv/util': false
   '@parcel/watcher': false
@@ -23,3 +23,8 @@ linkWorkspacePackages: true
 minimumReleaseAgeExclude:
   - '@iconify/json@2.2.541'
   - '@types/node@26.6.5'
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: '*'

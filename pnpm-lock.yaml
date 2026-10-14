@@ -165,12 +165,12 @@ settings:
 catalogs:
   default:
     vite-plus:
-      specifier: latest
+      specifier: 1.1.0
       version: 1.1.0
 
 overrides:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
   typescript: npm:typescript-native-bridge@latest
+  vite@*: npm:@voidzero-dev/vite-plus-core@1.1.0
 
 importers:
 
